@@ -1,0 +1,33 @@
+//字體尺寸
+// 內文字
+$fontBase: 16px; // 數字
+$lineheight: $fontBase * 1.4;
+$letterSpacing: 1px;
+$pFont: 'Noto Sans Tc';
+
+//標題字
+$titleFont: 'Noto Serif TC';
+$title: (
+  // key : value,
+  h1: 2.5em,
+  //40px
+  h2: 2.25em,
+  //36px
+  h3: 1.25em,
+  //20px
+  h4: 1.1em,
+  //18px
+  h5: $fontBase,
+  '.mbSlogan': 1.75em,
+  //28px
+  '.mbtitle': 1.5em //24px
+); // map
+
+// 提示字大小
+$desc: 12px;
+
+// 按鈕字大小
+$btn: (
+  bg: 20px,
+  sm: 18px
+);

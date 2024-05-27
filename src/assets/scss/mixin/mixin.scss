@@ -1,0 +1,28 @@
+// 斷點
+// $t : 996px;
+// $m : 720px;
+
+//RWD mixin
+//平版
+@mixin t() {
+  @media screen and (max-width: $t) {
+    @content;
+  }
+}
+//手機
+@mixin m() {
+  @media screen and (max-width: $m) {
+    @content;
+  }
+}
+//任意斷點
+@mixin bp($b) {
+  @media screen and (max-width: $b) {
+    @content;
+  }
+}
+
+//用法
+// @include t(){}
+// @include m(){}
+// @include bp(576px){}
