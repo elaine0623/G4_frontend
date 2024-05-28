@@ -29,6 +29,8 @@ export default {
 
 <style lang="scss">
 nav {
+  font-size: $fontBase;
+  font-family: $titleFont;
   background-color: #144433;
   height: 100px;
   display: flex;

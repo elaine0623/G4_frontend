@@ -6,7 +6,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import '@/assets/scss/style.scss'
+// import '@/assets/scss/style.scss'
 
 //Vue.createApp(App).mount('#app')
 
