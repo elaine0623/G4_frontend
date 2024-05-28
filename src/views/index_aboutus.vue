@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>關於果籽</h1>
+    <h1>關於果籽123</h1>
   </section>
 </template>
 <script></script>
