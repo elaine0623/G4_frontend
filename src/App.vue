@@ -24,15 +24,16 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
 import './assets/scss/base/_reset.scss'
+import '@/assets/scss/style.scss'
+
 
 export default {
   name: 'App',
   components: {
     RouterLink,
-    RouterView,
-    HelloWorld
+    RouterView
   }
 }
 </script>
