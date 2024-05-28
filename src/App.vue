@@ -1,19 +1,11 @@
-<!-- <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script> -->
-
 <template>
   <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-
     <div class="wrapper">
-      <!-- <HelloWorld msg="helloha~~~~!" /> -->
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <!-- <RouterLink to="/about">About</RouterLink> -->
-        <RouterLink to="/product">Product</RouterLink>
+        <RouterLink to="/product">商品</RouterLink>
+        <RouterLink to="/GameView">食農教育</RouterLink>
+        <RouterLink to="/ActivityView">近期活動</RouterLink>
       </nav>
       <!-- <SectionA></SectionA> -->
     </div>
@@ -24,10 +16,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
 import './assets/scss/base/_reset.scss'
-import '@/assets/scss/style.scss'
-
 
 export default {
   name: 'App',
@@ -38,4 +27,18 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss">
+nav {
+  background-color: #144433;
+  height: 100px;
+  display: flex;
+  // justify-content: end;
+  a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    align-content: center;
+  }
+}
+</style>
