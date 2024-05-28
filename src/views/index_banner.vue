@@ -21,7 +21,7 @@
 
 <script></script>
 
-<style>
+<style scoped>
  img {
         width: 100%;
       }
