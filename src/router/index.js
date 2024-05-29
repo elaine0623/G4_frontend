@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/product',
       name: 'product',
-      component: () => import('@/views/ProductView.vue')
+      component: () => import('@/views/product.vue')
     },
     // {
     //   path: '/index_banner',
@@ -28,14 +28,14 @@ const router = createRouter({
     //   component: () => import('@/views/index_banner.vue')
     // },
     {
-      path: '/ActivityView',
+      path: '/activity',
       name: 'ActivityView',
-      component: () => import('@/views/ActivityView.vue')
+      component: () => import('@/views/activity.vue')
     },
     {
-      path: '/GameView',
+      path: '/game',
       name: 'GameView',
-      component: () => import('@/views/GameView.vue')
+      component: () => import('@/views/game.vue')
     }
   ]
 })
