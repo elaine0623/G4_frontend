@@ -1,4 +1,3 @@
 <template>
-  <main>商品頁面</main>
-  ll
+  <section>熱門商品</section>
 </template>
