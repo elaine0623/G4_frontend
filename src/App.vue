@@ -14,6 +14,7 @@
   <RouterView />
 </template>
 
+
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import './assets/scss/base/_reset.scss'
