@@ -7,10 +7,12 @@
         <RouterLink to="/game">食農教育</RouterLink>
         <RouterLink to="/activity">近期活動</RouterLink>
         <RouterLink to="/contactus">聯絡我們</RouterLink>
-        <RouterLink to="/aboutus">關於我們</RouterLink>
+        <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
+        <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping icon"></i></RouterLink>
+        <RouterLink to="/user"><i class="fa-regular fa-user icon"></i></RouterLink>
+        <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink>
       </nav>
       <!-- <SectionA></SectionA> -->
-      <!-- <font-awesome-icon icon="fa-solid fa-gift" /> -->
     </div>
   </header>
 </template>
@@ -35,8 +37,14 @@ nav {
     display: block;
     color: #fff;
     text-decoration: none;
-    padding: 8px 10px;
+    padding: 8px 20px;
     align-content: center;
+  }
+  .about {
+    flex-grow: 0.15;
+  }
+  .icon {
+    font-size: map-get($title, h4);
   }
 }
 </style>
