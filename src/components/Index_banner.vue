@@ -18,7 +18,7 @@
 
 <script></script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 img {
   width: 100%;
 }
