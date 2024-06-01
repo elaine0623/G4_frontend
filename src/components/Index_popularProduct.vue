@@ -31,7 +31,7 @@
                   <div class="car-member-product-list">
                     <button class="cart-shopping">
                       <div class="icon-cart-shopping" id="app">
-                        <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </div>
                       <p>加入購物車</p>
                     </button>
@@ -141,16 +141,27 @@ section {
   font-size: 16px;
   padding: $pcbtwSec 0;
   .container {
-    width: 1200px;
+    width: $fixed;
     flex-direction: column;
     margin: auto;
+    @include lg() {
+    width:$lg ;
+
+  }
+  @include md() {
+   width:$md ;
+  }
+  @include sm() {
+    width:$sm ;
+  }
 
     .h2txt {
       background-image: url(../assets/image/titlebg.svg);
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      width: 100%;
+      padding: 5vw 5vh;
+      // width: 100%;
       margin-bottom: 47px;
 
       h2 {
@@ -167,9 +178,9 @@ section {
     .product-list {
       display: flex;
       text-align: center;
-      gap: 15px;
-      width: 100%;
-      height: 400px;
+      gap: 5vw;
+      width: auto;
+      height: auto;
       margin: auto;
 
       .img-product-list {
@@ -197,9 +208,6 @@ section {
           font-family: $pFont;
           color: $darkGreen;
 
-          span {
-            font-weight: 900px;
-          }
 
           .car-member-product-list {
             .cart-shopping {
@@ -221,12 +229,12 @@ section {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 50%;
+     
       margin: 40px 0;
 
       .slidebutton {
         display: flex;
-        width: 60%;
+        width: 50%;
         justify-content: space-evenly;
 
         .number-slidebutton {
