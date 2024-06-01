@@ -1,6 +1,6 @@
 <template>
   <section>
- ]   <div class="container">
+      <div class="container">
       <div class="promise">
         <div class="title-promise">
           <h2>從田野到餐桌的綠色承諾</h2>
