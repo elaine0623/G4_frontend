@@ -27,8 +27,8 @@
 <style lang="scss">
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
-  background-size: contain;
-  height: 320px;
+  background-size: 100%;
+  height: 370px;
   background-repeat: no-repeat;
   @include lg() {
     height: 250px;
