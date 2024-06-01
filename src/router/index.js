@@ -7,6 +7,7 @@ import cart from '@/views/cart.vue'
 import heart from '@/views/heart.vue'
 import user from '@/views/user.vue'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
