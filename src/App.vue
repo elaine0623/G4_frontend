@@ -1,40 +1,25 @@
-<!-- <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script> -->
-
 <template>
-  <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-
-    <div class="wrapper">
-      <!-- <HelloWorld msg="helloha~~~~!" /> -->
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <!-- <RouterLink to="/about">About</RouterLink> -->
-        <RouterLink to="/product">Product</RouterLink>
-      </nav>
-      <!-- <SectionA></SectionA> -->
-    </div>
-  </header>
-
+  <header1 />
   <RouterView />
+  <footer1 />
 </template>
+
 
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import './assets/scss/base/_reset.scss'
+import header1 from '@/components/header.vue'
+import footer1 from '@/components/footer.vue'
 
 export default {
   name: 'App',
   components: {
+    header1,
     RouterLink,
     RouterView,
-    HelloWorld
+    footer1
   }
 }
 </script>
 
-<style scoped></style>
+<style lang="scss"></style>

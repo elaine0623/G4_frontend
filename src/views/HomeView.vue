@@ -1,21 +1,17 @@
 <script setup>
-import header1 from '@/components/header1.vue'
-import index_banner from '@/views/index_banner.vue'
-import index_aboutus from '@/views/index_aboutus.vue'
-import ProductView from '@/views/ProductView.vue'
-import index_news from '@/views/index_news.vue'
-import index_map from '@/views/index_map.vue'
-import footer1 from '@/components/footer1.vue'
+import Index_banner from '@/components/Index_banner.vue'
+import Index_aboutus from '@/components/Index_aboutus.vue'
+import popularProduct from '@/components/Index_popularProduct.vue'
+import Index_news from '@/components/Index_news.vue'
+import Index_map from '@/components/Index_map.vue'
 </script>
 
 <template>
   <main>
-    <header1 />
-    <index_banner />
-    <index_aboutus />
-    <ProductView />
-    <index_news />
-    <index_map />
-    <footer1 />
+    <Index_banner />
+    <Index_aboutus />
+    <popularProduct />
+    <Index_news />
+    <Index_map />
   </main>
 </template>
