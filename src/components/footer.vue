@@ -125,6 +125,7 @@ section {
   padding-left: 40%;
 }
 .line {
+
   width: 100%;
   border-top: 1px solid black;
 }
