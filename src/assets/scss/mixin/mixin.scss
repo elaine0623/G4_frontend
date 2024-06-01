@@ -33,3 +33,28 @@
 // @include t(){}
 // @include m(){}
 // @include bp(576px){}
+
+//RWD mixin
+@mixin s2blg() {
+  @media screen and (min-width: $lg) {
+    @content;
+  }
+}
+//平版
+@mixin s2bmd() {
+  @media screen and (min-width: $md) {
+    @content;
+  }
+}
+//手機
+@mixin s2bsm() {
+  @media screen and (min-width: $sm) {
+    @content;
+  }
+}
+//任意斷點
+@mixin s2bbp($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
