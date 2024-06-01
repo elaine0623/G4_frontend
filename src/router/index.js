@@ -3,6 +3,10 @@ import HomeView from '@/views/HomeView.vue'
 import header from '@/components/header.vue'
 import aboutus from '@/views/aboutus.vue'
 import contactus from '@/views/contactus.vue'
+import cart from '@/views/cart.vue'
+import heart from '@/views/heart.vue'
+import user from '@/views/user.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,11 +16,6 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    // {
-    //   path: '/header',
-    //   name: 'header',
-    //   component: header
-    // },
     // {
     //   path: '/about',
     //   name: 'about',
@@ -30,11 +29,6 @@ const router = createRouter({
       name: 'product',
       component: () => import('@/views/product.vue')
     },
-    // {
-    //   path: '/index_banner',
-    //   name: 'index_banner',
-    //   component: () => import('@/views/index_banner.vue')
-    // },
     {
       path: '/activity',
       name: 'activity',
@@ -54,6 +48,21 @@ const router = createRouter({
       path: '/contactus',
       name: 'contactus',
       component: contactus
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: user
+    },
+    {
+      path: '/heart',
+      name: 'heart',
+      component: heart
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: cart
     }
   ]
 })
