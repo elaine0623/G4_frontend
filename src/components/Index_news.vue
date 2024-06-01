@@ -10,15 +10,15 @@
     @slideChange="onSlideChange"
     class="mySwiper"
   >
-    <swiper-slide><div><img src="../assets/image/news-img/newsimg1.png" alt=""> <H2>1233</H2></div></swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide>Slide 4</swiper-slide>
-    <swiper-slide>Slide 5</swiper-slide>
-    <swiper-slide>Slide 6</swiper-slide>
-    <swiper-slide>Slide 7</swiper-slide>
-    <swiper-slide>Slide 8</swiper-slide>
-    <swiper-slide>Slide 9</swiper-slide>
+    <swiper-slide class="productItem" v-for="(item,index) in newsData" :key="index">
+      <div >
+        <img :src=newsData[index].imgUrl alt="">
+        <div class="product-content">
+          <h2 class="product-title">{{newsData[index].title}}</h2>
+          <p>{{newsData[index].content}}</p>
+        </div>
+      </div>
+      </swiper-slide>
   </swiper>
 
   <section class="section news-section">
