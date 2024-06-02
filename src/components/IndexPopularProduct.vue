@@ -13,10 +13,10 @@
         :modules='modules'
         :pagination="{
           type: 'fraction',
-          el: '.swiper-pagination',
+          el: '.pagination',
           }" 
+          :autoplay="{ delay: 2500, disableOnInteraction: false }"
         :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
-          <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
           <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex">
             <div class="card-product-list">
               <div class="img-product-list">
@@ -49,8 +49,11 @@
             <img src="../assets/image/leftbutton.svg" alt="" />
           </div>
 
-          <div class="swiper-pagination" ></div
-            >
+          <div class="pagination" >
+            <span class="swiper-pagination-current">1</span>
+            <p>-</p>
+            <span class="swiper-pagination-total">5</span>
+            </div>
           <div class="swiper-button-next">
             <img src="../assets/image/rightbutton.svg" alt="" />
           </div>
@@ -267,10 +270,16 @@ section {
         .swiper-button-prev,
         .swiper-button-next {
           position: relative;
+          margin: $mbbtwElement;
         }
 
-        .swiper-pagination-current {
-          position: relative;
+        .pagination {
+          // position: relative;
+          width: 50%;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
 
