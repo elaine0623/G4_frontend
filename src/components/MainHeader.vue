@@ -26,7 +26,7 @@ export default {
           <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink>
         </div>
         <div id="moblie_menu" class="hb" @click="isMenuVisible = !isMenuVisible">
-          <i class="fa-solid fa-bars" style="color: #fff;font-size: 24px;"></i>
+          <i class="fa-solid fa-bars" style="color: #fff;font-size: 24px; cursor: pointer;"></i>
           <transition>
             <div class="mbmenu" v-show="isMenuVisible">
               <RouterLink to="/product">商品</RouterLink>
@@ -64,7 +64,7 @@ export default {
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
   background-size: 100%;
-  height: 370px;
+  height: 50vh;
   background-repeat: no-repeat;
   position: relative;
 
@@ -75,6 +75,10 @@ export default {
   @include md() {
     height: 200px;
   }
+
+  // @include bp(744px) {
+  //   background-color: $darkGreen;
+  // }
 
   @include sm() {
     height: 150px;
@@ -115,7 +119,7 @@ export default {
         background-color: $darkGreen;
         position: absolute;
         right: 0;
-        z-index: 3;
+        z-index: 4;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
@@ -139,12 +143,17 @@ export default {
     }
 
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       padding-top: 8px;
 
       @include md() {
         width: 90%;
+      }
+
+      @include sm() {
+        width: 80%;
+        height: 50px
       }
     }
 
