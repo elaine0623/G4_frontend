@@ -127,7 +127,7 @@ export default {
   },
   setup() {
     const onSlideChange = () => {
-      console.log('slide change')
+      // console.log('slide change')
     }
     return {
       onSlideChange,
