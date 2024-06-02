@@ -1,17 +1,26 @@
-<script setup>
-import Index_banner from '@/components/Index_banner.vue'
-import Index_aboutus from '@/components/Index_aboutus.vue'
-import popularProduct from '@/components/Index_popularProduct.vue'
-import Index_news from '@/components/Index_news.vue'
-import Index_map from '@/components/Index_map.vue'
-</script>
-
 <template>
   <main>
-    <Index_banner />
-    <Index_aboutus />
-    <popularProduct />
-    <Index_news />
-    <Index_map />
+    <IndexBanner />
+    <IndexAboutus />
+    <IndexPopularProduct />
+    <IndexNews />
+    <IndexMap />
   </main>
 </template>
+
+<script>
+import IndexBanner from '@/components/IndexBanner.vue'
+import IndexAboutus from '@/components/IndexAboutus.vue'
+import IndexPopularProduct from '@/components/IndexPopularProduct.vue'
+import IndexNews from '@/components/IndexNews.vue'
+import IndexMap from '@/components/IndexMap.vue'
+export default {
+  components: {
+    IndexBanner,
+    IndexAboutus,
+    IndexPopularProduct,
+    IndexNews,
+    IndexMap
+  }
+}
+</script>

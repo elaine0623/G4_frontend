@@ -26,17 +26,19 @@
         <h2 class="news-section-title">最新消息</h2>
         <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
       </div>
-      <div class="news-feild"  v-for="(item,index) in newsData" :key="index">
-      <button class="news-collapse" type="button" v-on:click=" toggleShow(index)"><h2 class="news-title">{{newsData[index].title}}</h2></button>
-      <transition-group name="coll">
-        <div class="news-content" v-show="newsData[index].isActive === true">
-        <img  class="news-content" :src=newsData[index].imgUrl  alt="">
-        <p>{{newsData[index].content}}
-          <a :href=newsData[index].Url>閱讀更多</a>
-        </p>
-      </div>
-      </transition-group>
-    </div>
+      <TransitionGroup name="coll">
+        <div class="news-feild"  v-for="(item,index) in newsData" :key="index">
+          <button class="news-collapse" type="button" v-on:click=" toggleShow(index)">
+            <h2 class="news-title">{{newsData[index].title}}</h2>
+          </button>
+          <div class="news-content" v-show="newsData[index].isActive === true">
+            <img  class="news-content" :src=newsData[index].imgUrl  alt="">
+            <p>{{newsData[index].content}}
+              <a :href=newsData[index].Url>閱讀更多</a>
+            </p>
+          </div>
+        </div>
+      </TransitionGroup>
   </section>
 
 </template>
@@ -102,7 +104,7 @@ export default {
   
   setup() {
     const onSlideChange = () => {
-      console.log("slide change");
+      // console.log("slide change");
     };
     return {
       onSlideChange,
