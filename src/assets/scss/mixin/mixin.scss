@@ -1,23 +1,30 @@
 // 斷點
-// $t : 996px;
-// $m : 720px;
+// $sm: 576px;
+// $md: 768px;
+// $lg: 996px;
+// $xl: 1200px;
 
 //RWD mixin
+@mixin lg() {
+  @media screen and (max-width: $lg) {
+    @content;
+  }
+}
 //平版
-@mixin t() {
-  @media screen and (max-width: $t) {
+@mixin md() {
+  @media screen and (max-width: $md) {
     @content;
   }
 }
 //手機
-@mixin m() {
-  @media screen and (max-width: $m) {
+@mixin sm() {
+  @media screen and (max-width: $sm) {
     @content;
   }
 }
 //任意斷點
-@mixin bp($b) {
-  @media screen and (max-width: $b) {
+@mixin bp($size) {
+  @media screen and (max-width: $size) {
     @content;
   }
 }
@@ -26,3 +33,28 @@
 // @include t(){}
 // @include m(){}
 // @include bp(576px){}
+
+//RWD mixin
+@mixin s2blg() {
+  @media screen and (min-width: $lg) {
+    @content;
+  }
+}
+//平版
+@mixin s2bmd() {
+  @media screen and (min-width: $md) {
+    @content;
+  }
+}
+//手機
+@mixin s2bsm() {
+  @media screen and (min-width: $sm) {
+    @content;
+  }
+}
+//任意斷點
+@mixin s2bbp($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
