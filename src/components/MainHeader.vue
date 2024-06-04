@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 
 
-<style lang="scss">
+// <style lang="scss">
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
