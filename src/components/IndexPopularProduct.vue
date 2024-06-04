@@ -2,7 +2,7 @@
 
   <section>
     <div class="container">
-      <div class="title-container" >
+      <div class="title-container">
         <h2 class="section-title">熱門商品</h2>
         <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
       </div>
@@ -12,9 +12,9 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           }" :modules='modules' :pagination="{
-          type: 'fraction',
-          el: '.pagination',
-        }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
+            type: 'fraction',
+            el: '.pagination',
+          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
             <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" :centeredSlides="true">
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
               <div class="card-product-list">
@@ -62,13 +62,12 @@
 
 
 
-      <div class="more">
-        <a href="#">
-          <button class="more-button">
-            <p>更多商品</p>
-            <img src="../assets/image/morebutton.svg" alt="" />
-          </button></a>
+      <div class="moreBtn">
+        <RouterLink to="/">更多商品</RouterLink>
+        <!-- 要連結到關於我們頁面 -->
       </div>
+
+
     </div>
   </section>
 </template>
@@ -157,6 +156,7 @@ export default {
 .swiper-button-next:after {
   display: none;
 
+
 }
 
 
@@ -173,7 +173,7 @@ section {
     flex-direction: column;
     margin: 0 auto;
     overflow: hidden;
-    
+
 
     @include lg() {
 
@@ -188,28 +188,31 @@ section {
       max-width: $sm ;
     }
 
-    .title-container{
-            position: relative; 
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            padding: 5vw 5vh;
-            box-sizing: border-box;
-            .news-section-title{
-                writing-mode: horizontal-tb;
-                font-family: $titleFont;
-                font-size: map-get($title, h2 );
-                text-align: center;
-                color: $darkGreen;
-            }
-            .title-bgi {
-                position: absolute;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                max-width: 900px;
-            }
-        }
+    .title-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      padding: 5vw 5vh;
+      box-sizing: border-box;
+
+      .news-section-title {
+        writing-mode: horizontal-tb;
+        font-family: $titleFont;
+        font-size: map-get($title, h2);
+        text-align: center;
+        color: $darkGreen;
+      }
+
+      .title-bgi {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 900px;
+      }
+    }
+
     .product {
       overflow: hidden;
       position: relative;
@@ -217,12 +220,15 @@ section {
       height: 400px;
       // transform: translate(-50%);
       width: 100%;
+
       @include lg() {
         width: $lg ;
       }
+
       @include md() {
         width: $md ;
       }
+
       @include sm() {
         width: $sm ;
       }
@@ -287,6 +293,11 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+
+                &:hover {
+                  background-color: $lightGreen;
+                  border: 1px solid $darkGreen;
+                }
               }
             }
           }
@@ -307,10 +318,13 @@ section {
         width: 50%;
         justify-content: space-evenly;
 
+
+
         .swiper-button-prev,
         .swiper-button-next {
           position: relative;
           margin: $mbbtwElement;
+          
         }
 
         .pagination {
@@ -343,31 +357,45 @@ section {
       }
     }
 
-    .more {
-      display: flex;
-      justify-content: flex-end;
-      width: 80%;
+    .moreBtn {
+      max-width: 100px;
+      border: solid 1px #144433;
+      padding: 12px 39px;
+      margin: auto;
+      text-align: center;
+
+      @include s2bmd() {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        border: none;
+        display: flex;
+        justify-content: flex-end;
+      }
 
       a {
+        color: #144433;
         text-decoration: none;
-      }
-
-      .more-button {
-        display: flex;
-        align-items: center;
-        padding: 7px;
-        background-color: transparent;
-        color: $darkGreen;
-        border: 0;
-      }
-
-      p {
+        font-family: $pFont;
         font-size: $fontBase;
-        white-space: nowrap;
-      }
+        line-height: $lineheight;
+        letter-spacing: $letterSpacing;
 
-      img {
-        width: 100%px;
+        @include s2bmd() {
+          &::after {
+            content: "";
+            background-image: url('../assets/image/arrow.png');
+            width: 25px;
+            height: 25px;
+            transform: translateY(30%);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-right: 55px;
+            display: inline-block;
+
+          }
+        }
       }
     }
   }
