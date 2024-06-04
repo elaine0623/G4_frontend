@@ -10,7 +10,7 @@ export default {
           low: 20,
           high: 24,
           weather: "Sunny"
-        },
+        },weather
         // ... 其餘城市資料
       ]
     }
