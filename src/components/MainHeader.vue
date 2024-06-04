@@ -48,8 +48,6 @@ export default {
   </header>
 </template>
 
-
-
 <style lang="scss" scoped>
 .v-enter-active,
 .v-leave-active {
