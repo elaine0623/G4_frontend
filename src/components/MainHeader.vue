@@ -24,7 +24,7 @@
   </header>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
   background-size: 100%;

@@ -5,42 +5,41 @@
       <div class="h2txt">
         <h2>熱門商品</h2>
       </div>
-      <div class="product-list">
-        <swiper :loop="true" :navigation="{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }"
-        :modules='modules'
-        :pagination="{
+      <div class="product">
+        <div class="product-list">
+          <swiper :loop="true" :navigation="{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }" :modules='modules' :pagination="{
           type: 'fraction',
           el: '.pagination',
-          }" 
-          :autoplay="{ delay: 2500, disableOnInteraction: false }"
-        :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
-          <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex">
-            <div class="card-product-list">
-              <div class="img-product-list">
-                <img :src="cartItem['img']" alt="" />
-              </div>
-              <div class="into-product-list">
-                <div class="title-product-list">
-                  <p>{{ cartItem['title'] }}-{{ cartItem['subTitle'] }}</p>
+        }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
+            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" :centeredSlides="true">
+              <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
+              <div class="card-product-list">
+                <div class="img-product-list">
+                  <img :src="cartItem['img']" alt="" />
                 </div>
-                <div class="member-product-list">
-                  <span>NT.{{ cartItem['price'] }}</span>
-                  <div class="car-member-product-list">
-                    <button class="cart-shopping">
-                      <div class="icon-cart-shopping" id="app">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                      </div>
-                      <p>加入購物車</p>
-                    </button>
+                <div class="into-product-list">
+                  <div class="title-product-list">
+                    <p>{{ cartItem['title'] }}-{{ cartItem['subTitle'] }}</p>
+                  </div>
+                  <div class="member-product-list">
+                    <span>NT.{{ cartItem['price'] }}</span>
+                    <div class="car-member-product-list">
+                      <button class="cart-shopping">
+                        <div class="icon-cart-shopping" id="app">
+                          <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <p>加入購物車</p>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </swiper-slide>
-        </swiper>
+            </swiper-slide>
+          </swiper>
+        </div>
       </div>
       <div class="carousel">
         <div class="slidebutton">
@@ -49,11 +48,11 @@
             <img src="../assets/image/leftbutton.svg" alt="" />
           </div>
 
-          <div class="pagination" >
+          <div class="pagination">
             <span class="swiper-pagination-current">1</span>
             <p>-</p>
             <span class="swiper-pagination-total">5</span>
-            </div>
+          </div>
           <div class="swiper-button-next">
             <img src="../assets/image/rightbutton.svg" alt="" />
           </div>
@@ -127,8 +126,8 @@ export default {
           img: '../src/assets/image/dates.png'
         }
       ],
-      
-   
+
+
     };
   },
 
@@ -163,14 +162,17 @@ export default {
 section {
   font-size: 16px;
   padding: $pcbtwSec 0;
-  width: 100%;
+  // width: 100%;
+
 
   .container {
     max-width: $fixed;
     box-sizing: border-box;
     // padding: 0 10px ;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    
 
     @include lg() {
 
@@ -205,55 +207,90 @@ section {
       }
     }
 
-    .product-list {
-      display: flex;
-      text-align: center;
-      gap: 5vw;
-      width: auto;
-      height: auto;
-      margin: auto;
-
-      .img-product-list {
-        //   width: 380px;
-        // height: 250px;
-
-        img {
-          width: 100%;
-        }
+    .product {
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+      height: 400px;
+      // transform: translate(-50%);
+      width: 100%;
+      @include lg() {
+        width: $lg ;
+      }
+      @include md() {
+        width: $md ;
+      }
+      @include sm() {
+        width: $sm ;
       }
 
-      .into-product-list {
-        padding: 25px;
 
-        .title-product-list {
-          padding: 27px;
-          font-family: $pFont;
-          color: $darkGreen;
+      .product-list {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        gap: 1%;
+        overflow: visible;
+        height: auto;
+        width: 1200px;
+        overflow: hidden;
+        box-sizing: border-box;
+        position: absolute;
+        right: 50%;
+        transform: translateX(50%);
+
+        .card-product-list {
+          margin: auto;
+          object-fit: cover;
+          width: 380px;
         }
 
-        .member-product-list {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-family: $pFont;
-          color: $darkGreen;
+        .img-product-list {
+          //   width: 380px;
+          // height: 250px;
 
 
-          .car-member-product-list {
-            .cart-shopping {
-              display: flex;
-              gap: 6px;
-              padding: 7px;
-              font-family: $pFont;
-              color: #fff;
-              background-color: $darkGreen;
-              border-radius: 20px;
-              border: 1px solid #000;
+          img {
+            width: 100%;
+
+          }
+        }
+
+        .into-product-list {
+          padding: 25px;
+
+          .title-product-list {
+            padding: 27px;
+            font-family: $pFont;
+            color: $darkGreen;
+          }
+
+          .member-product-list {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: $pFont;
+            color: $darkGreen;
+
+
+            .car-member-product-list {
+              .cart-shopping {
+                display: flex;
+                gap: 6px;
+                padding: 7px;
+                font-family: $pFont;
+                color: #fff;
+                background-color: $darkGreen;
+                border-radius: 20px;
+                border: 1px solid #000;
+              }
             }
           }
         }
       }
     }
+
 
     .carousel {
       display: flex;
@@ -289,11 +326,6 @@ section {
           justify-content: space-evenly;
           flex-grow: 1;
 
-          // .swiper-pagination {
-          //   width: 50%;
-          //   height: auto;
-          //   position: relative;
-          // }
 
           .number {
             font-size: $fontBase;
