@@ -2,8 +2,9 @@
 
   <section>
     <div class="container">
-      <div class="h2txt">
-        <h2>熱門商品</h2>
+      <div class="title-container" >
+        <h2 class="section-title">熱門商品</h2>
+        <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
       </div>
       <div class="product">
         <div class="product-list">
@@ -187,26 +188,28 @@ section {
       max-width: $sm ;
     }
 
-    .h2txt {
-      background-image: url(../assets/image/titlebg.svg);
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      padding: 5vw 5vh;
-      // width: 100%;
-      margin-bottom: 47px;
-
-      h2 {
-        font-size: map-get($title, h2);
-        writing-mode: horizontal-tb;
-        text-align: center;
-        display: inline-block;
-        display: flex;
-        justify-content: center;
-        color: $darkGreen;
-      }
-    }
-
+    .title-container{
+            position: relative; 
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            padding: 5vw 5vh;
+            box-sizing: border-box;
+            .news-section-title{
+                writing-mode: horizontal-tb;
+                font-family: $titleFont;
+                font-size: map-get($title, h2 );
+                text-align: center;
+                color: $darkGreen;
+            }
+            .title-bgi {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                max-width: 900px;
+            }
+        }
     .product {
       overflow: hidden;
       position: relative;
