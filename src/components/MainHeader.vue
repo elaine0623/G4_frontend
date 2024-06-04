@@ -49,9 +49,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-
-
-// <style lang="scss">
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
@@ -65,7 +62,7 @@ export default {
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
   background-size: 100%;
-  height: 50vh;
+  height: 65vh;
   background-repeat: no-repeat;
   position: relative;
 
