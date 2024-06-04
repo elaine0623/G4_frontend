@@ -1,1 +1,8 @@
-
+//
+body {
+    background-color: #F3EEEA;
+    background-image: url("https://www.transparenttextures.com/patterns/concrete-wall.png");
+    font-family: $pFont;
+    letter-spacing: $letterSpacing;
+    $lineheight: $fontBase * 1.4;
+}
