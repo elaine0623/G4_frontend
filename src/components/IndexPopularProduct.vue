@@ -3,7 +3,7 @@
   <section>
     <div class="container">
       <div class="title-container" >
-        <h2 class="section-title">最新消息</h2>
+        <h2 class="section-title">熱門商品</h2>
         <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
       </div>
       <div class="product">
