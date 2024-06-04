@@ -9,11 +9,7 @@ $lineheight: $fontBase * 1.4;
 $letterSpacing: 1.3px;
 $pFont: 'Noto Sans Tc';
 
-body {
-  font-family: $pFont;
-  letter-spacing: $letterSpacing;
-  $lineheight: $fontBase * 1.4;
-}
+
 
 //標題字
 $titleFont: 'Noto Serif TC';
