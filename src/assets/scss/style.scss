@@ -10,4 +10,30 @@
 // @import  'plugin/xxx'
 @import 'plugins/grid';
 
-//page
+//layout
+@import 'layout/body';
+
+.section-title{
+    writing-mode: horizontal-tb;
+    font-family: $titleFont;
+    font-size: map-get($title, h2 );
+    text-align: center;
+    color: $darkGreen;
+    @include sm(){
+        font-size:1.75em;
+    }
+    @include bp(390px){
+        font-size:1.25em;
+    }
+
+}
+.title-bgi {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 900px;
+}
+.container{
+    max-width: $fixed;
+}

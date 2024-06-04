@@ -1,27 +1,5 @@
 <template>
-<swiper
-    :loop="true"
-    :navigation="true"
-    :modules="modules"
-    :pagination="{ clickable: true }"
-    :slides-per-view="2"
-    :space-between="10"
-    :autoplay="{ delay: 2500, disableOnInteraction: false }"
-    @slideChange="onSlideChange"
-    class="mySwiper"
-  >
-    <swiper-slide class="productItem" v-for="(item,index) in newsData" :key="index">
-      <div >
-        <img :src=newsData[index].imgUrl alt="">
-        <div class="product-content">
-          <h2 class="product-title">{{newsData[index].title}}</h2>
-          <p>{{newsData[index].content}}</p>
-        </div>
-      </div>
-      </swiper-slide>
-  </swiper>
-
-  <section class="section news-section">
+<section class="section news-section">
       <div class="title-container" >
         <h2 class="news-section-title">最新消息</h2>
         <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
@@ -43,17 +21,6 @@
 
 </template>
 <script>
-//Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from "swiper/vue";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-// import required modules 
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-
 export default {
   data() {
     return {
@@ -96,20 +63,6 @@ export default {
   },
   computed: {
     
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  
-  setup() {
-    const onSlideChange = () => {
-      // console.log("slide change");
-    };
-    return {
-      onSlideChange,
-      modules: [Autoplay, Navigation, Pagination],
-    };
   },
 }
 </script>

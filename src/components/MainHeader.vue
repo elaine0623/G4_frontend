@@ -1,3 +1,15 @@
+<script>
+export default {
+  data() {
+    return {
+      isMenuVisible: false
+    }
+  },
+  methods: {
+  }
+}
+</script>
+
 <template>
   <header>
     <div class="wrapper">
@@ -13,10 +25,22 @@
           <RouterLink to="/user"><i class="fa-regular fa-user icon"></i></RouterLink>
           <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink>
         </div>
-        <div id="moblie_menu" href="javascript:;" class="hb">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div id="moblie_menu" class="hb" @click="isMenuVisible = !isMenuVisible">
+          <i class="fa-solid fa-bars" style="color: #fff;font-size: 24px; cursor: pointer;"></i>
+          <transition>
+            <div class="mbmenu" v-show="isMenuVisible">
+              <RouterLink to="/product">商品</RouterLink>
+              <RouterLink to="/game">食農教育</RouterLink>
+              <RouterLink to="/activity">近期活動</RouterLink>
+              <RouterLink to="/contactus">聯絡我們</RouterLink>
+              <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
+              <div class="icons">
+                <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping mbicon"></i></RouterLink>
+                <RouterLink to="/user"><i class="fa-regular fa-user mbicon"></i></RouterLink>
+                <RouterLink to="/heart"><i class="fa-regular fa-heart mbicon"></i></RouterLink>
+              </div>
+            </div>
+          </transition>
         </div>
       </nav>
       <!-- <SectionA></SectionA> -->
@@ -25,20 +49,42 @@
 </template>
 
 <style lang="scss" scoped>
+
+
+<style lang="scss">
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
   background-size: 100%;
-  height: 370px;
+  height: 50vh;
   background-repeat: no-repeat;
+  position: relative;
+
   @include lg() {
     height: 250px;
   }
+
   @include md() {
     height: 200px;
   }
+
+  // @include bp(744px) {
+  //   background-color: $darkGreen;
+  // }
+
   @include sm() {
     height: 150px;
   }
+
   nav {
     font-size: $fontBase;
     font-family: $titleFont;
@@ -47,56 +93,95 @@
     justify-content: center;
     margin: 0 auto;
     align-items: center;
+
+
     @include md() {
       width: 90%;
     }
+
     @include bp(744px) {
       justify-content: space-between;
     }
-    #moblie_menu {
-      // display: none;
-    }
+
+
     .hb {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
-      align-items: center;
-      span {
-        width: 60%;
-        height: 2px;
-        background-color: #fff;
-        // margin: -5px 0;
+      display: none;
+
+
+      @include bp(744px) {
+        display: block;
+      }
+
+      .mbmenu {
+
+        display: flex;
+        width: 50%;
+        height: 90vh;
+        background-color: $darkGreen;
+        position: absolute;
+        right: 0;
+        z-index: 4;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        a {
+          text-decoration: none;
+          color: $bcgw;
+          padding: 10px 0;
+        }
+
+        .icons {
+          width: 100%;
+
+          a {
+            display: inline-block;
+            width: 33.33333%;
+            text-align: center;
+          }
+        }
       }
     }
+
     .logo {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       padding-top: 8px;
+
       @include md() {
         width: 90%;
       }
+
+      @include sm() {
+        width: 80%;
+        height: 50px
+      }
     }
+
     .menu {
       display: flex;
       justify-content: center;
+
       @include bp(744px) {
         display: none;
       }
+
       a {
         display: block;
         color: #fff;
         text-decoration: none;
         padding: 8px 20px;
         align-content: center;
+
         @include md() {
           padding: 6px 13px;
         }
       }
+
       .about {
         flex-grow: 2;
       }
+
       .icon {
         font-size: map-get($title, h4);
       }
