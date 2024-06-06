@@ -14,8 +14,8 @@
           }" :modules='modules' :pagination="{
             type: 'fraction',
             el: '.pagination',
-          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3">
-            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" :centeredSlides="true">
+          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3" :centeredSlides="true">
+            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
               <div class="card-product-list">
                 <div class="img-product-list">
