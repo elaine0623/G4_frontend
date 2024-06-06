@@ -74,16 +74,16 @@ export default {
         },
         {
           f_name: '阿罵小農場',
-          p_name: '香瓜',
+          p_name: '聖女番茄',
           p_img: '../src/assets/image/tomato.png',
-          p_fee: 355,
+          p_fee: 88,
 
         },
         {
           f_name: '興星',
           p_name: '香瓜',
           p_img: '../src/assets/image/cantaloupe2.png',
-          p_fee: 355,
+          p_fee: 88,
 
         },
       ]
@@ -128,8 +128,7 @@ export default {
       </div>
 
       <div class="container">
-        <!-- <div class="row"> -->
-        <!-- <div class="col-12 col-md-6 col-lg-3"> -->
+
         <div class="row list-product ">
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in cardtList" :key="cardtIndex">
             <div class="card-product">
@@ -163,9 +162,25 @@ export default {
             </div>
           </div>
         </div>
-        <!-- </div> -->
+        <div class="carousel">
 
-        <!-- </div> -->
+
+          <div class="button prev">
+            <img src="../assets/image/leftbutton.svg" alt="" />
+          </div>
+
+          <ul class="pagination">
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+
+          </ul>
+          <div class="button next">
+            <img src="../assets/image/rightbutton.svg" alt="" />
+          </div>
+        </div>
+
+
       </div>
     </div>
   </section>
@@ -296,8 +311,8 @@ section {
 
         // flex-wrap: nowrap;
         .card-product {
-          border: 1px solid #000;
-          margin: 5px;
+          border: 1px solid $darkGreen;
+          margin: 15px 10px;
 
 
           .pic-card {
@@ -373,6 +388,64 @@ section {
           }
 
         }
+
+      }
+
+      .carousel {
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+        padding: $mbSsec;
+
+        .button {
+          transition: transform 0.5s;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+
+        }
+
+        .pagination {
+          display: flex;
+          width: 100%;
+          justify-content: space-evenly;
+
+          li {
+            width: 100%;
+            position: relative;
+            text-align: center;
+            font-size: $fontBase;
+            font-family: $pFont;
+            color: $darkGreen;
+            transition: transform 0.5s;
+
+            &:hover {
+              transform: scale(1.3);
+            }
+
+            @include s2bmd() {
+              &:not(:last-child):after {
+                content: "";
+                width: 50%;
+                height: 1.5px;
+                position: absolute;
+                transform: translateX(25%);
+
+                top: 50%;
+                background-color: $darkGreen;
+              }
+
+            }
+
+
+
+          }
+        }
+
+        .button-next {}
 
       }
     }
