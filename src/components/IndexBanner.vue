@@ -34,7 +34,7 @@ export default {
         end: "+=500",
         scrub:true,
         pin: true, // 固定整個 section
-        markers: true, 
+        // markers: true, 校正線npm 
       }
     });
 
