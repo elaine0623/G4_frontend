@@ -49,11 +49,11 @@ const router = createRouter({
       name: 'cart',
       component: () => import('@/views/CartView.vue')
     },
-    // {
-    //   path:'/ProductPage',
-    //   name:'ProductPage',
-    //   component: () => import('@/views/ProductPage.vue')
-    // },
+    {
+      path:'/ProductPage',
+      name:'ProductPage',
+      component: () => import('@/views/ProductPage.vue')
+    },
     {
       path:'/ActivityPage',
       name:'ActivityPage',
