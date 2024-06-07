@@ -62,7 +62,7 @@ export default {
 .wrapper {
   background-image: url('@/assets/image/header_backgroud1.svg');
   background-size: 100%;
-  height: 65vh;
+  height: 50vh;
   background-repeat: no-repeat;
   position: relative;
 
