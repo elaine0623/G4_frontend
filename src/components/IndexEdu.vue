@@ -2,7 +2,7 @@
     <section>
         <div class="container">
             <div class="title-container" >
-                <h2 class="news-section-title">{{title}}</h2>
+                <h2 class="section-title">{{title}}</h2>
                 <img class="title-bgi" src="../assets/image/titlebg.svg" alt="">
             </div>
             <div class="sub-title">
@@ -60,7 +60,7 @@ section{
     }
     .container{
         @include s2bmd(){
-            width: 80%;
+            // width: 80%;
             max-width: 1200px;
             margin: auto;
         }
@@ -77,10 +77,10 @@ section{
                 font-size: 1.25em;
                 text-align: center;
                 color: $darkGreen;
-                @include s2bmd(){
+                @include s2bbp(390px){
                     font-size: 1.75em;
                 }
-                @include s2blg(){
+                @include s2bsm(){
                     font-size: 2.25em;
                 }
             }
@@ -109,6 +109,8 @@ section{
         }
         .content{
             width: 100%;
+            max-width: 1200px;
+            margin: auto;
             @include s2bmd(){
                 display: flex;
                 flex-direction: row-reverse;

@@ -61,7 +61,12 @@
           </div>
       </div>
       <div class="wrap">
-          <div class="card" v-for="item in list" :key="item">
+          <div class="card" 
+            v-for="item in list" 
+            :key="item" 
+            :data-aos="getAosEffect(item.aos)" 
+            data-aos-duration="1000"
+            data-aos-once="true">
             <div class="content-card">
               <h3>{{ item.title }}</h3>
               <p>{{ item.content }}</p>
@@ -83,29 +88,58 @@
         list:[
           {
             title:'在地小農',
-            content:'心之所向這裡，每一片綠葉都飽含汗水與希望，每一顆果實都蘊藏自然的饋贈。我們深知，在地小農的辛勤耕耘不應被忽視，他們的努力值得被更多人看見和珍惜。'
+            content:'心之所向這裡，每一片綠葉都飽含汗水與希望，每一顆果實都蘊藏自然的饋贈。我們深知，在地小農的辛勤耕耘不應被忽視，他們的努力值得被更多人看見和珍惜。',
+            aos:'fade-right'
           },
           {
             title:'食農教育',
-            content:'健康飲食 每一份田間的故事，都是一堂珍貴的食農教育課。我們致力於推廣健康飲食，讓每一位消費者都能了解餐桌上的美味從何而來，懂得珍惜與感恩。'
+            content:'健康飲食 每一份田間的故事，都是一堂珍貴的食農教育課。我們致力於推廣健康飲食，讓每一位消費者都能了解餐桌上的美味從何而來，懂得珍惜與感恩。',
+            aos:'fade-left'
           },
           {
             title:'透明溝通',
-            content:'信任連結 我們相信，透明是信任的基石。每一份農產品的背後，都有小農的名字和故事，讓你在享用美食的同時，也能感受到那份溫暖的人情味。'
+            content:'信任連結 我們相信，透明是信任的基石。每一份農產品的背後，都有小農的名字和故事，讓你在享用美食的同時，也能感受到那份溫暖的人情味。',
+            aos:'fade-right'
           },
           {
             title:'永續耕種',
-            content:'愛護地球 我們堅信，最好的未來源自於對土地的尊重。友善耕種，減少農業對環境的影響，是我們對地球的承諾。選擇田間故事，就是選擇一種更健康、更可持續的生活方式。'
+            content:'愛護地球 我們堅信，最好的未來源自於對土地的尊重。友善耕種，減少農業對環境的影響，是我們對地球的承諾。選擇田間故事，就是選擇一種更健康、更可持續的生活方式。',
+            aos:'fade-left'
           },
-        ]
-      }
+        ],
+        windowWidth: window.innerWidth
+      };
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('resize', this.handleResize);
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+      script.onload = () => {
+        // 初始化AOS
+        // eslint-disable-next-line no-undef
+        AOS.init(); //待解決 
+      };
+      document.head.appendChild(script);
+    },
+    // beforeDestroy() {
+    //   window.removeEventListener('resize', this.handleResize);
+    // },
+    methods: {
+      handleResize() {
+        this.windowWidth = window.innerWidth;
+      },
+      getAosEffect(defaultAos) {
+        return this.windowWidth < 768 ? 'fade-up' : defaultAos;
+      },
     }
   }
 </script>
 
-
 <style lang="scss" scoped>
-
+@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+  
   // map-get($title,h2)
 
   @keyframes rotate {
@@ -132,6 +166,7 @@
       width: 100%;
       padding: 15px 0 60px;
       font-family: $pFont;
+      cursor: default;
       @include s2bmd(){
         padding: 80px 0 ;
       }
