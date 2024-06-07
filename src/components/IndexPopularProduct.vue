@@ -17,7 +17,7 @@
           }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3" :centeredSlides="true">
             <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
-              <div class="card-product-list">
+              <RouterLink to="/" class="card-product-list">
                 <div class="img-product-list">
                   <img :src="cartItem['img']" alt="" />
                 </div>
@@ -37,7 +37,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </RouterLink>
             </swiper-slide>
           </swiper>
         </div>
@@ -253,6 +253,8 @@ section {
           margin: auto;
           object-fit: cover;
           width: 380px;
+          cursor:pointer;
+          text-decoration: none;
         }
 
         .img-product-list {
@@ -297,6 +299,7 @@ section {
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
+                  cursor:pointer;
                 }
               }
             }
