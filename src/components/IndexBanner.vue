@@ -95,6 +95,7 @@ export default {
 .pinned-section {
   position: relative;
   width: 100%;
+  // overflow: hidden;
 }
 
 .container {
@@ -109,6 +110,7 @@ export default {
     background-size: 100% 100%;
     position: absolute;
     left: 10%;
+  
 
     @media screen and (max-width: 576px) {
       display: none;
@@ -119,7 +121,6 @@ export default {
       line-height: 250%;
       font-size: 1.7rem;
       z-index: 2;
-
       @media screen and (max-width: 1024px) {
         font-size: 1.5rem;
       }
@@ -177,7 +178,6 @@ export default {
       line-height: 250%;
       font-size: 1.7rem;
       z-index: 2;
-
       @media screen and (max-width: 1024px) {
         font-size: 1.5rem;
       }
