@@ -32,7 +32,7 @@ export default {
         trigger: ".pinned-section",
         start: "-10% 10%",
         end: "+=500",
-        scrub:true,
+        scrub: true,
         pin: true, // 固定整個 section
         // markers: true, 校正線npm 
       }
@@ -92,7 +92,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .pinned-section {
   position: relative;
   width: 100%;
@@ -116,15 +115,16 @@ export default {
     @media screen and (max-width: 576px) {
       display: none;
     }
+
     h2 {
       writing-mode: vertical-lr;
       line-height: 250%;
       font-size: 1.7rem;
       z-index: 2;
-      font-family: "noto serif tc";
       @media screen and (max-width: 1024px) {
         font-size: 1.5rem;
       }
+
       @media screen and (max-width: 768px) {
         font-size: 1rem;
       }
@@ -140,22 +140,25 @@ export default {
     @media screen and (max-width: 1024px) {
       width: 50%;
     }
+
     @media screen and (max-width: 768px) {
       width: 50%;
     }
+
     @media screen and (max-width: 576px) {
       width: 100%;
       min-width: unset;
       overflow: hidden;
     }
 
-    > img {
+    >img {
       position: absolute;
       width: 100%;
       height: 100%;
       top: 0;
       left: 0;
-      opacity: 0; /* 初始時設置透明度為0 */
+      opacity: 0;
+      /* 初始時設置透明度為0 */
       transform: scale(0.5);
     }
   }
@@ -167,17 +170,18 @@ export default {
     right: 10%;
 
     @media screen and (max-width: 576px) {
-     display: none;
+      display: none;
     }
+
     h2 {
       writing-mode: vertical-lr;
       line-height: 250%;
       font-size: 1.7rem;
       z-index: 2;
-      font-family: "noto serif tc";
       @media screen and (max-width: 1024px) {
         font-size: 1.5rem;
       }
+
       @media screen and (max-width: 768px) {
         font-size: 1rem;
       }

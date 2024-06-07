@@ -8,6 +8,7 @@ export default {
           p_name: '高山高麗菜',
           p_img: '../src/assets/image/cabbage.png',
           p_fee: 40,
+          
         },
         {
           f_name: '墻森園',
@@ -131,7 +132,7 @@ export default {
 
         <div class="row list-product ">
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in cardtList" :key="cardtIndex">
-            <div class="card-product">
+            <RouterLink to="/ProductPage" class="card-product">
               <div class="pic-card">
                 <img :src="cardtItem['p_img']" alt="">
               </div>
@@ -144,7 +145,7 @@ export default {
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
                   <div class="hart-pic-card">
-                    <img src="../assets/image/hart.svg">
+                    <img src="../assets/image/hart.svg" @click="favorhart">
                   </div>
                 </div>
                 <div class="member-card">
@@ -159,7 +160,7 @@ export default {
                   </div>
                 </div>
               </div>
-            </div>
+            </RouterLink>
           </div>
         </div>
         <div class="carousel">
@@ -313,6 +314,8 @@ section {
         .card-product {
           border: 1px solid $darkGreen;
           margin: 15px 10px;
+          text-decoration: none;
+          display: block;
 
 
           .pic-card {
@@ -321,6 +324,7 @@ section {
             img {
               width: 100%;
               object-fit: cover;
+              vertical-align: top;
 
             }
           }
