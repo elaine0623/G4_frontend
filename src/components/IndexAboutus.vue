@@ -66,7 +66,8 @@
             :key="item" 
             :data-aos="getAosEffect(item.aos)" 
             data-aos-duration="1000"
-            data-aos-once="true">
+            data-aos-once="true"
+            data-aos-delay="1500">
             <div class="content-card">
               <h3>{{ item.title }}</h3>
               <p>{{ item.content }}</p>
