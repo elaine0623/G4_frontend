@@ -67,7 +67,7 @@
             :data-aos="getAosEffect(item.aos)" 
             data-aos-duration="1000"
             data-aos-once="true"
-            data-aos-delay="1500">
+            data-aos-delay="1300">
             <div class="content-card">
               <h3>{{ item.title }}</h3>
               <p>{{ item.content }}</p>
@@ -165,7 +165,7 @@
     @import "@/assets/scss/mixin/mixin.scss";
     section{
       width: 100%;
-      padding: 15px 0 60px;
+      padding: 40px 0;
       font-family: $pFont;
       cursor: default;
       @include s2bmd(){
