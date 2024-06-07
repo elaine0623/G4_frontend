@@ -48,9 +48,7 @@ export default {
   </header>
 </template>
 
-
-
-<style lang="scss">
+<style lang="scss" scoped>
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
