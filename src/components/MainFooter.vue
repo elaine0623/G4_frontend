@@ -13,14 +13,14 @@
         </div>
       </div>
       <div class="icon">
-        <a href=""><img src="../assets/image/Vector.png" alt="fb" /></a>
-        <a href=""><img src="../assets/image/Vector-1.png" alt="ig" /></a>
-        <a href=""><img src="../assets/image/bi_threads-fill.png" alt="" /></a>
-        <a href=""><img src="../assets/image/Group 1541.png" alt="yt" /></a>
+        <a href=""><img src="@/assets/image/Vector.png" alt="fb" /></a>
+        <a href=""><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
+        <a href=""><img src="@/assets/image/bi_threads-fill.png" alt="" /></a>
+        <a href=""><img src="@/assets/image/Group 1541.png" alt="yt" /></a>
       </div>
       <div class="logo">
         <div class="pic">
-          <a href=""><img src="../assets/image/logo_F.svg" alt="logo" /></a>
+          <a href=""><img src="@/assets/image/logo_F.svg" alt="logo" /></a>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="container">
       <div class="logo">
         <div class="pic">
-          <a href=""><img src="../assets/image/logo_F.svg" alt="logo" /></a>
+          <a href=""><img src="@/assets/image/logo_F.svg" alt="logo" /></a>
         </div>
         <div class="text">
           <div class="textleft">
@@ -57,10 +57,10 @@
         <p>信箱: asdf55448@gmail.com</p>
       </div>
       <div class="icon">
-        <a href=""><img src="../assets/image/Vector.png" alt="ig" /></a>
-        <a href=""><img src="../assets/image/Vector-1.png" alt="ig" /></a>
-        <a href=""><img src="../assets/image/bi_threads-fill.png" alt="" /></a>
-        <a href=""><img src="../assets/image/Group 1541.png" alt="yt" /></a>
+        <a href=""><img src="@/assets/image/Vector.png" alt="ig" /></a>
+        <a href=""><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
+        <a href=""><img src="@/assets/image/bi_threads-fill.png" alt="" /></a>
+        <a href=""><img src="@/assets/image/Group 1541.png" alt="yt" /></a>
       </div>
     </div>
     <div class="copyright">
@@ -75,10 +75,11 @@ img {
 section {
   max-width: 1920px;
   margin: 0 auto;
-  background-image: url(../assets/image/footer_bgc.png);
+  background-image: url(@/assets/image/footer_bgc.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  padding: 2%;
+  padding: 30px;
+  margin-top: 100px;
 }
 .container {
   max-width: 1200px;
@@ -131,7 +132,7 @@ section {
 }
 .Contact_text {
   font-size: 1rem;
-  margin: 0 0 0 20%;
+  margin: 0 0 0 22%;
   letter-spacing: 0.28em;
 }
 .Contact_text p {
@@ -163,7 +164,8 @@ section {
   }
   section {
     margin: 0 auto;
-    background-image: url(../assets/image/footer.png);
+    background-image: url(@/assets/image/footer.png);
+
   }
   .text {
     width: 100%;
@@ -195,6 +197,7 @@ section {
     letter-spacing: 0.28em;
     margin: 0;
     padding: 0 3% 0 3%;
+    line-height: 1;
   }
   .Contact {
     display: flex;
@@ -207,15 +210,6 @@ section {
   .copyright {
     font-size: 0.8rem;
   }
-}
-@media screen and (max-width: 768px) {
-  .textleft,
-  .textright {
-    font-size: 0.8rem;
-    letter-spacing: 0.28em;
-
-    line-height: 1;
-  }
   .Contact_text p {
     font-size: 0.8rem;
     line-height: 1;
@@ -227,5 +221,36 @@ section {
   }
 }
 @media screen and (max-width: 576px) {
+  section {
+    margin: 30px auto 0 auto;
+    padding: 30px 0 30px 0
+
+
+  }
+  .logo .pic {
+    width: 25px;
+  }
+
+  .icon {
+    a {
+      img{ width: 20px;}
+    }
+  }
+  .Contact_text p {
+    font-size: 0.6rem;
+    line-height: 1;
+  }
+
+  .copyright {
+    margin: 0 2% 0 2%;
+    font-size: 0.6rem;
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+
+
+
 }
 </style>
