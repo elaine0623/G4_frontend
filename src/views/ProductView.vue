@@ -8,6 +8,7 @@ export default {
           p_name: '高山高麗菜',
           p_img: '../src/assets/image/cabbage.png',
           p_fee: 40,
+          
         },
         {
           f_name: '墻森園',
