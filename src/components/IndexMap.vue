@@ -6,18 +6,29 @@ export default {
       placeData: [
         {
           tag: "taipei_city",
-          place: "臺北市",
-          low: 20,
-          high: 24,
-          weather: "Sunny"
-        },weather
-        // ... 其餘城市資料
-      ]
+          f_loc: "臺北市",
+          list: [
+            {
+              f_name: "禾新農庄",
+              f_intro: "你在吃水果？還是吃糖果？ 傳承40年「阿公ㄟ柑仔味」 堅持保留橘子酸甜～",
+              f_img: "https://picsum.photos/200/300",
+              f_link: "https://google.com"
+            },
+            {
+              f_name: "薑麻園休閒農業",
+              f_intro: "位在<苗130線>三義和大湖交界，台灣百年的老薑故鄉。",
+              f_img: "https://picsum.photos/200/300",
+              f_link: "https://google.com"
+            }
+          ],
+        },
+      ],
     }
   },
   computed: {
     nowArea() {
       const result = this.placeData.filter(obj => obj.tag === this.filter);
+      console.log(result)
       if (result.length === 0) {
         return null;
       }
@@ -35,21 +46,30 @@ export default {
     });
   }
 }
-
 </script>
 <template>
-  <h1>臺灣小農地圖</h1>
+    <h1>臺灣小農地圖</h1>
+    <section class="farm-map">
     <div class="title_area">
-      <!-- <h1>Taiwan<br>Weather Map<br></h1> -->
-      <hr />
-      <div class="forcast" v-for="place in placeData" :key="place.tag">
-        <h5>{{ place.place }} {{ place.tag }}</h5>
-        <h4>{{ place.low }}~{{ place.high }}°C</h4>
-        <h2>{{ place.weather }}</h2>
+      <div class="map">
+        <div class="forcast" v-if="nowArea" >
+        <h2>{{ nowArea.f_loc }}</h2>
+        <div v-for="item in nowArea.list">
+        <div class="farm_card">
+          <div class="img">
+            <img :src="item.f_img">
+          </div>
+          <div class="card-detail">
+            <div>{{ item.f_name }}</div>
+            <div>{{ item.f_intro }}</div>
+          </div>
+          <a :href="item.f_link" target="_blank">立即前往</a>
+        </div>
       </div>
-    </div>
-
-    <svg id="cf503461-00bd-459a-aeb5-062ebc913211" data-name="圖層 1" xmlns="http://www.w3.org/2000/svg"
+      </div>
+      </div>
+   </div>
+   <svg id="cf503461-00bd-459a-aeb5-062ebc913211" data-name="圖層 1" xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 595.28 841.89">
       <defs></defs>
       <title>20170427直播用台灣</title>
@@ -209,11 +229,10 @@ export default {
           class="bc4bd339-f614-4405-a1f2-7f894051d5a3" d="M176.9,53.81l-1.63,1.43.14.47,2.85.2-.14-.81-1.22-1.29Z" />
       </g>
     </svg>
+  </section>
 </template>
-
-<style lang="sass" scoped>
+<!-- <style lang="scss" scoped>
 $colorGold: #B99362
-
 *
   font-family: 'Fjalla One'
 
@@ -253,4 +272,83 @@ h1
     color: black
   h2
     margin-top: 50px
+
+  .title_area
+  position: absolute
+  right: 20px
+  top: 20px
+  color: white
+  font-size: 25px
+</style>  -->
+
+<style lang="scss" scoped>
+$colorGold: #B99362;
+
+* {
+ font-family: 'Fjalla One';
+
+ svg {
+   height: 100vh;
+ }
+
+ body {
+   background-color: #144433;
+ }
+
+ path {
+   stroke: white;
+   fill: #128A63;
+   transition: 0.5s;
+   cursor: pointer;
+
+   &:hover {
+     fill: $colorGold;
+     transform: translate(-5px, -5px);
+   }
+ }
+}
+
+.title_area {
+// position: absolute;
+//  right: 50%;
+//  top: 80%;
+ color: white;
+ font-size: 20px;
+ max-width: 50%;
+ background-color: #144433;
+ border-radius:20px; 
+}
+.farm-map{
+  // position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  
+}
+hr {
+ width: 100px;
+ margin-left: 0;
+ border: none;
+ border-bottom: solid 2px $colorGold;
+}
+
+.forcast {
+ h2, h4, h5 {
+   margin: 0;
+   color: white;
+   text-align: center;
+ }
+
+ h2 {
+   margin-top: 50px;
+ }
+}
+.farm_card{
+  // background-color: #397D5A;
+}
+.farm-detai{
+  display: flex;
+}
+
 </style>
