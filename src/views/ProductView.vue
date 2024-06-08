@@ -156,9 +156,11 @@ export default {
         </div>
         <div class="filter-product">
           <select name="filter" id="filter">
-            <option value="all">排序依據</option>
-            <option value="hight">價格由高到低</option>
-            <option value="low">價格由低到高</option>
+            <option value="all">熱門商品</option>
+            <option value="hight">蔬菜</option>
+            <option value="low">水果</option>
+            <option value="low">茗茶</option>
+            <option value="low">其他</option>
           </select>
           <div class="icon-filter-product">
             <img src="../assets/image/filter.svg" alt="">
@@ -420,6 +422,7 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+                cursor:pointer;
 
 
                 &:hover {
