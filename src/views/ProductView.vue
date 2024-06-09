@@ -2,12 +2,16 @@
 export default {
   data() {
     return {
+      
       cardtList: [
         {
           f_name: '墻森園',
           p_name: '高山高麗菜',
           p_img: '../src/assets/image/cabbage.png',
           p_fee: 40,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
           
         },
         {
@@ -15,6 +19,9 @@ export default {
           p_name: '草莓',
           p_img: '../src/assets/image/strawberry1.png',
           p_fee: 88,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -22,6 +29,9 @@ export default {
           p_name: '例子南瓜',
           p_img: '../src/assets/image/pumpkin.png',
           p_fee: 35,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -29,6 +39,9 @@ export default {
           p_name: '哈密瓜',
           p_img: '../src/assets/image/cantaloupe.png',
           p_fee: 555,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -36,6 +49,9 @@ export default {
           p_name: '草莓',
           p_img: '../src/assets/image/strawberry2.png',
           p_fee: 50,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -43,6 +59,9 @@ export default {
           p_name: '紅棗',
           p_img: '../src/assets/image/red dates.png',
           p_fee: 155,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -50,6 +69,9 @@ export default {
           p_name: '小黃瓜',
           p_img: '../src/assets/image/gherkin.png',
           p_fee: 55,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -57,6 +79,9 @@ export default {
           p_name: '花椰菜',
           p_img: '../src/assets/image/brocoli.png',
           p_fee: 355,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -64,6 +89,9 @@ export default {
           p_name: '草莓',
           p_img: '../src/assets/image/strawberry3.png',
           p_fee: 355,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -71,6 +99,9 @@ export default {
           p_name: '芋頭',
           p_img: '../src/assets/image/taro.png',
           p_fee: 355,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -78,6 +109,9 @@ export default {
           p_name: '聖女番茄',
           p_img: '../src/assets/image/tomato.png',
           p_fee: 88,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
         {
@@ -85,6 +119,9 @@ export default {
           p_name: '香瓜',
           p_img: '../src/assets/image/cantaloupe2.png',
           p_fee: 88,
+          hartImage:'../src/assets/image/hart.svg',
+          hartImage2:'../src/assets/image/hart2.svg',
+          isImage1:true,
 
         },
       ]
@@ -92,9 +129,10 @@ export default {
     }
   },
   methods: {
-
-  },
-
+    toggleImage(index) {
+      this.cardtList[index].isImage1 = !this.cardtList[index].isImage1;
+    }
+  }
 }
 </script>
 
@@ -118,9 +156,11 @@ export default {
         </div>
         <div class="filter-product">
           <select name="filter" id="filter">
-            <option value="all">排序依據</option>
-            <option value="hight">價格由高到低</option>
-            <option value="low">價格由低到高</option>
+            <option value="all">熱門商品</option>
+            <option value="hight">蔬菜</option>
+            <option value="low">水果</option>
+            <option value="low">茗茶</option>
+            <option value="low">其他</option>
           </select>
           <div class="icon-filter-product">
             <img src="../assets/image/filter.svg" alt="">
@@ -144,8 +184,9 @@ export default {
                     </div>
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
-                  <div class="hart-pic-card">
-                    <img src="../assets/image/hart.svg" @click="favorhart">
+                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
+                    <img :src="cardtItem.isImage1 ? cardtItem.hartImage : cardtItem.hartImage2" alt="">
+
                   </div>
                 </div>
                 <div class="member-card">
@@ -262,6 +303,7 @@ section {
               border-radius: 20px;
               border: 0 solid transparent;
               background-color: $darkGreen;
+              color: #fff; 
 
               &::placeholder {
                 color: #fff; // 將 placeholder 的文字顏色改為 #999
@@ -307,8 +349,15 @@ section {
 
     //---------------商品卡片
     .container {
+      padding: 0 70px;
+      @include s2bmd(){
+        padding: auto;
+      }
+      
       .list-product {
         width: 100%;
+        margin: auto;
+       
 
         // flex-wrap: nowrap;
         .card-product {
@@ -373,6 +422,7 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+                cursor:pointer;
 
 
                 &:hover {
