@@ -1,4 +1,16 @@
+<script>
+import ChatBox from '@/components/ChatBox.vue'
+export default {
+  components: {
+    ChatBox
+  }
+}
+</script>
+
+
+
 <template>
+  <ChatBox />
   <section class="section_1">
     <div class="container">
       <div class="text">
