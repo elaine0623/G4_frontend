@@ -38,7 +38,7 @@ export default {
   position: sticky;
   height: 70px;
   bottom: 10px;
-  z-index: 100;
+  // z-index: 100;
 
   a {
     text-align: center;
