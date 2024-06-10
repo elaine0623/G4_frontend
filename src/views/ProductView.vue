@@ -132,6 +132,7 @@ export default {
     toggleImage(index) {
       this.cardtList[index].isImage1 = !this.cardtList[index].isImage1;
     }
+    
   }
 }
 </script>
