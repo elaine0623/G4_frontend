@@ -29,11 +29,12 @@ export default {
           <i class="fa-solid fa-bars" style="color: #fff;font-size: 24px; cursor: pointer;"></i>
           <transition>
             <div class="mbmenu" v-show="isMenuVisible">
-              <RouterLink to="/product">商品</RouterLink>
-              <RouterLink to="/game">食農教育</RouterLink>
-              <RouterLink to="/activity">近期活動</RouterLink>
-              <RouterLink to="/contactus">聯絡我們</RouterLink>
-              <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
+              <RouterLink to="/product" style="display: block;width: 100%;text-align: center;">商品</RouterLink>
+              <RouterLink to="/game" style="display: block;width: 100%;text-align: center;">食農教育</RouterLink>
+              <RouterLink to="/activity" style="display: block;width: 100%;text-align: center;">近期活動</RouterLink>
+              <RouterLink to="/contactus" style="display: block;width: 100%;text-align: center;">聯絡我們</RouterLink>
+              <RouterLink to="/aboutus" class="about" style="display: block;width: 100%;text-align: center;">關於我們
+              </RouterLink>
               <div class="icons">
                 <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping mbicon"></i></RouterLink>
                 <RouterLink to="/user"><i class="fa-regular fa-user mbicon"></i></RouterLink>
