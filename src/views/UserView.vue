@@ -38,7 +38,7 @@ export default {
     },
     checkpsw() {
       const pswlimit = /^(?=.*[A-Z])[a-zA-Z0-9]{6,12}$/g; //正規表達式：密碼長度6-12位，至少一個大寫字母
-      if (pswlimit.test(this.psw)) {
+      if (pswlimit.test(trim(this.psw))) {
         this.errorMsg.psw = "";
       } else {
         this.errorMsg.psw = "請輸入6-12位，至少一大寫字母"
