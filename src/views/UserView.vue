@@ -1,4 +1,5 @@
 <script>
+import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
     return {
@@ -11,6 +12,9 @@ export default {
         dbpsw: ''
       }
     }
+  },
+  components: {
+    UserLayout
   },
   methods: {
     checkname() {
@@ -34,7 +38,7 @@ export default {
     },
     checkpsw() {
       const pswlimit = /^(?=.*[A-Z])[a-zA-Z0-9]{6,12}$/g; //正規表達式：密碼長度6-12位，至少一個大寫字母
-      if (pswlimit.test(this.psw)) {
+      if (pswlimit.test(trim(this.psw))) {
         this.errorMsg.psw = "";
       } else {
         this.errorMsg.psw = "請輸入6-12位，至少一大寫字母"
@@ -105,8 +109,9 @@ onMounted(() => {
         <h2>登入</h2>
         <input type="email" placeholder="電子信箱" />
         <input type="password" placeholder="密碼" />
-        <a href="#">忘記密碼?</a>
-        <button>登入</button>
+        <a href="#" class="forget-psw">忘記密碼?</a>
+        <RouterLink to="/UserLayout"><button>登入</button></RouterLink>
+
       </form>
     </div>
   </section>
@@ -199,6 +204,14 @@ p {
 }
 
 a {
+  color: #fff;
+  text-decoration: none;
+  margin: 15px 0;
+  font-size: 1rem;
+  // font-weight: 200;
+}
+
+.forget-psw {
   color: #357A56;
   text-decoration: none;
   margin: 15px 0;

@@ -59,6 +59,11 @@ const router = createRouter({
       name:'ActivityPage',
       component: () => import('@/views/ActivityPage.vue')
     },
+    {
+      path:'/UserLayout',
+      name:'UserLayout',
+      component:() => import('@/components/UserLayout.vue')
+    }
   ]
 })
 
