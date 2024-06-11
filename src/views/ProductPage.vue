@@ -49,12 +49,12 @@ export default {
         <div class="card">
           <div class="pic">
             <div class="main-pic">
-              <img :src="userInfo[$route.params.productId - 1].p_img" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img[0]" alt="">
             </div>
             <div class="second-pic">
-              <img :src="userInfo[$route.params.productId - 1].p_img1" alt="">
-              <img :src="userInfo[$route.params.productId - 1].p_img2" alt="">
-              <img :src= "userInfo[$route.params.productId - 1].p_img3" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img[1]" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img[2]" alt="">
+              <img :src= "userInfo[$route.params.productId - 1].p_img[3]" alt="">
             </div>
 
           </div>
@@ -233,9 +233,9 @@ section {
               @include s2bmd() {
                 // max-width: 100%;
                 padding: 10% 0;
-                width: 100%;
-                // width: 123.3333px;
-                height: 109px;
+                // width: 100%;
+                width: 103.3333px;
+                height: 97px;
                 object-fit: cover;
 
               }

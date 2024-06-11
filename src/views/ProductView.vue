@@ -68,7 +68,7 @@ export default {
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in displayData" :key="cardtIndex">
             <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
               <div class="pic-card">
-                <img :src="cardtItem['p_img']" alt="">
+                <img :src="cardtItem.p_img[0]" alt="">
               </div>
               <div class="into-card">
                 <div class="category-card">
