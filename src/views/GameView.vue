@@ -69,169 +69,65 @@ export default {
   data() {
     return {
       gameStarted: false,
-      questions: [
-        {
-          question: '哪種農業方式最有利於維護生物多樣性？',
-          options: [
-            {
-              key: 'A',
-              text: '單一作物農業'
-            },
-            {
-              key: 'B',
-              text: '混合農業'
-            },
-            { key: 'C', text: '溫室種植' },
-            { key: 'D', text: '工業化農業' }
-          ],
-          correctAnswer: 'B',
-          explanation: '混合農業可以提供各種生態棲息地，有助於維護生物多樣性。'
-        },
-        {
-          question: '哪一種肥料來源對環境影響最小？',
-          options: [
-            { key: 'A', text: '化學肥料' },
-            { key: 'B', text: '有機肥料' },
-            { key: 'C', text: '人造合成肥料' },
-            { key: 'D', text: '礦物肥料' }
-          ],
-          correctAnswer: 'B',
-          explanation:
-            '有機肥料源自動植物殘體和糞便，對土壤和環境的影響較小，有助於提高土壤的有機質含量。'
-        },
-        {
-          question: '下列哪一種作物最適合輪作，以保持土壤健康？',
-          options: [
-            { key: 'A', text: '玉米' },
-            { key: 'B', text: '小麥' },
-            { key: 'C', text: '豆類' },
-            { key: 'D', text: '稻米' }
-          ],
-          correctAnswer: 'C',
-          explanation: '豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。'
-        },
-        {
-          question: '下列哪種灌溉技術最節水？',
-          options: [
-            { key: 'A', text: '漫灌' },
-            { key: 'B', text: '噴灌' },
-            { key: 'C', text: '滴灌' },
-            { key: 'D', text: '溝灌' }
-          ],
-          correctAnswer: 'C',
-          explanation: '滴灌系統能精確控制水量，直接供水到植物根部，大幅減少水資源浪費。'
-        },
-        {
-          question: '哪種農業方式最有利於維護生物多樣性？',
-          options: [
-            { key: 'A', text: '單一作物農業' },
-            { key: 'B', text: '混合農業' },
-            { key: 'C', text: '溫室種植' },
-            { key: 'D', text: '工業化農業' }
-          ],
-          correctAnswer: 'B',
-          explanation: '混合農業可以提供各種生態棲息地，有助於維護生物多樣性。'
-        },
-        {
-          question: '哪一種肥料來源對環境影響最小？',
-          options: [
-            { key: 'A', text: '化學肥料' },
-            { key: 'B', text: '有機肥料' },
-            { key: 'C', text: '人造合成肥料' },
-            { key: 'D', text: '礦物肥料' }
-          ],
-          correctAnswer: 'B',
-          explanation:
-            '有機肥料源自動植物殘體和糞便，對土壤和環境的影響較小，有助於提高土壤的有機質含量。'
-        },
-        {
-          question: '下列哪一種作物最適合輪作，以保持土壤健康？',
-          options: [
-            { key: 'A', text: '玉米' },
-            { key: 'B', text: '小麥' },
-            { key: 'C', text: '豆類' },
-            { key: 'D', text: '稻米' }
-          ],
-          correctAnswer: 'C',
-          explanation: '豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。'
-        },
-        {
-          question: '下列哪種灌溉技術最節水？',
-          options: [
-            { key: 'A', text: '漫灌' },
-            { key: 'B', text: '噴灌' },
-            { key: 'C', text: '滴灌' },
-            { key: 'D', text: '溝灌' }
-          ],
-          correctAnswer: 'C',
-          explanation: '滴灌系統能精確控制水量，直接供水到植物根部，大幅減少水資源浪費。'
-        },
-        {
-          question: '下列哪一種作物最適合輪作，以保持土壤健康？',
-          options: [
-            { key: 'A', text: '玉米' },
-            { key: 'B', text: '小麥' },
-            { key: 'C', text: '豆類' },
-            { key: 'D', text: '稻米' }
-          ],
-          correctAnswer: 'C',
-          explanation: '豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。'
-        },
-        {
-          question: '下列哪一種作物最適合輪作，以保持土壤健康？',
-          options: [
-            { key: 'A', text: '玉米' },
-            { key: 'B', text: '小麥' },
-            { key: 'C', text: '豆類' },
-            { key: 'D', text: '稻米' }
-          ],
-          correctAnswer: 'C',
-          explanation: '豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。'
-        }
-      ],
+      questions: [],
       currentQuestionIndex: 0,
       userScore: 0,
       answeredCorrectly: null,
       showScore: false
-    }
+    };
   },
   computed: {
     currentQuestion() {
-      return this.questions[this.currentQuestionIndex]
+      return this.questions[this.currentQuestionIndex] || {};
     }
   },
   methods: {
+    async loadQuestions() {
+        const response = await fetch('/questions.json');
+        const allQuestions = await response.json();
+        this.questions = this.selectRandomQuestions(allQuestions, 10);
+      
+    },
+    selectRandomQuestions(allQuestions, count) {
+      const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    },
     startGame() {
-      this.gameStarted = true
+      this.gameStarted = true;
     },
     selectAnswer(answer) {
-      if (answer === this.currentQuestion.correctAnswer) {
-        console.log('答對了！')
-        this.userScore += 10
-        this.answeredCorrectly = true // 设置为正确答案的键
+      if (answer === this.currentQuestion.answer) {
+        console.log('答對了！');
+        this.userScore += 10;
+        this.answeredCorrectly = true;
       } else {
-        console.log('答錯了！')
-        this.answeredCorrectly = false // 设置为错误答案的键
+        console.log('答錯了！');
+        this.answeredCorrectly = false;
       }
     },
     showNextQuestion() {
-      this.answeredCorrectly = null // 清空答对标记
+      this.answeredCorrectly = null;
       if (this.currentQuestionIndex + 1 < this.questions.length) {
-        this.currentQuestionIndex++
+        this.currentQuestionIndex++;
       } else {
-        this.showScore = true
+        this.showScore = true;
       }
     },
     resetGame() {
-      this.gameStarted = false
-      this.currentQuestionIndex = 0
-      this.userScore = 0
-      this.answeredCorrectly = null
-      this.showScore = false
+      this.gameStarted = false;
+      this.currentQuestionIndex = 0;
+      this.userScore = 0;
+      this.answeredCorrectly = null;
+      this.showScore = false;
+      this.loadQuestions(); // 加載隨機問題
     }
+  },
+  created() {
+    this.loadQuestions();
   }
-}
+};
 </script>
+
 <style lang="scss" scoped>
 .game {
   margin: auto;
@@ -243,7 +139,7 @@ export default {
     align-items: center;
     .game_rule,
     .game_start {
-      width: 100%;
+      width: 80%;
       aspect-ratio: 16/9;
       background-color: #128a63;
       display: flex;
@@ -252,8 +148,8 @@ export default {
       border-radius: 20px;
       .rule_text,
       .game_item {
-        width: 60%;
-        height: 100%;
+        width: 80%;
+        aspect-ratio: 16/9;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -287,13 +183,10 @@ export default {
         margin-top: 0.5em;
       }
       .game_item {
-        padding: 1em;
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: space-between;
-        // text-align: center;
-
         p {
           font-size: 1.75em;
           padding: 2em;
@@ -316,7 +209,6 @@ export default {
             align-items: center;
             flex-wrap: wrap;
             width: 100%;
-
             button {
               padding: 17px 53px;
               border-radius: 50px;
@@ -379,7 +271,6 @@ export default {
     transform: translateY(-100%);
     opacity: 1;
   }
-
   100% {
     transform: translateY(0%);
     opacity: 1;

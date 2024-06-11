@@ -7,27 +7,14 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-/* import specific icons */
-// import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-
-// /* add icons to the library */
-// library.add(faUserSecret)
-// // import '@/assets/scss/style.scss'
-// import { library } from '@fortawesome/fontawesome-svg-core'
-
-// /* import font awesome icon component */
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-// /* import specific icons */
-// import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-
-// /* add icons to the library */
-// library.add(faCartShopping)
-//Vue.createApp(App).mount('#app')
-
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.mount('#app')
 
-// component('font-awesome-icon', FontAwesomeIcon)
+
+import { setupCalendar } from 'v-calendar';
+
+// Use calendar defaults (optional)
+app.use(setupCalendar, {})
+
