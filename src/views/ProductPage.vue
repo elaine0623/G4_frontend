@@ -2,23 +2,42 @@
 export default {
   data() {
     return {
-      count: 1,
-    }
+      userInfo: {},
+      count:1,
+    };
+  },
+  computed: {
+    userId() {
+      return this.$route.params.productId;
+    },
+  },
+  watch: {
+    userId: async function (val) {
+      this.userInfo = await this.fetchUserInfo(val);
+    },
   },
   methods: {
-    add() {
+    add(){
+    if(this.count>=10) return
+    this.count+=1;
+  },
+  subtraction(){
+    if(this.count==0) return
+    this.count-=1;
 
-      if (this.count >= 10) return
-      this.count += 1;
+  },
+    async fetchUserInfo() {
+      return await fetch("../../public/productList.json")
+        .then((response) => response.json())
+        .then((json) => json);
     },
-    subtraction() {
+  },
+  async created() {
+    this.userInfo = await this.fetchUserInfo(this.userId);
+  },
 
-      if (this.count == 0) return//結果等於0就不要繼續
-      this.count -= 1;
-    },
 
-  }
-}
+};
 </script>
 <template>
   <section>
@@ -30,19 +49,19 @@ export default {
         <div class="card">
           <div class="pic">
             <div class="main-pic">
-              <img src="../assets/image/strawberry2.png" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img" alt="">
             </div>
             <div class="second-pic">
-              <img src="../assets/image/strawberry-detail1.svg" alt="">
-              <img src="../assets/image/strawberry-detail2.svg" alt="">
-              <img src="../assets/image/strawberry-detail3.svg" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img1" alt="">
+              <img :src="userInfo[$route.params.productId - 1].p_img2" alt="">
+              <img :src= "userInfo[$route.params.productId - 1].p_img3" alt="">
             </div>
 
           </div>
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>福星草莓-草莓</h2>
+                <h2>{{userInfo[$route.params.productId - 1].f_name}}-{{userInfo[$route.params.productId - 1].p_name}}</h2>
                 <div class="under-scord">
                   <img src="../assets/image/product-underScord.svg" alt="">
 
@@ -50,11 +69,11 @@ export default {
 
               </div>
               <div class="txt">
-                <li>大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣。</li>
+                <li>{{userInfo[$route.params.productId - 1].introduce}}</li>
 
-                <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
+                <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
-                <li>得以控制小型昆蟲，堅持有機無毒的種植方式!</li>
+                <li>得以控制小型昆蟲，堅持有機無毒的種植方式!</li> -->
 
               </div>
             </div>
@@ -63,10 +82,10 @@ export default {
                 <img src="../assets/image/product-underScord2.svg" alt="">
               </div>
               <div class="unit">
-                <p>單位:</p><span>約五台斤*1箱</span>
+                <p>單位:</p><span>{{userInfo[$route.params.productId - 1].unit}}</span>
               </div>
               <div class="Charge">
-                <p>售價:</p><span>2880元</span>
+                <p>售價:</p><span>{{userInfo[$route.params.productId - 1].p_fee}}元</span>
               </div>
               <div class="quantity">
                 <p>數量:</p>
@@ -106,7 +125,9 @@ export default {
 
 section {
   .container {
-
+    // overflow: hidden;
+   
+   
     .crumbs-product {
       font-family: $pFont;
       $line-height: $fontBase;
@@ -118,6 +139,7 @@ section {
     .row {
       margin: auto;
       width: 100%;
+      // width: 1200px;
 
       @include s2bmd() {
         display: flex;
@@ -139,10 +161,14 @@ section {
           align-items: center;
           margin: auto;
           padding: 60px;
+          // width: 100vw;
+          box-sizing: border-box;
+          // overflow: hidden;
+          
 
           @include s2bmd() {
             flex-direction: row;
-            width: 50%;
+            width: 50vw;
             // height: 445px;
             justify-content: center;
             align-items: center;
@@ -161,6 +187,8 @@ section {
               order: 2;
               // aspect-ratio:1/1;
               // object-fit: cover;
+              max-width: 700px;//
+              // height: 380px;//
 
 
             }
@@ -171,6 +199,8 @@ section {
               @include s2bmd() {
                 height: 100%;
                 object-fit: cover;
+                // width: 421.3333px;
+                // height: 305.3333px;
 
               }
 
@@ -192,6 +222,8 @@ section {
               width: auto;
               height: 100%;
               padding: 0% 4%;
+              // width: 209px;
+              // height: 124px;
             }
 
             img {
@@ -199,8 +231,12 @@ section {
               padding: 0 0.3%;
 
               @include s2bmd() {
-                width: 100%;
+                // max-width: 100%;
                 padding: 10% 0;
+                width: 100%;
+                // width: 123.3333px;
+                height: 109px;
+                object-fit: cover;
 
               }
             }
@@ -211,6 +247,9 @@ section {
         //--------------------內容資訊----------------
         .into {
           margin: auto;
+          box-sizing: border-box;
+          overflow: hidden;
+          width: 100%;
 
           height: auto;
 
