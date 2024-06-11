@@ -1,4 +1,5 @@
 <script>
+import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
     return {
@@ -11,6 +12,9 @@ export default {
         dbpsw: ''
       }
     }
+  },
+  components: {
+    UserLayout
   },
   methods: {
     checkname() {
@@ -34,7 +38,7 @@ export default {
     },
     checkpsw() {
       const pswlimit = /^(?=.*[A-Z])[a-zA-Z0-9]{6,12}$/g; //正規表達式：密碼長度6-12位，至少一個大寫字母
-      if (pswlimit.test(this.psw)) {
+      if (pswlimit.test(trim(this.psw))) {
         this.errorMsg.psw = "";
       } else {
         this.errorMsg.psw = "請輸入6-12位，至少一大寫字母"
@@ -46,15 +50,34 @@ export default {
       } else {
         this.errorMsg.dbpsw = "";
       }
-    }
+    },
   }
 }
+</script>
+<script setup>
+import { ref, onMounted, onUnmounted, watch } from 'vue';
+import { useWindowSize } from '@vueuse/core';
+
+const { width } = useWindowSize();
+const mbContent = ref(false);
+
+const updateView = () => {
+  mbContent.value = width.value < 768;
+};
+
+watch(width, updateView);
+
+onMounted(() => {
+  updateView();
+});
+
 </script>
 
 
 
 <template>
-  <section class="lightbox">
+  <!-- {{ width }} x {{ height }} -->
+  <section class="lightbox" v-show="!mbContent">
     <div class="wrapper" :class="{ 'sign-up-active': signUp }">
       <div class="overlay-wrapper">
         <div class="overlay">
@@ -86,12 +109,13 @@ export default {
         <h2>登入</h2>
         <input type="email" placeholder="電子信箱" />
         <input type="password" placeholder="密碼" />
-        <a href="#">忘記密碼?</a>
-        <button>登入</button>
+        <a href="#" class="forget-psw">忘記密碼?</a>
+        <RouterLink to="/UserLayout"><button>登入</button></RouterLink>
+
       </form>
     </div>
   </section>
-  <section class="mb-content">
+  <section class="mb-content" v-show="mbContent">
     <form action="" class="mb-form">
       <img src="@/assets/image/logo_F.svg" alt="logo">
       <div class="account">
@@ -102,7 +126,10 @@ export default {
         <label for="psw">密碼</label>
         <input type="password" placeholder="密碼">
       </div>
-      <a href="#">忘記密碼?</a><a href="#">尚未註冊</a>
+      <div class="link">
+        <a href="#">忘記密碼?</a><a href="#">立即註冊!</a>
+      </div>
+      <button>登入</button>
     </form>
   </section>
 </template>
@@ -110,7 +137,8 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   position: relative;
-  width: 768px;
+  max-width: 768px;
+  width: 100%;
   height: 480px;
   border-radius: 10px;
   overflow: hidden;
@@ -176,6 +204,14 @@ p {
 }
 
 a {
+  color: #fff;
+  text-decoration: none;
+  margin: 15px 0;
+  font-size: 1rem;
+  // font-weight: 200;
+}
+
+.forget-psw {
   color: #357A56;
   text-decoration: none;
   margin: 15px 0;
@@ -211,22 +247,28 @@ button.invert {
 }
 
 .mb-content {
-  display: none;
+  // display: none;
   width: 80%;
+  font-family: $titleFont;
   margin: 0 auto;
   background-color: #144433;
   box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
     0 10px 10px rgba(0, 0, 0, .2);
+  border-radius: 10px;
 }
 
 .mb-form {
   width: calc(90% - 30px);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   img {
     display: block;
-    margin: 0 auto;
-    width: 80%;
+    margin: 20px auto 0;
+    width: 60%;
     height: 80px;
     padding: 20px 0;
   }
@@ -234,12 +276,42 @@ button.invert {
   .account,
   .mb-psw {
     margin: 0 auto;
-    width: 80%;
+    width: 60%;
 
-    input,
     label {
-      display: block;
+      color: #fff;
+      line-height: 3;
     }
+
+    input {
+      width: 100%;
+      line-height: 1.5;
+      background-color: #eee;
+      border: 1px solid #144433;
+      outline: none;
+      padding: 8px 15px;
+      overflow: hidden;
+    }
+  }
+
+  .link {
+    width: 60%;
+    margin: 10px auto 15px;
+
+    a {
+      display: inline-block;
+      width: 50%;
+      text-decoration: none;
+      text-align: center;
+      margin: 20px auto;
+      color: #eee;
+      font-size: 14px;
+    }
+  }
+
+  button {
+    text-align: center;
+    margin-bottom: 40px;
   }
 }
 
@@ -266,7 +338,6 @@ button.invert {
     border: 1px solid #144433;
     outline: none;
     padding: 8px 15px;
-    // margin: 6px 0;
     width: calc(100% - 30px);
     overflow: hidden;
 
