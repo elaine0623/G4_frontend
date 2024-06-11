@@ -45,7 +45,7 @@
               <button @click="showNextQuestion">下一題</button>
             </div>
             <div v-else>
-              <p>{{ currentQuestion.question }}</p>
+              <div class="question-text">{{ currentQuestion.question }}</div>
               <div class="answer">
                 <div
                   v-for="(option, index) in currentQuestion.options"
@@ -76,6 +76,14 @@ export default {
       showScore: false
     };
   },
+//   mounted() {
+//     fetch('/questions.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             this.questions = this.selectRandomQuestions(data, 10);
+//         })
+//         
+// },
   computed: {
     currentQuestion() {
       return this.questions[this.currentQuestionIndex] || {};
@@ -158,6 +166,10 @@ export default {
       h1 {
         font-size: 2.5em;
         color: white;
+
+        @include lg(){
+          font-size:2em;
+        }
       }
       li {
         font-size: 1.25em;
@@ -181,16 +193,24 @@ export default {
         font-size: 2.5em;
         color: white;
         margin-top: 0.5em;
+        @include lg(){
+          font-size:2em;
+        }
       }
       .game_item {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: space-between;
-        p {
+        
+        .question-text {
           font-size: 1.75em;
           padding: 2em;
           color: white;
+          @include lg(){
+          font-size:1.25em;
+          padding: 1.5em;
+        }
         }
         span {
           font-size: 1.25em;
@@ -200,7 +220,7 @@ export default {
           display: flex;
           width: 100%;
           height: 100%;
-          justify-content: space-around;
+          justify-content: space-evenly;
           color: white;
           .answer-item {
             display: flex;
@@ -214,6 +234,9 @@ export default {
               border-radius: 50px;
               background-color: #144433;
               color: white;
+              @include lg(){
+
+              }
             }
             button:active {
               background-color: #128a63;
