@@ -1,5 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '@/views/HomeView.vue';
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +61,11 @@ const router = createRouter({
       name:'ActivityPage',
       component: () => import('@/views/ActivityPage.vue')
     },
+    {
+      path:'/UserLayout',
+      name:'UserLayout',
+      component:() => import('@/components/UserLayout.vue')
+    }
   ]
 })
 
