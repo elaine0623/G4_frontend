@@ -243,7 +243,7 @@ export default {
     align-items: center;
     .game_rule,
     .game_start {
-      width: 100%;
+      width: 80%;
       aspect-ratio: 16/9;
       background-color: #128a63;
       display: flex;
@@ -252,8 +252,8 @@ export default {
       border-radius: 20px;
       .rule_text,
       .game_item {
-        width: 60%;
-        height: 100%;
+        width: 80%;
+        aspect-ratio: 16/9;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -287,7 +287,6 @@ export default {
         margin-top: 0.5em;
       }
       .game_item {
-        padding: 1em;
         display: flex;
         flex-direction: column;
         align-items: stretch;
