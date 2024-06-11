@@ -21,9 +21,9 @@
             </template>
             <template v-else>
               <h2>您的分數為:{{ userScore }}</h2>
-              <h2 v-if="userScore >= 90">恭喜你获得8折券！<br />優惠代碼CCC8888</h2>
-              <h2 v-else-if="userScore >= 80">恭喜你获得85折券！<br />優惠代碼CCC8585</h2>
-              <h2 v-else-if="userScore >= 70">恭喜你获得9折券！<br />優惠代碼CCC9999</h2>
+              <h2 v-if="userScore >= 90">恭喜你獲得8折券！<br />優惠代碼CCC8888</h2>
+              <h2 v-else-if="userScore >= 80">恭喜你獲得85折券！<br />優惠代碼CCC8585</h2>
+              <h2 v-else-if="userScore >= 70">恭喜你獲得9折券！<br />優惠代碼CCC9999</h2>
               <button @click="resetGame">重新開始</button>
             </template>
           </div>
