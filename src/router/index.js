@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/product',
       name: 'product',
-      component: () => import('@/views/ProductView.vue')
+      component: () => import(/* webpackChunkName: "product" */ '@/views/ProductView.vue')
     },
     {
       path: '/activity',
@@ -52,9 +52,9 @@ const router = createRouter({
       component: () => import('@/views/CartView.vue')
     },
     {
-      path:'/ProductPage',
+      path:'/ProductPage/:productId',
       name:'ProductPage',
-      component: () => import('@/views/ProductPage.vue')
+      component: () => import(/* webpackChunkName: "ProductPage" */ '@/views/ProductPage.vue')
     },
     {
       path:'/ActivityPage',

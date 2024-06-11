@@ -9,7 +9,7 @@ export default {
   },
   methods: {
     toggleImage(index) {
-      this.cardtList[index].isImage1 = !this.cardtList[index].isImage1;
+      this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
     }
     
   },
@@ -66,7 +66,7 @@ export default {
 
         <div class="row list-product ">
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in displayData" :key="cardtIndex">
-            <RouterLink to="/ProductPage" class="card-product">
+            <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
               <div class="pic-card">
                 <img :src="cardtItem['p_img']" alt="">
               </div>
@@ -79,7 +79,7 @@ export default {
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
                   <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
-                    <img :src="cardtItem.isImage1 ? cardtItem.hartImage : cardtItem.hartImage2" alt="">
+                    <img :src="cardtItem['isImage1'] ? cardtItem['hartImage'] : cardtItem['hartImage1']" alt="">
 
                   </div>
                 </div>
@@ -274,6 +274,7 @@ section {
 
           .into-card {
             position: relative;
+        
 
             .category-card {
               display: flex;
@@ -297,6 +298,10 @@ section {
                 position: absolute;
                 right: 10px;
                 top: -35px;
+                width: 38px;
+                height: 38px;
+                z-index: 10;
+               
               }
 
             }
