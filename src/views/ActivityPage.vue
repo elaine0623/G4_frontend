@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="signup">
-                        <RouterLink to="./">立即報名</RouterLink>
+                        <router-link :to="`/signuppage/${$route.params.activityId}`">立即報名</router-link>
                     </div>
                 </div>
             </div>
