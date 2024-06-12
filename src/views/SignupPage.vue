@@ -92,7 +92,7 @@
 <style lang="scss" scoped>
 section{
     .container{
-        
+        width: 80%;
     }
 }
 </style>
