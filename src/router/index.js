@@ -83,8 +83,31 @@ const router = createRouter({
     },
     {
       path:'/UserLayout',
+      path:'/userlayout',
       name:'UserLayout',
-      component:() => import('@/components/UserLayout.vue')
+      component:() => import('@/components/UserLayout.vue'),
+      children: [
+        {
+          path:'userdata',
+          name:'UserData',
+          component:() => import('@/views/UserData.vue'),
+        },
+        {
+          path:'userfavorite',
+          name:'UserFavorite',
+          component:() => import('@/views/UserFavorite.vue'),
+        },
+        {
+          path:'userorder',
+          name:'UserOrder',
+          component:() => import('@/views/UserOrder.vue'),
+        },
+        {
+          path:'useractivity',
+          name:'UserActivity',
+          component:() => import('@/views/UserActivity.vue'),
+        }
+      ]
     }
   ]
 })
