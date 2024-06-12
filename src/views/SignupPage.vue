@@ -20,28 +20,28 @@
             <div class="info-basic">
                 <div>
                     <span>*</span>
-                    <span>姓名 : </span>
-                    <input type="text">
+                    <label for="m_name">姓名 : </label>
+                    <input type="text" id="m_name" name="m_name">
                 </div>
                 <div>
                     <span>*</span>
-                    <span>報名人數 : </span>
-                    <input type="text">
+                    <label for="ao_count">報名人數 : </label>
+                    <input type="number" id="ao_count" name="ao_count">
                 </div>
                 <div>
                     <span>*</span>
-                    <span>電子信箱 : </span>
-                    <input type="text">
+                    <label for="m_account">電子信箱 : </label>
+                    <input type="email" id="m_account" name="m_account">
                 </div>
                 <div>
                     <span>*</span>
-                    <span>連絡電話 : </span>
-                    <input type="text">
+                    <label for="m_phone">連絡電話 : </label>
+                    <input type="tel" id="m_phone" name="m_phone">
                 </div>
                 <div>
                     <span>*</span>
-                    <span>通訊地址 : </span>
-                    <input type="text">
+                    <label for="m_add">通訊地址 : </label>
+                    <input type="text" id="m_add" name="m_add">
                 </div>
             </div>
             
@@ -50,17 +50,17 @@
                     <h2>付款資訊</h2>
                 </div>
                 <div class="money">
-                    <span>應付金額 : </span>
+                    <label>應付金額 : </label>
                     <span>NT$</span>
                     <span>{{ userInfo[$route.params.signupId - 1].a_fee }}</span>
                 </div>
                 <div class="pay">
-                    <span>付款方式 : </span>
+                    <label>付款方式 : </label>
                     <button>信用卡付款</button>
                 </div>
                 <div class="card">
                     <span>*</span>
-                    <span>信用卡號 : </span>
+                    <label>信用卡號 : </label>
                     <div>
                         <input type="text">
                         <span>-</span>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="deadline">
                     <span>*</span>
-                    <span>有效期限 : </span>
+                    <label>有效期限 : </label>
                     <div>
                         <input type="text">
                         <span>-</span>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="code">
                     <span>*</span>
-                    <span>末3碼 : </span>
+                    <label>末3碼 : </label>
                     <input type="text" placeholder="末3碼">
                 </div>
             </div>
@@ -133,6 +133,7 @@ section{
     line-height: $lineheight;
     letter-spacing: $letterSpacing;
     font-family: $pFont;
+    cursor: default;
     .container{
         width: 80%;
         max-width: 1200px;
@@ -202,7 +203,7 @@ section{
         .info-basic{
             margin: 10px 0;
             div{
-                width: 60%;
+                width: 70%;
                 margin: 20px 0;
                 display: grid;
                 grid-template-columns: .01fr .5fr 1fr;
@@ -215,17 +216,21 @@ section{
                     width: 100%;
                     display: block;
                 }
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
                 input{
                     border: solid 1px $darkGreen;
                     background-color: #eee;
-                    padding: 0 5px;
+                    padding: 8px 15px;
+                    outline: none;
+                    &:focus {
+                        outline: none;
+                        background-color: #fff;
+                    }
                     @include sm(){
                         display: block;
                         margin-top: 10px;
-                        padding: 3px 5px;
                     }
                 }
             }
@@ -256,28 +261,31 @@ section{
             }
             .money{
                 margin: 20px 0;
-                :first-child{
+                label{
                     margin-right: 50px;
                 }
             }
             .pay{
                 margin: 20px 0;
-                span{
+                label{
                     margin-right: 50px;
                 }
                 button{
                     background-color: $darkGreen;
                     color: #fff;
-                    padding: 2px 10px;
+                    padding: 8px 15px;
                     border: none;
                 }
             }
             .card{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
+                span{
+                    color: $darkGreen;
+                }
+                label{
                     margin-right: 40px;
                 }
                 div{
@@ -287,13 +295,20 @@ section{
                         margin-top: 10px;
                     }
                     input{
-                        width: 50px;
+                        color: #000;
+                        width: 25px;
+                        padding: 8px 15px;
                         background-color: #eee;
                         border: solid 1px $darkGreen;
+                        outline: none;
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                        }
                     }
-                    :nth-child(2),
-                    :nth-child(4),
-                    :nth-child(6){
+                    span:nth-child(2),
+                    span:nth-child(4),
+                    span:nth-child(6){
                         margin: 0 5px;
                         @include sm(){
                             margin: 0 1px;
@@ -303,10 +318,10 @@ section{
             }
             .deadline{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
+                label{
                     margin-right: 40px;
                     @include sm(){
                         margin-right: 35px;
@@ -319,11 +334,17 @@ section{
                         margin-top: 10px;
                     }
                     input{
-                        width: 50px;
+                        width: 25px;
+                        padding: 8px 15px;
                         background-color: #eee;
                         border: solid 1px $darkGreen;
-                }
-                    :nth-child(2){
+                        outline: none;
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                        }
+                    }
+                    span:nth-child(2){
                         margin: 0 5px;
                         @include sm(){
                             margin: 0 1px;
@@ -334,16 +355,22 @@ section{
             }
             .code{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
+                label{
                     margin-right: 65px;
                 }
                 input{
-                    width: 50px;
+                    width: 35px;
+                    padding: 8px 10px;
                     background-color: #eee;
                     border: solid 1px $darkGreen;
+                    outline: none;
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                        }
                     @include sm(){
                         display: block;
                         margin-top: 10px;
@@ -374,6 +401,7 @@ section{
                     text-decoration: none;
                     letter-spacing: 2px;
                     transition: 0.5s;
+                    cursor: pointer;
                     @include sm(){
                         // width: 100px;
                         padding: 11px 17px;
