@@ -17,8 +17,8 @@
                     <div class="wrap-info">
                         <nav aria-label="Breadcrumb">
                             <ul>
-                                <li><RouterLink to="./">首頁</RouterLink></li>
-                                <li><RouterLink to="./activity">活動</RouterLink></li>
+                                <li><RouterLink to="/">首頁</RouterLink></li>
+                                <li><RouterLink to="/activity">活動</RouterLink></li>
                                 <li class="current"><em aria-current="page">{{ userInfo[$route.params.activityId - 1].c_no }}</em></li>
                             </ul>
                         </nav>
