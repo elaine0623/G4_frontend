@@ -11,7 +11,8 @@
                 <h2 class="chat-title">客服小助手</h2>
                 <p class="chat-intro">您好!如果有任何問題或要求，請隨時跟我們聯絡。</p>
             </div>
-            <input type="text" name="" placeholder="請輸入關鍵字" v-model="chatMeg" required>
+            <!-- 新增user按enter訊息就會送出功能 -->
+            <input type="text" name="" placeholder="請輸入關鍵字" v-model="chatMeg" required @keyup.enter="userMeg">
             <button class="submit-btn" v-on:click.prevent="userMeg()"><i class="fa-solid fa-paper-plane"
                     style="color: #144433;"></i></button>
 

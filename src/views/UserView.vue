@@ -110,7 +110,7 @@ onMounted(() => {
         <input type="email" placeholder="電子信箱" />
         <input type="password" placeholder="密碼" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <RouterLink to="/UserLayout"><button>登入</button></RouterLink>
+        <RouterLink to="/userlayout"><button>登入</button></RouterLink>
 
       </form>
     </div>

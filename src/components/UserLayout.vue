@@ -10,14 +10,17 @@
                 </div>
                 <span class="member-name">方老伯</span>
                 <div class="btn-selection">
-                    <button class="btn-info">個人資料</button>
-                    <button class="btn-like">收藏項目</button>
-                    <button class="btn-order">訂單紀錄</button>
-                    <button class="btn-activity">活動紀錄</button>
+                    <router-link to="/userlayout/userdata"><button class="btn-info">個人資料</button></router-link>
+                    <router-link to="/userlayout/userfavorite"><button class="btn-like">收藏項目</button></router-link>
+                    <router-link to="/userlayout/userorder"><button class="btn-order">訂單紀錄</button></router-link>
+                    <router-link to="/userlayout/useractivity"><button class="btn-activity">活動紀錄</button></router-link>
                 </div>
                 <div class="logout">
                     <button class="btn-logout">登出<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                 </div>
+            </div>
+            <div class="router-content">
+                <router-view></router-view>
             </div>
         </div>
     </section>
@@ -30,7 +33,7 @@
     position: relative;
     max-width: 768px;
     width: 100%;
-    height: 480px;
+    height: 500px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
@@ -80,7 +83,7 @@
         // border: 1px solid #eee;
         background-color: #144433;
         color: #fff;
-        font-size: 14px;
+        font-size: 15px;
         font-family: $titleFont;
         // font-weight: bold;
         padding: 6px 30px;
@@ -113,5 +116,17 @@
             margin: 0 3px;
         }
     }
+
+}
+
+.router-content {
+    position: absolute;
+    width: 468px;
+    height: 100%;
+    right: 0;
+}
+
+a {
+    text-decoration: none;
 }
 </style>
