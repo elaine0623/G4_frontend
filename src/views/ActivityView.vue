@@ -9,7 +9,7 @@
       <option value="講座">講座</option>
     </select>
     <div class="search-area">
-    <input type="text" placeholder="搜尋">
+    <input type="search" v-model.lazy.trim="search" placeholder="搜尋">
     <button class="search-btn"><i class="fa-solid fa-magnifying-glass" style="color: #144433;"></i></button>
     </div>
   </div>
@@ -23,26 +23,17 @@
                  :rules="rules"/>
     <div class="current-event" >
       <div class="curr-header">{{ formattedDate }}</div>
-      <div class="curr-content" v-for="item in activeEvents" :key="item.id"  v-show="item.date == date && item.type === currentClass && currentClass != 0">
+      <div class="curr-content" v-for="item in pagenateData" :key="item.id"  v-show="item.isVisable === true">
         {{item.title}}
       </div>
-      <div class="curr-content" v-for="item in activeEvents" :key="item.id"  v-show="item.date == date && currentClass === 0">
+      <div class="curr-content" v-for="item in pagenateData" :key="item.id"   v-show="item.isVisable === true">
         {{item.title}}
       </div>
     </div>
   </div>
   <div class="container"> 
     <div class="row" >
-      <div class="event-card col-6 col-sm-12"  v-show="item.date == date && currentClass === 0"  v-for="item in activeEvents" :key="item.id">
-        <img :src=item.imgURL alt="活動圖片">
-        <div class="event-content">
-        <h3 class="event-title">{{item.title}}</h3>
-        <span class="event-date">{{ item.time }}</span>
-        <div class="event-class-tag">{{item.type}}</div>
-        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.location}}</div>
-      </div>
-    </div>
-      <div class="event-card col-6 col-sm-12"  v-show="item.date == date && item.type === currentClass &&currentClass != 0"  v-for="item in activeEvents" :key="item.id" >
+      <div class="event-card col-6 col-sm-12"   v-show="item.isVisable  === true "  v-for="item in pagenateData" :key="item.id" >
         <img :src=item.imgURL alt="活動圖片">
         <div class="event-content">
         <h3 class="event-title">{{item.title}}</h3>
@@ -51,6 +42,16 @@
         <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.location}}</div>
       </div>
       </div>
+    <div class="btn-field" v-if="isVisable.length >= 6">
+    <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn"><img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭"></button>
+    <button
+      v-for="item in Math.ceil(isVisable.length / perPage)"
+      :key="item"
+      @click="() => goToPage(item)" class="pageNum" :class='[item === "1" ? firstPage:pageNum]' >
+     {{ item }}
+     </button>
+  <button @click="nextPage()" class="next-btn"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
+  </div>
     </div> 
   </div> 
 </div>
@@ -61,12 +62,16 @@
 <script >
 import { DatePicker  } from 'v-calendar';
 import 'v-calendar/style.css';
+const perPage = 6;
 export default {
   components: {
     DatePicker,
   },
   data() {
     return {
+      currentPage:1,
+      keyworld:'',
+      activedEvents:[],
       date:new Date(),
       currentClass:0,
       activeEvents:[{
@@ -79,6 +84,7 @@ export default {
         imgURL:'src/assets/image/event-images/event-img.png',
         isExpired:false,
         isavailable:true,
+        isVisable:true,
       },
       {
         id:2,
@@ -88,6 +94,7 @@ export default {
         date:'Thu Jun 13 2024 00:00:00 GMT+0800 (台北標準時間)',//new date value 未處理
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:3,
@@ -97,6 +104,7 @@ export default {
         date:'Thu Jun 13 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'市集',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },//pagination test data
       {
         id:4,
@@ -106,6 +114,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'市集',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:5,
@@ -115,6 +124,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:6,
@@ -124,6 +134,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'市集',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:7,
@@ -133,6 +144,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:8,
@@ -142,6 +154,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'市集',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:9,
@@ -151,6 +164,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:10,
@@ -160,6 +174,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:11,
@@ -169,6 +184,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
       {
         id:12,
@@ -178,6 +194,7 @@ export default {
         date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
         type:'講座',
         imgURL:'src/assets/image/event-images/event-img.png',
+        isVisable:true,
       },
     ]
     };
@@ -185,8 +202,6 @@ export default {
     eventClass () {
       let currentClassValue = document.querySelector('#event-class');
       this.currentClass = currentClassValue.value;
-      console.log(this.currentClass);
-      console.log(typeof this.currentClass);
     },
     formatDate (date) {
       const localDate = new Date(date);
@@ -198,16 +213,51 @@ export default {
       
       return `${year}-${month}-${day}`;
     },
-
-  },computed: {
+    nextPage() {
+      if (this.currentPage  !== Math.ceil(this.isVisable.length / perPage)) {
+        this.currentPage += 1;
+    }
+    },
+    goToPage (numPage) {
+    this.currentPage = numPage;
+  },
+    backPage() {
+    if (this.currentPagepage !== 1) {
+      this.currentPage -= 1;
+    }
+  },
+    },computed: {
     formattedDate() {
       return this.formatDate(this.date);
     },
-  },
+    isVisable () {
+      for (let i = 0 ;i < this.activeEvents.length;i++) {
+        if( this.currentClass === 0){
+        if(this.activeEvents[i].date == this.date) {
+        this.activeEvents[i].isVisble = true;
+        this.currentPage = 1;
+      }else {
+        this.activeEvents[i].isVisble = false;
+      }}else if(this.currentClass !== 0) {
+        if(this.activeEvents[i].date == this.date && this.activeEvents[i].type == this.currentClass){
+          this.activeEvents[i].isVisble = true;
+          this.currentPage = 1;
+        }else {
+          this.activeEvents[i].isVisble = false;
+      }
+    }
+  }
+  return this.activeEvents.filter(event => event.isVisble === true);
+},pagenateData () {
+  return this.isVisable.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
+},filterEvents () {
+  
+}
+},
 }
 </script>
 <script setup>
-import { ref} from 'vue';
+import { ref,} from 'vue';
 const selectedColor = ref('green');
 const attrs = ref([
   {
@@ -222,7 +272,6 @@ const rules = ref({
   seconds: 0,
   milliseconds: 0,
 })
-
 </script>
 <style lang="scss" scoped>
 .myvc-container:deep(.vc-arrow) {
@@ -240,6 +289,9 @@ const rules = ref({
   height: 50px;
   border-top-left-radius:5px ;
   border-top-right-radius: 5px;
+  span {
+            z-index: 2;
+          }
 }
 .myvc-container :deep(.vc-title) {
     color: #fff;
@@ -258,7 +310,7 @@ const rules = ref({
   } 
   //title active nav 
   .myvc-container :deep(.vc-nav-title) {
-    color: #000
+    color: #000;
   }
   //main area 
   .activity-section {
@@ -287,14 +339,16 @@ const rules = ref({
         padding-bottom:5px ;
         cursor: pointer;
         outline: none;
+        background-color: transparent;
       }
       .search-area {
         position: relative;
-      input[type="text"] {
+      input[type="search"] {
         border:none;
         border-bottom:1px solid  #979797;
         padding: 5px 10px;
         color:$darkGreen;
+        background-color: transparent;
       }
       .search-btn {
         background-color: transparent;
@@ -340,6 +394,7 @@ const rules = ref({
       .container {
         width: 65%;
         margin:0 0 0 auto ;
+        position: relative;
         .row {
           justify-content: space-between;
         .event-card {
@@ -398,8 +453,47 @@ const rules = ref({
             }
           }
         }
+        .btn-field {
+          position: absolute;
+          bottom: -50px;
+          right: 50%;
+          transform: translateX(50%);
+          button:nth-child(2) {
+            &::before {
+              content: '';
+              width: 0;
+            }
+          }
+          .pre-btn,.next-btn {
+            width: 50px;
+            height: 50px;
+            border: 1.5px solid $darkGreen;
+            background-color: transparent;
+            margin:0 20px 0 20px;
+            position: relative;
+          }
+          .pageNum {
+            background-color: transparent;
+            border:none;
+            font-size: $fontBase;
+            color:$darkGreen;
+            position: relative;
+            margin:0 20px 0 30px;
+            &::before {
+              content: '';
+              position: absolute;
+              width: 30px;
+              border: 1px solid $darkGreen;
+              top:9px;
+              right: 30px;
+
+
+            }
+          }
+        }
         }
       }
     }
+
   }
 </style>
