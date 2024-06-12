@@ -2,38 +2,62 @@
 export default {
   data() {
     return {
-      userInfo: {},
-      count:1,
+      userInfo: [],
+      count: 1,
+      mainImage: '', // 主圖片
     };
   },
   computed: {
     userId() {
       return this.$route.params.productId;
     },
+    filteredImages() {
+      const product = this.userInfo[this.userId - 1];
+      if (product && product.p_img) {
+        // 确保只返回三张次要小图
+        return product.p_img.filter(img => img !== this.mainImage).slice(0, 3);
+      }
+      return [];
+    }
   },
   watch: {
-    userId: async function (val) {
-      this.userInfo = await this.fetchUserInfo(val);
+    userId: {
+      immediate: true,
+      handler: async function (val) {
+        this.userInfo = await this.fetchUserInfo();
+        if (this.userInfo.length > 0) {
+          this.mainImage = this.userInfo[val - 1].p_img[0];
+        }
+      },
     },
   },
   methods: {
-    add(){
-    if(this.count>=10) return
-    this.count+=1;
-  },
-  subtraction(){
-    if(this.count==0) return
-    this.count-=1;
+    add() {
+      if (this.count >= 10) return
+      this.count += 1;
+    },
+    subtraction() {
+      if (this.count == 0) return
+      this.count -= 1;
 
-  },
+    },
     async fetchUserInfo() {
       return await fetch("../../public/productList.json")
         .then((response) => response.json())
         .then((json) => json);
     },
+
+    changeMainImage(imgIndex) {
+  const product = this.userInfo[this.userId - 1];
+  const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
+  this.mainImage = product.p_img[selectedIndex];
+}
   },
   async created() {
-    this.userInfo = await this.fetchUserInfo(this.userId);
+    this.userInfo = await this.fetchUserInfo();
+    if (this.userInfo.length > 0) {
+      this.mainImage = this.userInfo[this.userId - 1].p_img[0];
+    }
   },
 
 
@@ -49,19 +73,21 @@ export default {
         <div class="card">
           <div class="pic">
             <div class="main-pic">
-              <img :src="userInfo[$route.params.productId - 1].p_img" alt="">
+              <img :src="mainImage" alt="">
             </div>
             <div class="second-pic">
-              <img :src="userInfo[$route.params.productId - 1].p_img1" alt="">
-              <img :src="userInfo[$route.params.productId - 1].p_img2" alt="">
-              <img :src= "userInfo[$route.params.productId - 1].p_img3" alt="">
+              <img v-for="(img, index) in filteredImages" :key="index" :src="img" @click="changeMainImage(index)"
+                alt="Secondary Image">
+              <!-- <img :src="userInfo[$route.params.productId - 1].p_img[2]" alt="">
+              <img :src= "userInfo[$route.params.productId - 1].p_img[3]" alt=""> -->
             </div>
 
           </div>
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>{{userInfo[$route.params.productId - 1].f_name}}-{{userInfo[$route.params.productId - 1].p_name}}</h2>
+                <h2>{{ userInfo[$route.params.productId - 1].f_name }}-{{ userInfo[$route.params.productId - 1].p_name }}
+                </h2>
                 <div class="under-scord">
                   <img src="../assets/image/product-underScord.svg" alt="">
 
@@ -69,7 +95,7 @@ export default {
 
               </div>
               <div class="txt">
-                <li>{{userInfo[$route.params.productId - 1].introduce}}</li>
+                <li>{{ userInfo[$route.params.productId - 1].introduce }}</li>
 
                 <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
@@ -82,10 +108,10 @@ export default {
                 <img src="../assets/image/product-underScord2.svg" alt="">
               </div>
               <div class="unit">
-                <p>單位:</p><span>{{userInfo[$route.params.productId - 1].unit}}</span>
+                <p>單位:</p><span>{{ userInfo[$route.params.productId - 1].unit }}</span>
               </div>
               <div class="Charge">
-                <p>售價:</p><span>{{userInfo[$route.params.productId - 1].p_fee}}元</span>
+                <p>售價:</p><span>{{ userInfo[$route.params.productId - 1].p_fee }}元</span>
               </div>
               <div class="quantity">
                 <p>數量:</p>
@@ -126,8 +152,8 @@ export default {
 section {
   .container {
     // overflow: hidden;
-   
-   
+
+
     .crumbs-product {
       font-family: $pFont;
       $line-height: $fontBase;
@@ -164,7 +190,7 @@ section {
           // width: 100vw;
           box-sizing: border-box;
           // overflow: hidden;
-          
+
 
           @include s2bmd() {
             flex-direction: row;
@@ -187,7 +213,7 @@ section {
               order: 2;
               // aspect-ratio:1/1;
               // object-fit: cover;
-              max-width: 700px;//
+              max-width: 700px; //
               // height: 380px;//
 
 
@@ -233,9 +259,9 @@ section {
               @include s2bmd() {
                 // max-width: 100%;
                 padding: 10% 0;
-                width: 100%;
-                // width: 123.3333px;
-                height: 109px;
+                // width: 100%;
+                width: 103.3333px;
+                height: 97px;
                 object-fit: cover;
 
               }
