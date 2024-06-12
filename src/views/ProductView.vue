@@ -2,99 +2,31 @@
 export default {
   data() {
     return {
-      cardtList: [
-        {
-          f_name: '墻森園',
-          p_name: '高山高麗菜',
-          p_img: '../src/assets/image/cabbage.png',
-          p_fee: 40,
-          
-        },
-        {
-          f_name: '墻森園',
-          p_name: '草莓',
-          p_img: '../src/assets/image/strawberry1.png',
-          p_fee: 88,
-
-        },
-        {
-          f_name: '森林園',
-          p_name: '例子南瓜',
-          p_img: '../src/assets/image/pumpkin.png',
-          p_fee: 35,
-
-        },
-        {
-          f_name: '小莊園',
-          p_name: '哈密瓜',
-          p_img: '../src/assets/image/cantaloupe.png',
-          p_fee: 555,
-
-        },
-        {
-          f_name: '福星',
-          p_name: '草莓',
-          p_img: '../src/assets/image/strawberry2.png',
-          p_fee: 50,
-
-        },
-        {
-          f_name: '福星',
-          p_name: '紅棗',
-          p_img: '../src/assets/image/red dates.png',
-          p_fee: 155,
-
-        },
-        {
-          f_name: '瓜瓜農場',
-          p_name: '小黃瓜',
-          p_img: '../src/assets/image/gherkin.png',
-          p_fee: 55,
-
-        },
-        {
-          f_name: '大湖時光',
-          p_name: '花椰菜',
-          p_img: '../src/assets/image/brocoli.png',
-          p_fee: 355,
-
-        },
-        {
-          f_name: '梅果莊園',
-          p_name: '草莓',
-          p_img: '../src/assets/image/strawberry3.png',
-          p_fee: 355,
-
-        },
-        {
-          f_name: '阿公的斧頭',
-          p_name: '芋頭',
-          p_img: '../src/assets/image/taro.png',
-          p_fee: 355,
-
-        },
-        {
-          f_name: '阿罵小農場',
-          p_name: '聖女番茄',
-          p_img: '../src/assets/image/tomato.png',
-          p_fee: 88,
-
-        },
-        {
-          f_name: '興星',
-          p_name: '香瓜',
-          p_img: '../src/assets/image/cantaloupe2.png',
-          p_fee: 88,
-
-        },
-      ]
+      responseData:[],
+      displayData:[]
 
     }
   },
   methods: {
-
+    toggleImage(index) {
+      this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
+    }
+    
   },
+  mounted() {
+    fetch("/public/productList.json")
+    .then(res => res.json())
+    .then(json => {
+      // 確認有沒有response
+      console.log(json);
+      // 備份還原用
+      this.responseData = json
+      // 顯示用
+      this.displayData = json
+    })
+  }
 
+  
 }
 </script>
 
@@ -118,9 +50,11 @@ export default {
         </div>
         <div class="filter-product">
           <select name="filter" id="filter">
-            <option value="all">排序依據</option>
-            <option value="hight">價格由高到低</option>
-            <option value="low">價格由低到高</option>
+            <option value="all">熱門商品</option>
+            <option value="hight">蔬菜</option>
+            <option value="low">水果</option>
+            <option value="low">茗茶</option>
+            <option value="low">其他</option>
           </select>
           <div class="icon-filter-product">
             <img src="../assets/image/filter.svg" alt="">
@@ -131,10 +65,10 @@ export default {
       <div class="container">
 
         <div class="row list-product ">
-          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in cardtList" :key="cardtIndex">
-            <RouterLink to="/ProductPage" class="card-product">
+          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in displayData" :key="cardtIndex">
+            <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
               <div class="pic-card">
-                <img :src="cardtItem['p_img']" alt="">
+                <img :src="cardtItem.p_img[0]" alt="">
               </div>
               <div class="into-card">
                 <div class="category-card">
@@ -144,8 +78,9 @@ export default {
                     </div>
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
-                  <div class="hart-pic-card">
-                    <img src="../assets/image/hart.svg" @click="favorhart">
+                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
+                    <img :src="cardtItem['isImage1'] ? cardtItem['hartImage'] : cardtItem['hartImage1']" alt="">
+
                   </div>
                 </div>
                 <div class="member-card">
@@ -262,6 +197,7 @@ section {
               border-radius: 20px;
               border: 0 solid transparent;
               background-color: $darkGreen;
+              color: #fff; 
 
               &::placeholder {
                 color: #fff; // 將 placeholder 的文字顏色改為 #999
@@ -307,8 +243,15 @@ section {
 
     //---------------商品卡片
     .container {
+      padding: 0 70px;
+      @include s2bmd(){
+        padding: auto;
+      }
+      
       .list-product {
         width: 100%;
+        margin: auto;
+       
 
         // flex-wrap: nowrap;
         .card-product {
@@ -331,6 +274,7 @@ section {
 
           .into-card {
             position: relative;
+        
 
             .category-card {
               display: flex;
@@ -354,6 +298,10 @@ section {
                 position: absolute;
                 right: 10px;
                 top: -35px;
+                width: 38px;
+                height: 38px;
+                z-index: 10;
+               
               }
 
             }
@@ -373,6 +321,7 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+                cursor:pointer;
 
 
                 &:hover {

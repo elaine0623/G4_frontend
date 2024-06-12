@@ -15,8 +15,8 @@
           </button>
           <div class="news-content" v-show="newsData[index].isActive === true">
             <a :href=newsData[index].Url target="_blank"><img :src=newsData[index].imgUrl alt="最新消息圖片"></a>
-            <p class="news-para" v-if="newsData[index].isClick === false">{{ trucate(index) }}<span class='read-more-btn'
-                v-on:click="newsData[index].isClick = !newsData[index].isClick">...閱讀更多</span></p>
+            <p class="news-para" v-if="newsData[index].isClick === false">{{ trucate(index) }}<span
+                class='read-more-btn' v-on:click="newsData[index].isClick = !newsData[index].isClick">...閱讀更多</span></p>
             <p class="news-para" v-else v-on:click="newsData[index].isClick = !newsData[index].isClick">
               {{ newsData[index].content }}</p>
 
@@ -26,13 +26,13 @@
     </div>
   </section>
   <!-- chat robot -->
-  <div class="chat-robot">
+  <!-- <div class="chat-robot">
     <div class="chat-robot-btn" @click="chatToggle()">
       <img class='chat-icon' src="../assets/image/news-img/chat-icon.png" alt="對話圖示">
-    </div>
-    <!-- <div class="close-chat-btn"></div> -->
-    <!-- chat field -->
-    <div class="chat-field" v-show="isrobBtn === true">
+    </div> -->
+  <!-- <div class="close-chat-btn"></div> -->
+  <!-- chat field -->
+  <!-- <div class="chat-field" v-show="isrobBtn === true">
       <div class="chat-intro-field">
         <h2 class="chat-title">客服小助手</h2>
         <p class="chat-intro">您好!如果有任何問題或要求，請隨時跟我們聯絡。</p>
@@ -48,7 +48,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- go up btn 
 <div class="go-up-btn">
