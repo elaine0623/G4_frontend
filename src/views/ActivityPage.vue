@@ -1,167 +1,186 @@
-<script>
-export default{
-    data(){
-            return{
-                activityList:[]
-                    // {
-                    //     a_no:1,
-                    //     a_name:"有機農業的未來：機遇與挑戰及其對可持續發展的影響",
-                    //     c_no:"講座",//要改成編號
-                    //     a_img:"./src/assets/image/about-page/act1.png",
-                    //     a_loc:"苗栗縣公館鄉活動中心",
-                    //     a_max:50,
-                    //     a_fee:500,
-                    //     a_date:"2024/05/24",
-                    //     a_time:"14:00-16:00",
-                    //     a_teacher:"李美華 女士",
-                    //     a_signups:"2024/05/01",
-                    //     a_signupe:"2024/05/10",
-                    //     a_info:[
-                    //         { type: 'paragraph', content: "在這場講座中，我們將探討有機農業的未來發展和面臨的挑戰。李美華女士將分享她多年來在有機農業領域的豐富經驗，並深入探討如何提升有機農產品的市場競爭力。無論你是有機農業的從業者，還是對這個領域感興趣的愛好者，都歡迎參加這場講座，共同交流學習。" },
-                    //         { type: 'paragraph', content: "有機農業不僅僅是生產無毒無害的食品，更是一種可持續發展的生活方式。講座將涵蓋以下幾個關鍵主題：" },
-                    //         { type: 'list', content: "有機農業的發展歷史與現狀：了解有機農業的起源及其在全球和本地的發展情況，分析目前的市場趨勢和消費者行為。" },
-                    //         { type: 'list', content: "有機農業面臨的主要挑戰：討論有機農業在技術、政策、市場和環境方面面臨的挑戰，並探討如何克服這些挑戰。" },
-                    //         { type: 'list', content: "提升有機農產品市場競爭力的策略：" },
-                    //         { type: 'list', content: "有機農業在促進生態系統健康、減少環境污染和保護生物多樣性，並強調其在全球可持續發展中的重要角色。" }
-                    //     ],
-                    //     a_rules:[
-                    //         { type: 'paragraph', content: "講座當日注意事項" },
-                    //         { type: 'list', content: "請前到達，請在講座開始前15分鐘到達現場，以便完成簽到和入場。" },
-                    //         { type: 'list', content: "簽到，請攜帶報名確認郵件中的編號，於入口處簽到。" },
-                    //         { type: 'list', content: "材料：講座現場將提供講義和筆記本，您也可以自行攜帶筆記用具。" },
-                    //         { type: 'list', content: "飲水：現場提供飲用水，請自備水杯，減少使用一次性杯子，共同愛護環境。" },
-                    //         { type: 'list', content: "手機管理：為了不打擾其他參與者，請將手機調整為靜音模式。" },
-                    //         { type: 'paragraph', content: "聯繫方式" },
-                    //         { type: 'list', content: "電子郵件：info@organicfarming.com" },
-                    //         { type: 'list', content: "電話：123-456-7890" },
-                    //         { type: 'list', content: "地址：苗栗縣公館鄉社區中心，信義路123號" },
-                    //         { type: 'paragraph', content: "我們期待您的參與，共同探討有機農業的未來發展與挑戰。如果您有任何疑問或需要更多資訊，請隨時與我們聯繫。" }
-                    //     ],
-                    //     a_status:1,
-                    //     a_attendee:""
-
-                    // }
-            }
-    },
-    // methods: {
-    //     async fetchUserInfo() {
-    //         alert()
-    //         return await fetch("../../public/activityPage.json")
-    //         .then((response) => response.json())
-    //         .then((json) => json);
-    //     },
-    // },
-    // async created() {
-    //     this.userInfo = await this.fetchUserInfo(this.userId);
-    // },
-    mounted() {
-        // this.fetchUserInfo()
-        fetch("/public/activityPage.json")
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            this.activityList = json;
-        })
-    },
-}
-
-
-</script>
-
 <template>
-    <section class="section">
-        <div class="container">
-            <div class="container-title">
-                <div class="wrap-title">
-                    <div class="class">
-                        <h1>{{ activityList[0]["c_no"] }}</h1>
+    <div>
+        <!-- <section v-if="loading" class="loading">
+            数据加载中...
+        </section> -->
+        <section class="section">
+            <div class="container">
+                <div class="container-title">
+                    <div class="wrap-title">
+                        <div class="class">
+                            <h1>{{ userInfo[$route.params.activityId - 1].c_no }}</h1>
+                        </div>
+                        <div class="main-title">
+                            <h2>{{ userInfo[$route.params.activityId - 1].a_name }}</h2>
+                        </div>
                     </div>
-                    <div class="main-title">
-                        <h2>{{ activityList[0]["a_name"] }}</h2>
+                    <div class="wrap-info">
+                        <nav aria-label="Breadcrumb">
+                            <ul>
+                                <li><RouterLink to="./">首頁</RouterLink></li>
+                                <li><RouterLink to="./activity">活動</RouterLink></li>
+                                <li class="current"><em aria-current="page">{{ userInfo[$route.params.activityId - 1].c_no }}</em></li>
+                            </ul>
+                        </nav>
+                        <hr>
                     </div>
                 </div>
-                <div class="wrap-info">
-                    <nav aria-label="Breadcrumb">
-                        <ul>
-                            <li><RouterLink to="./">首頁</RouterLink></li>
-                            <li><RouterLink to="./activity">活動</RouterLink></li>
-                            <li class="current"><em aria-current="page">{{ activityList[0]["c_no"] }}</em></li>
-                        </ul>
-                    </nav>
-                    <hr>
+                <div class="content">
+                    <div class="pic-content">
+                        <img :src="userInfo[$route.params.activityId - 1].a_img" alt="act1">
+                    </div>
+                    <div class="info-content">
+                        <div class="loc">
+                            <span><i class="fa-solid fa-location-dot"></i></span>
+                            <span>{{ userInfo[$route.params.activityId - 1].a_loc }}</span>
+                        </div>
+                        <hr>
+                        <div class="date">
+                            <span>日 期 : </span>
+                            <span>{{ userInfo[$route.params.activityId - 1].a_date }}</span>
+                        </div>
+                        <div class="time" v-if="userInfo[$route.params.activityId - 1].a_time">
+                            <span>時 間 : </span>
+                            <span>
+                                {{ userInfo[$route.params.activityId - 1].a_time }}
+                            </span>
+                        </div>
+                        <div class="teacher" v-if="userInfo[$route.params.activityId - 1].a_teacher">
+                            <span>講 師 : </span>
+                            <span>
+                                {{ userInfo[$route.params.activityId - 1].a_teacher }}
+                            </span>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="intro">
+                        <div class="title-intro">
+                            <h3>活動介紹</h3>
+                        </div>
+                        <div>
+                            <p>{{ userInfo[$route.params.activityId - 1].a_info }}</p>
+                            <ul>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_info1">
+                                    {{ userInfo[$route.params.activityId - 1].a_info1 }}
+                                </li>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_info2">
+                                    {{ userInfo[$route.params.activityId - 1].a_info2 }}
+                                </li>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_info3">
+                                    {{ userInfo[$route.params.activityId - 1].a_info3 }}
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="rules">
+                        <div class="title-rules">
+                            <h3>活動須知</h3>
+                        </div>
+                        <div class="item-rules" v-if="userInfo[$route.params.activityId - 1].a_signupe">
+                            <p>報名截止日期</p>
+                            <ul>
+                                <li>{{ userInfo[$route.params.activityId - 1].a_signupe }}</li>
+                            </ul>
+                        </div>
+                        <div class="item-rules">
+                            <p>報名費用</p>
+                            <ul>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_fee">
+                                    NT$ {{ userInfo[$route.params.activityId - 1].a_fee }}
+                                </li>
+                                <li v-else>
+                                    免費
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item-rules" v-if="userInfo[$route.params.activityId - 1].a_max != 999">
+                            <p>報名人數上限</p>
+                            <ul>
+                                <li>{{ userInfo[$route.params.activityId - 1].a_max }}人</li>
+                            </ul>
+                        </div>
+                        <div class="item-rules">
+                            <p>當日注意事項</p>
+                            <ul>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_rules1">
+                                    {{ userInfo[$route.params.activityId - 1].a_rules1 }}
+                                </li>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_rules2">
+                                    {{ userInfo[$route.params.activityId - 1].a_rules2 }}
+                                </li>
+                                <li v-if="userInfo[$route.params.activityId - 1].a_rules3">
+                                    {{ userInfo[$route.params.activityId - 1].a_rules3 }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="item-rules">
+                            <p>聯繫方式</p>
+                            <ul>
+                                <li>電子郵件：info@organicfarming.com</li>
+                                <li>電話：123-456-7890</li>
+                                <li>地址：苗栗縣公館鄉社區中心，信義路123號</li>
+                            </ul>
+                        </div>
+                        <div class="item-rules">
+                            <p>我們期待您的參與，共同探討有機農業的未來發展與挑戰。如果您有任何疑問或需要更多資訊，請隨時與我們聯繫。</p>
+                        </div>
+                    </div>
+                    <div class="signup">
+                        <RouterLink to="./">立即報名</RouterLink>
+                    </div>
                 </div>
             </div>
-            <div class="content">
-                <div class="pic-content">
-                    <img :src="activityList[0]['a_img']" alt="act1">
-                </div>
-                <div class="info-content">
-                    <div class="loc">
-                        <span><i class="fa-solid fa-location-dot"></i></span>
-                        <span>{{ activityList[0]["a_loc"] }}</span>
-                    </div>
-                    <hr>
-                    <div class="date">
-                        <span>日 期 : </span>
-                        <span>{{ activityList[0]["a_date"] }}</span>
-                    </div>
-                    <div class="time">
-                        <span>時 間 : </span>
-                        <span>{{ activityList[0]["a_time"] }}</span>
-                    </div>
-                    <div class="teacher">
-                        <span>講 師 : </span>
-                        <span>{{ activityList[0]["a_teacher"] }}</span>
-                    </div>
-                    <hr>
-                </div>
-                <div class="intro">
-                    <div class="title-intro">
-                        <h3>活動介紹</h3>
-                    </div>
-                    <div v-for="(info, index) in activityList[0]['a_info']" :key="index">
-                        <p v-if="info.type === 'paragraph'">{{ info.content }}</p>
-                        <ul v-else-if="info.type === 'list'">
-                            <li>{{ info.content }}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="rules">
-                    <div class="title-rules">
-                        <h3>活動須知</h3>
-                    </div>
-                    <div class="item-rules">
-                        <p>報名截止日期</p>
-                        <ul>
-                            <li>{{ activityList[0]["a_signupe"] }}</li>
-                        </ul>
-                    </div>
-                    <div class="item-rules">
-                        <p>報名費用</p>
-                        <ul>
-                            <li>NT$ {{ activityList[0]["a_fee"] }}</li>
-                        </ul>
-                    </div>
-                    <div class="item-rules">
-                        <p>報名人數上限</p>
-                        <ul>
-                            <li>{{ activityList[0]["a_max"] }}人</li>
-                        </ul>
-                    </div>
-                    <div v-for="(rule, index) in activityList[0]['a_rules']" :key="index" class="item-rules">
-                        <p v-if="rule.type === 'paragraph'">{{ rule.content }}</p>
-                        <ul v-else-if="rule.type === 'list'">
-                            <li>{{ rule.content }}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="signup">
-                    <RouterLink to="./">立即報名</RouterLink>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            userInfo: [],
+            // loading: true // 控制数据加载状态
+        }
+    },
+    computed: {
+        userId() {
+            return this.$route.params.activityId;
+        },
+    },
+    watch: {
+        userId: async function (val) {
+            this.userInfo = await this.fetchUserInfo(val);
+        },
+    },
+    methods:{
+        async fetchUserInfo() {
+            return await fetch("../../public/activityPage.json")
+                .then((response) => response.json())
+                .then((json) => json);
+        },
+    },
+    async created() {
+        this.userInfo = await this.fetchUserInfo(this.userId);
+    },
+    
+
+    
+    // mounted() {
+    //     fetch("/public/activityPage.json")
+    //     .then(res => res.json())
+    //     .then(json => {
+    //         console.log(json);
+    //         this.activityList = json;
+    //         this.loading = false; // 数据加载完成后，将加载状态设置为 false
+    //     })
+    //     .catch(error => {
+    //         console.error('Error fetching data:', error);
+    //         this.loading = false; // 如果发生错误，也将加载状态设置为 false
+    //     });
+    // },
+}
+</script>
 
 <style lang="scss" scoped>
 section{
@@ -294,6 +313,9 @@ section{
             }
             .pic-content{
                 width: 100%;
+                max-height: 500px;
+                border-radius: 20px 20px 0 0;
+                overflow: hidden;
                 img{
                     width: 100%;
                 }
@@ -301,11 +323,11 @@ section{
             .info-content{
                 margin: 60px 50px;
                 width: 60%;
-                max-width: 250px;
+                max-width: 350px;
                 color: $darkGreen;
-                @include sm(){
+                @include md(){
                     margin: 60px auto;
-                    width: 80%;
+                    width: 90%;
                 }
                 .loc{
                     margin-left:20px;
@@ -316,6 +338,7 @@ section{
                     span{
                         letter-spacing: 2px;
                         margin: 0 2px;
+                        display: inline-block;
                     }
                 }
                 .date{
@@ -325,6 +348,8 @@ section{
                     }
                     span{
                         margin: 0 10px;
+                        display: inline-block;
+                        line-height: 1.5;
                     }
                 }
                 .time{
@@ -334,6 +359,9 @@ section{
                     }
                     span{
                         margin: 0 10px;
+                        display: inline-block;
+                        line-height: 1.5;
+
                     }
                 }
                 .teacher{
@@ -346,6 +374,9 @@ section{
                     }
                     span{
                         margin: 0 10px;
+                        display: inline-block;
+                        line-height: 1.5;
+
                     }
                     
                 }
