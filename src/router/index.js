@@ -57,8 +57,8 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "ProductPage" */ '@/views/ProductPage.vue')
     },
     {
-      path:'/ActivityPage/:activityId',
-      name:'ActivityPage',
+      path:'/activitypage/:activityId',
+      name:'activitypage',
       component: () => import('@/views/ActivityPage.vue')
     },
     {
@@ -87,6 +87,11 @@ const router = createRouter({
           component:() => import('@/views/UserActivity.vue'),
         }
       ]
+    },
+    {
+      path:'/signuppage/:signupId',
+      name:'signuppage',
+      component: () => import('@/views/SignupPage.vue')
     }
   ]
 })
