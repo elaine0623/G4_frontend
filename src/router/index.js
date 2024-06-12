@@ -57,9 +57,29 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "ProductPage" */ '@/views/ProductPage.vue')
     },
     {
-      path:'/ActivityPage',
+      path: '/ProductPage/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/ProductPage/activity',
+      name: 'activity',
+      component: () => import('@/views/ActivityView.vue')
+    },
+    {
+      path:'/ActivityPage/:activityId',
       name:'ActivityPage',
       component: () => import('@/views/ActivityPage.vue')
+    },
+    {
+      path: '/ActivityPage/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/ActivityPage/activity',
+      name: 'activity',
+      component: () => import('@/views/ActivityView.vue')
     },
     {
       path:'/UserLayout',
