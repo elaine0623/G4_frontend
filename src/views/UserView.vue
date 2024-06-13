@@ -17,6 +17,7 @@ export default {
     UserLayout
   },
   methods: {
+    // 前端驗證：使用者註冊時姓名不得為空
     checkname() {
       const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g; //正規表達式：不可輸入數字、空白及特殊符號 最多15字
       if (this.name === "") {
@@ -28,6 +29,7 @@ export default {
         this.errorMsg.name = "*姓名不得輸入數字、空白及特殊符號";
       }
     },
+    // 前端驗證：使用者email有效
     checkemail() {
       const emaillimit = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//正規表達式：email格式
       if (emaillimit.test(this.email)) {
@@ -36,6 +38,7 @@ export default {
         this.errorMsg.email = "*請輸入正確的email";
       }
     },
+    // 前端驗證：使用者輸入密碼長度6-12位，至少一個大寫字母
     checkpsw() {
       const pswlimit = /^(?=.*[A-Z])[a-zA-Z0-9]{6,12}$/g; //正規表達式：密碼長度6-12位，至少一個大寫字母
       if (pswlimit.test(trim(this.psw))) {
@@ -44,6 +47,7 @@ export default {
         this.errorMsg.psw = "請輸入6-12位，至少一大寫字母"
       }
     },
+    //確認兩次密碼相同否則跳出錯誤訊息
     dbcheckpsw() {
       if (this.psw !== this.dbpsw) {
         this.errorMsg.dbpsw = "兩者密碼不相同，請重新輸入";
@@ -55,6 +59,7 @@ export default {
 }
 </script>
 <script setup>
+//RWD確認視窗大小<768時顯示手機版本會員登入&註冊頁面
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useWindowSize } from '@vueuse/core';
 
@@ -76,7 +81,8 @@ onMounted(() => {
 
 
 <template>
-  <!-- {{ width }} x {{ height }} -->
+  <!-- 桌機版本登入頁面 -->
+  <!-- 欄位驗證是在失焦blur事件發生時觸發對應函數 -->
   <section class="lightbox" v-show="!mbContent">
     <div class="wrapper" :class="{ 'sign-up-active': signUp }">
       <div class="overlay-wrapper">
@@ -110,11 +116,12 @@ onMounted(() => {
         <input type="email" placeholder="電子信箱" />
         <input type="password" placeholder="密碼" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <RouterLink to="/UserLayout"><button>登入</button></RouterLink>
+        <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
 
       </form>
     </div>
   </section>
+  <!-- 手機版本登入頁面 -->
   <section class="mb-content" v-show="mbContent">
     <form action="" class="mb-form">
       <img src="@/assets/image/logo_F.svg" alt="logo">
