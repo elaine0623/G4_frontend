@@ -14,7 +14,7 @@ export default {
     filteredImages() {
       const product = this.userInfo[this.userId - 1];
       if (product && product.p_img) {
-        // 确保只返回三张次要小图
+        // 确保只返回三张次要小圖
         return product.p_img.filter(img => img !== this.mainImage).slice(0, 3);
       }
       return [];
@@ -48,10 +48,10 @@ export default {
     },
 
     changeMainImage(imgIndex) {
-  const product = this.userInfo[this.userId - 1];
-  const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
-  this.mainImage = product.p_img[selectedIndex];
-}
+      const product = this.userInfo[this.userId - 1];
+      const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
+      this.mainImage = product.p_img[selectedIndex];
+    }
   },
   async created() {
     this.userInfo = await this.fetchUserInfo();
@@ -67,7 +67,15 @@ export default {
   <section>
     <div class="container">
       <div class="crumbs-product">
-        <span>首頁 / 商品 / 鮮果</span>
+        <ul>
+          <li>
+            <RouterLink to="/">首頁</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/product">/ 商品 /</RouterLink>
+          </li>
+          <li class="current"><em aria-current="page">{{userInfo[$route.params.productId - 1]["pc_name"] }}</em></li>
+        </ul>
       </div>
       <div class="row">
         <div class="card">
@@ -86,7 +94,8 @@ export default {
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>{{ userInfo[$route.params.productId - 1].f_name }}-{{ userInfo[$route.params.productId - 1].p_name }}
+                <h2>{{ userInfo[$route.params.productId - 1].f_name }}-{{ userInfo[$route.params.productId - 1].p_name
+                  }}
                 </h2>
                 <div class="under-scord">
                   <img src="../assets/image/product-underScord.svg" alt="">
@@ -95,7 +104,7 @@ export default {
 
               </div>
               <div class="txt">
-                <li>{{ userInfo[$route.params.productId - 1].introduce }}</li>
+                <p>{{ userInfo[$route.params.productId - 1].introduce }}</p>
 
                 <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
@@ -155,12 +164,27 @@ section {
 
 
     .crumbs-product {
-      font-family: $pFont;
-      $line-height: $fontBase;
-      font-size: $fontBase ;
-      color: $darkGreen;
-      padding: $mbbtwElement 0;
-    }
+          font-family: $pFont;
+          $line-height: $fontBase;
+          font-size: $fontBase ;
+          color: $darkGreen;
+
+          ul {
+            display: flex;
+            li {
+              a {
+                text-decoration: none;
+                font-family: $pFont;
+                $line-height: $fontBase;
+                font-size: $fontBase ;
+                color: $darkGreen;
+
+              }
+
+            }
+          }
+
+        }
 
     .row {
       margin: auto;
@@ -321,7 +345,7 @@ section {
                 margin: 10px;
               }
 
-              li {
+              p {
                 list-style-type: none;
                 position: relative;
                 padding-left: 15px;
@@ -330,16 +354,16 @@ section {
                 line-height: $lineheight;
                 margin: 8px 0;
 
-                &::before {
-                  content: '';
-                  position: absolute;
-                  left: 0;
-                  top: 10%;
-                  width: 5px;
-                  height: 5px;
-                  background-color: $darkGreen;
-                  border-radius: 50%;
-                }
+                // &::before {
+                //   content: '';
+                //   position: absolute;
+                //   left: 0;
+                //   top: 10%;
+                //   width: 5px;
+                //   height: 5px;
+                //   background-color: $darkGreen;
+                //   border-radius: 50%;
+                // }
 
               }
             }
