@@ -27,6 +27,7 @@ export default {
 </script>
 <template>
   <div class="userFavorite">
+    <button class="cancel1"><router-link to="/userlayout"><i class="fa-solid fa-xmark"></i></router-link></button>
     <h2>收藏</h2>
     <hr>
     <div class="productlist">
@@ -55,6 +56,26 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.cancel1 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px 10px;
+  margin: 4px 4px;
+  border-radius: 50%;
+  background-color: #144433;
+  border: 1px solid #eee;
+
+
+  @include s2bmd() {
+    display: none;
+  }
+
+  a {
+    color: #fff;
+  }
+}
+
 h2 {
   // text-align: center;
   color: #144433;
@@ -62,6 +83,10 @@ h2 {
   font-family: $titleFont;
   font-size: 24px;
   font-weight: 500;
+
+  @include md() {
+    font-size: 20px;
+  }
 }
 
 li {
@@ -71,6 +96,12 @@ li {
   margin: 8px 0;
   line-height: 1.4;
   align-items: center;
+
+  // @include md() {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 3%;
+  // }
 
   input[type="checkbox"] {
     width: 20px;
