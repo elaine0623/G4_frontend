@@ -25,6 +25,7 @@ export default {
 </script>
 <template>
   <div class="useractivity">
+    <button class="cancel"><router-link to="/userlayout"><i class="fa-solid fa-xmark"></i></router-link></button>
     <h2>活動訂單查詢</h2>
     <table>
       <thead>
@@ -56,6 +57,23 @@ export default {
   width: 95%;
   margin: 0 auto;
 
+  .cancel {
+    position: absolute;
+    right: 0;
+    top: 3;
+    padding: 8px 10px;
+    margin: 0 4px;
+    border-radius: 50%;
+
+    @include s2bmd() {
+      display: none;
+    }
+
+    a {
+      color: #fff;
+    }
+  }
+
   h2 {
     text-align: center;
     color: #144433;
@@ -63,6 +81,10 @@ export default {
     font-family: $titleFont;
     font-size: 24px;
     font-weight: 500;
+
+    @include md() {
+      font-size: 20px;
+    }
   }
 
   table {
@@ -79,6 +101,11 @@ export default {
         color: #144433;
         font-size: 14px;
         padding: 4px 4px;
+
+        @include md() {
+          font-size: 12px;
+          line-height: 1;
+        }
       }
 
       td {
@@ -109,6 +136,11 @@ button {
 
   &:focus {
     outline: none;
+  }
+
+  @include md() {
+    font-size: 12px;
+    padding: 1px 6px;
   }
 }
 </style>
