@@ -74,7 +74,7 @@
       </transition>
 
       <!-- 進度條容器 -->
-      <div class="progress-container">
+      <div v-if="showProgressBar" class="progress-container">
         <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
         <div class="progress-img-container" :style="{ width: progressWidth + '%' }">
           <img class="progress-img" src="/src/assets/image/game-img/鏟子.png" alt="Progress Image" />
@@ -89,6 +89,7 @@ export default {
   data() {
     return {
       gameStarted: false,
+      showProgressBar: false,
       questions: [],
       currentQuestionIndex: 0,
       userScore: 0,
@@ -124,6 +125,9 @@ export default {
     },
     startGame() {
       this.gameStarted = true
+      setTimeout(() => {
+        this.showProgressBar = true
+      }, 4000) // 延遲3秒後顯示進度條
     },
     selectAnswer(answer) {
       if (answer === this.currentQuestion.answer) {
