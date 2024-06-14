@@ -1,524 +1,583 @@
+
 [
-  {
-    "question": "哪種農業方式最有利於維護生物多樣性？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "單一作物農業"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "混合農業"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "溫室種植"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "工業化農業"
-      }
-    ],
-    "answer": "B",
-    "correctAnswer":"混合農業",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "混合農業包括種植多種不同的作物和飼養多種家畜，這種多樣化的農業模式有助於維持生物多樣性。"
-  },
-  {
-    "question": "哪一種肥料來源對環境影響最小？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "化學肥料"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "有機肥料"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "人造合成肥料"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "礦物肥料"
-      }
-    ],
-    "answer": "B",
-    "correctAnswer":"有機肥料",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "有機肥料源自動植物殘體和糞便，對土壤和環境的影響較小，有助於提高土壤的有機質含量。"
-  },
-  {
-    "question": "下列哪一種作物最適合輪作，以保持土壤健康？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "玉米"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "小麥"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "豆類"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "稻米"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"豆類",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。"
-  },
-  {
-    "question": "下列哪種灌溉技術最節水？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "漫灌"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "噴灌"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "滴灌"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "溝灌"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"滴灌",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "滴灌系統能精確控制水量，直接供水到植物根部，大幅減少水資源浪費。"
-  },
-  {
-    "question": "有機農業中禁止使用哪一類物質？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "有機肥料"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "生物農藥"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "化學除草劑"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "綠肥作物"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"化學除草劑",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "有機農業不允許使用合成化學除草劑，以保護環境和消費者健康。"
-  },
-  {
-    "question": "哪一種農作物適合乾旱地區種植？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "小麥"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "稻米"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "馬鈴薯"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "高粱"
-      }
-    ],
-    "answer": "D",
-    "correctAnswer":"高粱",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "高粱耐旱性強，適合在降雨量少的乾旱地區種植。"
-  },
-  {
-    "question": "哪種農業模式對於減少土壤侵蝕最有效？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "單一作物種植"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "輪作"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "化肥施用"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "大棚種植"
-      }
-    ],
-    "answer": "B",
-    "correctAnswer":"輪作",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "輪作通過改變作物種植順序，有助於保持土壤結構，減少土壤侵蝕。"
-  },
-  {
-    "question": "哪種作物適合在鹽鹼地區種植？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "玉米"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "水稻"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "棉花"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "大豆"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"棉花",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "棉花對土壤鹽分的耐受性較強，適合在鹽鹼地區種植。"
-  },
-  {
-    "question": "哪一種農業技術有助於提高土壤的碳儲量？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "單一作物種植"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "深耕"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "遷耕"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "保護性耕作"
-      }
-    ],
-    "answer": "D",
-    "correctAnswer":"保護性耕作",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "保護性耕作減少土壤干擾，有助於增加土壤有機碳儲量。"
-  },
-  {
-    "question": "什麼是永續農業的主要目標？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "最大化短期產量"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "保護環境和資源"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "依賴化學肥料"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "推廣單一作物種植"
-      }
-    ],
-    "answer": "B",
-    "correctAnswer":"保護環境和資源",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "永續農業旨在在保護環境和資源的同時，滿足當前和未來的食品需求。"
-  },
-  {
-    "question": "哪一種食品加工方法有助於延長食品保存期限而不影響其營養成分？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "罐裝"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "風乾"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "冷凍"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "高溫殺菌"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"冷凍",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "冷凍技術在低溫下保存食品，可以延長保存期限並保持其營養成分。"
-  },
-  {
-    "question": "哪一種標籤表明食品是根據特定環保標準生產的？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "無添加"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "自然"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "有機"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "低脂"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"有機",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "有機標籤表示食品在生產過程中遵循特定的環保和無化學品使用的標準。"
-  },
-  {
-    "question": "哪一種食品加工技術對於保存食品風味和營養最有效？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "罐裝"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "風乾"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "速凍"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "煮沸"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"速凍",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "速凍技術能迅速降低食品溫度，保留食品的風味和營養。"
-  },
-  {
-    "question": "什麼是公平貿易認證食品？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "價格低廉的食品"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "本地生產的食品"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "農民獲得公平報酬的食品"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "不含防腐劑的食品"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"農民獲得公平報酬的食品",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "公平貿易認證確保生產者獲得公平報酬，改善他們的生活條件和工作環境。"
-  },
-  {
-    "question": "哪一種食物標籤表示食品未經過基因改造？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "有機"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "低脂"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "非轉基因"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "無添加"
-      }
-    ],
-    "answer": "C",
-    "correctAnswer":"非轉基因",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "非轉基因標籤表示食品未經過基因改造，符合消費者對天然食品的需求。"
-  },
-  {
-    "question": "哪一種技術可以有效地減少食品浪費？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "高溫烹調"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "即食食品"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "食品再加工"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "低溫保存"
-      }
-    ],
-    "answer": "D",
-    "correctAnswer":"低溫保存",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "低溫保存技術能夠延長食品的保質期，減少因食品腐敗而造成的浪費。"
-  },
-  {
-    "question": "哪一種食品加工技術可以增加食品的營養價值？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "煮沸"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "發酵"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "風乾"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "罐裝"
-      }
-    ],
-    "answer": "B",
-    "correctAnswer":"發酵",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "發酵過程能夠增加食品的營養價值，產生益生菌，並改進食品的風味和質地。"
-  },
-  {
-    "question": "哪一種食品包裝材料最環保？",
-    "options": [
-      {
-        "key": "A",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "塑料"
-      },
-      {
-        "key": "B",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "鋁箔"
-      },
-      {
-        "key": "C",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "玻璃"
-      },
-      {
-        "key": "D",
-        "img": "../src/assets/image/strawberry-detail1.svg",
-        "text": "紙"
-      }
-    ],
-    "answer": "D",
-    "correctAnswer":"紙",
-    "answer_image": "../src/assets/image/strawberry-detail1.svg",
-    "explanation": "紙張是一種可再生且可降解的包裝材料，對環境的影響最小。"
-  }
-]
+    {
+      "question": "什麼是永續農業的主要目標？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/1A.jpeg",
+          "text": "最大化短期產量"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/1B.jpg",
+          "text": "保護環境和資源"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/1C.jpg",
+          "text": "依賴化學肥料"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
+          "text": "推廣單一作物種植"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "保護環境和資源",
+      "answer_image": "../src/assets/image/game-img/1B.jpg",
+      "explanation": "永續農業的主要目標是保護環境和資源，確保農業生產的可持續性。"
+    },
+    {
+      "question": "哪種農業方式最有利於維護生物多樣性？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
+          "text": "單一作物農業"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/2-B.jpg",
+          "text": "混合農業"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/2-C.jpg",
+          "text": "溫室種植"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/2-D.jpg",
+          "text": "工業化農業"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "混合農業",
+      "answer_image": "../src/assets/image/game-img/1B.jpg",
+      "explanation": "混合農業包括種植多種不同的作物和飼養多種家畜，這種多樣化的農業模式有助於維持生物多樣性。"
+    },
+    {
+      "question": "哪一種肥料來源對環境影響最小？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-A.png",
+          "text": "化學肥料"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "有機肥料"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-C.jpg",
+          "text": "人造合成肥料"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-D.webp",
+          "text": "礦物肥料"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "有機肥料",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "有機肥料源自動植物殘體和糞便，對土壤和環境的影響較小，有助於提高土壤的有機質含量。"
+    },
+    {
+      "question": "下列哪一種作物最適合輪作，以保持土壤健康？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/4- A. 玉米.jpg",
+          "text": "玉米"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/4-B. 小麥.jpg",
+          "text": "小麥"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/4-c.豆類.jpg",
+          "text": "豆類"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/4-D.稻米.jpeg",
+          "text": "稻米"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "豆類",
+      "answer_image": "../src/assets/image/game-img/4-c.豆類.jpg",
+      "explanation": "豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。"
+    },
+    {
+      "question": "下列哪種灌溉技術最節水？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/5-A.漫灌.jpg",
+          "text": "漫灌"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/5-B.噴灌.jpg",
+          "text": "噴灌"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/5-C滴灌.jpg",
+          "text": "滴灌"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/5-D.溝灌.jpg",
+          "text": "溝灌"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "滴灌",
+      "answer_image": "../src/assets/image/game-img/5-C滴灌.jpg",
+      "explanation": "滴灌系統能精確控制水量，直接供水到植物根部，大幅減少水資源浪費。"
+    },
+    {
+      "question": "有機農業中禁止使用哪一類物質？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/6-A.有機肥料.jpg",
+          "text": "有機肥料"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/6-B.生物農藥.png",
+          "text": "生物農藥"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/6-C.化學除草劑.jpg",
+          "text": "化學除草劑"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/6-D綠肥作物.jpg",
+          "text": "綠肥作物"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "化學除草劑",
+      "answer_image": "../src/assets/image/game-img/6-C.化學除草劑.jpg",
+      "explanation": "有機農業不允許使用合成化學除草劑，以保護環境和消費者健康。"
+    },
+    {
+      "question": "哪一種農作物適合乾旱地區種植？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/7A.jpg",
+          "text": "小麥"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/7B.jpg",
+          "text": "稻米"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/7C.jpg",
+          "text": "馬鈴薯"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/7D.jpg",
+          "text": "高粱"
+        }
+      ],
+      "answer": "D",
+      "correctAnswer": "高粱",
+      "answer_image": "../src/assets/image/game-img/7D.jpg",
+      "explanation": "高粱耐旱性強，適合在降雨量少的乾旱地區種植。"
+    },
+    {
+      "question": "哪種農業模式對於減少土壤侵蝕最有效？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/8a.png",
+          "text": "單一作物種植"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/8b.png",
+          "text": "輪作"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/8c.png",
+          "text": "化肥施用"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/8d.png",
+          "text": "大棚種植"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "輪作",
+      "answer_image": "../src/assets/image/game-img/8B.jpg",
+      "explanation": "輪作通過改變作物種植順序，有助於保持土壤結構，減少土壤侵蝕。"
+    },
+    {
+      "question": "哪種作物適合在鹽鹼地區種植？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/9A.jpg",
+          "text": "玉米"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/9B.jpg",
+          "text": "水稻"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/9C.jpg",
+          "text": "棉花"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/9D.jpg",
+          "text": "大豆"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "棉花",
+      "answer_image": "../src/assets/image/game-img/9C.jpg",
+      "explanation": "棉花具有較強的耐鹽能力，適合在鹽鹼地區生長。"
+    },
+    {
+      "question": "哪一種農業技術有助於提高土壤的碳儲量？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/",
+          "text": "單一作物種植"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/",
+          "text": "深耕"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/",
+          "text": "遷耕"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/",
+          "text": "保護性耕作"
+        }
+      ],
+      "answer": "D",
+      "correctAnswer": "保護性耕作",
+      "answer_image": "../src/assets/image/game-img/",
+      "explanation": "保護性耕作能減少土壤翻動，有助於提高土壤的碳儲量，降低二氧化碳排放。"
+    },
+    {
+      "question": "哪一種食品加工方法有助於延長食品保存期限而不影響其營養成分？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/11-A.jpg",
+          "text": "罐裝"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/11-B.jpg",
+          "text": "風乾"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/11-C.jpg",
+          "text": "冷凍"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/11-D.jpeg",
+          "text": "高溫殺菌"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "冷凍",
+      "answer_image": "../src/assets/image/game-img/11-C.jpg",
+      "explanation": "冷凍食品能在低溫下長時間保存，且營養成分和風味損失最小。"
+    },
+    {
+      "question": "哪一種標籤表明食品是根據特定環保標準生產的？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/12-A.jpeg",
+          "text": "無添加"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/12-B.jpg",
+          "text": "自然"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/12-C.jpg",
+          "text": "有機"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/12-D.jpg",
+          "text": "低脂"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "有機",
+      "answer_image": "../src/assets/image/game-img/12-C.jpg",
+      "explanation": "有機食品標籤表示該食品按照有機標準生產，過程中未使用化學農藥和化肥，符合環保標準。"
+    },
+    {
+      "question": "哪一種食品加工技術對於保存食品風味和營養最有效？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/13-A.jpg",
+          "text": "罐裝"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/13-B.jpg",
+          "text": "風乾"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/13-C.jpg",
+          "text": "速凍"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/13-D.jpg",
+          "text": "煮沸"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "速凍",
+      "answer_image": "../src/assets/image/game-img/13-C.jpg",
+      "explanation": "速凍技術能迅速降低食品溫度，最大限度地保存食品的風味和營養成分。"
+    },
+    {
+      "question": "什麼是公平貿易認證食品？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/",
+          "text": "價格低廉的食品"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "本地生產的食品"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "農民獲得公平報酬的食品"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "不含防腐劑的食品"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "農民獲得公平報酬的食品",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "公平貿易認證食品確保農民和工人能獲得公平的報酬和工作條件，保障他們的權益。"
+    },
+    {
+      "question": "哪一種食物標籤表示食品未經過基因改造？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "有機"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "低脂"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "非轉基因"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "無添加"
+        }
+      ],
+      "answer": "C",
+      "correctAnswer": "非轉基因",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "非轉基因標籤表示該食品未經過基因工程技術的改造，保證其天然性。"
+    },
+    {
+      "question": "哪一種技術可以有效地減少食品浪費？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "高溫烹調"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "即食食品"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "食品再加工"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "低溫保存"
+        }
+      ],
+      "answer": "D",
+      "correctAnswer": "低溫保存",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "低溫保存技術可以有效延長食品的保質期，減少因腐壞導致的食品浪費。"
+    },
+    {
+      "question": "哪一種食品加工技術可以增加食品的營養價值？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "煮沸"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "發酵"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "風乾"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "罐裝"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "發酵",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "發酵過程中，微生物活動能提高食品的營養價值，如增加維生素和益生菌含量。"
+    },
+    {
+      "question": "哪一種食品包裝材料最環保？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "塑料袋"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "玻璃瓶"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "鋁箔包裝"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "聚苯乙烯泡沫"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "玻璃瓶",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "玻璃瓶可以多次重複使用和回收，對環境影響較小，是較為環保的包裝選擇。"
+    },
+    {
+      "question": "什麼是食品追溯系統？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/19-a.jpg",
+          "text": "用於食品保存的技術"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/19-b.jpg",
+          "text": "追蹤食品來源和加工過程的系統"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/19-c.jpg",
+          "text": "測試食品品質的技術"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/19-d.jpg",
+          "text": "管理食品包裝的系統"
+        }
+      ],
+      "answer": "B",
+      "correctAnswer": "追蹤食品來源和加工過程的系統",
+      "answer_image": "../src/assets/image/game-img/19-b.jpg",
+      "explanation": "食品追溯系統能追蹤食品從生產到消費的全過程，確保食品安全和品質。"
+    },
+    {
+      "question": "哪一種加工技術可以減少食品中的脂肪含量？",
+      "options": [
+        {
+          "key": "A",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "熏制"
+        },
+        {
+          "key": "B",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "脫水"
+        },
+        {
+          "key": "C",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "低溫保存"
+        },
+        {
+          "key": "D",
+          "img": "../src/assets/image/game-img/3-B.webp",
+          "text": "離心分離"
+        }
+      ],
+      "answer": "D",
+      "correctAnswer": "離心分離",
+      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "explanation": "離心分離技術能將食品中的脂肪分離出來，有效降低食品的脂肪含量。"
+    }
+  ]

@@ -72,6 +72,14 @@
           </div>
         </div>
       </transition>
+
+      <!-- 進度條容器 -->
+      <div class="progress-container">
+        <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
+        <div class="progress-img-container" :style="{ width: progressWidth + '%' }">
+          <img class="progress-img" src="/src/assets/image/game-img/鏟子.png" alt="Progress Image" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -99,6 +107,9 @@ export default {
   computed: {
     currentQuestion() {
       return this.questions[this.currentQuestionIndex] || {}
+    },
+    progressWidth() {
+      return ((this.currentQuestionIndex + 1) / this.questions.length) * 100
     }
   },
   methods: {
@@ -153,6 +164,7 @@ export default {
   .container {
     max-width: 1200px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     .game_rule,
@@ -296,7 +308,7 @@ export default {
         }
         span {
           font-size: 1.25em;
-          padding: 2em;
+          padding: 1.25em;
           @include lg() {
             font-size: 1.25em;
             padding: 1.25em;
@@ -383,6 +395,35 @@ export default {
       h2 {
         font-size: 1.25em;
         color: white;
+      }
+    }
+    .progress-container {
+      width: 80%;
+      border-radius: 25px;
+      margin: 20px auto;
+      position: relative;
+      
+      .progress-bar {
+        height: 70px;
+        border-radius: 25px;
+        transition: width 0.4s linear;
+        background-image: url(../assets/image/game-img/tree.png);
+        background-size: 96px 70px;
+      }
+      .progress-img-container {
+        position: absolute;
+        top: -17px;
+        height: 60px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        img.progress-img {
+          height: 60px;
+          width: 60px;
+          max-width: 100%; /* 圖片最大寬度為其容器寬度 */
+          object-fit: contain; /* 確保圖片比例不失真 */
+        }
       }
     }
   }
