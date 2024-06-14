@@ -35,24 +35,36 @@
             <div v-if="answeredCorrectly !== null" class="result-item">
               <div v-if="answeredCorrectly" class="result">
                 <span>答對了！</span>
+                <div class="answer-pic">
+                  <img :src="currentQuestion.answer_image" alt="Answer Image" />
+                </div>
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
               <div v-else class="result">
                 <span>答錯了！</span>
                 <span>正確答案是{{ currentQuestion.correctAnswer }}。</span>
+                <div class="answer-pic">
+                  <img :src="currentQuestion.answer_image" alt="Answer Image" />
+                </div>
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
               <button @click="showNextQuestion">下一題</button>
             </div>
+
             <div v-else>
-              <div class="question-text">{{ currentQuestion.question }}</div>
+              <div class="question-text">
+                <p>{{ currentQuestion.question }}</p>
+              </div>
               <div class="answer">
                 <div
                   v-for="(option, index) in currentQuestion.options"
                   :key="index"
                   class="answer-item"
                 >
-                  {{ option.text }}
+                  <div class="answer-pic"><img :src="option.img" alt="Option Image" /></div>
+                  <div class="answer-txt">
+                    <p>{{ option.text }}</p>
+                  </div>
                   <button @click="selectAnswer(option.key)">{{ option.key }}</button>
                 </div>
               </div>
@@ -60,6 +72,14 @@
           </div>
         </div>
       </transition>
+
+      <!-- 進度條容器 -->
+      <div class="progress-container">
+        <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
+        <div class="progress-img-container" :style="{ width: progressWidth + '%' }">
+          <img class="progress-img" src="/src/assets/image/game-img/鏟子.png" alt="Progress Image" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -74,66 +94,68 @@ export default {
       userScore: 0,
       answeredCorrectly: null,
       showScore: false
-    };
+    }
   },
-//   mounted() {
-//     fetch('/questions.json')
-//         .then(response => response.json())
-//         .then(data => {
-//             this.questions = this.selectRandomQuestions(data, 10);
-//         })
-//         
-// },
+  //   mounted() {
+  //     fetch('/questions.json')
+  //         .then(response => response.json())
+  //         .then(data => {
+  //             this.questions = this.selectRandomQuestions(data, 10);
+  //         })
+  //
+  // },
   computed: {
     currentQuestion() {
-      return this.questions[this.currentQuestionIndex] || {};
+      return this.questions[this.currentQuestionIndex] || {}
+    },
+    progressWidth() {
+      return ((this.currentQuestionIndex + 1) / this.questions.length) * 100
     }
   },
   methods: {
     async loadQuestions() {
-        const response = await fetch('/questions.json');
-        const allQuestions = await response.json();
-        this.questions = this.selectRandomQuestions(allQuestions, 10);
-      
+      const response = await fetch('/questions.json')
+      const allQuestions = await response.json()
+      this.questions = this.selectRandomQuestions(allQuestions, 10)
     },
     selectRandomQuestions(allQuestions, count) {
-      const shuffled = allQuestions.sort(() => 0.5 - Math.random());
-      return shuffled.slice(0, count);
+      const shuffled = allQuestions.sort(() => 0.5 - Math.random())
+      return shuffled.slice(0, count)
     },
     startGame() {
-      this.gameStarted = true;
+      this.gameStarted = true
     },
     selectAnswer(answer) {
       if (answer === this.currentQuestion.answer) {
-        console.log('答對了！');
-        this.userScore += 10;
-        this.answeredCorrectly = true;
+        console.log('答對了！')
+        this.userScore += 10
+        this.answeredCorrectly = true
       } else {
-        console.log('答錯了！');
-        this.answeredCorrectly = false;
+        console.log('答錯了！')
+        this.answeredCorrectly = false
       }
     },
     showNextQuestion() {
-      this.answeredCorrectly = null;
+      this.answeredCorrectly = null
       if (this.currentQuestionIndex + 1 < this.questions.length) {
-        this.currentQuestionIndex++;
+        this.currentQuestionIndex++
       } else {
-        this.showScore = true;
+        this.showScore = true
       }
     },
     resetGame() {
-      this.gameStarted = false;
-      this.currentQuestionIndex = 0;
-      this.userScore = 0;
-      this.answeredCorrectly = null;
-      this.showScore = false;
-      this.loadQuestions(); // 加載隨機問題
+      this.gameStarted = false
+      this.currentQuestionIndex = 0
+      this.userScore = 0
+      this.answeredCorrectly = null
+      this.showScore = false
+      this.loadQuestions() // 加載隨機問題
     }
   },
   created() {
-    this.loadQuestions();
+    this.loadQuestions()
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -141,46 +163,81 @@ export default {
   margin: auto;
   .container {
     max-width: 1200px;
-    width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     .game_rule,
     .game_start {
       width: 80%;
-      aspect-ratio: 16/9;
+      aspect-ratio: 16/10;
       background-color: #128a63;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 20px;
+      margin: auto;
+      @include md() {
+        width: 80%;
+        aspect-ratio: 1/1.3;
+        @include sm() {
+          width: 90%;
+          aspect-ratio: 1/1.4;
+          justify-content: space-between;
+        }
+      }
       .rule_text,
       .game_item {
         width: 80%;
-        aspect-ratio: 16/9;
+        aspect-ratio: 16/10;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        margin: auto;
+        @include md() {
+          width: 80%;
+          aspect-ratio: 1/1.3;
+        }
+        @include sm() {
+          aspect-ratio: 1/1.4;
+        }
       }
       h1 {
         font-size: 2.5em;
         color: white;
-
-        @include lg(){
-          font-size:2em;
+        @include lg() {
+          font-size: 2em;
+        }
+        @include md() {
+          font-size: 1.75em;
         }
       }
       li {
         font-size: 1.25em;
         margin-bottom: 1em;
+        margin: 0.5em;
         color: white;
+        @include lg() {
+          font-size: 1em;
+          margin-bottom: 0.8em;
+        }
+        @include sm() {
+          // font-size: $desc;
+          margin-bottom: 1.5m;
+        }
       }
       button {
         padding: 17px 53px;
         border-radius: 50px;
         background-color: #144433;
         color: white;
+        @include lg() {
+          padding: 13px 40px;
+        }
+        @include md() {
+          padding: 10px 30px;
+        }
       }
       button:active {
         background-color: #128a63;
@@ -189,12 +246,20 @@ export default {
     .game_start {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       h1 {
         font-size: 2.5em;
         color: white;
         margin-top: 0.5em;
-        @include lg(){
-          font-size:2em;
+        @include lg() {
+          font-size: 2em;
+        }
+        @include md() {
+          font-size: 1.75em;
+          justify-content: space-around;
+        }
+        @include sm() {
+          font-size: 1.5em;
         }
       }
       .game_item {
@@ -202,40 +267,106 @@ export default {
         flex-direction: column;
         align-items: stretch;
         justify-content: space-between;
-        
+
         .question-text {
           font-size: 1.75em;
-          padding: 2em;
+          padding: 2em 0.5em;
           color: white;
-          @include lg(){
-          font-size:1.25em;
-          padding: 1.5em;
+          display: flex;
+          justify-content: center;
+          @include lg() {
+            font-size: 1.5em;
+            padding: 1.5em 0.5em;
+          }
+          @include md() {
+            font-size: 1.25em;
+            padding: 1.25em 0.5em;
+          }
+          @include bp(450px) {
+            font-size: 1em;
+            padding: 1em 0.5em;
+          }
         }
+        .answer-pic {
+          width: 100px;
+          height: 100px;
+          @include md() {
+            width: 80px;
+            height: 80px;
+          }
+          @include bp(450px) {
+            width: 60px;
+            height: 60px;
+          }
+          img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            vertical-align: top;
+          }
         }
         span {
           font-size: 1.25em;
-          padding: 2em;
+          padding: 1.25em;
+          @include lg() {
+            font-size: 1.25em;
+            padding: 1.25em;
+          }
+          @include md() {
+            font-size: 1em;
+            padding: 1em;
+          }
         }
         .answer {
           display: flex;
           width: 100%;
-          height: 100%;
+          height: 80%;
           justify-content: space-evenly;
           color: white;
+          @include lg() {
+            height: 75%;
+          }
+          @include md() {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          @include sm() {
+            height: 65%;
+          }
           .answer-item {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
             flex-wrap: wrap;
-            width: 100%;
+            width: 90%;
+            height: 85%;
+            @include md() {
+              width: 50%;
+              height: 75%;
+            }
+            @include sm() {
+              height: 70%;
+            }
+            .answer-txt {
+              p {
+                font-size: 1em;
+                @include sm() {
+                  font-size: $desc;
+                }
+              }
+            }
             button {
               padding: 17px 53px;
               border-radius: 50px;
               background-color: #144433;
               color: white;
-              @include lg(){
-
+              @include lg() {
+                padding: 13px 40px;
+              }
+              @include md() {
+                padding: 10px 30px;
               }
             }
             button:active {
@@ -249,15 +380,14 @@ export default {
           justify-content: center;
           align-items: center;
           height: 80%;
+          margin: auto;
         }
         .result {
-          font-size: 1rem;
           color: white;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           align-items: center;
-          padding: 1em;
         }
       }
     }
@@ -265,6 +395,35 @@ export default {
       h2 {
         font-size: 1.25em;
         color: white;
+      }
+    }
+    .progress-container {
+      width: 80%;
+      border-radius: 25px;
+      margin: 20px auto;
+      position: relative;
+      
+      .progress-bar {
+        height: 70px;
+        border-radius: 25px;
+        transition: width 0.4s linear;
+        background-image: url(../assets/image/game-img/tree.png);
+        background-size: 96px 70px;
+      }
+      .progress-img-container {
+        position: absolute;
+        top: -17px;
+        height: 60px;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        img.progress-img {
+          height: 60px;
+          width: 60px;
+          max-width: 100%; /* 圖片最大寬度為其容器寬度 */
+          object-fit: contain; /* 確保圖片比例不失真 */
+        }
       }
     }
   }

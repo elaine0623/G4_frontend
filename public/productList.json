@@ -11,6 +11,7 @@
 "hartImage":"../src/assets/image/hart.svg",
 "hartImage1":"../src/assets/image/hart2.svg",
 "isImage1":"true",
+"pc_name":"蔬菜",
 "id":"1"},
 
 {"f_name":"墻森園",
@@ -26,6 +27,7 @@
 "hartImage":"../src/assets/image/hart.svg",
 "hartImage1":"../src/assets/image/hart2.svg",
 "isImage1":"true",
+"pc_name":"水果",
 
 "id":"2"},
 
@@ -42,6 +44,7 @@
 "hartImage":"../src/assets/image/hart.svg",
 "hartImage1":"../src/assets/image/hart2.svg",
 "isImage1":"true",
+"pc_name":"蔬菜",
 "id":"3"},
 
 {"f_name":"小莊園",
@@ -57,6 +60,7 @@
 "hartImage":"../src/assets/image/hart.svg",
 "hartImage1":"../src/assets/image/hart2.svg",
 "isImage1":"true",
+"pc_name":"水果",
 "id":"4"},
 
 {"f_name":"福星",
@@ -73,6 +77,7 @@
 "hartImage":"../src/assets/image/hart.svg",
 "hartImage1":"../src/assets/image/hart2.svg",
 "isImage1":"true",
+"pc_name":"水果",
 "id":"5"},
 
 {"f_name":"福星",
@@ -81,7 +86,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
-
+"pc_name":"水果",
 "p_fee":155,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
 "unit":"約五台斤*1箱",
@@ -96,6 +101,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
+"pc_name":"蔬菜",
 
 "p_fee":55,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
@@ -111,6 +117,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
+"pc_name":"蔬菜",
 
 "p_fee":355,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
@@ -126,7 +133,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
-
+"pc_name":"水果",
 "p_fee":355,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
 "unit":"約五台斤*1箱",
@@ -141,7 +148,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
-
+"pc_name":"水果",
 "p_fee":355,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
 "unit":"約五台斤*1箱",
@@ -156,7 +163,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
-
+"pc_name":"水果",
 "p_fee":88,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
 "unit":"約五台斤*1箱",
@@ -171,6 +178,7 @@
 "../src/assets/image/strawberry-detail2.svg",
 "../src/assets/image/strawberry-detail1.svg",
 "../src/assets/image/strawberry-detail3.svg"],
+"pc_name":"水果",
 "p_fee":88,
 "introduce":"大湖時光果園種植的粉色草莓淡雅可人，包含淡雪、水蜜桃兩大品種，有著甜瓜、蜜桃的特殊香氣,堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲,得以控制小型昆蟲，堅持有機無毒的種植方式!",
 "unit":"約五台斤*1箱",
