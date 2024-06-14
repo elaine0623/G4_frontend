@@ -15,6 +15,20 @@ export default {
           "p_name": "栗子地瓜",
           "p_img": "../src/assets/image/pumpkin.png",
           "unit": "約五台斤*1箱",
+          "p_fee": 335,
+        },
+        {
+          "f_name": "墻森園",
+          "p_name": "栗子地瓜",
+          "p_img": "../src/assets/image/pumpkin.png",
+          "unit": "約五台斤*1箱",
+          "p_fee": 335
+        },
+        {
+          "f_name": "墻森園",
+          "p_name": "栗子地瓜",
+          "p_img": "../src/assets/image/pumpkin.png",
+          "unit": "約五台斤*1箱",
           "p_fee": 335
         }
       ]
