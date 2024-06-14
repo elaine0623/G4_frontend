@@ -2,29 +2,65 @@
 export default {
   data() {
     return {
-      count: 1,
+      
+      total:0,
       cartList:[{
         id:1,
-        
-      }]
+        p_img:"../src/assets/image/strawberry-detail1.svg",
+        f_name:"福星",
+        p_name:"草莓",
+        unit:"約五台斤*1箱",
+        count: 1,
+        p_fee:155,
+        total:155
+      },
+    {
+        id:2,
+        p_img:"../src/assets/image/strawberry-detail1.svg",
+        f_name:"福星",
+        p_name:"草莓",
+        unit:"約五台斤*1箱",
+        count: 1,
+        p_fee:155,
+        total:155
+
+    }]
     }
   },
-  computed: {
-
-  },
+  computed:{
+    totalprice() {
+      let total = 0;
+        for(let i = 0;i < this.cartList.length;i++) {
+          
+          this.cartList[i].total = this.cartList[i].p_fee * this.cartList[i].count
+          total += this.cartList[i].total
+        }
+        return this.total = total;
+      }
+   },
   methods: {
-    add() {
-      if (this.count >= 10) return
-      this.count += 1;
+    add(index) {
+      this.cartList[index].count  ++;
     },
-    subtraction() {
-      if (this.count == 0) return
-      this.count -= 1;
-
-    },
+    subtraction(index) {
+      if (this.cartList[index].count === 1) {
+        this.cartList[index].count= 0;
+        this.deleteItem(index);
+    }else {
+      this.cartList[index].count --;
+     
+    }
+    
 
   },
-}
+  deleteItem(index) {
+    if (confirm("確定刪除？")) {
+        this.cartList.splice(index, 1); // 从 cartList 中移除指定索引的商品
+      }
+    }
+
+
+}}
 
 </script>
 
@@ -51,29 +87,29 @@ export default {
 
         </nav>
         <div class="card-list">
-          <div class="card">
+          <div class="card"  v-for="(cardtItem ,index) in cartList" :key="cardtItem.id">
             <picture>
               <img src="../assets/image/strawberry-detail2.svg" alt="">
             </picture>
             <div class="product">
               <div class="product-into">
                 <div class="name">
-                  <span>草莓</span>-
-                  <p>梅果莊園</p>
+                  <span>{{ cardtItem.f_name}}</span>-
+                  <p>{{ cardtItem.p_name }}</p>
                 </div>
                 <div class="unit">
                   <span>單位:</span>
-                  <p>約五台斤*1箱</p>
+                  <p>{{ cardtItem.unit}}</p>
                 </div>
               </div>
               <div class="price">
-                <span>NT.200</span>
+                <span>{{ cardtItem.p_fee }}</span>
               </div>
             </div>
             <div class="quantity">
-              <button @click="add">+</button>
-              {{ count }}
-              <button @click="subtraction">-</button>
+              <button @click="add(index)">+</button>
+              {{  cardtItem.count }}
+              <button @click="subtraction(index)">-</button>
             </div>
           </div>
         </div>
@@ -103,6 +139,21 @@ export default {
           <select>
             <option value="">台北市</option>
             <option value="">新北市</option>
+            <option value="">基隆市</option>
+            <option value="">新竹縣</option>
+            <option value="">臺中市</option>
+            <option value="">苗栗縣</option>
+            <option value="">彰化縣</option>
+            <option value="">南投縣</option>
+            <option value="">雲林縣</option>
+            <option value="">高雄市</option>
+            <option value="">臺南市</option>
+            <option value="">嘉義市</option>
+            <option value="">嘉義縣</option>
+            <option value="">屏東縣</option>
+            <option value="">澎湖縣</option>
+            <option value="">花蓮縣</option>
+            <option value="">台東縣</option>
             <option value="">宜蘭縣</option>
             <option value="">桃園市</option>
           </select>
@@ -121,7 +172,7 @@ export default {
           <p>總計:</p>
           <div class="Product-name">
             <span>商品:</span>
-            <span>NT.455</span>
+            <span>{{ totalprice}}</span>
           </div>
           <div class="freight">
             <span>運費:</span>
@@ -130,7 +181,7 @@ export default {
           </div>
           <div class="alltotal">
             <span>總計:</span>
-            <span>NT.515</span>
+            <span>NT.{{total + 60}}</span>
           </div>
           <div class="Checkout">
             <button class="shopping">繼續購物</button>
