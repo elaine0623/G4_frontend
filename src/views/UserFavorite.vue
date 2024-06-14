@@ -41,7 +41,8 @@ export default {
 </script>
 <template>
   <div class="userFavorite">
-    <button class="cancel1"><router-link to="/userlayout"><i class="fa-solid fa-xmark"></i></router-link></button>
+    <router-link to="/userlayout"><button class="cancel1"><i class="fa-solid fa-xmark"
+          style="color: #FFF;"></i></button></router-link>
     <h2>收藏</h2>
     <hr>
     <div class="productlist">
@@ -79,14 +80,10 @@ export default {
   border-radius: 50%;
   background-color: #144433;
   border: 1px solid #eee;
-
+  cursor: pointer;
 
   @include s2bmd() {
     display: none;
-  }
-
-  a {
-    color: #fff;
   }
 }
 
