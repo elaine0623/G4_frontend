@@ -17,7 +17,7 @@ export default {
 
 <template>
   <div class="userdata">
-    <button class="cancel"><router-link to="/userlayout"><i class="fa-solid fa-xmark"></i></router-link></button>
+    <router-link to="/userlayout"><button class="cancel"><i class="fa-solid fa-xmark"></i></button></router-link>
     <h2>個人資料</h2>
     <form @submit.prevent="submitForm">
       <div class="name">

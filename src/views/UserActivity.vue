@@ -25,7 +25,7 @@ export default {
 </script>
 <template>
   <div class="useractivity">
-    <button class="cancel"><router-link to="/userlayout"><i class="fa-solid fa-xmark"></i></router-link></button>
+    <router-link to="/userlayout"><button class="cancel"><i class="fa-solid fa-xmark"></i></button></router-link>
     <h2>活動訂單查詢</h2>
     <table>
       <thead>
