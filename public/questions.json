@@ -189,7 +189,7 @@
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/7C.jpg",
+          "img": "../src/assets/image/game-img/7c.png",
           "text": "馬鈴薯"
         },
         {
@@ -247,7 +247,7 @@
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/9C.jpg",
+          "img": "../src/assets/image/game-img/9c.png",
           "text": "棉花"
         },
         {
@@ -258,7 +258,7 @@
       ],
       "answer": "C",
       "correctAnswer": "棉花",
-      "answer_image": "../src/assets/image/game-img/9C.jpg",
+      "answer_image": "../src/assets/image/game-img/9c.png",
       "explanation": "棉花具有較強的耐鹽能力，適合在鹽鹼地區生長。"
     },
     {
