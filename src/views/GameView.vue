@@ -164,7 +164,6 @@ export default {
 
 <style lang="scss" scoped>
 .game {
-  font-family:"font-game" ;
   margin: auto;
   .container {
     max-width: 1200px;
@@ -237,7 +236,6 @@ export default {
         border-radius: 50px;
         background-color: #144433;
         color: white;
-        font-family:"font-game" ;
         @include lg() {
           padding: 13px 40px;
         }
@@ -368,7 +366,6 @@ export default {
               border-radius: 50px;
               background-color: #144433;
               color: white;
-              font-family:"font-game" ;
               @include lg() {
                 padding: 13px 40px;
               }
