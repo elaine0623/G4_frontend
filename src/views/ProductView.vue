@@ -2,8 +2,8 @@
 export default {
   data() {
     return {
-      responseData:[],
-      displayData:[]
+      responseData: [],
+      displayData: []
 
     }
   },
@@ -11,22 +11,22 @@ export default {
     toggleImage(index) {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
     }
-    
+
   },
   mounted() {
     fetch("/public/productList.json")
-    .then(res => res.json())
-    .then(json => {
-      // 確認有沒有response
-      console.log(json);
-      // 備份還原用
-      this.responseData = json
-      // 顯示用
-      this.displayData = json
-    })
+      .then(res => res.json())
+      .then(json => {
+        // 確認有沒有response
+        console.log(json);
+        // 備份還原用
+        this.responseData = json
+        // 顯示用
+        this.displayData = json
+      })
   }
 
-  
+
 }
 </script>
 
@@ -37,7 +37,14 @@ export default {
       <div class="product">
         <div class="category-product">
           <div class="crumbs-product">
-            <span>首頁 / 商品</span>
+            <ul>
+              <li>
+                <RouterLink to="./">首頁</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="./product">/ 商品</RouterLink>
+              </li>
+            </ul>
           </div>
           <div class="search-product">
             <div class="icon-search-product">
@@ -162,6 +169,21 @@ section {
           font-size: $fontBase ;
           color: $darkGreen;
 
+          ul {
+            display: flex;
+            li {
+              a {
+                text-decoration: none;
+                font-family: $pFont;
+                $line-height: $fontBase;
+                font-size: $fontBase ;
+                color: $darkGreen;
+
+              }
+
+            }
+          }
+
         }
 
         .search-product {
@@ -197,7 +219,7 @@ section {
               border-radius: 20px;
               border: 0 solid transparent;
               background-color: $darkGreen;
-              color: #fff; 
+              color: #fff;
 
               &::placeholder {
                 color: #fff; // 將 placeholder 的文字顏色改為 #999
@@ -244,14 +266,15 @@ section {
     //---------------商品卡片
     .container {
       padding: 0 70px;
-      @include s2bmd(){
+
+      @include s2bmd() {
         padding: auto;
       }
-      
+
       .list-product {
         width: 100%;
         margin: auto;
-       
+
 
         // flex-wrap: nowrap;
         .card-product {
@@ -274,7 +297,7 @@ section {
 
           .into-card {
             position: relative;
-        
+
 
             .category-card {
               display: flex;
@@ -301,7 +324,7 @@ section {
                 width: 38px;
                 height: 38px;
                 z-index: 10;
-               
+
               }
 
             }
@@ -321,7 +344,7 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
-                cursor:pointer;
+                cursor: pointer;
 
 
                 &:hover {

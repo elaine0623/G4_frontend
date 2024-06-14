@@ -92,6 +92,11 @@ const router = createRouter({
       path:'/signuppage/:signupId',
       name:'signuppage',
       component: () => import('@/views/SignupPage.vue')
+    },
+    {
+      path:'/shoppingcart',
+      name:'shoppingcart',
+      component: () => import('@/views/Shoppingcart.vue')
     }
   ]
 })

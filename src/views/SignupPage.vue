@@ -17,75 +17,120 @@
             <div class="title">
                 <h2>基本資料</h2>
             </div>
-            <div class="info-basic">
+            <form class="info-basic">
                 <div>
                     <span>*</span>
-                    <span>姓名 : </span>
-                    <input type="text">
+                    <label for="m_name">姓名 : </label>
+                    <input type="text" id="m_name" name="m_name" @blur="checkname()" v-model="name" >
+                    <span v-text="errorMsg.name" class="wrong-msg"></span>
                 </div>
                 <div>
                     <span>*</span>
-                    <span>報名人數 : </span>
-                    <input type="text">
+                    <label for="ao_count">報名人數 : </label>
+                    <input v-model.number="ao_count" type="number" id="ao_count" name="ao_count" min="1" v-on:change="totalFee()">
                 </div>
                 <div>
                     <span>*</span>
-                    <span>電子信箱 : </span>
-                    <input type="text">
+                    <label for="m_account">電子信箱 : </label>
+                    <input type="email" id="m_account" name="m_account" @blur="checkemail()" v-model="email">
+                    <span v-text="errorMsg.email" class="wrong-msg"></span>
+
                 </div>
                 <div>
                     <span>*</span>
-                    <span>連絡電話 : </span>
-                    <input type="text">
+                    <label for="m_phone">連絡電話 : </label>
+                    <input type="tel" id="m_phone" name="m_phone" @blur="checkphone()" v-model="phone">
+                    <span v-text="errorMsg.phone" class="wrong-msg"></span>
                 </div>
                 <div>
                     <span>*</span>
-                    <span>通訊地址 : </span>
-                    <input type="text">
+                    <label for="m_add">通訊地址 : </label>
+                    <input type="text" id="m_add" name="m_add">
                 </div>
-            </div>
-            
-            <div class="info-pay" v-if="userInfo[$route.params.signupId - 1].a_fee > 0">
+            </form>
+            <form class="info-pay" v-if="userInfo[$route.params.signupId - 1].a_fee > 0">
                 <div class="title">
                     <h2>付款資訊</h2>
                 </div>
                 <div class="money">
-                    <span>應付金額 : </span>
+                    <label>應付金額 : </label>
                     <span>NT$</span>
-                    <span>{{ userInfo[$route.params.signupId - 1].a_fee }}</span>
+                    <span>{{ totalFees}} </span>
                 </div>
                 <div class="pay">
-                    <span>付款方式 : </span>
+                    <label>付款方式 : </label>
                     <button>信用卡付款</button>
                 </div>
                 <div class="card">
                     <span>*</span>
-                    <span>信用卡號 : </span>
+                    <label>信用卡號 : </label>
                     <div>
-                        <input type="text">
+                        <input 
+                            class="card1" 
+                            type="text" 
+                            required maxlength="4" 
+                            pattern="\d{4}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)"
+                            >
                         <span>-</span>
-                        <input type="text">
+                        <input 
+                            class="card2" 
+                            type="text" 
+                            required maxlength="4" 
+                            pattern="\d{4}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)"
+                        >
                         <span>-</span>
-                        <input type="text">
+                        <input 
+                            class="card3" 
+                            type="text" 
+                            required maxlength="4" 
+                            pattern="\d{4}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)"
+                        >
                         <span>-</span>
-                        <input type="text">
+                        <input 
+                            class="card3" 
+                            type="text" 
+                            required maxlength="4" 
+                            pattern="\d{4}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)">
                     </div>
                 </div>
                 <div class="deadline">
                     <span>*</span>
-                    <span>有效期限 : </span>
+                    <label>有效期限 : </label>
                     <div>
-                        <input type="text">
+                        <input 
+                            type="text"
+                            inputmode="numeric"
+                            required maxlength="2" 
+                            pattern="\d{2}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)"
+                            placeholder="MM">
                         <span>-</span>
-                        <input type="text">
+                        <input 
+                            type="text"
+                            inputmode="numeric"
+                            required maxlength="2" 
+                            pattern="\d{2}"
+                            @keydown="handleKeyDown($event)"
+                            @keyup="handleKeyUp($event)"
+                            placeholder="YY"
+                        >
                     </div>
                 </div>
                 <div class="code">
                     <span>*</span>
-                    <span>末3碼 : </span>
-                    <input type="text" placeholder="末3碼">
+                    <label>CVC : </label>
+                    <input type="text" placeholder="末3碼" required maxlength="3" pattern="\d{3}">
                 </div>
-            </div>
+            </form>
             <hr>
             <div class="submit">
                 <button>確認送出</button>
@@ -99,13 +144,27 @@ export default {
     data() {
         return {
             userInfo: [],
-            // loading: true // 控制数据加载状态
+            ao_count:1,
+            fee:500,
+            name: '',
+            errorMsg: {
+                name: '',
+                email: '', 
+                phone: '',
+            },
+            card1: '',
+            card2: '',
+            card3: '',
+            card4: '',
         }
     },
     computed: {
         userId() {
             return this.$route.params.signupId;
         },
+        totalFees(){
+            return this.userInfo[this.$route.params.signupId -1].a_fee * this.ao_count;
+        }
     },
     watch: {
         userId: async function (val) {
@@ -117,6 +176,62 @@ export default {
             return await fetch("../../public/activityPage.json")
                 .then((response) => response.json())
                 .then((json) => json);
+        },
+        checkname() {
+            const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g; //正規表達式：不可輸入數字、空白及特殊符號 最多15字
+            if (this.name === "") {
+                this.errorMsg.name = "*請輸入姓名";
+            }
+            else if (namelimit.test(this.name)) {
+                this.errorMsg.name = "";
+            } else {
+                this.errorMsg.name = "*姓名不得輸入數字、空白及特殊符號";
+            }
+        },
+        checkemail() {
+            // eslint-disable-next-line no-useless-escape
+            const emaillimit = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//正規表達式：email格式
+            if (emaillimit.test(this.email)) {
+                this.errorMsg.email = "";
+            } else {
+                this.errorMsg.email = "*請輸入正確的email";
+            }
+        },
+        checkphone(){
+            const phonelimit = /^[0-9]{8,10}$/; //正規表達式:手機
+            if(phonelimit.test(this.phone)){
+                this.errorMsg.phone = "";
+            }else{
+                this.errorMsg.phone = "*請輸入正確的電話號碼";
+            }
+        },
+        handleKeyDown(event) {
+            const target = event.target;
+            const value = target.value;
+
+            if ((event.which >= 48 && event.which <= 57) || event.which === 8) {
+                if (value.length === 0 && event.which === 8) {
+                    const previous = target.previousElementSibling?.previousElementSibling;
+                    if (previous && previous.tagName === 'INPUT') {
+                        previous.focus();
+                    }
+                }
+            } else {
+                event.preventDefault();
+            }
+        },
+        handleKeyUp(event) {
+            const target = event.target;
+            let value = target.value.replace(/\D/g, '');
+            target.value = value;
+            const maxLength = target.getAttribute('maxlength');
+
+            if (value.length >= maxLength) {
+                const next = target.nextElementSibling?.nextElementSibling;
+                if (next && next.tagName === 'INPUT') {
+                next.focus();
+                }
+            }
         },
     },
     async created() {
@@ -133,6 +248,7 @@ section{
     line-height: $lineheight;
     letter-spacing: $letterSpacing;
     font-family: $pFont;
+    cursor: default;
     .container{
         width: 80%;
         max-width: 1200px;
@@ -202,11 +318,13 @@ section{
         .info-basic{
             margin: 10px 0;
             div{
-                width: 60%;
+                width: 70%;
                 margin: 20px 0;
+                padding: 10px 0;
                 display: grid;
                 grid-template-columns: .01fr .5fr 1fr;
                 color: $darkGreen;
+                position: relative;
                 @include md(){
                     width: 100%;
                     grid-template-columns: .01fr .4fr 1fr;
@@ -215,17 +333,36 @@ section{
                     width: 100%;
                     display: block;
                 }
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
                 input{
                     border: solid 1px $darkGreen;
                     background-color: #eee;
-                    padding: 0 5px;
+                    padding: 8px 15px;
+                    outline: none;
+                    &:focus {
+                        outline: none;
+                        background-color: #fff;
+                    }
                     @include sm(){
                         display: block;
                         margin-top: 10px;
-                        padding: 3px 5px;
+                    }
+                }
+                .wrong-msg {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    font-size: $desc;
+                    color: $red;
+                    // margin: 1px 0;
+                    padding: 0;
+                    height: 12px;
+                    // width: calc(100% - 30px);
+                    // text-align: start;
+                    @include sm(){
+                        left: 0;
                     }
                 }
             }
@@ -256,28 +393,31 @@ section{
             }
             .money{
                 margin: 20px 0;
-                :first-child{
+                label{
                     margin-right: 50px;
                 }
             }
             .pay{
                 margin: 20px 0;
-                span{
+                label{
                     margin-right: 50px;
                 }
                 button{
                     background-color: $darkGreen;
                     color: #fff;
-                    padding: 2px 10px;
+                    padding: 8px 15px;
                     border: none;
                 }
             }
             .card{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
+                span{
+                    color: $darkGreen;
+                }
+                label{
                     margin-right: 40px;
                 }
                 div{
@@ -287,26 +427,35 @@ section{
                         margin-top: 10px;
                     }
                     input{
-                        width: 50px;
+                        color: #000;
+                        width: 30px;
+                        padding: 8px 10px;
+                        // margin-right: 5px;
                         background-color: #eee;
                         border: solid 1px $darkGreen;
+                        outline: none;
+                        text-align: center;
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                            &::placeholder{
+                                color: transparent;
+                            }
+                        }
                     }
                     :nth-child(2),
                     :nth-child(4),
                     :nth-child(6){
                         margin: 0 5px;
-                        @include sm(){
-                            margin: 0 1px;
-                        }
                     }
                 }
             }
             .deadline{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
+                label{
                     margin-right: 40px;
                     @include sm(){
                         margin-right: 35px;
@@ -319,31 +468,53 @@ section{
                         margin-top: 10px;
                     }
                     input{
-                        width: 50px;
+                        width: 30px;
+                        padding: 8px 10px;
+                        // margin-right: 5px;
                         background-color: #eee;
                         border: solid 1px $darkGreen;
-                }
+                        outline: none;
+                        text-align: center;
+                        &::placeholder{
+                        text-align: center;
+                        vertical-align: bottom;
+                        }
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                            &::placeholder{
+                                color: transparent;
+                            }
+                        }
+                    }
                     :nth-child(2){
                         margin: 0 5px;
-                        @include sm(){
-                            margin: 0 1px;
-                        }
                     }
                 }
                 
             }
             .code{
                 margin: 20px 0;
-                :first-child{
+                span:first-child{
                     color: $red;
                 }
-                :nth-child(2){
-                    margin-right: 65px;
+                label{
+                    margin-right: 75px;
                 }
                 input{
-                    width: 50px;
+                    width: 35px;
+                    padding: 8px 10px;
                     background-color: #eee;
                     border: solid 1px $darkGreen;
+                    outline: none;
+                    text-align: center;
+                        &:focus {
+                            outline: none;
+                            background-color: #fff;
+                            &::placeholder{
+                                color: transparent;
+                            }
+                        }
                     @include sm(){
                         display: block;
                         margin-top: 10px;
@@ -374,6 +545,7 @@ section{
                     text-decoration: none;
                     letter-spacing: 2px;
                     transition: 0.5s;
+                    cursor: pointer;
                     @include sm(){
                         // width: 100px;
                         padding: 11px 17px;
