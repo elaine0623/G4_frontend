@@ -55,7 +55,7 @@ export default {
   },
   deleteItem(index) {
     if (confirm("確定刪除？")) {
-        this.cartList.splice(index, 1); // 从 cartList 中移除指定索引的商品
+        this.cartList.splice(index, 1); //  cartList 中移除指定索引的商品
       }
     }
 
@@ -184,8 +184,8 @@ export default {
             <span>NT.{{total + 60}}</span>
           </div>
           <div class="Checkout">
-            <button class="shopping">繼續購物</button>
-            <button class="Checkout-pay">結帳</button>
+            <button class="shopping"><RouterLink to="/product">繼續購物</RouterLink></button>
+            <button class="Checkout-pay"><RouterLink to="/shoppingcart">結帳</RouterLink></button>
           </div>
         </div>
       </div>
@@ -520,6 +520,9 @@ section {
             $line-height: $fontBase;
             color: $darkGreen;
             letter-spacing: $letterSpacing;
+            a{
+              text-decoration: none;
+            }
 
 
           }
@@ -528,12 +531,18 @@ section {
             background-color: transparent;
             border: 0;
             border: 1px solid $lightGreen;
+            a{
+             color: $darkGreen;
+            }
           }
           .Checkout-pay{
             border: 0;
             border: 1px solid $lightGreen;
             background-color: $darkGreen;
-            color: #fff;
+            
+            a{
+              color: #fff;
+            }
           }
         }
 
