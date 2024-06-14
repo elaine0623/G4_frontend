@@ -143,19 +143,19 @@ export default {
             <option value="">新竹縣</option>
             <option value="">臺中市</option>
             <option value="">苗栗縣</option>
-            <option value="">彰化縣</option>
-            <option value="">南投縣</option>
-            <option value="">雲林縣</option>
-            <option value="">高雄市</option>
-            <option value="">臺南市</option>
-            <option value="">嘉義市</option>
-            <option value="">嘉義縣</option>
-            <option value="">屏東縣</option>
-            <option value="">澎湖縣</option>
-            <option value="">花蓮縣</option>
-            <option value="">台東縣</option>
-            <option value="">宜蘭縣</option>
-            <option value="">桃園市</option>
+            <option value="Changhua">彰化縣</option>
+            <option value="Nantou">南投縣</option>
+            <option value="Yunlin">雲林縣</option>
+            <option value="Kaohsiung">高雄市</option>
+            <option value="Tainan">臺南市</option>
+            <option value="Chiayi">嘉義市</option>
+            <option value="Chiayi-County">嘉義縣</option>
+            <option value="Pingtung">屏東縣</option>
+            <option value="Penghu">澎湖縣</option>
+            <option value="Hualien">花蓮縣</option>
+            <option value="Taitung">台東縣</option>
+            <option value="Yilan">宜蘭縣</option>
+            <option value="Taoyuan">桃園市</option>
           </select>
 
           <span>地址:</span>
@@ -212,7 +212,6 @@ section {
       width: 9rem;
       text-align: center;
       margin-bottom: 20px;
-
       .under-scord {
         position: relative;
         top: -15px;
@@ -226,19 +225,15 @@ section {
 
     .list-card-shopping {
       margin: auto;
-
       //購物清單
       .list-title {
         display: none;
-
         @include s2bmd() {
           display: block;
           width: 90%;
           margin: auto;
           margin-bottom:15px; 
-
         }
-
         //清單名稱
         ul {
           @include s2bmd() {
@@ -246,12 +241,9 @@ section {
             justify-content: space-between;
             align-items: center;
           }
-
           li {}
         }
-
       }
-
       .card-list {
         
         // margin: 15px 0;
@@ -259,26 +251,20 @@ section {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
           border-bottom: 1px solid $darkGreen;
           padding: 15px 0;
-
           &:nth-child(1) {
             border-top: 1px solid $darkGreen;
           }
-
           @include s2bmd() {
             padding: 15px 30px;
           }
-
           picture {
             width: 25%;
 
             @include s2bmd() {
               width: 20%;
-
             }
-
             img {
               width: 100%;
 
@@ -294,19 +280,14 @@ section {
               flex-grow: 1;
               padding: 0 20px;
               position: relative;
-              right: 35px;
+              right: 45px;
               justify-content: space-evenly;
+              align-items: center;
 
             }
 
             //產品名稱資訊
             .product-into {
-              @include s2bmd() {
-                position: relative;
-                right: 15px;
-
-              }
-
               //產品名稱
               .name {
                 display: flex;
@@ -317,18 +298,12 @@ section {
               .unit {
                 display: flex;
                 padding: 5px;
-
-
-
               }
             }
 
             .price {
-              padding: 5px;
-
-
+              padding: 20px;
             }
-
           }
 
           .quantity {
@@ -344,10 +319,8 @@ section {
             button {
               font-size: $fontBase;
               cursor: pointer;
-
               background-color: transparent;
               border: 0px;
-
               @include s2bmd() {
                 margin: 0 10px;
               }
@@ -355,7 +328,6 @@ section {
           }
         }
       }
-
     }
 
     // -------付款表格----------
@@ -367,26 +339,17 @@ section {
           display: flex;
           gap:10%;
           justify-content:space-between;
-          
-        
         }
         .information{
-
-           .discount {
-           
+          .discount {
         //優惠券
         margin-bottom: 10px;
-        @include s2bmd() {
-         
-        }
         padding: 20px;
         border: 1px solid $darkGreen;
-
         p {
           font-family: $pFont;
           $line-height: $fontBase;
           color: $darkGreen;
-
         }
 
         input {
@@ -396,7 +359,6 @@ section {
           width: 300px;
           height: 35px;
           padding: 0 10px;
-
         }
       }
 
@@ -407,12 +369,6 @@ section {
         padding: 20px;
         margin: 15px 0;
         border: 1px solid $darkGreen;
-        @include s2bmd() {
-          // margin: 0 15px;
-          // border-top: 0;
-        
-        }
-
         p,
         span {
           font-family: $pFont;
@@ -424,12 +380,10 @@ section {
           padding-bottom: 10px;
           border-bottom: 1.5px solid $darkGreen ;
         }
-
         .postal {
           display: flex;
           flex-direction: column;
           padding: 10px 0;
-
           input[type="text"] {
             margin-top: 15px;
             background-color: $bcgw;
@@ -438,18 +392,14 @@ section {
             width: 50px;
             height: 35px;
             padding: 0 10px;
-
           }
-
-
         }
-
         input[type="text"] {
           margin-top: 15px;
           background-color: $bcgw;
           border: 0;
           border: 1px solid $darkGreen;
-         width: 90%;
+          width: 90%;
           height: 35px;
           padding: 0 10px;
         }
@@ -464,9 +414,8 @@ section {
             background-color: $bcgw;
           }
         }
-
       }
-        }
+    }
 
      
 
@@ -480,25 +429,20 @@ section {
           width: 50%;
           padding: 35px;
           height: 200px;
-         
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         }
-       
-
         p,
         span {
           font-family: $pFont;
           $line-height: $fontBase;
           color: $darkGreen;
         }
-
         p {
           padding-bottom: 10px;
           border-bottom: 1.5px solid $darkGreen ;
         }
-
         .Product-name,
         .freight,
         .alltotal {
@@ -506,7 +450,6 @@ section {
           justify-content: space-between;
           padding: 10px 0;
         }
-
         .Checkout {
           display: flex;
           flex-wrap: nowrap;
@@ -523,8 +466,6 @@ section {
             a{
               text-decoration: none;
             }
-
-
           }
 
           .shopping {
@@ -545,12 +486,8 @@ section {
             }
           }
         }
-
-
       }
     }
-
-
   }
 }
 </style>
