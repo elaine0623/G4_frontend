@@ -434,6 +434,7 @@ section{
                         background-color: #eee;
                         border: solid 1px $darkGreen;
                         outline: none;
+                        text-align: center;
                         &:focus {
                             outline: none;
                             background-color: #fff;
