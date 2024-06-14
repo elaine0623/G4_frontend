@@ -5,11 +5,12 @@
   <div class="search-field">
     <select id="event-class" name="event-class"  v-on:change="eventClass()">
       <option value="0" selected disabled hidden >類別</option>
+      <option value="0">全部</option>
       <option value="市集">市集</option>
       <option value="講座">講座</option>
     </select>
     <div class="search-area">
-    <input type="search" v-model.lazy.trim="search" placeholder="搜尋">
+    <input type="search" v-model.lazy.trim="keyworlds" placeholder="搜尋" @change="SearchMode">
     <button class="search-btn"><i class="fa-solid fa-magnifying-glass" style="color: #144433;"></i></button>
     </div>
   </div>
@@ -23,34 +24,57 @@
                  :rules="rules"/>
     <div class="current-event" >
       <div class="curr-header">{{ formattedDate }}</div>
-      <div class="curr-content" v-for="item in pagenateData" :key="item.id"  v-show="item.isVisable === true">
-        {{item.title}}
-      </div>
-      <div class="curr-content" v-for="item in pagenateData" :key="item.id"   v-show="item.isVisable === true">
-        {{item.title}}
+      <div class="curr-content" v-for="(item,index) in currentEvent" :key="item.id" >
+        <router-link :to='`/ActivityPage/${index + 1}`' > {{item.a_name}}</router-link>
       </div>
     </div>
   </div>
   <div class="container"> 
     <div class="row" >
-      <div class="event-card col-6 col-sm-12"   v-show="item.isVisable  === true "  v-for="item in pagenateData" :key="item.id" >
-        <img :src=item.imgURL alt="活動圖片">
+      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === true "  v-for="(item,index) in searchModePage" :key="item.id" >
+        <router-link :to='`/ActivityPage/${index + 1}`' > 
+        <img :src=item.a_img alt="活動圖片" class="event-img">
         <div class="event-content">
-        <h3 class="event-title">{{item.title}}</h3>
+        <h3 class="event-title">{{item.a_name}}</h3>
         <span class="event-date">{{ item.time }}</span>
-        <div class="event-class-tag">{{item.type}}</div>
-        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.location}}</div>
+       <div class="event-class-tag" >{{item.c_no}}</div>  <!-- :class="[isMarket ? 'market' : '']" -->
+        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
       </div>
+      </router-link>
+      
       </div>
-    <div class="btn-field" v-if="isVisable.length >= 6">
+      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="(item,index) in  pagenateData" :key="item.id" >
+        <router-link :to='`/ActivityPage/${index + 1}`' > 
+        <img :src=item.a_img alt="活動圖片" class="event-img">
+        <div class="event-content">
+        <h3 class="event-title">{{item.a_name}}</h3>
+        <span class="event-date">{{ item.time }}</span>
+       <div class="event-class-tag" >{{item.c_no}}</div>  <!-- :class="[isMarket ? 'market' : '']" -->
+        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
+      </div>
+      </router-link>
+      
+      </div>
+     
+    <div class="btn-field" v-if="isVisable.length >= 6 && isSearchMode === false">
     <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn"><img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭"></button>
     <button
       v-for="item in Math.ceil(isVisable.length / perPage)"
       :key="item"
-      @click="() => goToPage(item)" class="pageNum" :class='[item === "1" ? firstPage:pageNum]' >
+      @click="() => goToPage(item)"  class="pageNum">
      {{ item }}
      </button>
-  <button @click="nextPage()" class="next-btn"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
+     <button @click="nextPage()" class="next-btn"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
+  </div>
+  <div class="btn-field" v-if="filterEvents.length >= 6 && isSearchMode === true">
+    <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn"><img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭"></button>
+    <button
+      v-for="item in Math.ceil(filterEvents.length / perPage)"
+      :key="item"
+      @click="() => goToPage(item)"  class="pageNum">
+     {{ item }}
+     </button>
+     <button @click="nextPage()" class="next-btn" :disabled="currentPage == Math.ceil(filterEvents.length / perPage)"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
   </div>
     </div> 
   </div> 
@@ -70,133 +94,11 @@ export default {
   data() {
     return {
       currentPage:1,
-      keyworld:'',
-      activedEvents:[],
+      isSearchMode:false,
+      keyworlds:"",
       date:new Date(),
       currentClass:0,
-      activeEvents:[{
-        id:1,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/12',//活動卡片顯示資料
-        date:'Wed Jun 12 2024 00:00:00 GMT+0800 (台北標準時間)',//calendar判斷資料
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isExpired:false,
-        isavailable:true,
-        isVisable:true,
-      },
-      {
-        id:2,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/13',
-        date:'Thu Jun 13 2024 00:00:00 GMT+0800 (台北標準時間)',//new date value 未處理
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:3,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/13',
-        date:'Thu Jun 13 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'市集',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },//pagination test data
-      {
-        id:4,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'市集',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:5,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:6,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'市集',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:7,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:8,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'市集',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:9,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:10,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:11,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-      {
-        id:12,
-        title:"探險農業!食農教育與小農的組合，創造嶄新的農體驗。",
-        location:'苗栗市公館鄉活動中心',
-        time:'2024/06/14',
-        date:'Fri Jun 14 2024 00:00:00 GMT+0800 (台北標準時間)',
-        type:'講座',
-        imgURL:'src/assets/image/event-images/event-img.png',
-        isVisable:true,
-      },
-    ]
+      activeEvents:[]
     };
   },methods: {
     eventClass () {
@@ -225,21 +127,27 @@ export default {
     if (this.currentPagepage !== 1) {
       this.currentPage -= 1;
     }
-  },
+  },SearchMode() {
+      if(this.keyworlds != "") {
+        this.isSearchMode = true;
+      }else if  (this.keyworlds == "") {
+        this.isSearchMode = false;
+      }
+  }
     },computed: {
     formattedDate() {
       return this.formatDate(this.date);
     },
     isVisable () {
       for (let i = 0 ;i < this.activeEvents.length;i++) {
-        if( this.currentClass === 0){
+        if( this.currentClass == 0){
         if(this.activeEvents[i].date == this.date) {
         this.activeEvents[i].isVisble = true;
         this.currentPage = 1;
       }else {
         this.activeEvents[i].isVisble = false;
-      }}else if(this.currentClass !== 0) {
-        if(this.activeEvents[i].date == this.date && this.activeEvents[i].type == this.currentClass){
+      }}else if(this.currentClass != 0) {
+        if(this.activeEvents[i].date == this.date && this.activeEvents[i].c_no == this.currentClass){
           this.activeEvents[i].isVisble = true;
           this.currentPage = 1;
         }else {
@@ -251,8 +159,35 @@ export default {
 },pagenateData () {
   return this.isVisable.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
 },filterEvents () {
-  
+      const strArr = this.keyworlds.split(" ");
+      const arr = [];
+      strArr.forEach((str) => {
+        this.activeEvents.forEach((item) => {
+          if (item.a_name.includes(str) || item.c_no.includes(str)){
+            arr.push(item);
+          }})
+        })
+      console.log(arr)
+      return arr
+    
+},currentEvent () {
+  if(this.isSearchMode === true) {
+  return this.filterEvents.slice(0,4);
+  }else {
+    return this.pagenateData.slice(0,4);
+  }
+},
+searchModePage () {
+  return this.filterEvents.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
 }
+},mounted() {
+    fetch('/public/activityPage.json')
+    .then(res=>res.json())
+    .then(json=> {
+      console.log(json);
+      this.activeEvents = json;
+      console.log(this.activeEvents);
+    })
 },
 }
 </script>
@@ -316,6 +251,7 @@ const rules = ref({
   .activity-section {
     width: 100vw;
     max-width: 1200px;
+    margin: auto;
     .activity-container {
       width: 80%;
       margin: auto;
@@ -362,6 +298,8 @@ const rules = ref({
     }
     .main-content {
       width: 100%;
+      max-width: 1200px;
+      margin: auto;
       display: flex;
       justify-content: space-between;
       .current-event {
@@ -389,10 +327,15 @@ const rules = ref({
             border-bottom: 0.5px solid $darkGreen;
             border-left: 0.5px solid $darkGreen;
             cursor: pointer;
+            > a {
+              text-decoration: none;
+              color:$darkGreen;
+            }
           }
       }
       .container {
         width: 65%;
+        height: 930px;
         margin:0 0 0 auto ;
         position: relative;
         .row {
@@ -402,7 +345,10 @@ const rules = ref({
           padding: 0;
           position: relative;
           margin-bottom: 5%;
-          > img {
+          a{
+            text-decoration: none;
+            color:$darkGreen;
+          .event-img{
             width: 100%;
             vertical-align: bottom;
             cursor: pointer;
@@ -451,6 +397,7 @@ const rules = ref({
                 margin-right:5px ;
               }
             }
+          }
           }
         }
         .btn-field {
