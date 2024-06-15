@@ -43,7 +43,7 @@ export default {
     },
     async fetchUserInfo() {
       //  fetch data from API
-      return await fetch("/public/productList.json")
+      return await fetch("/productList.json")
         .then((response) => response.json())
         .then((json) => json);
     },
