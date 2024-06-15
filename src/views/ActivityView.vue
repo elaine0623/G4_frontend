@@ -18,10 +18,10 @@
   <!-- <Calendar /> -->
   <div class="myvc-container">
     <DatePicker :color="selectedColor"
-                 :attributes="attrs"
-                 v-model="date"
-                 mode="date" 
-                 :rules="rules"/>
+                :attributes="attrs"
+                v-model="date"
+                mode="date" 
+                :rules="rules"/>
     <div class="current-event" >
       <div class="curr-header">{{ formattedDate }}</div>
       <div class="curr-content" v-for="(item,index) in currentEvent" :key="item.id" >
@@ -31,8 +31,8 @@
   </div>
   <div class="container"> 
     <div class="row" >
-      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === true "  v-for="(item,index) in searchModePage" :key="item.id" >
-        <router-link :to='`/ActivityPage/${index + 1}`' > 
+      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === true "  v-for="item in searchModePage" :key="item.id" >
+        <router-link :to='`/ActivityPage/${item.id}`' > 
         <img :src=item.a_img alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
@@ -43,8 +43,8 @@
       </router-link>
       
       </div>
-      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="(item,index) in  pagenateData" :key="item.id" >
-        <router-link :to='`/ActivityPage/${index + 1}`' > 
+      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="item in  pagenateData" :key="item.id" >
+        <router-link :to='`/ActivityPage/${item.id}`' > 
         <img :src=item.a_img alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
