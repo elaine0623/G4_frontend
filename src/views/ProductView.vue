@@ -4,11 +4,11 @@ export default {
     return {
       responseData: [],
       displayData: [],
-      currentPage:1,
-      isSearchMode:false,
-      keyworlds:"",
-      search:'',
-      currentClass:'0',
+      currentPage: 1,
+      isSearchMode: false,
+      keyworlds: "",
+      search: '',
+      currentClass: '0',
 
     }
   },
@@ -17,33 +17,33 @@ export default {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
     },
     SearchMode() {//判斷是否搜尋
-      if(this.search !== "") {
+      if (this.search !== "") {
         this.isSearchMode = true;
       }
     },
-    fetchData(){
-      fetch("/public/productList.json")
-      .then(res => res.json())
-      .then(json => {
-        // 確認有沒有response
-        console.log(json);
-        // 備份還原用
-        this.responseData = json
-        // 顯示用
-        this.displayData = json
-      })
+    fetchData() {
+      fetch("/productList.json")
+        .then(res => res.json())
+        .then(json => {
+          // 確認有沒有response
+          console.log(json);
+          // 備份還原用
+          this.responseData = json
+          // 顯示用
+          this.displayData = json
+        })
 
     },
     filterData() {//搜尋
       console.log(this.search)
       console.log(this.isSearchMode)
       this.displayData = this.responseData.filter((item) => {
-        return item.p_name.includes(this.search) || item.pc_name.includes(this.search)||item.f_name.includes(this.search)//類別
+        return item.p_name.includes(this.search) || item.pc_name.includes(this.search) || item.f_name.includes(this.search)//類別
       }
       )
     },
-    clear(){//清空搜尋資料
-      this.search='';
+    clear() {//清空搜尋資料
+      this.search = '';
       this.isSearchMode = false;
       this.displayData = this.responseData;
     },
@@ -56,23 +56,23 @@ export default {
     },
   },
   mounted() {
-  this.fetchData();
-      
-},
-computed: {
-  activedProduct() {
+    this.fetchData();
+
+  },
+  computed: {
+    activedProduct() {
       let filter = [];
       if (this.isSearchMode == false && this.currentClass == '0') {
-        filter  = this.responseData
+        filter = this.responseData
       } else if (this.currentClass !== '0' && this.isSearchMode == false) {
         filter = this.responseData.filter(
           product => product.pc_name == this.currentClass)
-      }else if (this.isSearchMode == true) {
+      } else if (this.isSearchMode == true) {
         filter = this.displayData
       }
       return filter
     },
-}
+  }
 
 }
 </script>
@@ -103,7 +103,7 @@ computed: {
             </label>
           </div>
         </div>
-        <div class="filter-product" @change="activedClass() ">
+        <div class="filter-product" @change="activedClass()">
           <select name="filter" id="filter">
             <option value="0">全部商品</option>
             <option value="蔬菜">蔬菜</option>
@@ -219,6 +219,7 @@ section {
 
           ul {
             display: flex;
+
             li {
               a {
                 text-decoration: none;
