@@ -3,6 +3,9 @@
         <div class="container">
             <div class="title">
                 <h1>訂單商品</h1>
+                
+                
+            
             </div>
             <div class="info-activity">
                 <!-- 商品資料 -->
@@ -128,6 +131,7 @@ export default {
             fee: 500,
             name: '',
             count: '',
+          
             errorMsg: {
                 name: '',
                 email: '',
@@ -288,7 +292,9 @@ section {
                     display: flex;
                     justify-content: space-around;
                     border-bottom:1px solid #D9D9D9;
-                    .product-into {}
+                    .product-into {
+
+                    }
                 }
             }
 
