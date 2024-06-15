@@ -229,7 +229,7 @@
       ],
       "answer": "B",
       "correctAnswer": "輪作",
-      "answer_image": "../src/assets/image/game-img/8B.jpg",
+      "answer_image": "../src/assets/image/game-img/18b.png",
       "explanation": "輪作通過改變作物種植順序，有助於保持土壤結構，減少土壤侵蝕。"
     },
     {
@@ -382,28 +382,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/",
+          "img": "../src/assets/image/game-img/14A .jpg",
           "text": "價格低廉的食品"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/14B.jpg",
           "text": "本地生產的食品"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/14C .jpg",
           "text": "農民獲得公平報酬的食品"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/14D.jpg",
           "text": "不含防腐劑的食品"
         }
       ],
       "answer": "C",
       "correctAnswer": "農民獲得公平報酬的食品",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/14C .jpg",
       "explanation": "公平貿易認證食品確保農民和工人能獲得公平的報酬和工作條件，保障他們的權益。"
     },
     {
@@ -411,28 +411,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/15A.jpg",
           "text": "有機"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/",
           "text": "低脂"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/15C.jpg",
           "text": "非轉基因"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/15D.jpeg",
           "text": "無添加"
         }
       ],
       "answer": "C",
       "correctAnswer": "非轉基因",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/15C.jpg",
       "explanation": "非轉基因標籤表示該食品未經過基因工程技術的改造，保證其天然性。"
     },
     {
@@ -440,28 +440,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/16A.jpg",
           "text": "高溫烹調"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/16B.jpg",
           "text": "即食食品"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/16C.jpg",
           "text": "食品再加工"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/16D.jpg",
           "text": "低溫保存"
         }
       ],
       "answer": "D",
       "correctAnswer": "低溫保存",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/16D.jpg",
       "explanation": "低溫保存技術可以有效延長食品的保質期，減少因腐壞導致的食品浪費。"
     },
     {
@@ -469,28 +469,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/17A.jpg",
           "text": "煮沸"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/17B.jpg",
           "text": "發酵"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/17C.jpg",
           "text": "風乾"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/17D.jpg",
           "text": "罐裝"
         }
       ],
       "answer": "B",
       "correctAnswer": "發酵",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/17D.jpg",
       "explanation": "發酵過程中，微生物活動能提高食品的營養價值，如增加維生素和益生菌含量。"
     },
     {
@@ -498,28 +498,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/18A.webp",
           "text": "塑料袋"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/18b.png",
           "text": "玻璃瓶"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/18c.jpg",
           "text": "鋁箔包裝"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
-          "text": "聚苯乙烯泡沫"
+          "img": "../src/assets/image/game-img/18d.jpg",
+          "text": "聚苯乙烯"
         }
       ],
       "answer": "B",
       "correctAnswer": "玻璃瓶",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/18b.png",
       "explanation": "玻璃瓶可以多次重複使用和回收，對環境影響較小，是較為環保的包裝選擇。"
     },
     {
@@ -556,28 +556,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/20a.jpg",
           "text": "熏制"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/20b.jpg",
           "text": "脫水"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/20c.jpg",
           "text": "低溫保存"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "../src/assets/image/game-img/20d.jpg",
           "text": "離心分離"
         }
       ],
       "answer": "D",
       "correctAnswer": "離心分離",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "../src/assets/image/game-img/20d.jpg",
       "explanation": "離心分離技術能將食品中的脂肪分離出來，有效降低食品的脂肪含量。"
     }
   ]

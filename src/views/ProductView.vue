@@ -3,29 +3,79 @@ export default {
   data() {
     return {
       responseData: [],
-      displayData: []
+      displayData: [],
+      currentPage: 1,
+      isSearchMode: false,
+      keyworlds: "",
+      search: '',
+      currentClass: '0',
 
     }
   },
   methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     toggleImage(index) {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
-    }
+    },
+    SearchMode() {//判斷是否搜尋
+      if (this.search !== "") {
+        this.isSearchMode = true;
+      }
+    },
+    fetchData() {
+      fetch("/productList.json")
+        .then(res => res.json())
+        .then(json => {
+          // 確認有沒有response
+          console.log(json);
+          // 備份還原用
+          this.responseData = json
+          // 顯示用
+          this.displayData = json
+        })
 
+    },
+    filterData() {//搜尋
+      console.log(this.search)
+      console.log(this.isSearchMode)
+      this.displayData = this.responseData.filter((item) => {
+        return item.p_name.includes(this.search) || item.pc_name.includes(this.search) || item.f_name.includes(this.search)//類別
+      }
+      )
+    },
+    clear() {//清空搜尋資料
+      this.search = '';
+      this.isSearchMode = false;
+      this.displayData = this.responseData;
+    },
+    activedClass() {
+      let activeClass = document.querySelector('#filter')// //偵測目前類別為何
+      this.currentClass = activeClass.value
+      console.log(this.activedProduct)
+      console.log(this.currentClass)
+      console.log(this.isSearchMode)
+    },
   },
   mounted() {
-    fetch("/public/productList.json")
-      .then(res => res.json())
-      .then(json => {
-        // 確認有沒有response
-        console.log(json);
-        // 備份還原用
-        this.responseData = json
-        // 顯示用
-        this.displayData = json
-      })
-  }
+    this.fetchData();
 
+  },
+  computed: {
+    activedProduct() {
+      let filter = [];
+      if (this.isSearchMode == false && this.currentClass == '0') {
+        filter = this.responseData
+      } else if (this.currentClass !== '0' && this.isSearchMode == false) {
+        filter = this.responseData.filter(
+          product => product.pc_name == this.currentClass)
+      } else if (this.isSearchMode == true) {
+        filter = this.displayData
+      }
+      return filter
+    },
+  }
 
 }
 </script>
@@ -51,17 +101,18 @@ export default {
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <label for="">
-              <input type="text" placeholder="搜尋商品">
+              <input type="text" placeholder="搜尋商品" v-model="search" @keyup.enter="filterData()" @change="SearchMode()">
+              <button @click="clear">X</button>
             </label>
           </div>
         </div>
-        <div class="filter-product">
+        <div class="filter-product" @change="activedClass()">
           <select name="filter" id="filter">
-            <option value="all">熱門商品</option>
-            <option value="hight">蔬菜</option>
-            <option value="low">水果</option>
-            <option value="low">茗茶</option>
-            <option value="low">其他</option>
+            <option value="0">全部商品</option>
+            <option value="蔬菜">蔬菜</option>
+            <option value="水果">水果</option>
+            <option value="茗茶">茗茶</option>
+            <option value="其他">其他</option>
           </select>
           <div class="icon-filter-product">
             <img src="../assets/image/filter.svg" alt="">
@@ -72,10 +123,10 @@ export default {
       <div class="container">
 
         <div class="row list-product ">
-          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in displayData" :key="cardtIndex">
+          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in activedProduct" :key="cardtIndex">
             <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
               <div class="pic-card">
-                <img :src="cardtItem.p_img[0]" alt="">
+                <img :src="parsePic(cardtItem.p_img[0])" alt="">
               </div>
               <div class="into-card">
                 <div class="category-card">
@@ -86,7 +137,8 @@ export default {
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
                   <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
-                    <img :src="cardtItem['isImage1'] ? cardtItem['hartImage'] : cardtItem['hartImage1']" alt="">
+                    <img :src="cardtItem['isImage1'] ? parsePic(cardtItem.hartImage) : parsePic(cardtItem.hartImage1)"
+                      alt="">
 
                   </div>
                 </div>
@@ -171,6 +223,7 @@ section {
 
           ul {
             display: flex;
+
             li {
               a {
                 text-decoration: none;
