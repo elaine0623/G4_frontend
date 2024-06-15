@@ -74,10 +74,14 @@
       </transition>
 
       <!-- 進度條容器 -->
-      <div class="progress-container">
+      <div v-if="showProgressBar" class="progress-container">
         <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
         <div class="progress-img-container" :style="{ width: progressWidth + '%' }">
-          <img class="progress-img" src="/src/assets/image/game-img/鏟子.png" alt="Progress Image" />
+          <img
+            class="progress-img"
+            src="/src/assets/image/game-img/鏟子.png"
+            alt="Progress Image"
+          />
         </div>
       </div>
     </div>
@@ -89,6 +93,7 @@ export default {
   data() {
     return {
       gameStarted: false,
+      showProgressBar: false,
       questions: [],
       currentQuestionIndex: 0,
       userScore: 0,
@@ -124,6 +129,9 @@ export default {
     },
     startGame() {
       this.gameStarted = true
+      setTimeout(() => {
+        this.showProgressBar = true
+      }, 4000) // 延遲3秒後顯示進度條
     },
     selectAnswer(answer) {
       if (answer === this.currentQuestion.answer) {
@@ -172,6 +180,9 @@ export default {
       width: 80%;
       aspect-ratio: 16/10;
       background-color: #128a63;
+      background-image: url(/src/assets/image/game-img/gamebgimg.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -229,18 +240,30 @@ export default {
       }
       button {
         padding: 17px 53px;
-        border-radius: 50px;
+        border-radius: 25px;
+        border: none;
         background-color: #144433;
-        color: white;
+        color: #fff;
+        display: block;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: transform 0.1s ease-in;
+        margin: 6px 0;
+
+        &:active {
+          transform: scale(0.9);
+        }
+
+        &:focus {
+          outline: none;
+        }
+
         @include lg() {
           padding: 13px 40px;
         }
         @include md() {
           padding: 10px 30px;
         }
-      }
-      button:active {
-        background-color: #128a63;
       }
     }
     .game_start {
@@ -341,10 +364,10 @@ export default {
             align-items: center;
             flex-wrap: wrap;
             width: 90%;
-            height: 85%;
+            height: 86%;
             @include md() {
               width: 50%;
-              height: 75%;
+              height: 71%;
             }
             @include sm() {
               height: 70%;
@@ -359,18 +382,30 @@ export default {
             }
             button {
               padding: 17px 53px;
-              border-radius: 50px;
+              border-radius: 25px;
+              border: none;
               background-color: #144433;
-              color: white;
+              color: #fff;
+              display: block;
+              letter-spacing: 1.5px;
+              cursor: pointer;
+              transition: transform 0.1s ease-in;
+              margin: 6px 0;
+
+              &:active {
+                transform: scale(0.9) !important;
+              }
+
+              &:focus {
+                outline: none;
+              }
+
               @include lg() {
                 padding: 13px 40px;
               }
               @include md() {
                 padding: 10px 30px;
               }
-            }
-            button:active {
-              background-color: #128a63;
             }
           }
         }
@@ -399,16 +434,15 @@ export default {
     }
     .progress-container {
       width: 80%;
-      border-radius: 25px;
+      aspect-ratio: 10/1;
       margin: 20px auto;
       position: relative;
-      
+
       .progress-bar {
-        height: 70px;
-        border-radius: 25px;
+        height: 100%;
         transition: width 0.4s linear;
         background-image: url(../assets/image/game-img/tree.png);
-        background-size: 96px 70px;
+        background-size: auto 100%;
       }
       .progress-img-container {
         position: absolute;
@@ -417,12 +451,33 @@ export default {
         display: flex;
         justify-content: end;
         align-items: center;
-
+        @include lg() {
+          height: 50px;
+        }
+        @include md() {
+          height: 45px;
+        }
+        @include sm() {
+          top: -10px;
+          height: 25px;
+        }
         img.progress-img {
           height: 60px;
           width: 60px;
           max-width: 100%; /* 圖片最大寬度為其容器寬度 */
           object-fit: contain; /* 確保圖片比例不失真 */
+          @include lg() {
+            height: 50px;
+            width: 50px;
+          }
+          @include md() {
+            height: 35px;
+            width: 35px;
+          }
+          @include sm() {
+            height: 25px;
+            width: 25px;
+          }
         }
       }
     }

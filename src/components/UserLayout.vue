@@ -1,7 +1,17 @@
-<script>
+<!-- router每次到userlayout頁面時，會透過classname改變z-index -->
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
+const hideChild = computed(() => {
+    return route.name === 'UserLayout'
+})
 </script>
 
 <template>
+    <!-- {{ route }}
+    {{ hideChild }} -->
     <section>
         <div class="wrapper">
             <div class="member-context">
@@ -41,7 +51,7 @@
             <div class="logout">
                 <button class="btn-logout">登出<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
             </div>
-            <div class="mb-routerContent">
+            <div class="mb-routerContent" :class="{ 'invisible': hideChild }">
                 <router-view></router-view>
             </div>
         </div>
@@ -185,5 +195,9 @@ button {
 
 a {
     text-decoration: none;
+}
+
+.invisible {
+    z-index: -1;
 }
 </style>
