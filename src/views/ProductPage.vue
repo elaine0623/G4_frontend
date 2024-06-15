@@ -80,7 +80,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{ userInfo[$route.params.productId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{ userInfo[userId - 1]["pc_name"] }}</em></li>
         </ul>
       </div>
       <div class="row">

@@ -246,11 +246,20 @@ section {
           align-items: center;
           right: 0;
           // width:50%;
+          button{
+            position: absolute;
+            right:5px;
+            top: 9px;
+            background-color: transparent;
+            color: #fff;
+            border: 0;
+          }
 
 
           .icon-search-product {
             position: absolute;
             left: 10px;
+            top: 7px;
             color: #fff;
 
             .fa-magnifying-glass {
