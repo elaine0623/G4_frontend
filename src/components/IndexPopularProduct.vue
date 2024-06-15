@@ -14,7 +14,7 @@
           }" :modules='modules' :pagination="{
             type: 'fraction',
             el: '.pagination',
-          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" :slides-per-view="3" :centeredSlides="true">
+          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto" :centeredSlides="true" >
             <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
               <RouterLink to="/" class="card-product-list">
@@ -89,6 +89,16 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 export default {
   data() {
     return {
+      // swiperOption:{
+      //   breakpoints:{
+      //     391:{
+      //       slidesPerView:3,
+      //       centeredSlides:true,
+      //     }
+          
+      //   }
+
+      // },
       cartList: [
         {
           id: 1,
@@ -235,19 +245,23 @@ section {
 
 
       .product-list {
-        display: flex;
+        // display: flex;
         text-align: center;
         align-items: center;
         justify-content: center;
         gap: 1%;
         overflow: visible;
         height: auto;
-        width: 1200px;
-        overflow: hidden;
+        // width: 1200px;
+        // overflow: hidden;
         box-sizing: border-box;
-        position: absolute;
-        right: 50%;
-        transform: translateX(50%);
+        // position: absolute;
+        // right: 50%;
+        // transform: translateX(50%);
+        .swiper-slide{
+          width: auto;
+
+        }
 
         .card-product-list {
           margin: auto;
@@ -255,6 +269,8 @@ section {
           width: 380px;
           cursor:pointer;
           text-decoration: none;
+          
+          
         }
 
         .img-product-list {
@@ -264,6 +280,9 @@ section {
 
           img {
             width: 100%;
+          //   @include bp(390px) {
+          //   width: 380px;
+          // }
 
           }
         }

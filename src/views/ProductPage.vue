@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     userId() {
-      return this.$route.params.productId;
+      return this.userId;
     },
     filteredImages() {
       const product = this.userInfo[this.userId - 1];
@@ -74,7 +74,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{userInfo[$route.params.productId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{userInfo[userId - 1]["pc_name"] }}</em></li>
         </ul>
       </div>
       <div class="row">
@@ -86,15 +86,15 @@ export default {
             <div class="second-pic">
               <img v-for="(img, index) in filteredImages" :key="index" :src="img" @click="changeMainImage(index)"
                 alt="Secondary Image">
-              <!-- <img :src="userInfo[$route.params.productId - 1].p_img[2]" alt="">
-              <img :src= "userInfo[$route.params.productId - 1].p_img[3]" alt=""> -->
+              <!-- <img :src="userInfo[userId - 1].p_img[2]" alt="">
+              <img :src= "userInfo[userId - 1].p_img[3]" alt=""> -->
             </div>
 
           </div>
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>{{ userInfo[$route.params.productId - 1].f_name }}-{{ userInfo[$route.params.productId - 1].p_name
+                <h2>{{ userInfo[userId - 1].f_name }}-{{ userInfo[userId - 1].p_name
                   }}
                 </h2>
                 <div class="under-scord">
@@ -104,7 +104,7 @@ export default {
 
               </div>
               <div class="txt">
-                <p>{{ userInfo[$route.params.productId - 1].introduce }}</p>
+                <p>{{ userInfo[userId - 1].introduce }}</p>
 
                 <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
@@ -117,10 +117,10 @@ export default {
                 <img src="../assets/image/product-underScord2.svg" alt="">
               </div>
               <div class="unit">
-                <p>單位:</p><span>{{ userInfo[$route.params.productId - 1].unit }}</span>
+                <p>單位:</p><span>{{ userInfo[userId - 1].unit }}</span>
               </div>
               <div class="Charge">
-                <p>售價:</p><span>{{ userInfo[$route.params.productId - 1].p_fee }}元</span>
+                <p>售價:</p><span>{{ userInfo[userId - 1].p_fee }}元</span>
               </div>
               <div class="quantity">
                 <p>數量:</p>

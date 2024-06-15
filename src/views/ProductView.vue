@@ -3,15 +3,23 @@ export default {
   data() {
     return {
       responseData: [],
-      displayData: []
+      displayData: [],
+      currentPage:1,
+      isSearchMode:false,
+      keyworlds:"",
 
     }
   },
   methods: {
     toggleImage(index) {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
-    }
-
+    },SearchMode() {
+      if(this.keyworlds != "") {
+        this.isSearchMode = true;
+      }else if  (this.keyworlds == "") {
+        this.isSearchMode = false;
+      }
+  }
   },
   mounted() {
     fetch("/public/productList.json")
@@ -24,9 +32,16 @@ export default {
         // 顯示用
         this.displayData = json
       })
-  }
+      // isVisable () {
+      //   for(let i = 0;i < this.displayData.length ;i++) {
+      //     if(this.currentClass == 0) {
+      //       return this.displayData;
+      //     }else {
 
-
+      //     }
+      //   }
+      // }}
+},
 }
 </script>
 
@@ -59,9 +74,9 @@ export default {
           <select name="filter" id="filter">
             <option value="all">熱門商品</option>
             <option value="hight">蔬菜</option>
-            <option value="low">水果</option>
-            <option value="low">茗茶</option>
-            <option value="low">其他</option>
+            <option value="foot">水果</option>
+            <option value="tea">茗茶</option>
+            <option value="other">其他</option>
           </select>
           <div class="icon-filter-product">
             <img src="../assets/image/filter.svg" alt="">

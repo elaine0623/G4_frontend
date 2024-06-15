@@ -29,9 +29,8 @@ export default {
   },
   computed:{
     totalprice() {
-      let total = 0;
-        for(let i = 0;i < this.cartList.length;i++) {
-          
+      let total = 0;//加總總和
+        for(let i = 0;i < this.cartList.length;i++) {  
           this.cartList[i].total = this.cartList[i].p_fee * this.cartList[i].count
           total += this.cartList[i].total
         }
@@ -47,19 +46,14 @@ export default {
         this.cartList[index].count= 0;
         this.deleteItem(index);
     }else {
-      this.cartList[index].count --;
-     
+      this.cartList[index].count --; 
     }
-    
-
   },
   deleteItem(index) {
     if (confirm("確定刪除？")) {
         this.cartList.splice(index, 1); //  cartList 中移除指定索引的商品
       }
     }
-
-
 }}
 
 </script>
@@ -465,6 +459,7 @@ section {
             letter-spacing: $letterSpacing;
             a{
               text-decoration: none;
+              display: block;
             }
           }
 
@@ -483,6 +478,7 @@ section {
             
             a{
               color: #fff;
+              display: block;
             }
           }
         }
