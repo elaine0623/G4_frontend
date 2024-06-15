@@ -18,6 +18,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^10.10.0",
+    "axios": "^1.7.2",
     "mitt": "^3.0.1",
     "pinia": "^2.1.7",
     "sweetalert2": "^11.11.1",

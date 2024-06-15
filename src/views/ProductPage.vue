@@ -15,7 +15,7 @@ export default {
       const product = this.userInfo[this.userId - 1];
       if (product && product.p_img) {
         // 确保只返回三张次要小圖
-        return product.p_img.filter(img => img !== this.mainImage).slice(0, 3);
+        return product.p_img.filter(img => this.parsePic(img) !== this.mainImage).slice(0, 3);
       }
       return [];
     }
@@ -32,18 +32,21 @@ export default {
     },
   },
   methods: {
+    parsePic(file) {//修改照片路徑
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     add() {
       if (this.count >= 10) return
       this.count += 1;
     },
     subtraction() {
-      if (this.count == 0) return
+      if (this.count == 1) return
       this.count -= 1;
 
     },
     async fetchUserInfo() {
       //  fetch data from API
-      return await fetch("../../public/productList.json")
+      return await fetch("/productList.json")
         .then((response) => response.json())
         .then((json) => json);
     },
@@ -51,13 +54,15 @@ export default {
     changeMainImage(imgIndex) {
       const product = this.userInfo[this.userId - 1];
       const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
-      this.mainImage = product.p_img[selectedIndex];
+      this.mainImage = this.parsePic(product.p_img[selectedIndex]);
+      // this.parsePic(this.mainImage);
     }
   },
   async created() {
     this.userInfo = await this.fetchUserInfo();
     if (this.userInfo.length > 0) {
-      this.mainImage = this.userInfo[this.userId - 1].p_img[0];
+      this.mainImage = this.parsePic(this.userInfo[this.userId - 1].p_img[0]);
+      // console.log(this.mainImage);
     }
   },
 
@@ -75,7 +80,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{ userInfo[$route.params.productId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{ userInfo[userId - 1]["pc_name"] }}</em></li>
         </ul>
       </div>
       <div class="row">
@@ -85,7 +90,7 @@ export default {
               <img :src="mainImage" alt="">
             </div>
             <div class="second-pic">
-              <img v-for="(img, index) in filteredImages" :key="index" :src="img" @click="changeMainImage(index)"
+              <img v-for="(img, index) in filteredImages" :key="index" :src="parsePic(img)" @click="changeMainImage(index)"
                 alt="Secondary Image">
               <!-- <img :src="userInfo[userId - 1].p_img[2]" alt="">
               <img :src= "userInfo[userId - 1].p_img[3]" alt=""> -->
