@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     userId() {
-       return this.$route.params.productId;
+      return this.$route.params.productId;
     },
     filteredImages() {
       const product = this.userInfo[this.userId - 1];
@@ -42,6 +42,7 @@ export default {
 
     },
     async fetchUserInfo() {
+      //  fetch data from API
       return await fetch("../../public/productList.json")
         .then((response) => response.json())
         .then((json) => json);
@@ -74,7 +75,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{userInfo[userId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{ userInfo[$route.params.productId - 1]["pc_name"] }}</em></li>
         </ul>
       </div>
       <div class="row">
@@ -164,27 +165,28 @@ section {
 
 
     .crumbs-product {
-          font-family: $pFont;
-          $line-height: $fontBase;
-          font-size: $fontBase ;
-          color: $darkGreen;
+      font-family: $pFont;
+      $line-height: $fontBase;
+      font-size: $fontBase ;
+      color: $darkGreen;
 
-          ul {
-            display: flex;
-            li {
-              a {
-                text-decoration: none;
-                font-family: $pFont;
-                $line-height: $fontBase;
-                font-size: $fontBase ;
-                color: $darkGreen;
+      ul {
+        display: flex;
 
-              }
+        li {
+          a {
+            text-decoration: none;
+            font-family: $pFont;
+            $line-height: $fontBase;
+            font-size: $fontBase ;
+            color: $darkGreen;
 
-            }
           }
 
         }
+      }
+
+    }
 
     .row {
       margin: auto;

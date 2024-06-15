@@ -9,9 +9,44 @@ const hideChild = computed(() => {
 })
 </script>
 
+<script>
+export default {
+    data() {
+        return {
+            countDown: 10, // 倒數的秒數
+            timer: null // 定時器的引用
+        };
+    },
+    created() {
+        this.startTimer(); //在此執行-->寫在事件結束後執行
+    },
+    methods: {
+        startTimer() {
+            this.timer = setInterval(() => {
+                if (this.countDown > 0) {
+                    // 時間未到，減一秒
+                    this.countDown--;
+                } else {
+                    // 時間到，清除計時器
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }, 1000); // 每秒執行一次進入作用域
+        }
+    },
+    beforeUnmount() {
+        // vue實體銷毀前，關掉這一頁面
+        if (this.timer) {
+            clearInterval(this.timer); // 防止記憶體洩漏，清除定時器
+        }
+    }
+};
+</script>
+
 <template>
     <!-- {{ route }}
     {{ hideChild }} -->
+    <!-- {{ countDown }} -->
     <section>
         <div class="wrapper">
             <div class="member-context">
