@@ -229,7 +229,7 @@
       ],
       "answer": "B",
       "correctAnswer": "輪作",
-      "answer_image": "../src/assets/image/game-img/18b.png",
+      "answer_image": "../src/assets/image/game-img/8b.png",
       "explanation": "輪作通過改變作物種植順序，有助於保持土壤結構，減少土壤侵蝕。"
     },
     {
@@ -266,28 +266,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/",
+          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
           "text": "單一作物種植"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/",
+          "img": "../src/assets/image/game-img/10-B.jpg",
           "text": "深耕"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/",
+          "img": "../src/assets/image/game-img/10-C.jpg",
           "text": "遷耕"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/",
+          "img": "../src/assets/image/game-img/10-D.jpg",
           "text": "保護性耕作"
         }
       ],
       "answer": "D",
       "correctAnswer": "保護性耕作",
-      "answer_image": "../src/assets/image/game-img/",
+      "answer_image": "../src/assets/image/game-img/10-D.jpg",
       "explanation": "保護性耕作能減少土壤翻動，有助於提高土壤的碳儲量，降低二氧化碳排放。"
     },
     {
@@ -416,8 +416,8 @@
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/",
-          "text": "低脂"
+          "img": "../src/assets/image/game-img/15B.png",
+          "text": "優良食品"
         },
         {
           "key": "C",
@@ -503,7 +503,7 @@
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/18b.png",
+          "img": "../src/assets/image/game-img/18b.jpg",
           "text": "玻璃瓶"
         },
         {
@@ -519,7 +519,7 @@
       ],
       "answer": "B",
       "correctAnswer": "玻璃瓶",
-      "answer_image": "../src/assets/image/game-img/18b.png",
+      "answer_image": "../src/assets/image/game-img/18b.jpg",
       "explanation": "玻璃瓶可以多次重複使用和回收，對環境影響較小，是較為環保的包裝選擇。"
     },
     {
