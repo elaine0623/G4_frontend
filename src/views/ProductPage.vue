@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     userId() {
-      return this.userId;
+       return this.$route.params.productId;
     },
     filteredImages() {
       const product = this.userInfo[this.userId - 1];
