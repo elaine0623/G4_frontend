@@ -13,6 +13,9 @@ export default {
     }
   },
   methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     toggleImage(index) {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
     },
@@ -123,7 +126,7 @@ export default {
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in activedProduct" :key="cardtIndex">
             <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
               <div class="pic-card">
-                <img :src="cardtItem.p_img[0]" alt="">
+                <img :src="parsePic(cardtItem.p_img[0])" alt="">
               </div>
               <div class="into-card">
                 <div class="category-card">
@@ -134,7 +137,8 @@ export default {
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
                   <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
-                    <img :src="cardtItem['isImage1'] ? cardtItem['hartImage'] : cardtItem['hartImage1']" alt="">
+                    <img :src="cardtItem['isImage1'] ? parsePic(cardtItem.hartImage) : parsePic(cardtItem.hartImage1)"
+                      alt="">
 
                   </div>
                 </div>

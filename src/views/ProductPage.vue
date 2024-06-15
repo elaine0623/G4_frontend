@@ -32,6 +32,9 @@ export default {
     },
   },
   methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     add() {
       if (this.count >= 10) return
       this.count += 1;
@@ -57,7 +60,8 @@ export default {
   async created() {
     this.userInfo = await this.fetchUserInfo();
     if (this.userInfo.length > 0) {
-      this.mainImage = this.userInfo[this.userId - 1].p_img[0];
+      this.mainImage = this.parsePic(this.userInfo[this.userId - 1].p_img[0]);
+      // console.log(this.mainImage);
     }
   },
 
