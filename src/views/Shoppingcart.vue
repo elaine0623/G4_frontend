@@ -232,7 +232,7 @@ export default {
         submit () {
            
                 Swal.fire({
-                    title: "<strong>報名成功</strong>",
+                    title: "<strong>訂購成功</strong>",
                     icon: "success",
                     iconColor:'#144433',
                     html: ``,
@@ -240,20 +240,20 @@ export default {
                     showCancelButton: true,
                     focusConfirm: false,
                     confirmButtonText: `
-                        <a href="/activity"
+                        <a href="/product"
                             style="
                                 text-decoration: none;
                                 color:#fff;                          
-                            ">返回活動</a>
+                            ">返回商品</a>
                     `,
                     confirmButtonColor:'#144433',
                     cancelButtonText: `
-                        <a href="/userlayout/useractivity" 
+                        <a href="/userlayout/userOrder" 
                             style="
                                 text-decoration: none;
                                 color: #fff;
                                 
-                            ">活動紀錄</a>
+                            ">商品紀錄</a>
                     `,
                     cancelButtonColor: '#144433',
                     background:'#eeeeee'
