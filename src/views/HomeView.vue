@@ -36,9 +36,9 @@ export default {
 .go-up-btn {
   text-align: end;
   position: sticky;
-  height: 70px;
+  height: 60px;
   bottom: 10px;
-  // z-index: 100;
+  z-index: 2;
 
   a {
     text-align: center;
@@ -47,20 +47,20 @@ export default {
     color: #fff;
     border-radius: 100%;
     background-color: $darkGreen;
-    padding: 35px 30px;
+    padding: 25px 20px;
     margin-right: 20px;
     position: relative;
 
     &::before {
       position: absolute;
-      top: 20px;
-      left: 35px;
+      top: 15px;
+      left: 32px;
       content: '';
       display: inline-block;
       border-right: 2px solid #fff;
       border-bottom: 2px solid #fff;
-      width: 26px;
-      height: 26px;
+      width: 16px;
+      height: 16px;
       transform: rotate(-135deg);
     }
   }
