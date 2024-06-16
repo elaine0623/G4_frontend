@@ -114,6 +114,11 @@ const router = createRouter({
           path: 'useractivity',
           name: 'UserActivity',
           component: () => import('@/views/UserActivity.vue'),
+        },
+        {
+          path: 'useractivity/activitydetail:activityId',
+          name: 'ActivityDetail',
+          component: () => import('@/views/ActivityDetail.vue'),
         }
       ]
     },

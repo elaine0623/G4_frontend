@@ -45,7 +45,9 @@ export default {
           <td>{{ order.a_date }}</td>
           <td>{{ order.ao_status }}</td>
           <td><button>取消</button></td>
-          <td>查看</td>
+          <td><router-link :to="{ name: 'ActivityDetail', params: { activityId: order.ao_no } }">
+              <button>查看</button>
+            </router-link></td>
         </tr>
       </tbody>
     </table>
