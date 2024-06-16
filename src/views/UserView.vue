@@ -22,11 +22,14 @@ export default {
       const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g; //正規表達式：不可輸入數字、空白及特殊符號 最多15字
       if (this.name === "") {
         this.errorMsg.name = "*請輸入姓名";
+        return false;
       }
       else if (namelimit.test(this.name)) {
         this.errorMsg.name = "";
+        return true;
       } else {
         this.errorMsg.name = "*姓名不得輸入數字、空白及特殊符號";
+        return false;
       }
     },
     // 前端驗證：使用者email有效
@@ -34,27 +37,40 @@ export default {
       const emaillimit = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;//正規表達式：email格式
       if (emaillimit.test(this.email)) {
         this.errorMsg.email = "";
+        return true;
       } else {
         this.errorMsg.email = "*請輸入正確的email";
+        return false;
       }
     },
     // 前端驗證：使用者輸入密碼長度6-12位，至少一個大寫字母
     checkpsw() {
       const pswlimit = /^(?=.*[A-Z])[a-zA-Z0-9]{6,12}$/g; //正規表達式：密碼長度6-12位，至少一個大寫字母
-      if (pswlimit.test(trim(this.psw))) {
+      if (pswlimit.test(this.psw)) {
         this.errorMsg.psw = "";
+        return true;
       } else {
         this.errorMsg.psw = "請輸入6-12位，至少一大寫字母"
+        return false;
       }
     },
     //確認兩次密碼相同否則跳出錯誤訊息
     dbcheckpsw() {
       if (this.psw !== this.dbpsw) {
         this.errorMsg.dbpsw = "兩者密碼不相同，請重新輸入";
+        return false;
       } else {
         this.errorMsg.dbpsw = "";
+        return true;
       }
     },
+    register() {
+
+      if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
+        return false;
+      }
+      document.myform.submit();
+    }
   }
 }
 </script>
@@ -99,7 +115,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <form class="sign-up pc-form" action="#">
+      <form name="myform" class="sign-up pc-form" action="#" @submit.prevent="register()">
         <h2>建立帳號</h2>
         <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
         <span v-text="errorMsg.name" class="wrong-msg"></span>
