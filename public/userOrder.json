@@ -1,1 +1,14 @@
-[{"po_no":"061201","po_time":"2024/06/12","po_status":"待配送","po_deliverdate":"2024/06/15"},{"po_no":"061201","po_time":"2024/06/13","po_status":"已出貨","po_deliverdate":"2024/06/20"}]
+[
+    {
+        "po_no": "061201",
+        "po_time": "2024/06/12",
+        "po_status": "待配送",
+        "po_deliverdate": "2024/06/15"
+    },
+    {
+        "po_no": "061202",
+        "po_time": "2024/06/13",
+        "po_status": "已出貨",
+        "po_deliverdate": "2024/06/20"
+    }
+]

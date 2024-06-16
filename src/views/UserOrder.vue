@@ -19,7 +19,7 @@ export default {
     // }
   },
   mounted() {
-    fetch('/public/userOrder.json')
+    fetch('/userOrder.json')
       .then(res => res.json())
       .then(data => {
         this.orders = data;
@@ -49,7 +49,12 @@ export default {
           <td>{{ order.po_deliverdate }}</td>
           <td>{{ order.po_status }}</td>
           <td><button>取消</button></td>
-          <td>查看</td>
+          <td>
+
+            <router-link :to="{ name: 'OrderDetail', params: { orderId: order.po_no } }">
+              <button>查看</button>
+            </router-link>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -60,6 +65,7 @@ export default {
 .userorder {
   width: 95%;
   margin: 0 auto;
+  position: relative;
 
   .cancel {
     position: absolute;
@@ -119,6 +125,8 @@ export default {
       }
     }
   }
+
+
 }
 
 button {

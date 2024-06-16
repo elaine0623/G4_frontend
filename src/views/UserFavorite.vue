@@ -6,36 +6,38 @@ export default {
         {
           "f_name": "墻森園",
           "p_name": "高山高麗菜",
-          "p_img": "../src/assets/image/cabbage.png",
+          "p_img": "cabbage.png",
           "unit": "約五台斤*1箱",
           "p_fee": 40
         },
         {
           "f_name": "墻森園",
           "p_name": "栗子地瓜",
-          "p_img": "../src/assets/image/pumpkin.png",
+          "p_img": "pumpkin.png",
           "unit": "約五台斤*1箱",
           "p_fee": 335,
         },
         {
           "f_name": "墻森園",
           "p_name": "栗子地瓜",
-          "p_img": "../src/assets/image/pumpkin.png",
+          "p_img": "pumpkin.png",
           "unit": "約五台斤*1箱",
           "p_fee": 335
         },
         {
           "f_name": "墻森園",
           "p_name": "栗子地瓜",
-          "p_img": "../src/assets/image/pumpkin.png",
+          "p_img": "pumpkin.png",
           "unit": "約五台斤*1箱",
           "p_fee": 335
         }
       ]
     }
   },
-  methods() {
-
+  methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    }
   }
 }
 </script>
@@ -47,25 +49,30 @@ export default {
     <hr>
     <div class="productlist">
       <ul>
-        <div class="list">
-          <li v-for="item in productlist" :key="item.p_name">
-          <li><input type="checkbox"></li>
-          <li>
-            <div class="pic"><img :src="item.p_img"></div>
-          </li>
-          <li>
-            <div class="text">
-              <h3>{{ item.f_name }} {{ item.p_name }}</h3>
-              <p>{{ item.unit }}</p>
-            </div>
-          </li>
-          <li class="price">單價{{ item.p_fee }}</li>
-          <li><button class="cancel">X</button></li>
-          </li>
-        </div>
-        <hr>
-      </ul>
+        <li v-for="item in productlist" :key="item.p_name">
+          <div class="list">
+        <li><input type="checkbox" id="checkbox"><label for="checkbox"></label></li>
+        <li>
+          <div class="pic"><img :src="parsePic(item.p_img)"></div>
+        </li>
+        <li>
+          <div class="text">
+            <h3>{{ item.f_name }} {{ item.p_name }}</h3>
+            <p>{{ item.unit }}</p>
+          </div>
+        </li>
+        <li class="price">單價<span class="pricetxt">{{ item.p_fee }}</span></li>
+        <li class="cancelmark"><button class="cancel"><i class="fa-solid fa-xmark"></i></button></li>
     </div>
+    <hr>
+    </li>
+    </ul>
+    <div class="btn">
+      <router-link to="/product"><button class="routebtn">更多商品<i
+            class="fa-solid fa-arrow-right"></i></button></router-link>
+      <button class="routebtn">加入購物車<i class="fa-solid fa-cart-shopping"></i></button>
+    </div>
+  </div>
   </div>
 
 </template>
@@ -100,7 +107,11 @@ h2 {
   }
 }
 
-li {
+ul {
+  height: 370px;
+}
+
+.list {
   display: flex;
   gap: 7%;
   justify-content: center;
@@ -108,17 +119,40 @@ li {
   line-height: 1.4;
   align-items: center;
 
-  // @include md() {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 3%;
-  // }
+  @include md() {
+    gap: 0;
+    justify-content: space-evenly;
+  }
 
+  .cancelmark {
+    @include md() {
+      order: -1;
+    }
+  }
+}
+
+li {
   input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    border: #144433;
-    border-radius: 0;
+    display: none;
+  }
+
+  input[type="checkbox"]+label::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #144433;
+
+    @include md() {
+      display: none;
+    }
+
+  }
+
+
+  input:checked+label::before {
+    background-image: url("../assets/image/Vector\ 176.png");
+    background-size: cover;
   }
 
   .pic {
@@ -144,6 +178,10 @@ li {
   .price {
     width: 35px;
     text-align: center;
+
+    .pricetxt {
+      font-size: 14px;
+    }
   }
 
   .cancel {
@@ -151,11 +189,32 @@ li {
     height: fit-content;
     border: none;
     cursor: pointer;
+    background-color: #F5F4EA;
+
+    @include md() {
+      order: 1;
+    }
   }
 }
 
 hr {
   width: 95%;
-  margin: 10px auto;
+  margin: 8px auto;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.routebtn {
+  width: 120px;
+  background-color: $darkGreen;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  letter-spacing: 1.3px;
+  cursor: pointer;
 }
 </style>
