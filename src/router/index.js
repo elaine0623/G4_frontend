@@ -106,6 +106,11 @@ const router = createRouter({
           component: () => import('@/views/UserOrder.vue'),
         },
         {
+          path: 'userorder/orderdetail:orderId',
+          name: 'OrderDetail',
+          component: () => import('@/views/OrderDetail.vue'),
+        },
+        {
           path: 'useractivity',
           name: 'UserActivity',
           component: () => import('@/views/UserActivity.vue'),
