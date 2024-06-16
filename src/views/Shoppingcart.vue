@@ -3,9 +3,6 @@
         <div class="container">
             <div class="title">
                 <h1>訂單商品</h1>
-
-
-
             </div>
             <div class="info-activity">
                 <!-- 商品資料 -->
@@ -129,13 +126,14 @@
             </form>
             <hr>
             <div class="submit">
-                <button>確認送出</button>
+                <button @click="submit" type="submit">確認送出</button>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import Swal from 'sweetalert2'//引用sweetalert2
 export default {
     data() {
         return {
@@ -160,7 +158,9 @@ export default {
         userId() {
             return this.$route.params.signupId;
         },
-
+        // totalFees(){
+        //     return this.userInfo[this.$route.params.signupId -1].a_fee * this.ao_count;
+        // }
     },
     watch: {
         userId: async function (val) {
@@ -229,7 +229,38 @@ export default {
                 }
             }
         },
-    },
+        submit () {
+           
+                Swal.fire({
+                    title: "<strong>報名成功</strong>",
+                    icon: "success",
+                    iconColor:'#144433',
+                    html: ``,
+                    showCloseButton: false,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: `
+                        <a href="/activity"
+                            style="
+                                text-decoration: none;
+                                color:#fff;                          
+                            ">返回活動</a>
+                    `,
+                    confirmButtonColor:'#144433',
+                    cancelButtonText: `
+                        <a href="/userlayout/useractivity" 
+                            style="
+                                text-decoration: none;
+                                color: #fff;
+                                
+                            ">活動紀錄</a>
+                    `,
+                    cancelButtonColor: '#144433',
+                    background:'#eeeeee'
+                });
+            }
+        },
+ 
     async created() {
         this.userInfo = await this.fetchUserInfo(this.userId);
     }
