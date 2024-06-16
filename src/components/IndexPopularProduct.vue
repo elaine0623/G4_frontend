@@ -19,7 +19,7 @@
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
               <RouterLink to="/ProductPage" class="card-product-list">
                 <div class="img-product-list">
-                  <img :src="cartItem['img']" alt="" />
+                  <img :src="parsePic(cartItem['img'])" alt="" />
                 </div>
                 <div class="into-product-list">
                   <div class="title-product-list">
@@ -99,46 +99,53 @@ export default {
       //   }
 
       // },
+    
+      
       cartList: [
         {
           id: 1,
           title: '福星',
           subTitle: '葡萄',
           price: 180,
-          img: '../src/assets/image/grape.png'
+          img: 'grape.png'
         },
         {
           id: 2,
           title: '高原',
           subTitle: '柿子',
           price: 100,
-          img: '../src/assets/image/persimmon.png'
+          img: 'persimmon.png'
         },
         {
           id: 3,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/dates.png'
+          img: 'dates.png'
         },
         {
           id: 4,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/grape.png'
+          img: 'grape.png'
         },
         {
           id: 5,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/dates.png'
+          img: 'dates.png'
         }
       ],
 
 
     };
+  },
+  methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
   },
 
 
