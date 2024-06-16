@@ -8,18 +8,22 @@
                 <div class="container-title">
                     <div class="wrap-title">
                         <div class="class">
-                            <h1>{{ userInfo[$route.params.activityId - 1].c_no }}</h1>
+                            <h1>{{ userInfo[userId - 1].c_no }}</h1>
                         </div>
                         <div class="main-title">
-                            <h2>{{ userInfo[$route.params.activityId - 1].a_name }}</h2>
+                            <h2>{{ userInfo[userId - 1].a_name }}</h2>
                         </div>
                     </div>
                     <div class="wrap-info">
                         <nav aria-label="Breadcrumb">
                             <ul>
-                                <li><RouterLink to="/">首頁</RouterLink></li>
-                                <li><RouterLink to="/activity">活動</RouterLink></li>
-                                <li class="current"><em aria-current="page">{{ userInfo[$route.params.activityId - 1].c_no }}</em></li>
+                                <li>
+                                    <RouterLink to="/">首頁</RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink to="/activity">活動</RouterLink>
+                                </li>
+                                <li class="current"><em aria-current="page">{{ userInfo[userId - 1].c_no }}</em></li>
                             </ul>
                         </nav>
                         <hr>
@@ -27,28 +31,28 @@
                 </div>
                 <div class="content">
                     <div class="pic-content">
-                        <img :src="userInfo[$route.params.activityId - 1].a_img" alt="act1">
+                        <img :src="userInfo[userId - 1].a_img" alt="act1">
                     </div>
                     <div class="info-content">
                         <div class="loc">
                             <span><i class="fa-solid fa-location-dot"></i></span>
-                            <span>{{ userInfo[$route.params.activityId - 1].a_loc }}</span>
+                            <span>{{ userInfo[userId - 1].a_loc }}</span>
                         </div>
                         <hr>
                         <div class="date">
                             <span>日 期 : </span>
-                            <span>{{ userInfo[$route.params.activityId - 1].a_date }}</span>
+                            <span>{{ userInfo[userId - 1].a_date }}</span>
                         </div>
-                        <div class="time" v-if="userInfo[$route.params.activityId - 1].a_time">
+                        <div class="time" v-if="userInfo[userId - 1].a_time">
                             <span>時 間 : </span>
                             <span>
-                                {{ userInfo[$route.params.activityId - 1].a_time }}
+                                {{ userInfo[userId - 1].a_time }}
                             </span>
                         </div>
-                        <div class="teacher" v-if="userInfo[$route.params.activityId - 1].a_teacher">
+                        <div class="teacher" v-if="userInfo[userId - 1].a_teacher">
                             <span>講 師 : </span>
                             <span>
-                                {{ userInfo[$route.params.activityId - 1].a_teacher }}
+                                {{ userInfo[userId - 1].a_teacher }}
                             </span>
                         </div>
                         <hr>
@@ -58,16 +62,16 @@
                             <h3>活動介紹</h3>
                         </div>
                         <div>
-                            <p>{{ userInfo[$route.params.activityId - 1].a_info }}</p>
+                            <p>{{ userInfo[userId - 1].a_info }}</p>
                             <ul>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_info1">
-                                    {{ userInfo[$route.params.activityId - 1].a_info1 }}
+                                <li v-if="userInfo[userId - 1].a_info1">
+                                    {{ userInfo[userId - 1].a_info1 }}
                                 </li>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_info2">
-                                    {{ userInfo[$route.params.activityId - 1].a_info2 }}
+                                <li v-if="userInfo[userId - 1].a_info2">
+                                    {{ userInfo[userId - 1].a_info2 }}
                                 </li>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_info3">
-                                    {{ userInfo[$route.params.activityId - 1].a_info3 }}
+                                <li v-if="userInfo[userId - 1].a_info3">
+                                    {{ userInfo[userId - 1].a_info3 }}
                                 </li>
 
                             </ul>
@@ -77,40 +81,40 @@
                         <div class="title-rules">
                             <h3>活動須知</h3>
                         </div>
-                        <div class="item-rules" v-if="userInfo[$route.params.activityId - 1].a_signupe">
+                        <div class="item-rules" v-if="userInfo[userId - 1].a_signupe">
                             <p>報名截止日期</p>
                             <ul>
-                                <li>{{ userInfo[$route.params.activityId - 1].a_signupe }}</li>
+                                <li>{{ userInfo[userId - 1].a_signupe }}</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>報名費用</p>
                             <ul>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_fee">
-                                    NT$ {{ userInfo[$route.params.activityId - 1].a_fee }}
+                                <li v-if="userInfo[userId - 1].a_fee">
+                                    NT$ {{ userInfo[userId - 1].a_fee }}
                                 </li>
                                 <li v-else>
                                     免費
                                 </li>
                             </ul>
                         </div>
-                        <div class="item-rules" v-if="userInfo[$route.params.activityId - 1].a_max != 999">
+                        <div class="item-rules" v-if="userInfo[userId - 1].a_max != 999">
                             <p>報名人數上限</p>
                             <ul>
-                                <li>{{ userInfo[$route.params.activityId - 1].a_max }}人</li>
+                                <li>{{ userInfo[userId - 1].a_max }}人</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>當日注意事項</p>
                             <ul>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_rules1">
-                                    {{ userInfo[$route.params.activityId - 1].a_rules1 }}
+                                <li v-if="userInfo[userId - 1].a_rules1">
+                                    {{ userInfo[userId - 1].a_rules1 }}
                                 </li>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_rules2">
-                                    {{ userInfo[$route.params.activityId - 1].a_rules2 }}
+                                <li v-if="userInfo[userId - 1].a_rules2">
+                                    {{ userInfo[userId - 1].a_rules2 }}
                                 </li>
-                                <li v-if="userInfo[$route.params.activityId - 1].a_rules3">
-                                    {{ userInfo[$route.params.activityId - 1].a_rules3 }}
+                                <li v-if="userInfo[userId - 1].a_rules3">
+                                    {{ userInfo[userId - 1].a_rules3 }}
                                 </li>
                             </ul>
                         </div>
@@ -127,7 +131,7 @@
                         </div>
                     </div>
                     <div class="signup">
-                        <router-link :to="`/signuppage/${$route.params.activityId}`">立即報名</router-link>
+                        <router-link :to="`/signuppage/${userId}`">立即報名</router-link>
                     </div>
                 </div>
             </div>
@@ -153,9 +157,9 @@ export default {
             this.userInfo = await this.fetchUserInfo(val);
         },
     },
-    methods:{
+    methods: {
         async fetchUserInfo() {
-            return await fetch("../../public/activityPage.json")
+            return await fetch("/activityPage.json")
                 .then((response) => response.json())
                 .then((json) => json);
         },
@@ -163,9 +167,9 @@ export default {
     async created() {
         this.userInfo = await this.fetchUserInfo(this.userId);
     },
-    
 
-    
+
+
     // mounted() {
     //     fetch("/public/activityPage.json")
     //     .then(res => res.json())
@@ -183,25 +187,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-section{
+section {
     width: 100%;
     font-size: $fontBase;
     line-height: $lineheight;
     letter-spacing: $letterSpacing;
     font-family: $pFont;
     cursor: default;
-    .container{
+
+    .container {
         width: 80%;
         max-width: 1200px;
         margin: 0 auto;
-        .container-title{
-            .wrap-title{
+
+        .container-title {
+            .wrap-title {
                 display: flex;
-                .class{
+
+                .class {
                     display: flex;
                     align-items: flex-start;
                     position: relative;
-                    &::before{
+
+                    &::before {
                         content: "";
                         position: absolute;
                         bottom: 0;
@@ -210,11 +218,13 @@ section{
                         height: 50px;
                         background-image: url(../assets/image/about-page/leaf1.png);
                         background-size: contain;
-                        @include bp(1200px){
+
+                        @include bp(1200px) {
                             content: none;
                         }
                     }
-                    &::after{
+
+                    &::after {
                         content: "";
                         display: inline-block;
                         width: 10px;
@@ -222,7 +232,8 @@ section{
                         background-color: $darkGreen;
                         margin-left: 10px;
                     }
-                    h1{
+
+                    h1 {
                         min-width: 80px;
                         display: inline-block;
                         font-size: 2.25em;
@@ -231,20 +242,24 @@ section{
                         font-family: $titleFont;
                         font-weight: bold;
                         color: #2E2E2E;
-                        @include lg(){
+
+                        @include lg() {
                             font-size: 24px;
                             min-width: 60px;
                         }
-                        @include md(){
+
+                        @include md() {
                             min-width: auto;
                         }
                     }
                 }
-                .main-title{
+
+                .main-title {
                     display: flex;
                     align-items: flex-end;
                     position: relative;
-                    &::after{
+
+                    &::after {
                         content: "";
                         position: absolute;
                         top: 50%;
@@ -254,11 +269,13 @@ section{
                         background-image: url(../assets/image/about-page/leaf2.png);
                         background-size: contain;
                         background-repeat: no-repeat;
-                        @include bp(1200px){
+
+                        @include bp(1200px) {
                             content: none;
                         }
                     }
-                    h2{
+
+                    h2 {
                         display: inline-block;
                         font-size: 2.25em;
                         letter-spacing: $letterSpacing;
@@ -267,40 +284,49 @@ section{
                         color: #2E2E2E;
                         line-height: 1.2;
                         margin-left: 10px;
-                        @include lg(){
+
+                        @include lg() {
                             font-size: 28px;
                         }
                     }
                 }
             }
-            .wrap-info{
+
+            .wrap-info {
                 margin: 20px 0;
-                nav{
-                    ul{
+
+                nav {
+                    ul {
                         display: flex;
-                        li{
+
+                        li {
                             margin: 0 5px;
                             color: $darkGreen;
-                            a{
+
+                            a {
                                 text-decoration: none;
-                                color:#2E2E2E;
-                                &::after{
-                                    content:" /";
+                                color: #2E2E2E;
+
+                                &::after {
+                                    content: " /";
                                     margin: 0 5px;
                                 }
                             }
-                            em{
+
+                            em {
                                 cursor: default;
                             }
                         }
                     }
                 }
-                hr{
+
+                hr {
                     color: $darkGreen;
                 }
             }
         }
-        .content{
+
+        .content {
             margin: 80px 0 0;
             padding-bottom: 1px;
             width: 100%;
@@ -308,160 +334,196 @@ section{
             box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.25);
             border-radius: 20px;
             background-color: $bcgw;
-            @include sm(){
+
+            @include sm() {
                 margin: 40px 0 0;
             }
-            .pic-content{
+
+            .pic-content {
                 width: 100%;
                 max-height: 500px;
                 border-radius: 20px 20px 0 0;
                 overflow: hidden;
-                img{
+
+                img {
                     width: 100%;
                 }
             }
-            .info-content{
+
+            .info-content {
                 margin: 60px 50px;
                 width: 60%;
                 max-width: 350px;
                 color: $darkGreen;
-                @include md(){
+
+                @include md() {
                     margin: 60px auto;
                     width: 90%;
                 }
-                .loc{
-                    margin-left:20px;
-                    @include sm(){
+
+                .loc {
+                    margin-left: 20px;
+
+                    @include sm() {
                         margin: auto;
                         width: 90%;
                     }
-                    span{
+
+                    span {
                         letter-spacing: 2px;
                         margin: 0 2px;
                         display: inline-block;
                     }
                 }
-                .date{
-                    margin:10px 20px;
-                    @include sm(){
+
+                .date {
+                    margin: 10px 20px;
+
+                    @include sm() {
                         margin: 10px 15px;
                     }
-                    span{
+
+                    span {
                         margin: 0 10px;
                         display: inline-block;
                         line-height: 1.5;
                     }
                 }
-                .time{
-                    margin:10px 20px;
-                    @include sm(){
+
+                .time {
+                    margin: 10px 20px;
+
+                    @include sm() {
                         margin: 10px 15px;
                     }
-                    span{
+
+                    span {
                         margin: 0 10px;
                         display: inline-block;
                         line-height: 1.5;
 
                     }
                 }
-                .teacher{
-                    margin:10px 20px;
-                    @include sm(){
+
+                .teacher {
+                    margin: 10px 20px;
+
+                    @include sm() {
                         margin: 10px 15px;
                     }
-                    :last-child{
+
+                    :last-child {
                         letter-spacing: 3px;
                     }
-                    span{
+
+                    span {
                         margin: 0 10px;
                         display: inline-block;
                         line-height: 1.5;
 
                     }
-                    
+
                 }
             }
-            .intro{
+
+            .intro {
                 width: 90%;
                 margin: 0 auto;
-                .title-intro{
+
+                .title-intro {
                     font-size: 2.25em;
                     font-family: $titleFont;
                     font-weight: bold;
                     border-bottom: solid 1px $darkGreen;
                     margin-bottom: 30px;
-                    @include sm(){
+
+                    @include sm() {
                         font-size: 1.25em;
                     }
-                    h3{
+
+                    h3 {
                         width: 150px;
                         display: block;
                         padding: 10px 0;
                         border-bottom: solid 3px #2E2E2E;
-                        @include sm(){
-                        width: 90px;
+
+                        @include sm() {
+                            width: 90px;
                         }
                     }
                 }
-                div{
-                    p{
+
+                div {
+                    p {
                         color: $darkGreen;
                         letter-spacing: 3px;
                         margin-bottom: 20px;
                     }
-                    ul{
+
+                    ul {
                         list-style: disc;
                         margin-left: 20px;
-                        li{
+
+                        li {
                             color: $darkGreen;
                             letter-spacing: 3px;
                             margin-bottom: 20px;
                         }
                     }
                 }
-                
+
             }
-            .rules{
+
+            .rules {
                 width: 90%;
                 margin: 50px auto 0;
-                .title-rules{
+
+                .title-rules {
                     font-size: 2.25em;
                     font-family: $titleFont;
                     font-weight: bold;
                     border-bottom: solid 1px $darkGreen;
                     margin-bottom: 30px;
-                    @include sm(){
+
+                    @include sm() {
                         font-size: 1.25em;
                     }
-                    h3{
+
+                    h3 {
                         width: 150px;
                         display: block;
                         padding: 10px 0;
                         border-bottom: solid 3px #2E2E2E;
-                        @include sm(){
+
+                        @include sm() {
                             width: 90px;
                         }
                     }
                 }
-                .item-rules{
+
+                .item-rules {
                     margin-bottom: 20px;
-                    p{
+
+                    p {
                         color: $darkGreen;
                         letter-spacing: 3px;
                         // margin-bottom: 20px;
                     }
-                    ul{
+
+                    ul {
                         list-style: disc;
                         margin-left: 20px;
-                        li{
+
+                        li {
                             color: $darkGreen;
                             letter-spacing: 3px;
                         }
-                    }  
+                    }
                 }
             }
-            .signup{
-                a{
+
+            .signup {
+                a {
                     display: block;
                     width: 150px;
                     background-color: $darkGreen;
@@ -475,10 +537,12 @@ section{
                     text-decoration: none;
                     letter-spacing: 2px;
                     transition: 0.5s;
-                    @include sm(){
+
+                    @include sm() {
                         width: 100px;
                     }
-                    &:hover{
+
+                    &:hover {
                         color: $darkGreen;
                         background-color: $bcgw;
                         border: solid 1px $darkGreen;

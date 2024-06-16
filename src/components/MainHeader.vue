@@ -23,7 +23,7 @@ export default {
           <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
           <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping icon"></i></RouterLink>
           <RouterLink to="/user"><i class="fa-regular fa-user icon"></i></RouterLink>
-          <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink>
+          <!-- <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink> -->
         </div>
         <div id="moblie_menu" class="hb" @click="isMenuVisible = !isMenuVisible">
           <i class="fa-solid fa-bars" style="color: #fff;font-size: 24px; cursor: pointer;"></i>
@@ -38,7 +38,7 @@ export default {
               <div class="icons">
                 <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping mbicon"></i></RouterLink>
                 <RouterLink to="/user"><i class="fa-regular fa-user mbicon"></i></RouterLink>
-                <RouterLink to="/heart"><i class="fa-regular fa-heart mbicon"></i></RouterLink>
+                <!-- <RouterLink to="/heart"><i class="fa-regular fa-heart mbicon"></i></RouterLink> -->
               </div>
             </div>
           </transition>
@@ -134,7 +134,7 @@ export default {
 
           a {
             display: inline-block;
-            width: 33.33333%;
+            width: 50%;
             text-align: center;
           }
         }

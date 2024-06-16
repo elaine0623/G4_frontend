@@ -1,7 +1,52 @@
+<!-- router每次到userlayout頁面時，會透過classname改變z-index -->
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
+const hideChild = computed(() => {
+    return route.name === 'UserLayout'
+})
+</script>
+
 <script>
+export default {
+    data() {
+        return {
+            countDown: 10, // 倒數的秒數
+            timer: null // 定時器的引用
+        };
+    },
+    created() {
+        this.startTimer(); //在此執行-->寫在事件結束後執行
+    },
+    methods: {
+        startTimer() {
+            this.timer = setInterval(() => {
+                if (this.countDown > 0) {
+                    // 時間未到，減一秒
+                    this.countDown--;
+                } else {
+                    // 時間到，清除計時器
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }, 1000); // 每秒執行一次進入作用域
+        }
+    },
+    beforeUnmount() {
+        // vue實體銷毀前，關掉這一頁面
+        if (this.timer) {
+            clearInterval(this.timer); // 防止記憶體洩漏，清除定時器
+        }
+    }
+};
 </script>
 
 <template>
+    <!-- {{ route }}
+    {{ hideChild }} -->
+    <!-- {{ countDown }} -->
     <section>
         <div class="wrapper">
             <div class="member-context">
@@ -41,7 +86,7 @@
             <div class="logout">
                 <button class="btn-logout">登出<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
             </div>
-            <div class="mb-routerContent">
+            <div class="mb-routerContent" :class="{ 'invisible': hideChild }">
                 <router-view></router-view>
             </div>
         </div>
@@ -185,5 +230,9 @@ button {
 
 a {
     text-decoration: none;
+}
+
+.invisible {
+    z-index: -1;
 }
 </style>
