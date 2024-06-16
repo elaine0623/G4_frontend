@@ -21,9 +21,9 @@
             </template>
             <template v-else>
               <h2>您的分數為:{{ userScore }}</h2>
-              <h2 v-if="userScore >= 90">恭喜你獲得8折券！<br />優惠代碼CCC8888</h2>
-              <h2 v-else-if="userScore >= 80">恭喜你獲得85折券！<br />優惠代碼CCC8585</h2>
-              <h2 v-else-if="userScore >= 70">恭喜你獲得9折券！<br />優惠代碼CCC9999</h2>
+              <h2 v-if="userScore >= 90">恭喜你獲得8折券！<br /><br />優惠代碼CCC8888</h2>
+              <h2 v-else-if="userScore >= 80">恭喜你獲得85折券！<br /><br />優惠代碼CCC8585</h2>
+              <h2 v-else-if="userScore >= 70">恭喜你獲得9折券！<br /><br />優惠代碼CCC9999</h2>
               <button @click="resetGame">重新開始</button>
             </template>
           </div>
@@ -101,14 +101,6 @@ export default {
       showScore: false
     }
   },
-  //   mounted() {
-  //     fetch('/questions.json')
-  //         .then(response => response.json())
-  //         .then(data => {
-  //             this.questions = this.selectRandomQuestions(data, 10);
-  //         })
-  //
-  // },
   computed: {
     currentQuestion() {
       return this.questions[this.currentQuestionIndex] || {}
@@ -131,7 +123,7 @@ export default {
       this.gameStarted = true
       setTimeout(() => {
         this.showProgressBar = true
-      }, 4000) // 延遲3秒後顯示進度條
+      }, 4000) // 延遲4秒後顯示進度條
     },
     selectAnswer(answer) {
       if (answer === this.currentQuestion.answer) {
@@ -165,10 +157,10 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .game {
   margin: auto;
+  font-family: game-font;
   .container {
     max-width: 1200px;
     display: flex;
@@ -179,7 +171,7 @@ export default {
     .game_start {
       width: 80%;
       aspect-ratio: 16/10;
-      background-color: #128a63;
+      background-color: #6F9283;
       background-image: url(/src/assets/image/game-img/gamebgimg.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
@@ -200,7 +192,7 @@ export default {
       .rule_text,
       .game_item {
         width: 80%;
-        aspect-ratio: 16/10;
+        aspect-ratio: 16/11;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -239,6 +231,7 @@ export default {
         }
       }
       button {
+        font-family: game-font;
         padding: 17px 53px;
         border-radius: 25px;
         border: none;
@@ -273,12 +266,13 @@ export default {
       h1 {
         font-size: 2.5em;
         color: white;
-        margin-top: 0.5em;
+        margin-top: 1em;
         @include lg() {
           font-size: 2em;
         }
         @include md() {
           font-size: 1.75em;
+          margin-top: 2em;
           justify-content: space-around;
         }
         @include sm() {
@@ -314,8 +308,12 @@ export default {
           width: 100px;
           height: 100px;
           @include md() {
-            width: 80px;
-            height: 80px;
+            width: 75px;
+            height: 75px;
+          }
+          @include lg() {
+            width: 70px;
+            height: 70px;
           }
           @include bp(450px) {
             width: 60px;
@@ -334,7 +332,7 @@ export default {
           padding: 1.25em;
           @include lg() {
             font-size: 1.25em;
-            padding: 1.25em;
+            padding: 0.9em;
           }
           @include md() {
             font-size: 1em;
@@ -364,7 +362,7 @@ export default {
             align-items: center;
             flex-wrap: wrap;
             width: 90%;
-            height: 86%;
+            height: 90%;
             @include md() {
               width: 50%;
               height: 71%;
@@ -381,6 +379,7 @@ export default {
               }
             }
             button {
+              font-family: game-font;
               padding: 17px 53px;
               border-radius: 25px;
               border: none;

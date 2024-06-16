@@ -97,7 +97,7 @@ export default {
                 </div>
               </div>
               <div class="price">
-                <span>{{ cardtItem.p_fee }}</span>
+                <span>NT.{{ cardtItem.p_fee }}</span>
               </div>
             </div>
             <div class="quantity">
@@ -166,7 +166,7 @@ export default {
           <p>總計:</p>
           <div class="Product-name">
             <span>商品:</span>
-            <span>{{ totalprice}}</span>
+            <span>NT.{{ totalprice}}</span>
           </div>
           <div class="freight">
             <span>運費:</span>

@@ -3,9 +3,9 @@
         <div class="container">
             <div class="title">
                 <h1>訂單商品</h1>
-                
-                
-            
+
+
+
             </div>
             <div class="info-activity">
                 <!-- 商品資料 -->
@@ -24,17 +24,30 @@
                                 <span>單位:{{ userInfo[1].unit }}</span>
                             </div>
                         </div>
-                        <div class="price">
-                            <span>{{ userInfo[1].p_fee }}</span>
+                        <div class="price-num">
+                            <div class="price">
+                                <span>NT.{{ userInfo[1].p_fee }}</span>
+                            </div>
                         </div>
                         <div class="num">
-                            <span>2</span>
+                                <span>2</span>
                         </div>
-
                     </div>
                 </div>
                 <div class="total">
+                    <div class="Product-name">
+                        <span>商品:</span>
+                        <span>NT.140</span>
+                    </div>
+                    <div class="freight">
+                        <span>運費:</span>
+                        <span>NT.60</span>
 
+                    </div>
+                    <div class="alltotal">
+                        <span>總計:</span>
+                        <span>NT.200</span>
+                    </div>
                 </div>
             </div>
             <div class="title">
@@ -131,7 +144,7 @@ export default {
             fee: 500,
             name: '',
             count: '',
-          
+
             errorMsg: {
                 name: '',
                 email: '',
@@ -278,11 +291,14 @@ section {
             .card-list {
 
                 .list-title {
-                    border-bottom:1px solid #D9D9D9;
+                    border-bottom: 1px solid #D9D9D9;
+                    padding: 10px 0;
+
                     ul {
                         display: flex;
-                        justify-content: space-around;
-                        
+                        justify-content: space-between;
+                        color: #837972;
+
                     }
 
 
@@ -290,11 +306,56 @@ section {
 
                 .card {
                     display: flex;
-                    justify-content: space-around;
-                    border-bottom:1px solid #D9D9D9;
-                    .product-into {
+                    justify-content: space-between;
+                    border-bottom: 1px solid #D9D9D9;
+                    align-items: center;
+                    gap:10%;
+                    padding: 10px 0;
+                    color: #837972;
 
+                    .product-into {
+                        width: 30%;
                     }
+
+                    .price-num {
+                        width: 25%;
+                        text-align: center;
+                        
+                       
+
+                        .price {
+                            // position: relative;
+                           width: 100%;
+                        //    right:85px ;
+                        }
+                    }
+                    .num {
+                            // position: relative;
+                            // left:80px;
+                            width: 25%;
+                            text-align: end;
+
+
+                        }
+                }
+            }
+
+            .total {
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                padding-top: 20px;
+                color: #837972;
+                .Product-name,
+                .freight,
+                 .alltotal{
+                    
+                    width: 30%;
+                    display: flex;
+                    justify-content: space-between;
+                  
+                    align-items: center;
+                  
                 }
             }
 
