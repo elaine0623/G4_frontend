@@ -18,10 +18,10 @@
   <!-- <Calendar /> -->
   <div class="myvc-container">
     <DatePicker :color="selectedColor"
-                 :attributes="attrs"
-                 v-model="date"
-                 mode="date" 
-                 :rules="rules"/>
+                :attributes="attrs"
+                v-model="date"
+                mode="date" 
+                :rules="rules"/>
     <div class="current-event" >
       <div class="curr-header">{{ formattedDate }}</div>
       <div class="curr-content" v-for="(item,index) in currentEvent" :key="item.id" >
@@ -31,8 +31,8 @@
   </div>
   <div class="container"> 
     <div class="row" >
-      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === true "  v-for="(item,index) in searchModePage" :key="item.id" >
-        <router-link :to='`/ActivityPage/${index + 1}`' > 
+      <div class="event-card "   v-show=" isSearchMode === true "  v-for="item in searchModePage" :key="item.id" >
+        <router-link :to='`/ActivityPage/${item.id}`' > 
         <img :src=item.a_img alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
@@ -43,8 +43,8 @@
       </router-link>
       
       </div>
-      <div class="event-card col-6 col-sm-12"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="(item,index) in  pagenateData" :key="item.id" >
-        <router-link :to='`/ActivityPage/${index + 1}`' > 
+      <div class="event-card  col-12 col-md-6 col-lg-3"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="item in  pagenateData" :key="item.id" >
+        <router-link :to='`/ActivityPage/${item.id}`' > 
         <img :src=item.a_img alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
@@ -259,30 +259,66 @@ const rules = ref({
         color:$darkGreen;
         font-size:map-get($title ,h2);
         font-family: $titleFont;
+        position: relative;
+        @include sm ()  {
+          text-align: center;
+        }
+         &::before {
+          content:'';
+          width: 5px;
+          height: 60px;
+          background-color: $darkGreen;
+          display: inline-block;
+          position: absolute;
+          top:-10px;
+          left: -15px;
+          @include sm ()  {
+          left: 35%;
+        }
+        }
       }
-      .search-field {
+      .search-field{
         width: 100%;
         margin: 40px 0 50px 0;
         display: flex;
-        justify-content: flex-end
+        justify-content: flex-end;
+        @include lg ()  {
+          justify-content: space-between;
+          gap: 20px;
+        };
+        @include sm () {
+          flex-direction: column;
+        }
       }
       select {
         width: 180px;
         border: none;
         color:$darkGreen;
         border-bottom:1px solid #979797;
-        margin: 5px 10px;
         padding-bottom:5px ;
         cursor: pointer;
         outline: none;
         background-color: transparent;
+        @include lg ()  {
+          width: 45%;
+        };
+        @include sm ()  {
+          width: 100%;
+        }
       }
       .search-area {
         position: relative;
+        @include lg ()  {
+          width: 45%;
+        };
+        @include sm () {
+          width: 100%;
+        }
       input[type="search"] {
         border:none;
+        width: 100%;
         border-bottom:1px solid  #979797;
-        padding: 5px 10px;
+        padding: 5px 10px 5px 30px;
         color:$darkGreen;
         background-color: transparent;
       }
@@ -290,7 +326,7 @@ const rules = ref({
         background-color: transparent;
         border:none;
         position:absolute;
-        right:5px;
+        left:0px;
         top:5px;
         cursor: pointer;
       }
@@ -302,11 +338,29 @@ const rules = ref({
       margin: auto;
       display: flex;
       justify-content: space-between;
+      @include lg () {
+      flex-direction:column;
+   
+      }
+      .myvc-container {
+        @include lg () {
+          display: flex;
+         justify-content: space-between;
+         margin-bottom: 30px;
+        }
+        @include sm ()  {
+          justify-content: center;
+        }
       .current-event {
         width: 250px;
         margin-top: 40px;
-        height: 270.5px;
-        overflow: hidden;
+        @include lg ()  {
+          width: 300px;
+          margin-left: 15px;
+        }
+        @include sm ()  {
+          display: none;
+        }
         .curr-header {
           font-family: inherit;
           width: 100%;
@@ -333,18 +387,32 @@ const rules = ref({
             }
           }
       }
+    }
       .container {
         width: 65%;
         height: 930px;
-        margin:0 0 0 auto ;
+        margin:0 0 0 40px ;
         position: relative;
+        @include lg() {
+          width: 100%;
+          margin: 0;
+          height:auto;
+        }
+        @include sm() {
+          width: 80%;
+          max-width: 300px;
+          margin: auto;
+        }
         .row {
           justify-content: space-between;
         .event-card {
-          width:45%;
+          width: 45%;
           padding: 0;
           position: relative;
-          margin-bottom: 5%;
+          margin:0 0% 20px 0;
+          @include sm ()  {
+          width: 100%;
+        }
           a{
             text-decoration: none;
             color:$darkGreen;
@@ -401,6 +469,8 @@ const rules = ref({
           }
         }
         .btn-field {
+          width: 100%;
+          text-align: center;
           position: absolute;
           bottom: -50px;
           right: 50%;
@@ -418,6 +488,13 @@ const rules = ref({
             background-color: transparent;
             margin:0 20px 0 20px;
             position: relative;
+            >img {
+              width: 100%;
+            }
+            @include bp (470px) {
+              width: 45px;
+              height: 45px;
+            }
           }
           .pageNum {
             background-color: transparent;
@@ -426,6 +503,10 @@ const rules = ref({
             color:$darkGreen;
             position: relative;
             margin:0 20px 0 30px;
+            @include bp (470px) 
+            {
+              margin:auto;
+            }
             &::before {
               content: '';
               position: absolute;
@@ -433,6 +514,9 @@ const rules = ref({
               border: 1px solid $darkGreen;
               top:9px;
               right: 30px;
+              @include sm {
+                display: none;
+              }
 
 
             }

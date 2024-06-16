@@ -464,9 +464,9 @@ export default {
   position: sticky;
   height: 70px;
   bottom: 10px;
-  z-index: 100;
+  z-index:100;
 
-  a {
+ a {
     text-align: center;
     text-decoration: none;
     font-size: 20px;
@@ -476,7 +476,6 @@ export default {
     padding: 35px 30px;
     margin-right: 20px;
     position: relative;
-
     &::before {
       position: absolute;
       top: 20px;

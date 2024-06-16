@@ -79,21 +79,21 @@ export default {
 
     .chat-robot-btn {
         position: relative;
-        width: 110px;
-        height: 110px;
+        width: 95px;
+        height: 95px;
         border-radius: 100%;
         border: 1px solid $darkGreen;
         background-color: #fff;
         background-image: url(../assets/image/news-img/chat-robot-img.png);
-        background-position: 20px center;
+        background-position: 9px 20px;
         background-repeat: no-repeat;
         position: relative;
         cursor: pointer;
 
         .chat-icon {
             position: absolute;
-            right: 15px;
-            top: 20px;
+            right: 12px;
+            top: 15px;
             cursor: pointer;
         }
 
@@ -108,7 +108,6 @@ export default {
     position: absolute;
     border-radius: 20px;
     border: 1px solid $darkGreen;
-
     .chat-intro-field {
         text-align: center;
         background-color: $darkGreen;
@@ -117,7 +116,7 @@ export default {
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         position: relative;
-
+        overflow:hidden ;
         .chat-title {
             margin-bottom: 35px;
             font-size: $fontBase;
@@ -156,7 +155,11 @@ export default {
         padding: 30px;
         box-sizing: border-box;
         background-color: #fff;
-
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;
+        }  
         .text {
             background-color: $lightGreen;
             color: #fff;
@@ -180,9 +183,4 @@ export default {
         }
     }
 }
-
-
-
-// ::-webkit-scrollbar {
-//     width: 10px;
-// }</style>
+</style>
