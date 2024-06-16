@@ -17,7 +17,7 @@
           }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto" :centeredSlides="true" >
             <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
-              <RouterLink to="/" class="card-product-list">
+              <RouterLink to="/ProductPage" class="card-product-list">
                 <div class="img-product-list">
                   <img :src="cartItem['img']" alt="" />
                 </div>
@@ -63,7 +63,7 @@
 
 
       <div class="moreBtn">
-        <RouterLink to="/">更多商品</RouterLink>
+        <RouterLink to="/Product">更多商品</RouterLink>
         <!-- 要連結到關於我們頁面 -->
       </div>
 
