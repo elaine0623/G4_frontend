@@ -120,6 +120,7 @@ export default {
     position: relative;
     padding: 20px 0;
     width: 350px;
+    height: 500px;
     margin: 0 auto;
     background-color: #144433;
     display: flex;
@@ -222,7 +223,7 @@ button {
 .router-content {
     position: absolute;
     width: 468px;
-    height: 100%;
+    height: 120%;
     right: 0;
 
 
