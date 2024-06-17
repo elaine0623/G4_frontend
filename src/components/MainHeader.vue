@@ -118,7 +118,7 @@ export default {
         background-color: $darkGreen;
         position: absolute;
         right: 0;
-        z-index: 4;
+        z-index: 999;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;

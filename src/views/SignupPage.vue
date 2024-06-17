@@ -174,7 +174,7 @@ export default {
     },
     methods:{
         async fetchUserInfo() {
-            return await fetch("../../public/activityPage.json")
+            return await fetch("/activityPage.json")
                 .then((response) => response.json())
                 .then((json) => json);
         },
