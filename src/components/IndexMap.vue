@@ -11,25 +11,25 @@ export default {
             {
               f_name: "禾新農庄",
               f_intro: "你在吃水果？還是吃糖果？ 傳承40年「阿公ㄟ柑仔味」 堅持保留橘子酸甜～",
-              f_img: "../src/assets/image/farm1.png",
+              f_img: "farm1.png",
               f_link: "https://google.com"
             },
             {
               f_name: "薑麻園休閒農業",
               f_intro: "位在<苗130線>三義和大湖交界，台灣百年的老薑故鄉。",
-              f_img: "../src/assets/image/farm2.png",
+              f_img: "farm2.png",
               f_link: "https://130.org.tw/attractions_detail.php?sn=73"
             },
             {
               f_name: "茅鄉炭坊",
               f_intro: "茅鄉，是一種味道的鄉愁代表香茅的故鄉；炭坊則是一種黑色的記憶製作相思木炭的木炭窯。",
-              f_img: "../src/assets/image/farm3.png",
+              f_img: "farm3.png",
               f_link: "https://www.31mstf.com/"
             },
             {
               f_name: "萬烽養蜂場-苗栗養蜂人",
               f_intro: "養蜂半世紀，傳統延續且融合創新，經驗傳承與科學管理，將大自然賦予的甘釀，純粹呈現。",
-              f_img: "../src/assets/image/farm4.png",
+              f_img: "farm4.png",
               f_link: "https://google.com"
             }
           ],
@@ -46,6 +46,11 @@ export default {
       }
       return result[0];
     }
+  },
+  methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
   },
   // methods: {
   //   json(){
@@ -268,7 +273,7 @@ export default {
                   <div class="row">
                     <div class="col-12 col-lg-6">
                       <div class="img">
-                        <img :src="item.f_img">
+                        <img :src=" parsePic(item.f_img)">
                       </div>
                     </div>
                   </div>

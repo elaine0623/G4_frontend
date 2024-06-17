@@ -31,7 +31,8 @@
                 </div>
                 <div class="content">
                     <div class="pic-content">
-                        <img :src="userInfo[userId - 1].a_img" alt="act1">
+                        <!-- <img :src="userInfo[userId - 1].a_img" alt="act1"> -->
+                        <img :src="parsePic(userInfo[userId - 1].a_img)" alt="act1">
                     </div>
                     <div class="info-content">
                         <div class="loc">
@@ -163,6 +164,9 @@ export default {
                 .then((response) => response.json())
                 .then((json) => json);
         },
+        parsePic(file) {
+            return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     },
     async created() {
         this.userInfo = await this.fetchUserInfo(this.userId);
