@@ -181,7 +181,7 @@ searchModePage () {
   return this.filterEvents.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
 }
 },mounted() {
-    fetch('/public/activityPage.json')
+    fetch('/activityPage.json')
     .then(res=>res.json())
     .then(json=> {
       console.log(json);
@@ -293,6 +293,7 @@ const rules = ref({
       select {
         width: 180px;
         border: none;
+        margin-right: 20px;;
         color:$darkGreen;
         border-bottom:1px solid #979797;
         padding-bottom:5px ;

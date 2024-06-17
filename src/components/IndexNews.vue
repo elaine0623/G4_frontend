@@ -14,7 +14,7 @@
             <div class="toggle-btn actived" v-else>收起</div>
           </button>
           <div class="news-content" v-show="newsData[index].isActive === true">
-            <a :href=newsData[index].Url target="_blank"><img :src=newsData[index].imgUrl alt="最新消息圖片"></a>
+            <a :href= parsePic(newsData[index].Url) target="_blank"><img :src=newsData[index].imgUrl alt="最新消息圖片"></a>
             <p class="news-para" v-if="newsData[index].isClick === false">{{ trucate(index) }}<span
                 class='read-more-btn' v-on:click="newsData[index].isClick = !newsData[index].isClick">...閱讀更多</span></p>
             <p class="news-para" v-else v-on:click="newsData[index].isClick = !newsData[index].isClick">
@@ -116,6 +116,9 @@ export default {
     }
   },
   methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     toggleShow(index) {
       this.newsData[index].isActive = !this.newsData[index].isActive
     },
