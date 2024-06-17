@@ -5,28 +5,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/1A.jpeg",
+          "img": "1A.jpeg",
           "text": "最大化短期產量"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/1B.jpg",
+          "img": "1B.jpg",
           "text": "保護環境和資源"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/1C.jpg",
+          "img": "1C.jpg",
           "text": "依賴化學肥料"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
+          "img": "2-A_1-D.jpg",
           "text": "推廣單一作物種植"
         }
       ],
       "answer": "B",
       "correctAnswer": "保護環境和資源",
-      "answer_image": "../src/assets/image/game-img/1B.jpg",
+      "answer_image": "1B.jpg",
       "explanation": "永續農業的主要目標是保護環境和資源，確保農業生產的可持續性。"
     },
     {
@@ -34,28 +34,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
+          "img": "2-A_1-D.jpg",
           "text": "單一作物農業"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/2-B.jpg",
+          "img": "2-B.jpg",
           "text": "混合農業"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/2-C.jpg",
+          "img": "2-C.jpg",
           "text": "溫室種植"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/2-D.jpg",
+          "img": "2-D.jpg",
           "text": "工業化農業"
         }
       ],
       "answer": "B",
       "correctAnswer": "混合農業",
-      "answer_image": "../src/assets/image/game-img/1B.jpg",
+      "answer_image": "1B.jpg",
       "explanation": "混合農業包括種植多種不同的作物和飼養多種家畜，這種多樣化的農業模式有助於維持生物多樣性。"
     },
     {
@@ -63,28 +63,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/3-A.png",
+          "img": "3-A.png",
           "text": "化學肥料"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/3-B.webp",
+          "img": "3-B.webp",
           "text": "有機肥料"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/3-C.jpg",
+          "img": "3-C.jpg",
           "text": "人造合成肥料"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/3-D.webp",
+          "img": "3-D.webp",
           "text": "礦物肥料"
         }
       ],
       "answer": "B",
       "correctAnswer": "有機肥料",
-      "answer_image": "../src/assets/image/game-img/3-B.webp",
+      "answer_image": "3-B.webp",
       "explanation": "有機肥料源自動植物殘體和糞便，對土壤和環境的影響較小，有助於提高土壤的有機質含量。"
     },
     {
@@ -92,28 +92,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/4- A. 玉米.jpg",
+          "img": "4- A. 玉米.jpg",
           "text": "玉米"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/4-B. 小麥.jpg",
+          "img": "4-B. 小麥.jpg",
           "text": "小麥"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/4-c.豆類.jpg",
+          "img": "4-c.豆類.jpg",
           "text": "豆類"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/4-D.稻米.jpeg",
+          "img": "4-D.稻米.jpeg",
           "text": "稻米"
         }
       ],
       "answer": "C",
       "correctAnswer": "豆類",
-      "answer_image": "../src/assets/image/game-img/4-c.豆類.jpg",
+      "answer_image": "4-c.豆類.jpg",
       "explanation": "豆類能固定氮氣，提高土壤的氮含量，有助於保持土壤的肥力和健康。"
     },
     {
@@ -121,28 +121,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/5-A.漫灌.jpg",
+          "img": "5-A.漫灌.jpg",
           "text": "漫灌"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/5-B.噴灌.jpg",
+          "img": "5-B.噴灌.jpg",
           "text": "噴灌"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/5-C滴灌.jpg",
+          "img": "5-C滴灌.jpg",
           "text": "滴灌"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/5-D.溝灌.jpg",
+          "img": "5-D.溝灌.jpg",
           "text": "溝灌"
         }
       ],
       "answer": "C",
       "correctAnswer": "滴灌",
-      "answer_image": "../src/assets/image/game-img/5-C滴灌.jpg",
+      "answer_image": "5-C滴灌.jpg",
       "explanation": "滴灌系統能精確控制水量，直接供水到植物根部，大幅減少水資源浪費。"
     },
     {
@@ -150,28 +150,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/6-A.有機肥料.jpg",
+          "img": "6-A.有機肥料.jpg",
           "text": "有機肥料"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/6-B.生物農藥.png",
+          "img": "6-B.生物農藥.png",
           "text": "生物農藥"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/6-C.化學除草劑.jpg",
+          "img": "6-C.化學除草劑.jpg",
           "text": "化學除草劑"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/6-D綠肥作物.jpg",
+          "img": "6-D綠肥作物.jpg",
           "text": "綠肥作物"
         }
       ],
       "answer": "C",
       "correctAnswer": "化學除草劑",
-      "answer_image": "../src/assets/image/game-img/6-C.化學除草劑.jpg",
+      "answer_image": "6-C.化學除草劑.jpg",
       "explanation": "有機農業不允許使用合成化學除草劑，以保護環境和消費者健康。"
     },
     {
@@ -179,28 +179,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/7A.jpg",
+          "img": "7A.jpg",
           "text": "小麥"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/7B.jpg",
+          "img": "7B.jpg",
           "text": "稻米"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/7c.png",
+          "img": "7c.png",
           "text": "馬鈴薯"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/7D.jpg",
+          "img": "7D.jpg",
           "text": "高粱"
         }
       ],
       "answer": "D",
       "correctAnswer": "高粱",
-      "answer_image": "../src/assets/image/game-img/7D.jpg",
+      "answer_image": "7D.jpg",
       "explanation": "高粱耐旱性強，適合在降雨量少的乾旱地區種植。"
     },
     {
@@ -208,28 +208,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/8a.png",
+          "img": "8a.png",
           "text": "單一作物種植"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/8b.png",
+          "img": "8b.png",
           "text": "輪作"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/8c.png",
+          "img": "8c.png",
           "text": "化肥施用"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/8d.png",
+          "img": "8d.png",
           "text": "大棚種植"
         }
       ],
       "answer": "B",
       "correctAnswer": "輪作",
-      "answer_image": "../src/assets/image/game-img/8b.png",
+      "answer_image": "8b.png",
       "explanation": "輪作通過改變作物種植順序，有助於保持土壤結構，減少土壤侵蝕。"
     },
     {
@@ -237,28 +237,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/9A.jpg",
+          "img": "9A.jpg",
           "text": "玉米"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/9B.jpg",
+          "img": "9B.jpg",
           "text": "水稻"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/9c.png",
+          "img": "9c.png",
           "text": "棉花"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/9D.jpg",
+          "img": "9D.jpg",
           "text": "大豆"
         }
       ],
       "answer": "C",
       "correctAnswer": "棉花",
-      "answer_image": "../src/assets/image/game-img/9c.png",
+      "answer_image": "9c.png",
       "explanation": "棉花具有較強的耐鹽能力，適合在鹽鹼地區生長。"
     },
     {
@@ -266,28 +266,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/2-A_1-D.jpg",
+          "img": "2-A_1-D.jpg",
           "text": "單一作物種植"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/10-B.jpg",
+          "img": "10-B.jpg",
           "text": "深耕"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/10-C.jpg",
+          "img": "10-C.jpg",
           "text": "遷耕"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/10-D.jpg",
+          "img": "10-D.jpg",
           "text": "保護性耕作"
         }
       ],
       "answer": "D",
       "correctAnswer": "保護性耕作",
-      "answer_image": "../src/assets/image/game-img/10-D.jpg",
+      "answer_image": "10-D.jpg",
       "explanation": "保護性耕作能減少土壤翻動，有助於提高土壤的碳儲量，降低二氧化碳排放。"
     },
     {
@@ -295,28 +295,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/11-A.jpg",
+          "img": "11-A.jpg",
           "text": "罐裝"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/11-B.jpg",
+          "img": "11-B.jpg",
           "text": "風乾"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/11-C.jpg",
+          "img": "11-C.jpg",
           "text": "冷凍"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/11-D.jpeg",
+          "img": "11-D.jpeg",
           "text": "高溫殺菌"
         }
       ],
       "answer": "C",
       "correctAnswer": "冷凍",
-      "answer_image": "../src/assets/image/game-img/11-C.jpg",
+      "answer_image": "11-C.jpg",
       "explanation": "冷凍食品能在低溫下長時間保存，且營養成分和風味損失最小。"
     },
     {
@@ -324,28 +324,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/12-A.jpeg",
+          "img": "12-A.jpeg",
           "text": "無添加"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/12-B.jpg",
+          "img": "12-B.jpg",
           "text": "自然"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/12-C.jpg",
+          "img": "12-C.jpg",
           "text": "有機"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/12-D.jpg",
+          "img": "12-D.jpg",
           "text": "低脂"
         }
       ],
       "answer": "C",
       "correctAnswer": "有機",
-      "answer_image": "../src/assets/image/game-img/12-C.jpg",
+      "answer_image": "12-C.jpg",
       "explanation": "有機食品標籤表示該食品按照有機標準生產，過程中未使用化學農藥和化肥，符合環保標準。"
     },
     {
@@ -353,28 +353,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/13-A.jpg",
+          "img": "13-A.jpg",
           "text": "罐裝"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/13-B.jpg",
+          "img": "13-B.jpg",
           "text": "風乾"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/13-C.jpg",
+          "img": "13-C.jpg",
           "text": "速凍"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/13-D.jpg",
+          "img": "13-D.jpg",
           "text": "煮沸"
         }
       ],
       "answer": "C",
       "correctAnswer": "速凍",
-      "answer_image": "../src/assets/image/game-img/13-C.jpg",
+      "answer_image": "13-C.jpg",
       "explanation": "速凍技術能迅速降低食品溫度，最大限度地保存食品的風味和營養成分。"
     },
     {
@@ -382,28 +382,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/14A .jpg",
+          "img": "14A .jpg",
           "text": "價格低廉的食品"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/14B.jpg",
+          "img": "14B.jpg",
           "text": "本地生產的食品"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/14C .jpg",
+          "img": "14C .jpg",
           "text": "農民獲得公平報酬的食品"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/14D.jpg",
+          "img": "14D.jpg",
           "text": "不含防腐劑的食品"
         }
       ],
       "answer": "C",
       "correctAnswer": "農民獲得公平報酬的食品",
-      "answer_image": "../src/assets/image/game-img/14C .jpg",
+      "answer_image": "14C .jpg",
       "explanation": "公平貿易認證食品確保農民和工人能獲得公平的報酬和工作條件，保障他們的權益。"
     },
     {
@@ -411,28 +411,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/15A.jpg",
+          "img": "15A.jpg",
           "text": "有機"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/15B.png",
+          "img": "15B.png",
           "text": "優良食品"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/15C.jpg",
+          "img": "15C.jpg",
           "text": "非轉基因"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/15D.jpeg",
+          "img": "15D.jpeg",
           "text": "無添加"
         }
       ],
       "answer": "C",
       "correctAnswer": "非轉基因",
-      "answer_image": "../src/assets/image/game-img/15C.jpg",
+      "answer_image": "15C.jpg",
       "explanation": "非轉基因標籤表示該食品未經過基因工程技術的改造，保證其天然性。"
     },
     {
@@ -440,28 +440,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/16A.jpg",
+          "img": "16A.jpg",
           "text": "高溫烹調"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/16B.jpg",
+          "img": "16B.jpg",
           "text": "即食食品"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/16C.jpg",
+          "img": "16C.jpg",
           "text": "食品再加工"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/16D.jpg",
+          "img": "16D.jpg",
           "text": "低溫保存"
         }
       ],
       "answer": "D",
       "correctAnswer": "低溫保存",
-      "answer_image": "../src/assets/image/game-img/16D.jpg",
+      "answer_image": "16D.jpg",
       "explanation": "低溫保存技術可以有效延長食品的保質期，減少因腐壞導致的食品浪費。"
     },
     {
@@ -469,28 +469,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/17A.jpg",
+          "img": "17A.jpg",
           "text": "煮沸"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/17B.jpg",
+          "img": "17B.jpg",
           "text": "發酵"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/17C.jpg",
+          "img": "17C.jpg",
           "text": "風乾"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/17D.jpg",
+          "img": "17D.jpg",
           "text": "罐裝"
         }
       ],
       "answer": "B",
       "correctAnswer": "發酵",
-      "answer_image": "../src/assets/image/game-img/17D.jpg",
+      "answer_image": "17D.jpg",
       "explanation": "發酵過程中，微生物活動能提高食品的營養價值，如增加維生素和益生菌含量。"
     },
     {
@@ -498,28 +498,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/18A.webp",
+          "img": "18A.webp",
           "text": "塑料袋"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/18b.jpg",
+          "img": "18b.jpg",
           "text": "玻璃瓶"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/18c.jpg",
+          "img": "18c.jpg",
           "text": "鋁箔包裝"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/18d.jpg",
+          "img": "18d.jpg",
           "text": "聚苯乙烯"
         }
       ],
       "answer": "B",
       "correctAnswer": "玻璃瓶",
-      "answer_image": "../src/assets/image/game-img/18b.jpg",
+      "answer_image": "18b.jpg",
       "explanation": "玻璃瓶可以多次重複使用和回收，對環境影響較小，是較為環保的包裝選擇。"
     },
     {
@@ -527,28 +527,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/19-a.jpg",
+          "img": "19-a.jpg",
           "text": "用於食品保存的技術"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/19-b.jpg",
+          "img": "19-b.jpg",
           "text": "追蹤食品來源和加工過程的系統"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/19-c.jpg",
+          "img": "19-c.jpg",
           "text": "測試食品品質的技術"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/19-d.jpg",
+          "img": "19-d.jpg",
           "text": "管理食品包裝的系統"
         }
       ],
       "answer": "B",
       "correctAnswer": "追蹤食品來源和加工過程的系統",
-      "answer_image": "../src/assets/image/game-img/19-b.jpg",
+      "answer_image": "19-b.jpg",
       "explanation": "食品追溯系統能追蹤食品從生產到消費的全過程，確保食品安全和品質。"
     },
     {
@@ -556,28 +556,28 @@
       "options": [
         {
           "key": "A",
-          "img": "../src/assets/image/game-img/20a.jpg",
+          "img": "20a.jpg",
           "text": "熏制"
         },
         {
           "key": "B",
-          "img": "../src/assets/image/game-img/20b.jpg",
+          "img": "20b.jpg",
           "text": "脫水"
         },
         {
           "key": "C",
-          "img": "../src/assets/image/game-img/20c.jpg",
+          "img": "20c.jpg",
           "text": "低溫保存"
         },
         {
           "key": "D",
-          "img": "../src/assets/image/game-img/20d.jpg",
+          "img": "20d.jpg",
           "text": "離心分離"
         }
       ],
       "answer": "D",
       "correctAnswer": "離心分離",
-      "answer_image": "../src/assets/image/game-img/20d.jpg",
+      "answer_image": "20d.jpg",
       "explanation": "離心分離技術能將食品中的脂肪分離出來，有效降低食品的脂肪含量。"
     }
   ]
