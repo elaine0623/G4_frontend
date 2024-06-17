@@ -20,10 +20,12 @@
                             <h3>墻森園-草莓 </h3>
                             <p>單位:約5台斤*1箱</p>
                         </div>
-                        <div class="price">NT2880</div>
-                        <div class="quatity">
-                            <span>數量:</span>
-                            <span>2</span>
+                        <div class="num">
+                            <div class="price">NT2880</div>
+                            <div class="quatity">
+                                <span>數量:</span>
+                                <span>2</span>
+                            </div>
                         </div>
                     </div>
                     <div class="order_item">
@@ -34,10 +36,12 @@
                             <h3>墻森園-草莓 </h3>
                             <p>單位:約5台斤*1箱</p>
                         </div>
-                        <div class="price">NT2880</div>
-                        <div class="quatity">
-                            <span>數量:</span>
-                            <span>2</span>
+                        <div class="num">
+                            <div class="price">NT2880</div>
+                            <div class="quatity">
+                                <span>數量:</span>
+                                <span>2</span>
+                            </div>
                         </div>
                     </div>
                     <div class="order_item">
@@ -48,10 +52,12 @@
                             <h3>墻森園-草莓 </h3>
                             <p>單位:約5台斤*1箱</p>
                         </div>
-                        <div class="price">NT2880</div>
-                        <div class="quatity">
-                            <span>數量:</span>
-                            <span>2</span>
+                        <div class="num">
+                            <div class="price">NT2880</div>
+                            <div class="quatity">
+                                <span>數量:</span>
+                                <span>2</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,6 +73,28 @@
                     <div class="priceinfo_item">
                         <span class="title">總計:</span><span class="int">NT520</span>
                     </div>
+                </div>
+                <div class="contact-person">
+                    <h4>收件人基本資料</h4>
+                    <div class="name">
+                        <span>姓名:</span>
+                        <span>方老伯</span>
+                    </div>
+                    <div class="email">
+                        <span>電子信箱:</span>
+                        <span>oldbobo@gmail.com</span>
+                    </div>
+                    <div class="phone">
+                        <span>聯絡電話:</span>
+                        <span>0987654321</span>
+                    </div>
+                    <div class="address">
+                        <span>收件地址:</span>
+                        <span>台北市中正區中山北路123號</span>
+                    </div>
+                </div>
+                <div class="btn">
+                    <button class="cancel">取消訂單</button>
                 </div>
             </div>
         </div>
@@ -117,9 +145,11 @@ h2 {
     width: 95%;
 
 }
-.order{
+
+.order {
     width: 90%;
 }
+
 .order_info {
     width: 100px;
     display: flex;
@@ -132,6 +162,12 @@ h2 {
         font-size: 12px;
         padding: 10px 0;
     }
+
+    @include sm() {
+        max-width: 75px;
+    }
+
+
 }
 
 .order_list {
@@ -164,6 +200,10 @@ h2 {
     }
 }
 
+.price {
+    padding-bottom: 5px;
+}
+
 .price,
 .quatity {
     font-size: 12px;
@@ -183,15 +223,16 @@ h2 {
 
 .priceinfo {
     // width: 60%;
-    margin-left:0;
+    margin-left: 0;
     text-align: end;
-    font-size: 14px;
+    font-size: 12px;
+    border-bottom: 1px solid #144433;
 
     .title {
         width: 45%;
         text-align: end;
-    
-        
+
+
     }
 
     span {
@@ -199,14 +240,70 @@ h2 {
         text-align: center;
         margin: 4px 0;
         text-align: end;
-    
-        
+
+
     }
 
     .int {
         width: 45%;
         text-align: end;
-        
+
+    }
+}
+
+.contact-person {
+    padding: 5px 0;
+    color: #979191;
+    h4{
+        font-size: 14px;
+    }
+
+    .name,
+    .email,
+    .phone,
+    .address {
+        margin: 5px;
+        position: relative;
+
+        span {
+            padding-left: 5px;
+            font-size: 12px;
+        }
+
+        &::before {
+            content: '*';
+            position: absolute;
+            color: red;
+            transform: translateY(30%);
+            left: -5px;
+
+        }
+    }
+}
+
+.btn {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // position: relative;
+    // top: 2px;
+    padding-top: 10px;
+
+    button {
+        background-color: #144433;
+        color: #fff;
+        letter-spacing: 5px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        border: 1.5px solid #144433;
+        transition: 0.5s;
+        &:hover{
+            background-color:transparent;
+            color: #144433;
+        }
+
+
     }
 }
 </style>
