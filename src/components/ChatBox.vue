@@ -16,7 +16,7 @@
             <button class="submit-btn" v-on:click.prevent="userMeg()"><i class="fa-solid fa-paper-plane"
                     style="color: #144433;"></i></button>
 
-            <div class="chat-area">
+            <div class="chat-area" id="chat-area">
                 <p class="text" v-for="item in chatData" :key="item"
                     :class="{ user: item.author === 'user', robot: item.author !== 'user' }">
                     {{ item.message }}
@@ -55,7 +55,10 @@ export default {
                 this.chatData.push({ message: this.chatMeg, author: 'user' });
                 this.chatMeg = '';
                 console.log(this.chatData)
-            }
+            };
+            let targetObject =  document.getElementById("chat-area");
+            targetObject.scrollTop += targetObject.scrollHeight;
+            console.log(targetObject.scrollTop,targetObject.scrollHeight,targetObject)
         },
         chatToggle() {
             this.isrobBtn = !this.isrobBtn;

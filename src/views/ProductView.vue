@@ -16,8 +16,17 @@ export default {
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
+    addCart (index) {
+
+    },
     toggleImage(index) {
-      this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];
+      this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];//hart2加入收藏
+      if (!this.displayData[index]['isImage1']) {
+          localStorage.setItem('favorite',JSON.stringify(this.activedProduct[index]));
+          console.log(this.activedProduct[index])
+      }else {
+        localStorage.removeItem('favorite',JSON.stringify(this.activedProduct[index]));
+      }
     },
     SearchMode() {//判斷是否搜尋
       if (this.search !== "") {
@@ -29,7 +38,7 @@ export default {
         .then(res => res.json())
         .then(json => {
           // 確認有沒有response
-          console.log(json);
+          // console.log(json);
           // 備份還原用
           this.responseData = json
           // 顯示用

@@ -36,7 +36,7 @@
               <div v-if="answeredCorrectly" class="result">
                 <span>答對了！</span>
                 <div class="answer-pic">
-                  <img :src="currentQuestion.answer_image" alt="Answer Image" />
+                  <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image">
                 </div>
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
@@ -44,7 +44,7 @@
                 <span>答錯了！</span>
                 <span>正確答案是{{ currentQuestion.correctAnswer }}。</span>
                 <div class="answer-pic">
-                  <img :src="currentQuestion.answer_image" alt="Answer Image" />
+                <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image">
                 </div>
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
@@ -61,7 +61,9 @@
                   :key="index"
                   class="answer-item"
                 >
-                  <div class="answer-pic"><img :src="option.img" alt="Option Image" /></div>
+                  <div class="answer-pic">
+                    <img :src="parsePic(option.img)" alt="Option Image">
+                  </div> 
                   <div class="answer-txt">
                     <p>{{ option.text }}</p>
                   </div>
@@ -72,7 +74,6 @@
           </div>
         </div>
       </transition>
-
       <!-- 進度條容器 -->
       <div v-if="showProgressBar" class="progress-container">
         <div class="progress-bar" :style="{ width: progressWidth + '%' }"></div>
@@ -150,6 +151,9 @@ export default {
       this.answeredCorrectly = null
       this.showScore = false
       this.loadQuestions() // 加載隨機問題
+    },
+    parsePic(file) {
+      return new URL(`../assets/image/game-img/${file}`, import.meta.url).href
     }
   },
   created() {
@@ -171,7 +175,7 @@ export default {
     .game_start {
       width: 80%;
       aspect-ratio: 16/10;
-      background-color: #6F9283;
+      background-color: #6f9283;
       background-image: url(/src/assets/image/game-img/gamebgimg.png);
       background-size: 100% 100%;
       background-repeat: no-repeat;
