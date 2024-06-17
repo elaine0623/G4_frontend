@@ -14,7 +14,7 @@
             <div class="toggle-btn actived" v-else>收起</div>
           </button>
           <div class="news-content" v-show="newsData[index].isActive === true">
-            <a :href= parsePic(newsData[index].Url) target="_blank"><img :src=newsData[index].imgUrl alt="最新消息圖片"></a>
+            <a :href= parsePic(newsData[index].Url) target="_blank"><img :src=parsePic(newsData[index].imgUrl) alt="最新消息圖片"></a>
             <p class="news-para" v-if="newsData[index].isClick === false">{{ trucate(index) }}<span
                 class='read-more-btn' v-on:click="newsData[index].isClick = !newsData[index].isClick">...閱讀更多</span></p>
             <p class="news-para" v-else v-on:click="newsData[index].isClick = !newsData[index].isClick">
@@ -78,7 +78,7 @@ export default {
       ],
       newsData: [{
         title: '永續食農 傳承共榮，第一屆國家食農教育傑出貢獻獎啟動徵選',
-        imgUrl: '../src/assets/image/news-img/newsimg1.png',
+        imgUrl: 'news-img/newsimg1.png',
         content: '　　食農教育法在111年5月4日經總統令公布2周年來，農業部積極落實食農教育法，陸續完備相關法規及推動計畫、建置食農教育資訊整合平台、發展食農教育主題教材140餘項；及依產業特性，輔導公私部門辦理食農教育推廣計畫、食農教育創新整合計畫、農村產業跨域計畫及農村亮點計畫、推動食米學園計畫及食魚教育推廣計畫等各項食農教育計畫，該部並依國家食農教育傑出貢獻獎獎勵辦法規定，於本年度辦理「第一屆國家食農教育傑出貢獻獎」，藉此獎勵我國從事食農教育推動者，並期待透過中央與地方共同合作，評選出國內從事食農教育具傑出貢獻者，並公開頒獎表揚，藉此激發全國優質食農教育工作者榮譽感，促進食農教育永續發展。',
         Url: '',
         isActive: false,
@@ -87,7 +87,7 @@ export default {
       },
       {
         title: '永續食農 傳承共榮，第一屆國家食農教育傑出貢獻獎啟動徵選',
-        imgUrl: '../src/assets/image/news-img/newsimg1.png',
+        imgUrl: 'news-img/newsimg1.png',
         content: '　　食農教育法在111年5月4日經總統令公布2周年來，農業部積極落實食農教育法，陸續完備相關法規及推動計畫、建置食農教育資訊整合平台、發展食農教育主題教材140餘項；及依產業特性，輔導公私部門辦理食農教育推廣計畫、食農教育創新整合計畫、農村產業跨域計畫及農村亮點計畫、推動食米學園計畫及食魚教育推廣計畫等各項食農教育計畫，該部並依國家食農教育傑出貢獻獎獎勵辦法規定，於本年度辦理「第一屆國家食農教育傑出貢獻獎」，藉此獎勵我國從事食農教育推動者，並期待透過中央與地方共同合作，評選出國內從事食農教育具傑出貢獻者，並公開頒獎表揚，藉此激發全國優質食農教育工作者榮譽感，促進食農教育永續發展。',
         date: '2024-06-04',
         Url: '',
@@ -96,7 +96,7 @@ export default {
       },
       {
         title: '永續食農 傳承共榮，第一屆國家食農教育傑出貢獻獎啟動徵選',
-        imgUrl: '../src/assets/image/news-img/newsimg1.png',
+        imgUrl: 'news-img/newsimg1.png',
         content: '　　食農教育法在111年5月4日經總統令公布2周年來，農業部積極落實食農教育法，陸續完備相關法規及推動計畫、建置食農教育資訊整合平台、發展食農教育主題教材140餘項；及依產業特性，輔導公私部門辦理食農教育推廣計畫、食農教育創新整合計畫、農村產業跨域計畫及農村亮點計畫、推動食米學園計畫及食魚教育推廣計畫等各項食農教育計畫，該部並依國家食農教育傑出貢獻獎獎勵辦法規定，於本年度辦理「第一屆國家食農教育傑出貢獻獎」，藉此獎勵我國從事食農教育推動者，並期待透過中央與地方共同合作，評選出國內從事食農教育具傑出貢獻者，並公開頒獎表揚，藉此激發全國優質食農教育工作者榮譽感，促進食農教育永續發展。',
         date: '2024-06-04',
         Url: '',
@@ -105,7 +105,7 @@ export default {
       },
       {
         title: '永續食農 傳承共榮，第一屆國家食農教育傑出貢獻獎啟動徵選',
-        imgUrl: '../src/assets/image/news-img/newsimg1.png',
+        imgUrl: 'news-img/newsimg1.png',
         content: '　　食農教育法在111年5月4日經總統令公布2周年來，農業部積極落實食農教育法，陸續完備相關法規及推動計畫、建置食農教育資訊整合平台、發展食農教育主題教材140餘項；及依產業特性，輔導公私部門辦理食農教育推廣計畫、食農教育創新整合計畫、農村產業跨域計畫及農村亮點計畫、推動食米學園計畫及食魚教育推廣計畫等各項食農教育計畫，該部並依國家食農教育傑出貢獻獎獎勵辦法規定，於本年度辦理「第一屆國家食農教育傑出貢獻獎」，藉此獎勵我國從事食農教育推動者，並期待透過中央與地方共同合作，評選出國內從事食農教育具傑出貢獻者，並公開頒獎表揚，藉此激發全國優質食農教育工作者榮譽感，促進食農教育永續發展。',
         date: '2024-06-04',
         Url: '',

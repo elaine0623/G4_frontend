@@ -33,7 +33,7 @@
     <div class="row" >
       <div class="event-card "   v-show=" isSearchMode === true "  v-for="item in searchModePage" :key="item.id" >
         <router-link :to='`/ActivityPage/${item.id}`' > 
-        <img :src=item.a_img alt="活動圖片" class="event-img">
+        <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
         <span class="event-date">{{ item.time }}</span>
@@ -45,7 +45,7 @@
       </div>
       <div class="event-card  col-12 col-md-6 col-lg-3"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="item in  pagenateData" :key="item.id" >
         <router-link :to='`/ActivityPage/${item.id}`' > 
-        <img :src=item.a_img alt="活動圖片" class="event-img">
+        <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
         <span class="event-date">{{ item.time }}</span>
@@ -101,6 +101,9 @@ export default {
       activeEvents:[]
     };
   },methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     eventClass () {
       let currentClassValue = document.querySelector('#event-class');
       this.currentClass = currentClassValue.value;
