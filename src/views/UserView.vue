@@ -126,6 +126,7 @@ onMounted(() => {
         <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
         <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
         <button>註冊</button>
+        <!-- button預設是submit  button要記得加type="button"-->
       </form>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>

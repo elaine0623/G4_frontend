@@ -2,6 +2,8 @@
     <div>
         <h2>活動訂單詳情</h2>
         <div class="contain">
+            <router-link to="/userlayout/useractivity"><button class="cancel1"><i class="fa-solid fa-xmark"
+                        style="color: #FFF;"></i></button></router-link>
             <div>
                 <div class="order_info">
                     <p>訂單日期:</p> <span>{{ this.orders[0].po_time }}</span>
@@ -70,6 +72,22 @@ h2 {
 
 .contain {
     display: flex;
+}
+
+.cancel1 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px 10px;
+    margin: 4px 4px;
+    border-radius: 50%;
+    background-color: #144433;
+    border: 1px solid #eee;
+    cursor: pointer;
+
+    @include s2bmd() {
+        display: none;
+    }
 }
 
 .order_info {
