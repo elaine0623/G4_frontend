@@ -34,6 +34,48 @@ export default {
             }
           ],
         },
+        {
+          tag: "hualien_country",
+          f_loc: "花蓮縣",
+          list: [
+            {
+              f_name: "黃嘉銘有機農場",
+              f_intro: "你在吃水果？還是吃糖果？ 傳承40年「阿公ㄟ柑仔味」 堅持保留橘子酸甜～",
+              f_img: "../src/assets/image/farm1.png",
+              f_link: "https://google.com"
+            }
+          ],
+        },
+        {
+          tag: "tainan_city",
+          f_loc: "臺南市",
+          list: [
+            {
+              f_name: "詠心有機農場",
+              f_intro: "無畏無懼的態度，秉持「用心」的信念對待這片養育我 們的土地、 作物和消費者，堅持以「無毒、健康」的原 則來種植。                                      【詠心農埸】便是農民黃充甫在這樣的心念下而生。",
+              f_img: "../src/assets/image/tainan1.png",
+              f_link: "https://nourii.co/zh-TW/brand/yong-xin-organic"
+            },
+            {
+              f_name: "幸福酪梨園",
+              f_intro: "踩著青翠草地踏進果園中，每棵酪梨樹都生長得健康壯碩，枝頭結實累累。再加上茂哥不使用除草劑和農藥，園區環境自然、生態豐富，穿梭其中感到神清氣爽。",
+              f_img: "../src/assets/image/tainan2.png",
+              f_link: "https://www.avocadolucky.com/"
+            },
+          ],
+        },
+        {
+          tag: "yilan_country",
+          f_loc: "宜蘭縣",
+          list: [
+            {
+              f_name: "松輝有機",
+              f_intro: "不靠化學肥料，讓葉子長得漂亮。謝朝陽的茶樹一開始就用剪枝的方式讓一支根只長一支嫩芽，茶樹自然長得很粗壯。正因為能夠用來製作的茶葉只有嫩芽，相對產量就少很多，順應生態平衡，採用長多少收多少的種茶哲學。",
+              f_img: "../src/assets/image/yilan1.png",
+              f_link: "https://google.com"
+            }
+          ],
+        },
       ],
     }
   },
@@ -74,7 +116,6 @@ export default {
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-6">
-
           <svg id="cf503461-00bd-459a-aeb5-062ebc913211" data-name="圖層 1" xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 595.28 841.89">
             <defs></defs>
@@ -262,24 +303,26 @@ export default {
         <div class="col-12 col-lg-6">
           <div class="forcast" v-if="nowArea">
             <h3>{{ nowArea.f_loc }}</h3>
+            <div class="section-card">
             <div v-for="item in nowArea.list">
               <div class="farm_card">
-                <div class="card-detail">
-                  <div class="row">
-                    <div class="col-12 col-lg-6">
-                      <div class="img">
-                        <img :src="item.f_img">
+                  <div class="card-detail">
+                    <div class="row">
+                      <div class="col-12 col-lg-6">
+                        <div class="img">
+                          <img :src="item.f_img">
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="farm-info">
-                    <h4>{{ item.f_name }}</h4>
-                    <div class="farm-intro">
-                      <p>{{ item.f_intro }}</p>
+                    <div class="farm-info">
+                      <h4>{{ item.f_name }}</h4>
+                      <div class="farm-intro">
+                        <p>{{ item.f_intro }}</p>
+                      </div>
+                      <button>
+                        <a :href="item.f_link" target="_blank">立即前往</a>
+                      </button>
                     </div>
-                    <button>
-                      <a :href="item.f_link" target="_blank">立即前往</a>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -381,14 +424,28 @@ hr {
 .farm_card {
   display: flex;
   padding: 20px;
+  //height: 150px;
   // align-items: center;
+  line-height: 1.3rem;
+  }
+  .section-card{
+  height: 450px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  
 }
-
+// .section-card::-webkit-scrollbar-track {
+//   display: none;
+// }
+// .section-card::-webkit-scrollbar-thumb {
+  
+// }
 .card-detail {
   padding: 20px;
   background-color: #397D5A;
   border-radius: 20px;
   display: flex;
+  
 }
 
 .farm-info {
@@ -404,19 +461,17 @@ img {
   height: 80px;
   text-align: center;
 }
-
 button {
+  max-width: 100%;
+  border: solid 1px #144433;
+  padding: 10px 24px;
   border-radius: 20px;
   border: none;
-  width: 100px;
-  height: 20px;
   display: block;
   flex-wrap: wrap;
   background-color: #144433;
-  margin: 10px;
   align-self: end;
 }
-
 a {
   text-decoration: none;
   color: white;
