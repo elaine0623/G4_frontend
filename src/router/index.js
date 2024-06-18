@@ -149,7 +149,13 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
     // 始终滚动到顶部
-    return { top: 0 }
+    if (to.name == "UserLayout" || to.name == "UserData" || to.name == "UserFavorite" || to.name == "UserOrder" || to.name == "OrderDetail" || to.name == "UserActivity" || to.name == "ActivityDetail") {
+      return {};
+    } else {
+      return { top: 0 }
+    }
+
+
   },
 })
 

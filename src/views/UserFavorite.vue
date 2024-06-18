@@ -30,7 +30,21 @@ export default {
           "p_img": "pumpkin.png",
           "unit": "約五台斤*1箱",
           "p_fee": 335
-        }
+        },
+        {
+          "f_name": "墻森園",
+          "p_name": "高山高麗菜",
+          "p_img": "cabbage.png",
+          "unit": "約五台斤*1箱",
+          "p_fee": 40
+        },
+        {
+          "f_name": "墻森園",
+          "p_name": "高山高麗菜",
+          "p_img": "cabbage.png",
+          "unit": "約五台斤*1箱",
+          "p_fee": 40
+        },
       ]
     }
   },
@@ -116,7 +130,23 @@ h2 {
 
 ul {
   height: 370px;
+  overflow-y: scroll;
 }
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px $bcgr;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #144433;
+}
+
 
 .list {
   display: flex;
@@ -213,6 +243,7 @@ hr {
   display: flex;
   justify-content: center;
   gap: 30px;
+  margin: 30px 0;
 }
 
 .routebtn {

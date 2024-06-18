@@ -19,11 +19,34 @@
                             <img src="../assets/image/brocoli.png" alt="product picture">
                         </div>
                         <div class="text">
-                            <h3>墻森園-草莓 </h3>
-                            <p>單位:約5台斤*1箱</p>
+                            <h3><span>墻森園</span>-<span>花椰菜</span></h3>
+                            <p>單位:<span>約5台斤*1箱</span></p>
                         </div>
                         <div class="num">
-                            <div class="price">NT2880</div>
+                            <div class="price"><span>NT</span>100</div>
+                            <div class="quatity">
+                                <span>數量:</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order_item">
+                        <div class="product_pic">
+                            <img src="../assets/image/cabbage.png" alt="product picture">
+                        </div>
+                        <div class="text">
+                            <h3>
+                                <span>墻森園</span>-<span>高麗菜</span>
+                            </h3>
+                            <p>單位:
+                                <span>約5台斤*1箱</span>
+                            </p>
+                        </div>
+                        <div class="num">
+                            <div class="price">
+                                <span>NT</span>
+                                <span>80</span>
+                            </div>
                             <div class="quatity">
                                 <span>數量:</span>
                                 <span>2</span>
@@ -35,11 +58,11 @@
                             <img src="../assets/image/brocoli.png" alt="product picture">
                         </div>
                         <div class="text">
-                            <h3>墻森園-草莓 </h3>
-                            <p>單位:約5台斤*1箱</p>
+                            <h3><span>墻森園</span>-<span>花椰菜</span></h3>
+                            <p>單位:<span>約5台斤*1箱</span></p>
                         </div>
                         <div class="num">
-                            <div class="price">NT2880</div>
+                            <div class="price"><span>NT</span>100</div>
                             <div class="quatity">
                                 <span>數量:</span>
                                 <span>2</span>
@@ -48,14 +71,44 @@
                     </div>
                     <div class="order_item">
                         <div class="product_pic">
-                            <img src="../assets/image/brocoli.png" alt="product picture">
+                            <img src="../assets/image/cabbage.png" alt="product picture">
                         </div>
                         <div class="text">
-                            <h3>墻森園-草莓 </h3>
-                            <p>單位:約5台斤*1箱</p>
+                            <h3>
+                                <span>墻森園</span>-<span>高麗菜</span>
+                            </h3>
+                            <p>單位:
+                                <span>約5台斤*1箱</span>
+                            </p>
                         </div>
                         <div class="num">
-                            <div class="price">NT2880</div>
+                            <div class="price">
+                                <span>NT</span>
+                                <span>80</span>
+                            </div>
+                            <div class="quatity">
+                                <span>數量:</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order_item">
+                        <div class="product_pic">
+                            <img src="../assets/image/cabbage.png" alt="product picture">
+                        </div>
+                        <div class="text">
+                            <h3>
+                                <span>墻森園</span>-<span>高麗菜</span>
+                            </h3>
+                            <p>單位:
+                                <span>約5台斤*1箱</span>
+                            </p>
+                        </div>
+                        <div class="num">
+                            <div class="price">
+                                <span>NT</span>
+                                <span>80</span>
+                            </div>
                             <div class="quatity">
                                 <span>數量:</span>
                                 <span>2</span>
@@ -67,13 +120,17 @@
                 <!-- 其他訂單詳情 -->
                 <div class="priceinfo">
                     <div class="priceinfo_item">
-                        <span class="title">商品:</span><span class="int">NT$480</span>
+                        <span class="title">商品:</span>
+                        <span class="int">
+                            <span>NT</span>
+                            <span>$720</span>
+                        </span>
                     </div>
                     <div class="priceinfo_item">
                         <span class="title">運費:</span><span class="int">NT60</span>
                     </div>
                     <div class="priceinfo_item">
-                        <span class="title">總計:</span><span class="int">NT520</span>
+                        <span class="title">總計:</span><span class="int">NT780</span>
                     </div>
                 </div>
                 <div class="contact-person">
@@ -126,7 +183,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 h2 {
     text-align: center;
     color: #144433;
@@ -166,14 +223,19 @@ h2 {
 
 .order {
     width: 90%;
+
+    @include md() {
+        font-size: 14px;
+    }
 }
 
 .order_info {
-    width: 100px;
+    max-width: 100px;
     display: flex;
     flex-direction: column;
     border: 1px solid #144433;
     padding: 6px 8px;
+    box-sizing: border-box;
 
     span {
         margin: 2px 6px;
@@ -182,15 +244,35 @@ h2 {
     }
 
     @include sm() {
-        max-width: 75px;
+        max-width: 100px;
     }
 
 
 }
 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px $bcgr;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #144433;
+}
+
 .order_list {
     width: 100%;
     border-top: 1px solid #144433;
+    height: 267px;
+    overflow-y: scroll;
+
+    @include md() {
+        height: 225px;
+    }
 
     .order_item {
         display: flex;
@@ -204,6 +286,10 @@ h2 {
         &:first-child {
             margin: 0px 4px;
             content: '';
+        }
+
+        @include md() {
+            padding: 0px;
         }
 
     }
@@ -225,6 +311,7 @@ h2 {
 .price,
 .quatity {
     font-size: 12px;
+    text-align: end;
 }
 
 .product_pic {
@@ -255,7 +342,7 @@ h2 {
 
     span {
         display: inline-block;
-        text-align: center;
+        // text-align: center;
         margin: 4px 0;
         text-align: end;
 
@@ -272,6 +359,12 @@ h2 {
 .contact-person {
     padding: 5px 0;
     color: #979191;
+
+    @include md() {
+        padding: 4px 0;
+    }
+
+    ;
 
     h4 {
         font-size: 14px;
