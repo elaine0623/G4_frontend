@@ -267,7 +267,6 @@ h3 {
     input[type=radio] {
       display: none;
       position: relative;
-
       &+span::before {
         content: "";
         display: inline-block;
