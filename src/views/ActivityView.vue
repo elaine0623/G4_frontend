@@ -25,14 +25,14 @@
     <div class="current-event" >
       <div class="curr-header">{{ formattedDate }}</div>
       <div class="curr-content" v-for="(item,index) in currentEvent" :key="item.id" >
-        <router-link :to='`/ActivityPage/${index + 1}`' > {{item.a_name}}</router-link>
+        <router-link :to='`/activity/${index + 1}`' > {{item.a_name}}</router-link>
       </div>
     </div>
   </div>
   <div class="container"> 
     <div class="row" >
       <div class="event-card "   v-show=" isSearchMode === true "  v-for="item in searchModePage" :key="item.id" >
-        <router-link :to='`/ActivityPage/${item.id}`' > 
+        <router-link :to='`/activity/${item.id}`' > 
         <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
@@ -44,7 +44,7 @@
       
       </div>
       <div class="event-card  col-12 col-md-6 col-lg-3"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="item in  pagenateData" :key="item.id" >
-        <router-link :to='`/ActivityPage/${item.id}`' > 
+        <router-link :to='`/activity/${item.id}`' > 
         <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
@@ -184,13 +184,13 @@ searchModePage () {
   return this.filterEvents.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
 }
 },mounted() {
-    fetch('/activityPage.json')
-    .then(res=>res.json())
-    .then(json=> {
-      console.log(json);
-      this.activeEvents = json;
-      console.log(this.activeEvents);
-    })
+  fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+  .then(res=>res.json())
+  .then(json=> {
+    console.log(json);
+    this.activeEvents = json;
+    console.log(this.activeEvents);
+  })
 },
 }
 </script>

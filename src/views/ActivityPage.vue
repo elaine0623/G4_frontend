@@ -1,17 +1,17 @@
 <template>
     <div>
-        <!-- <section v-if="loading" class="loading">
-            数据加载中...
-        </section> -->
-        <section class="section">
+        <section v-if="loading" class="loading">
+            Loading...
+        </section>
+        <section v-if="activityInfo" class="section">
             <div class="container">
                 <div class="container-title">
                     <div class="wrap-title">
                         <div class="class">
-                            <h1>{{ userInfo[userId - 1].c_no }}</h1>
+                            <h1>{{ activityInfo.c_no }}</h1>
                         </div>
                         <div class="main-title">
-                            <h2>{{ userInfo[userId - 1].a_name }}</h2>
+                            <h2>{{ activityInfo.a_name }}</h2>
                         </div>
                     </div>
                     <div class="wrap-info">
@@ -23,7 +23,7 @@
                                 <li>
                                     <RouterLink to="/activity">活動</RouterLink>
                                 </li>
-                                <li class="current"><em aria-current="page">{{ userInfo[userId - 1].c_no }}</em></li>
+                                <li class="current"><em aria-current="page">{{ activityInfo.c_no }}</em></li>
                             </ul>
                         </nav>
                         <hr>
@@ -31,29 +31,29 @@
                 </div>
                 <div class="content">
                     <div class="pic-content">
-                        <!-- <img :src="userInfo[userId - 1].a_img" alt="act1"> -->
-                        <img :src="parsePic(userInfo[userId - 1].a_img)" alt="act1">
+                        <!-- <img :src="activityInfo.a_img" alt="act1"> -->
+                        <img :src="parsePic(activityInfo.a_img)" alt="act1">
                     </div>
                     <div class="info-content">
                         <div class="loc">
                             <span><i class="fa-solid fa-location-dot"></i></span>
-                            <span>{{ userInfo[userId - 1].a_loc }}</span>
+                            <span>{{ activityInfo.a_loc }}</span>
                         </div>
                         <hr>
                         <div class="date">
                             <span>日 期 : </span>
-                            <span>{{ userInfo[userId - 1].a_date }}</span>
+                            <span>{{ activityInfo.a_date }}</span>
                         </div>
-                        <div class="time" v-if="userInfo[userId - 1].a_time">
+                        <div class="time" v-if="activityInfo.a_time">
                             <span>時 間 : </span>
                             <span>
-                                {{ userInfo[userId - 1].a_time }}
+                                {{ activityInfo.a_time }}
                             </span>
                         </div>
-                        <div class="teacher" v-if="userInfo[userId - 1].a_teacher">
+                        <div class="teacher" v-if="activityInfo.a_teacher">
                             <span>講 師 : </span>
                             <span>
-                                {{ userInfo[userId - 1].a_teacher }}
+                                {{ activityInfo.a_teacher }}
                             </span>
                         </div>
                         <hr>
@@ -63,16 +63,16 @@
                             <h3>活動介紹</h3>
                         </div>
                         <div>
-                            <p>{{ userInfo[userId - 1].a_info }}</p>
+                            <p>{{ activityInfo.a_info }}</p>
                             <ul>
-                                <li v-if="userInfo[userId - 1].a_info1">
-                                    {{ userInfo[userId - 1].a_info1 }}
+                                <li v-if="activityInfo.a_info1">
+                                    {{ activityInfo.a_info1 }}
                                 </li>
-                                <li v-if="userInfo[userId - 1].a_info2">
-                                    {{ userInfo[userId - 1].a_info2 }}
+                                <li v-if="activityInfo.a_info2">
+                                    {{ activityInfo.a_info2 }}
                                 </li>
-                                <li v-if="userInfo[userId - 1].a_info3">
-                                    {{ userInfo[userId - 1].a_info3 }}
+                                <li v-if="activityInfo.a_info3">
+                                    {{ activityInfo.a_info3 }}
                                 </li>
 
                             </ul>
@@ -82,40 +82,40 @@
                         <div class="title-rules">
                             <h3>活動須知</h3>
                         </div>
-                        <div class="item-rules" v-if="userInfo[userId - 1].a_signupe">
+                        <div class="item-rules" v-if="activityInfo.a_signupe">
                             <p>報名截止日期</p>
                             <ul>
-                                <li>{{ userInfo[userId - 1].a_signupe }}</li>
+                                <li>{{ activityInfo.a_signupe }}</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>報名費用</p>
                             <ul>
-                                <li v-if="userInfo[userId - 1].a_fee">
-                                    NT$ {{ userInfo[userId - 1].a_fee }}
+                                <li v-if="activityInfo.a_fee">
+                                    NT$ {{ activityInfo.a_fee }}
                                 </li>
                                 <li v-else>
                                     免費
                                 </li>
                             </ul>
                         </div>
-                        <div class="item-rules" v-if="userInfo[userId - 1].a_max != 999">
+                        <div class="item-rules" v-if="activityInfo.a_max != 999">
                             <p>報名人數上限</p>
                             <ul>
-                                <li>{{ userInfo[userId - 1].a_max }}人</li>
+                                <li>{{ activityInfo.a_max }}人</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>當日注意事項</p>
                             <ul>
-                                <li v-if="userInfo[userId - 1].a_rules1">
-                                    {{ userInfo[userId - 1].a_rules1 }}
+                                <li v-if="activityInfo.a_rules1">
+                                    {{ activityInfo.a_rules1 }}
                                 </li>
-                                <li v-if="userInfo[userId - 1].a_rules2">
-                                    {{ userInfo[userId - 1].a_rules2 }}
+                                <li v-if="activityInfo.a_rules2">
+                                    {{ activityInfo.a_rules2 }}
                                 </li>
-                                <li v-if="userInfo[userId - 1].a_rules3">
-                                    {{ userInfo[userId - 1].a_rules3 }}
+                                <li v-if="activityInfo.a_rules3">
+                                    {{ activityInfo.a_rules3 }}
                                 </li>
                             </ul>
                         </div>
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="signup">
-                        <router-link :to="`/signuppage/${userId}`">立即報名</router-link>
+                        <router-link :to="`/signuppage/${activityId}`">立即報名</router-link>
                     </div>
                 </div>
             </div>
@@ -144,36 +144,43 @@
 export default {
     data() {
         return {
-            userInfo: [],
-            // loading: true // 控制数据加载状态
+            activityInfo: {},
+            loading: true // 控制数据加载状态
         }
     },
     computed: {
-        userId() {
+        activityId() {
             return this.$route.params.activityId;
         },
     },
     watch: {
-        userId: async function (val) {
-            this.userInfo = await this.fetchUserInfo(val);
+        activityId: function () {
+            this.fetchActivityInfo();
         },
     },
     methods: {
-        async fetchUserInfo() {
-            return await fetch("/activityPage.json")
-                .then((response) => response.json())
-                .then((json) => json);
+        fetchActivityInfo() {
+            this.loading = true;
+            fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+            .then((response) => response.json())
+            .then((json) => {
+                const target = json.find(item=>item.id == this.activityId)
+                console.log(target);
+                this.activityInfo = target
+                this.loading = false; // 数据加载完成后，将加载状态设置为 false
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                this.loading = false; // 如果发生错误，也将加载状态设置为 false
+            });
         },
         parsePic(file) {
             return new URL(`../assets/image/${file}`, import.meta.url).href
+        },
     },
+    mounted() {
+        this.fetchActivityInfo();
     },
-    async created() {
-        this.userInfo = await this.fetchUserInfo(this.userId);
-    },
-
-
-
     // mounted() {
     //     fetch("/public/activityPage.json")
     //     .then(res => res.json())

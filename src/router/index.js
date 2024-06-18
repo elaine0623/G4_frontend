@@ -31,6 +31,11 @@ const router = createRouter({
       }
     },
     {
+      path: '/activity/:activityId',
+      name: 'activitypage',
+      component: () => import('@/views/ActivityPage.vue')
+    },
+    {
       path: '/game',
       name: 'game',
       component: () => import('@/views/GameView.vue'),
@@ -79,11 +84,6 @@ const router = createRouter({
       path: '/ProductPage/:productId',
       name: 'ProductPage',
       component: () => import(/* webpackChunkName: "ProductPage" */ '@/views/ProductPage.vue')
-    },
-    {
-      path: '/activitypage/:activityId',
-      name: 'activitypage',
-      component: () => import('@/views/ActivityPage.vue')
     },
     {
       path: '/userlayout',
@@ -139,6 +139,11 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/NotFoundView.vue')
+    },
+    {
+      path: '/SvgAnimation',
+      name: 'SvgAnimation',
+      component: () => import('../components/SvgAnimation.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

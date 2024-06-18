@@ -112,9 +112,11 @@ export default {
   },
   methods: {
     async loadQuestions() {
-      const response = await fetch('/questions.json')
+      const response = await fetch(`${import.meta.env.BASE_URL}questions.json`)
       const allQuestions = await response.json()
       this.questions = this.selectRandomQuestions(allQuestions, 10)
+
+      
     },
     selectRandomQuestions(allQuestions, count) {
       const shuffled = allQuestions.sort(() => 0.5 - Math.random())
@@ -449,19 +451,21 @@ export default {
       }
       .progress-img-container {
         position: absolute;
-        top: -17px;
+        top: 4px;
         height: 60px;
         display: flex;
         justify-content: end;
         align-items: center;
         @include lg() {
           height: 50px;
+          top: 2px;
         }
         @include md() {
-          height: 45px;
+          height: 40px;
+          top: 0px;
         }
         @include sm() {
-          top: -10px;
+          top: -3px;
           height: 25px;
         }
         img.progress-img {
