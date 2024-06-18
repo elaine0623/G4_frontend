@@ -160,8 +160,8 @@ section {
 
 .pic {
   margin: auto;
-  width: 20%;
-  padding-bottom: 7%;
+  width: 15%;
+  padding-bottom: 5%;
 
   img {
     width: 100%;
@@ -173,7 +173,7 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 2%;
+  padding-bottom: 1%;
 
   h2 {
     text-align: center;
@@ -257,10 +257,11 @@ h3 {
 
     input[type=text],
     input[type=number] {
-      width: 80%;
-      height: 40px;
+      width: 70%;
+      height: 30px;
       background-color: transparent;
       border: 1.5px solid $darkGreen;
+      padding: 10px;
     }
 
     input[type=radio] {
@@ -298,9 +299,6 @@ h3 {
         flex-direction: column;
         align-items: start;
     }
-  
-    
-
       .gender {
         display: flex;
         width: 50%;
@@ -308,15 +306,22 @@ h3 {
         @include sm(){
           width: 100%;
     }
-
         span {
-          display: inline-block;
-        
+          display: inline-block;      
         }
       }
     }
     .age{
       display: flex;
+      @include sm(){
+        flex-wrap: wrap;
+      }
+      label{
+        @include sm(){
+          width: 50%;
+          
+    }
+      }
       span{
         display: block;
       }
