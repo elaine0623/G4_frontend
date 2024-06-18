@@ -160,6 +160,7 @@ export default {
         }
     },
     computed: {
+        
         activityId() {
             return this.$route.params.signupId;
         },
@@ -173,6 +174,7 @@ export default {
         },
     },
     methods:{
+        
         async fetchActivityInfo() {
             fetch(`${import.meta.env.BASE_URL}activityPage.json`)
             .then((response) => response.json())
@@ -242,40 +244,60 @@ export default {
         },
         submit () {
             if(this.ao_count != null && this.ao_count !== ""){
+                // Swal.fire({
+                //     title: "<strong>報名成功</strong>",
+                //     icon: "success",
+                //     iconColor:'#144433',
+                //     html: ``,
+                //     showCloseButton: false,
+                //     showCancelButton: true,
+                //     focusConfirm: false,
+                //     confirmButtonText: `
+                //         <a href=@/views/ActivityView.vue"
+                //             style="
+                //                 text-decoration: none;
+                //                 color: #fff;
+                                
+                //             ">返回活動</a>
+                //     `,
+                //     confirmButtonColor:'#144433',
+                //     cancelButtonText: `
+                //         <a href="/userlayout/useractivity" 
+                //             style="
+                //                 text-decoration: none;
+                //                 color: #fff;
+                                
+                //             ">活動紀錄</a>
+                //     `,
+                //     cancelButtonColor: '#144433',
+                //     background:'#eeeeee'
+                // });
                 Swal.fire({
                     title: "<strong>報名成功</strong>",
                     icon: "success",
-                    iconColor:'#144433',
+                    iconColor: '#144433',
                     html: ``,
                     showCloseButton: false,
                     showCancelButton: true,
                     focusConfirm: false,
-                    confirmButtonText: `
-                        <a href="/activity"
-                            style="
-                                text-decoration: none;
-                                color: #fff;
-                                
-                            ">返回活動</a>
-                    `,
-                    confirmButtonColor:'#144433',
-                    cancelButtonText: `
-                        <a href="/userlayout/useractivity" 
-                            style="
-                                text-decoration: none;
-                                color: #fff;
-                                
-                            ">活動紀錄</a>
-                    `,
+                    confirmButtonText: '返回活動',
+                    confirmButtonColor: '#144433',
+                    cancelButtonText: '活動紀錄',
                     cancelButtonColor: '#144433',
-                    background:'#eeeeee'
+                    background: '#eeeeee'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$router.push('/activity');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        this.$router.push('/userlayout/useractivity');
+                    }
                 });
             }
-            
         }
     },
     mounted() {
         this.fetchActivityInfo();
+        
     }
 
 }    
