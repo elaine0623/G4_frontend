@@ -15,20 +15,20 @@ export default {
     <div class="container">
       <div class="text">
         <div class="textleft">
-          <p>產品</p>
-          <p>食農教育</p>
-          <p>活動</p>
+          <router-link to="/product">產品</router-link>
+          <router-link to="/game">食農教育</router-link>
+          <router-link to="/activity">活動</router-link>
         </div>
         <div class="textright">
-          <p>關於我們</p>
-          <p>聯絡我們</p>
+          <router-link to="/aboutus">關於我們</router-link>
+          <router-link to="/contactus">聯絡我們</router-link>
         </div>
       </div>
       <div class="icon">
-        <a href=""><img src="@/assets/image/Vector.png" alt="fb" /></a>
-        <a href=""><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
-        <a href=""><img src="@/assets/image/bi_threads-fill.png" alt="" /></a>
-        <a href=""><img src="@/assets/image/Group 1541.png" alt="yt" /></a>
+        <a href="https://www.facebook.com/?locale=zh_TW"><img src="@/assets/image/Vector.png" alt="fb" /></a>
+        <a href="https://www.instagram.com/"><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
+        <a href="https://www.threads.net/?hl=zh-tw"><img src="@/assets/image/bi_threads-fill.png" alt="threads" /></a>
+        <a href="https://www.youtube.com/"><img src="@/assets/image/Group 1541.png" alt="youtbe" /></a>
       </div>
       <div class="logo">
         <div class="pic">
@@ -51,13 +51,13 @@ export default {
         </div>
         <div class="text">
           <div class="textleft">
-            <p>產品</p>
-            <p>食農教育</p>
-            <p>活動</p>
+            <router-link to="/product">產品</router-link>
+            <router-link to="/game">食農教育</router-link>
+            <router-link to="/activity">活動</router-link>
           </div>
           <div class="textright">
-            <p>關於我們</p>
-            <p>聯絡我們</p>
+            <router-link to="/aboutus">關於我們</router-link>
+            <router-link to="/contactus">聯絡我們</router-link>
           </div>
         </div>
       </div>
@@ -69,10 +69,10 @@ export default {
         <p>信箱: asdf55448@gmail.com</p>
       </div>
       <div class="icon">
-        <a href=""><img src="@/assets/image/Vector.png" alt="ig" /></a>
-        <a href=""><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
-        <a href=""><img src="@/assets/image/bi_threads-fill.png" alt="" /></a>
-        <a href=""><img src="@/assets/image/Group 1541.png" alt="yt" /></a>
+        <a href="https://www.facebook.com/?locale=zh_TW"><img src="@/assets/image/Vector.png" alt="fb" /></a>
+        <a href="https://www.instagram.com/"><img src="@/assets/image/Vector-1.png" alt="ig" /></a>
+        <a href="https://www.threads.net/?hl=zh-tw"><img src="@/assets/image/bi_threads-fill.png" alt="threads" /></a>
+        <a href="https://www.youtube.com/"><img src="@/assets/image/Group 1541.png" alt="youtbe" /></a>
       </div>
     </div>
     <div class="copyright">
@@ -112,10 +112,15 @@ section {
   font-size: 1rem;
   letter-spacing: 0.28em;
   padding: 0 3% 0 3%;
-
-  p {
+  display:flex;
+  flex-direction: column;
+  
+  a {
     text-align: start;
     margin: 0 0 5% 0;
+    text-decoration:none;
+    color: black;
+    
   }
 }
 
