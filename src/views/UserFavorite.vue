@@ -37,6 +37,9 @@ export default {
   methods: {
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
+    deleteitem(index) {
+      this.productlist.splice(index, 1);
     }
   }
 }
@@ -49,9 +52,11 @@ export default {
     <hr>
     <div class="productlist">
       <ul>
-        <li v-for="item in productlist" :key="item.p_name">
+        <li v-for="(item, index) in productlist" :key="item.p_name">
           <div class="list">
-        <li><input type="checkbox" id="checkbox"><label for="checkbox"></label></li>
+        <li><input type="checkbox" :id="'checkbox' + (index + 1)">
+          <label :for="'checkbox' + (index + 1)" id="checkbox"></label>
+        </li>
         <li>
           <div class="pic"><img :src="parsePic(item.p_img)"></div>
         </li>
@@ -62,7 +67,9 @@ export default {
           </div>
         </li>
         <li class="price">單價<span class="pricetxt">{{ item.p_fee }}</span></li>
-        <li class="cancelmark"><button class="cancel"><i class="fa-solid fa-xmark"></i></button></li>
+        <li class="cancelmark"><button class="cancel" @click="deleteitem(index)"><i
+              class="fa-solid fa-xmark"></i></button>
+        </li>
     </div>
     <hr>
     </li>

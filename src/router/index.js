@@ -31,6 +31,11 @@ const router = createRouter({
       }
     },
     {
+      path: '/activity/:activityId',
+      name: 'activitypage',
+      component: () => import('@/views/ActivityPage.vue')
+    },
+    {
       path: '/game',
       name: 'game',
       component: () => import('@/views/GameView.vue'),
@@ -81,11 +86,6 @@ const router = createRouter({
       component: () => import(/* webpackChunkName: "ProductPage" */ '@/views/ProductPage.vue')
     },
     {
-      path: '/activitypage/:activityId',
-      name: 'activitypage',
-      component: () => import('@/views/ActivityPage.vue')
-    },
-    {
       path: '/userlayout',
       name: 'UserLayout',
       component: () => import('@/components/UserLayout.vue'),
@@ -114,6 +114,11 @@ const router = createRouter({
           path: 'useractivity',
           name: 'UserActivity',
           component: () => import('@/views/UserActivity.vue'),
+        },
+        {
+          path: 'useractivity/activitydetail:activityId',
+          name: 'ActivityDetail',
+          component: () => import('@/views/ActivityDetail.vue'),
         }
       ]
     },

@@ -14,12 +14,13 @@
           }" :modules='modules' :pagination="{
             type: 'fraction',
             el: '.pagination',
-          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto" :centeredSlides="true" >
-            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
+          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto"
+            :centeredSlides="true">
+            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex">
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
-              <RouterLink to="/ProductPage" class="card-product-list">
+              <RouterLink to="#" class="card-product-list">
                 <div class="img-product-list">
-                  <img :src="cartItem['img']" alt="" />
+                  <img :src="parsePic(cartItem['img'])" alt="" />
                 </div>
                 <div class="into-product-list">
                   <div class="title-product-list">
@@ -95,50 +96,57 @@ export default {
       //       slidesPerView:3,
       //       centeredSlides:true,
       //     }
-          
+
       //   }
 
       // },
+
+
       cartList: [
         {
           id: 1,
           title: '福星',
           subTitle: '葡萄',
           price: 180,
-          img: '../src/assets/image/grape.png'
+          img: 'grape.png'
         },
         {
           id: 2,
           title: '高原',
           subTitle: '柿子',
           price: 100,
-          img: '../src/assets/image/persimmon.png'
+          img: 'persimmon.png'
         },
         {
           id: 3,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/dates.png'
+          img: 'dates.png'
         },
         {
           id: 4,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/grape.png'
+          img: 'grape.png'
         },
         {
           id: 5,
           title: '美濃',
           subTitle: '棗子',
           price: 280,
-          img: '../src/assets/image/dates.png'
+          img: 'dates.png'
         }
       ],
 
 
     };
+  },
+  methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
   },
 
 
@@ -255,10 +263,11 @@ section {
         // width: 1200px;
         // overflow: hidden;
         box-sizing: border-box;
+
         // position: absolute;
         // right: 50%;
         // transform: translateX(50%);
-        .swiper-slide{
+        .swiper-slide {
           width: auto;
 
         }
@@ -267,10 +276,10 @@ section {
           margin: auto;
           object-fit: cover;
           width: 380px;
-          cursor:pointer;
+          cursor: pointer;
           text-decoration: none;
-          
-          
+
+
         }
 
         .img-product-list {
@@ -280,9 +289,9 @@ section {
 
           img {
             width: 100%;
-          //   @include bp(390px) {
-          //   width: 380px;
-          // }
+            //   @include bp(390px) {
+            //   width: 380px;
+            // }
 
           }
         }
@@ -318,7 +327,7 @@ section {
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
-                  cursor:pointer;
+                  cursor: pointer;
                 }
               }
             }
@@ -346,7 +355,7 @@ section {
         .swiper-button-next {
           position: relative;
           margin: $mbbtwElement;
-          
+
         }
 
         .pagination {

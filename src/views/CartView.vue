@@ -4,40 +4,23 @@ export default {
     return {
       
       total:0,
-      cartList:[{
-        id:1,
-        p_img:"../src/assets/image/strawberry-detail1.svg",
-        f_name:"福星",
-        p_name:"草莓",
-        unit:"約五台斤*1箱",
-        count: 1,
-        p_fee:155,
-        total:155
-      },
-    {
-        id:2,
-        p_img:"../src/assets/image/strawberry-detail1.svg",
-        f_name:"福星",
-        p_name:"草莓",
-        unit:"約五台斤*1箱",
-        count: 1,
-        p_fee:155,
-        total:155
-
-    }]
+      cartList:[],
     }
   },
   computed:{
     totalprice() {
-      let total = 0;//加總總和
+      let total = 0;//加總總和 
         for(let i = 0;i < this.cartList.length;i++) {  
-          this.cartList[i].total = this.cartList[i].p_fee * this.cartList[i].count
+          this.cartList[i].total = this.cartList[i].p_fee * this.cartList[i].count;
           total += this.cartList[i].total
         }
         return this.total = total;
       }
    },
   methods: {
+    parsePic(file) {
+      return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
     add(index) {
       this.cartList[index].count  ++;
     },
@@ -52,9 +35,21 @@ export default {
   deleteItem(index) {
     if (confirm("確定刪除？")) {
         this.cartList.splice(index, 1); //  cartList 中移除指定索引的商品
+        localStorage.removeItem(`shoppingItem${index}`);
       }
-    }
-}}
+    }, 
+},
+created() {
+      for(let i = 0 ;i <20;i++){
+        if(localStorage.getItem(`shoppingItem${i}`) != null) {
+       let shoppingItem = localStorage.getItem(`shoppingItem${i}`);
+       this.cartList.push(JSON.parse(shoppingItem));
+      }};
+      console.log(this.cartList)
+      console.log(localStorage.getItem(`shoppingItem${0}`))
+      // console.log('mounted')
+    },
+}
 
 </script>
 
@@ -83,7 +78,7 @@ export default {
         <div class="card-list">
           <div class="card"  v-for="(cardtItem ,index) in cartList" :key="cardtItem.id">
             <picture>
-              <img src="../assets/image/strawberry-detail2.svg" alt="">
+              <img :src="parsePic(cardtItem.p_img[0])"  alt="">
             </picture>
             <div class="product">
               <div class="product-into">

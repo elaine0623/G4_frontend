@@ -17,15 +17,21 @@ export default {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     addCart (index) {
-
+        if (this.displayData[index].isaddCart === false) {
+          this.displayData[index].isaddCart = true;
+          localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.activedProduct[index]))
+        }else {
+          this.displayData[index].isaddCart = false;
+          localStorage.removeItem(`shoppingItem${index}`,JSON.stringify(this.activedProduct[index]));
+        }
     },
     toggleImage(index) {
       this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];//hart2加入收藏
       if (!this.displayData[index]['isImage1']) {
-          localStorage.setItem('favorite',JSON.stringify(this.activedProduct[index]));
-          console.log(this.activedProduct[index])
+          localStorage.setItem(`favorite${index}`,JSON.stringify(this.activedProduct[index]));
+          // console.log(this.activedProduct[index])
       }else {
-        localStorage.removeItem('favorite',JSON.stringify(this.activedProduct[index]));
+        localStorage.removeItem(`favorite${index}`,JSON.stringify(this.activedProduct[index]));
       }
     },
     SearchMode() {//判斷是否搜尋
@@ -67,9 +73,16 @@ export default {
       console.log(this.isSearchMode)
     },
   },
-  mounted() {
+  mounted () {
+    //若有登入情況下
+  //   console.log(localStorage.getItem('user1') )
+  //  if (localStorage.getItem('user1') != []) {
+  //   let userInfo = localStorage.getItem('user1');
+  //   this.activedProduct = JSON.parse(userInfo);
+  //   console.log(this.displayData);
+  //  }else {
     this.fetchData();
-
+  // }
   },
   computed: {
     activedProduct() {
@@ -133,10 +146,10 @@ export default {
 
         <div class="row list-product ">
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in activedProduct" :key="cardtIndex">
-            <RouterLink :to="`/ProductPage/${cardtIndex + 1}`" class="card-product">
-              <div class="pic-card">
-                <img :src="parsePic(cardtItem.p_img[0])" alt="">
-              </div>
+            <div class="card-product">
+            <RouterLink :to="`/ProductPage/${cardtIndex + 1}`">
+                <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片">
+            </RouterLink>
               <div class="into-card">
                 <div class="category-card">
                   <div class="name-card">
@@ -152,39 +165,32 @@ export default {
                   </div>
                 </div>
                 <div class="member-card">
-                  <button class="cart-shopping">
-                    <div class="icon-cart-shopping" id="app">
+                  <button class="cart-shopping"  @click="addCart(cardtIndex)" >
                       <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
                     <p>加入購物車</p>
                   </button>
+                 
                   <div class="money-card">
-                    <span>NT.{{ cardtItem['p_fee'] }}</span>
+                    <span>NT${{ cardtItem['p_fee'] }}</span>
                   </div>
                 </div>
               </div>
-            </RouterLink>
           </div>
         </div>
+        </div>
         <div class="carousel">
-
-
           <div class="button prev">
             <img src="../assets/image/leftbutton.svg" alt="" />
           </div>
-
           <ul class="pagination">
             <li>01</li>
             <li>02</li>
             <li>03</li>
-
           </ul>
           <div class="button next">
             <img src="../assets/image/rightbutton.svg" alt="" />
           </div>
         </div>
-
-
       </div>
     </div>
   </section>
@@ -350,22 +356,13 @@ section {
         // flex-wrap: nowrap;
         .card-product {
           border: 1px solid $darkGreen;
-          margin: 15px 10px;
+          margin: 10px;
           text-decoration: none;
           display: block;
-
-
-          .pic-card {
-            width: 100%;
-
-            img {
+           img {
               width: 100%;
-              object-fit: cover;
-              vertical-align: top;
-
+              vertical-align: bottom;
             }
-          }
-
           .into-card {
             position: relative;
 
@@ -384,8 +381,6 @@ section {
                   margin: 14px 0;
 
                 }
-
-                span {}
               }
 
               .hart-pic-card {

@@ -7,11 +7,11 @@
             <div class="info-activity">
                 <div>
                     <span>活動類別 : </span>
-                    <span>{{ userInfo[$route.params.signupId - 1].c_no }}</span>
+                    <span>{{ activityInfo.c_no }}</span>
                 </div>
                 <div>
                     <span>活動名稱 : </span>
-                    <span>{{ userInfo[$route.params.signupId - 1].a_name }}</span>
+                    <span>{{ activityInfo.a_name }}</span>
                 </div>
             </div>
             <div class="title">
@@ -48,7 +48,7 @@
                     <input type="text" id="m_add" name="m_add">
                 </div>
             </form>
-            <form class="info-pay" v-if="userInfo[$route.params.signupId - 1].a_fee > 0">
+            <form class="info-pay" v-if="activityInfo.a_fee > 0">
                 <div class="title">
                     <h2>付款資訊</h2>
                 </div>
@@ -144,7 +144,7 @@ import Swal from 'sweetalert2'//引用sweetalert2
 export default {
     data() {
         return {
-            userInfo: [],
+            activityInfo: {},
             ao_count:1,
             fee:500,
             name: '',
@@ -160,23 +160,31 @@ export default {
         }
     },
     computed: {
-        userId() {
+        
+        activityId() {
             return this.$route.params.signupId;
         },
         totalFees(){
-            return this.userInfo[this.$route.params.signupId -1].a_fee * this.ao_count;
+            return this.activityInfo.a_fee * this.ao_count;
         }
     },
     watch: {
-        userId: async function (val) {
-            this.userInfo = await this.fetchUserInfo(val);
+        activityId: function () {
+            this.fetchActivityInfo();
         },
     },
     methods:{
-        async fetchUserInfo() {
-            return await fetch("../../public/activityPage.json")
-                .then((response) => response.json())
-                .then((json) => json);
+        
+        async fetchActivityInfo() {
+            fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+            .then((response) => response.json())
+            .then((json) => {
+                const target = json.find(item=>item.id == this.activityId)
+                this.activityInfo = target
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
         },
         checkname() {
             const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g; //正規表達式：不可輸入數字、空白及特殊符號 最多15字
@@ -236,40 +244,60 @@ export default {
         },
         submit () {
             if(this.ao_count != null && this.ao_count !== ""){
+                // Swal.fire({
+                //     title: "<strong>報名成功</strong>",
+                //     icon: "success",
+                //     iconColor:'#144433',
+                //     html: ``,
+                //     showCloseButton: false,
+                //     showCancelButton: true,
+                //     focusConfirm: false,
+                //     confirmButtonText: `
+                //         <a href=@/views/ActivityView.vue"
+                //             style="
+                //                 text-decoration: none;
+                //                 color: #fff;
+                                
+                //             ">返回活動</a>
+                //     `,
+                //     confirmButtonColor:'#144433',
+                //     cancelButtonText: `
+                //         <a href="/userlayout/useractivity" 
+                //             style="
+                //                 text-decoration: none;
+                //                 color: #fff;
+                                
+                //             ">活動紀錄</a>
+                //     `,
+                //     cancelButtonColor: '#144433',
+                //     background:'#eeeeee'
+                // });
                 Swal.fire({
                     title: "<strong>報名成功</strong>",
                     icon: "success",
-                    iconColor:'#144433',
+                    iconColor: '#144433',
                     html: ``,
                     showCloseButton: false,
                     showCancelButton: true,
                     focusConfirm: false,
-                    confirmButtonText: `
-                        <a href="/activity"
-                            style="
-                                text-decoration: none;
-                                color: #fff;
-                                
-                            ">返回活動</a>
-                    `,
-                    confirmButtonColor:'#144433',
-                    cancelButtonText: `
-                        <a href="/userlayout/useractivity" 
-                            style="
-                                text-decoration: none;
-                                color: #fff;
-                                
-                            ">活動紀錄</a>
-                    `,
+                    confirmButtonText: '返回活動',
+                    confirmButtonColor: '#144433',
+                    cancelButtonText: '活動紀錄',
                     cancelButtonColor: '#144433',
-                    background:'#eeeeee'
+                    background: '#eeeeee'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$router.push('/activity');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        this.$router.push('/userlayout/useractivity');
+                    }
                 });
             }
-            
         }
     },
-    async created() {
-        this.userInfo = await this.fetchUserInfo(this.userId);
+    mounted() {
+        this.fetchActivityInfo();
+        
     }
 
 }    

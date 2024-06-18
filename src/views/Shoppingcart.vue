@@ -169,7 +169,7 @@ export default {
     },
     methods: {
         async fetchUserInfo() {
-            return await fetch("../../public/productList.json")
+            return await fetch("/productList.json")
                 .then((response) => response.json())
                 .then((json) => json);
         },

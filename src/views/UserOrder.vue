@@ -19,7 +19,7 @@ export default {
     // }
   },
   mounted() {
-    fetch('/userOrder.json')
+    fetch(`${import.meta.env.BASE_URL}userOrder.json`)
       .then(res => res.json())
       .then(data => {
         this.orders = data;
