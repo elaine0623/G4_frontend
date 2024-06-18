@@ -1,7 +1,10 @@
 // base 變數
 @import 'base/var';
 @import 'base/color';
+
+//字體引用
 @import 'base/font';
+@import '../fonts/fonts';
 
 // mixin function
 @import 'mixin/mixin';

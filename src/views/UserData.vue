@@ -109,13 +109,13 @@ export default {
     }
   }
 
-  .m_birth {
-    width: 55%;
+  // .m_birth {
+  //   // width: 55%;
 
-    @include md() {
-      width: 57%;
-    }
-  }
+  //   @include md() {
+  //     width: 57%;
+  //   }
+  // }
 
 }
 
@@ -128,6 +128,8 @@ input {
   padding: 8px 15px;
   // width: calc(100% - 30px);
   overflow: hidden;
+  flex: 0 0 55%;
+  height: 15px;
 
   &:focus {
     outline: none;

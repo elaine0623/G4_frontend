@@ -54,7 +54,9 @@ export default {
       <ul>
         <li v-for="(item, index) in productlist" :key="item.p_name">
           <div class="list">
-        <li><input type="checkbox" id="checkbox"><label for="checkbox"></label></li>
+        <li><input type="checkbox" :id="'checkbox' + (index + 1)">
+          <label :for="'checkbox' + (index + 1)" id="checkbox"></label>
+        </li>
         <li>
           <div class="pic"><img :src="parsePic(item.p_img)"></div>
         </li>
