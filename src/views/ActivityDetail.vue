@@ -15,11 +15,11 @@
             <div class="order_list">
                 <div class="order_item">
                     <div class="product_pic">
-                        <img src="../assets/image/brocoli.png" alt="product picture">
+                        <img src="../assets/image/event-images/event-img.png" alt="product picture">
                     </div>
                     <div class="text">
-                        <h3>墻森園-草莓 </h3>
-                        <p>單位:約5台斤*1箱</p>
+                        <h3>有機農業的未來：機遇與挑戰及其對可持續發展的影響 </h3>
+                        <p>日期</p>
                     </div>
                 </div>
             </div>
