@@ -14,10 +14,11 @@
           }" :modules='modules' :pagination="{
             type: 'fraction',
             el: '.pagination',
-          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto" :centeredSlides="true" >
-            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex" >
+          }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto"
+            :centeredSlides="true">
+            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex">
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
-              <RouterLink to="/ProductPage" class="card-product-list">
+              <RouterLink to="#" class="card-product-list">
                 <div class="img-product-list">
                   <img :src="parsePic(cartItem['img'])" alt="" />
                 </div>
@@ -95,12 +96,12 @@ export default {
       //       slidesPerView:3,
       //       centeredSlides:true,
       //     }
-          
+
       //   }
 
       // },
-    
-      
+
+
       cartList: [
         {
           id: 1,
@@ -262,10 +263,11 @@ section {
         // width: 1200px;
         // overflow: hidden;
         box-sizing: border-box;
+
         // position: absolute;
         // right: 50%;
         // transform: translateX(50%);
-        .swiper-slide{
+        .swiper-slide {
           width: auto;
 
         }
@@ -274,10 +276,10 @@ section {
           margin: auto;
           object-fit: cover;
           width: 380px;
-          cursor:pointer;
+          cursor: pointer;
           text-decoration: none;
-          
-          
+
+
         }
 
         .img-product-list {
@@ -287,9 +289,9 @@ section {
 
           img {
             width: 100%;
-          //   @include bp(390px) {
-          //   width: 380px;
-          // }
+            //   @include bp(390px) {
+            //   width: 380px;
+            // }
 
           }
         }
@@ -325,7 +327,7 @@ section {
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
-                  cursor:pointer;
+                  cursor: pointer;
                 }
               }
             }
@@ -353,7 +355,7 @@ section {
         .swiper-button-next {
           position: relative;
           margin: $mbbtwElement;
-          
+
         }
 
         .pagination {

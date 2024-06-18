@@ -7,11 +7,11 @@
             <div class="info-activity">
                 <div>
                     <span>活動類別 : </span>
-                    <span>{{ userInfo[$route.params.signupId - 1].c_no }}</span>
+                    <span>{{ activityInfo.c_no }}</span>
                 </div>
                 <div>
                     <span>活動名稱 : </span>
-                    <span>{{ userInfo[$route.params.signupId - 1].a_name }}</span>
+                    <span>{{ activityInfo.a_name }}</span>
                 </div>
             </div>
             <div class="title">
@@ -48,7 +48,7 @@
                     <input type="text" id="m_add" name="m_add">
                 </div>
             </form>
-            <form class="info-pay" v-if="userInfo[$route.params.signupId - 1].a_fee > 0">
+            <form class="info-pay" v-if="activityInfo.a_fee > 0">
                 <div class="title">
                     <h2>付款資訊</h2>
                 </div>
@@ -144,7 +144,7 @@ import Swal from 'sweetalert2'//引用sweetalert2
 export default {
     data() {
         return {
-            userInfo: [],
+            activityInfo: {},
             ao_count:1,
             fee:500,
             name: '',
@@ -160,23 +160,29 @@ export default {
         }
     },
     computed: {
-        userId() {
+        activityId() {
             return this.$route.params.signupId;
         },
         totalFees(){
-            return this.userInfo[this.$route.params.signupId -1].a_fee * this.ao_count;
+            return this.activityInfo.a_fee * this.ao_count;
         }
     },
     watch: {
-        userId: async function (val) {
-            this.userInfo = await this.fetchUserInfo(val);
+        activityId: function () {
+            this.fetchActivityInfo();
         },
     },
     methods:{
-        async fetchUserInfo() {
-            return await fetch("../../public/activityPage.json")
-                .then((response) => response.json())
-                .then((json) => json);
+        async fetchActivityInfo() {
+            fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+            .then((response) => response.json())
+            .then((json) => {
+                const target = json.find(item=>item.id == this.activityId)
+                this.activityInfo = target
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
         },
         checkname() {
             const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g; //正規表達式：不可輸入數字、空白及特殊符號 最多15字
@@ -268,8 +274,8 @@ export default {
             
         }
     },
-    async created() {
-        this.userInfo = await this.fetchUserInfo(this.userId);
+    mounted() {
+        this.fetchActivityInfo();
     }
 
 }    
