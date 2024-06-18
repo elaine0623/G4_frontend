@@ -309,24 +309,25 @@ export default {
           <div class="forcast" v-if="nowArea">
             <h3>{{ nowArea.f_loc }}</h3>
             <div class="section-card">
-            <div v-for="item in nowArea.list">
-              <div class="farm_card">
-                <div class="card-detail">
-                  <div class="row">
-                    <div class="col-12 col-lg-6">
-                      <div class="img">
-                        <img :src=" parsePic(item.f_img)">
+              <div v-for="item in nowArea.list">
+                <div class="farm_card">
+                  <div class="card-detail">
+                    <div class="row">
+                      <div class="col-12 col-lg-6">
+                        <div class="img">
+                          <img :src="parsePic(item.f_img)">
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="farm-info">
-                    <h4>{{ item.f_name }}</h4>
-                    <div class="farm-intro">
-                      <p>{{ item.f_intro }}</p>
+                    <div class="farm-info">
+                      <h4>{{ item.f_name }}</h4>
+                      <div class="farm-intro">
+                        <p>{{ item.f_intro }}</p>
+                      </div>
+                      <button>
+                        <a :href="item.f_link" target="_blank">立即前往</a>
+                      </button>
                     </div>
-                    <button>
-                      <a :href="item.f_link" target="_blank">立即前往</a>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -402,6 +403,7 @@ hr {
   max-width: 450px;
   justify-content: center;
   align-items: center;
+
   h2,
   h4,
   h5 {
@@ -420,7 +422,8 @@ hr {
     font-size: 20px;
     padding: 10px;
   }
-  p{
+
+  p {
     padding: 20px;
   }
 }
@@ -431,25 +434,27 @@ hr {
   //height: 150px;
   // align-items: center;
   line-height: 1.3rem;
-  }
-  .section-card{
+}
+
+.section-card {
   height: 450px;
   overflow-y: scroll;
   scrollbar-width: none;
-  
+
 }
+
 // .section-card::-webkit-scrollbar-track {
 //   display: none;
 // }
 // .section-card::-webkit-scrollbar-thumb {
-  
+
 // }
 .card-detail {
   padding: 20px;
   background-color: #397D5A;
   border-radius: 20px;
   display: flex;
-  
+
 }
 
 .farm-info {
@@ -461,10 +466,11 @@ hr {
 
 img {
   //max-width: 80px;
-  width:80px;
+  width: 80px;
   height: 80px;
   text-align: center;
 }
+
 button {
   max-width: 100%;
   border: solid 1px #144433;
@@ -476,6 +482,7 @@ button {
   background-color: #144433;
   align-self: end;
 }
+
 a {
   text-decoration: none;
   color: white;
@@ -483,6 +490,6 @@ a {
 
 .farm-intro {
   font-size: 16px;
-  
+
 }
 </style>
