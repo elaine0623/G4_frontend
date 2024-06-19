@@ -36,12 +36,12 @@ export default {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     add() {
-      this.responseData[this.userId - 1].count ++;
+      this.responseData[this.userId - 1].count += 1;
       localStorage.setItem(`user1`,JSON.stringify(this.responseData))
     },
     subtraction() {
       if (this. responseData[this.userId - 1].count == 1) return
-      this.responseData[this.userId - 1].count --;
+      this.responseData[this.userId - 1].count -= 1;
       localStorage.setItem(`user1`,JSON.stringify(this.responseData))
 
     },
