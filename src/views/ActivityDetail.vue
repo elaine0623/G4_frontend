@@ -5,17 +5,17 @@
             <router-link to="/userlayout/useractivity"><button class="cancel1"><i class="fa-solid fa-xmark"
                         style="color: #FFF;"></i></button></router-link>
             <div>
-                <div class="order_info">
-                    <p>訂單日期:</p> <span>{{ this.orders[0].po_time }}</span>
-                    <p>訂單編號:</p> <span>{{ orderId }}</span>
-                    <p>出貨日期:</p> <span>{{ this.orders[0].po_deliverdate }}</span>
-                    <p>訂單狀態:</p> <span>{{ this.orders[0].po_status }}</span>
+                <div class="signup_info">
+                    <p>報名日期:</p> <span>{{ this.orders[0].ao_ordertime }}</span>
+                    <p>報名編號:</p> <span>{{ orderId }}</span>
+                    <p>活動日期:</p> <span>{{ this.orders[0].a_date }}</span>
+                    <p>報名狀態:</p> <span>{{ this.orders[0].ao_status }}</span>
                 </div>
             </div>
             <div class="order">
                 <div class="order_list">
                     <div class="order_item">
-                        <div class="product_pic">
+                        <div class="event_pic">
                             <img src="../assets/image/event-images/event-img.png" alt="product picture">
                         </div>
                         <div class="text">
@@ -33,7 +33,7 @@
                 <!-- 其他訂單詳情 -->
                 <div class="priceinfo">
                     <div class="priceinfo_item">
-                        <span class="title">商品:</span><span class="int">NT$480</span>
+                        <span class="title">費用:</span><span class="int">NT$480</span>
                     </div>
                 </div>
                 <div class="contact-person">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="btn">
-                    <button class="cancel">取消訂單</button>
+                    <button class="cancel">取消報名</button>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@ export default {
         return {
             orders: [
                 {
-                    "po_no": "061201", "po_time": "2024/06/12", "po_status": '待配送', "po_deliverdate": "2024/06/15", "product_img": '../src/assets/image/brocoli.png',
+                    "ao_no": "48", "a_date": "2024/06/12", "ao_status": '已報名', "ao_ordertime": "2024/06/10", "product_img": '../src/assets/image/brocoli.png',
                 }
             ]
         }
@@ -137,7 +137,7 @@ h3 {
     }
 }
 
-.order_info {
+.signup_info {
     max-width: 100px;
     display: flex;
     flex-direction: column;
@@ -223,9 +223,10 @@ h3 {
     text-align: end;
 }
 
-.product_pic {
+.event_pic {
     width: 90px;
     height: 90px;
+    margin: 6px 0;
 
     img {
         width: 100%;
