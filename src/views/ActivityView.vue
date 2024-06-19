@@ -37,7 +37,8 @@
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
         <span class="event-date">{{ item.time }}</span>
-       <div class="event-class-tag" >{{item.c_no}}</div>  <!-- :class="[isMarket ? 'market' : '']" -->
+       <div class="event-class-tag market" v-if="item.c_no === '市集'">{{item.c_no}}</div>
+       <div class="event-class-tag " v-else>{{item.c_no}}</div>
         <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
       </div>
       </router-link>
@@ -49,7 +50,8 @@
         <div class="event-content">
         <h3 class="event-title">{{item.a_name}}</h3>
         <span class="event-date">{{ item.time }}</span>
-       <div class="event-class-tag" >{{item.c_no}}</div>  <!-- :class="[isMarket ? 'market' : '']" -->
+        <div class="event-class-tag market" v-if="item.c_no === '市集'">{{item.c_no}}</div>
+       <div class="event-class-tag " v-else>{{item.c_no}}</div>
         <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
       </div>
       </router-link>
@@ -422,6 +424,8 @@ const rules = ref({
             color:$darkGreen;
           .event-img{
             width: 100%;
+            height: 60%;
+            object-fit: cover;
             vertical-align: bottom;
             cursor: pointer;
           }
@@ -430,6 +434,7 @@ const rules = ref({
             padding: 5px 10px;
             box-sizing: border-box;
             border-top: none;
+            height: 100px;
             .event-title {
               font-size: $fontBase;
               color:$darkGreen;
@@ -459,6 +464,9 @@ const rules = ref({
                 border-bottom: 10px solid #6B8A7A;
                 border-left: 10px solid transparent;
               }
+            }
+            .market {
+              background-color: $lightGreen;
             }
             .event-location {
               margin-top: 10px;

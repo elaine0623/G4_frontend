@@ -1,189 +1,205 @@
 <template>
-    <!-- chat robot -->
-    <div class="chat-robot">
-        <div class="chat-robot-btn" @click="chatToggle()">
-            <img class='chat-icon' src="../assets/image/news-img/chat-icon.png" alt="對話圖示">
-        </div>
-        <!-- <div class="close-chat-btn"></div> -->
-        <!-- chat field -->
-        <div class="chat-field" v-show="isrobBtn === true">
-            <div class="chat-intro-field">
-                <h2 class="chat-title">客服小助手</h2>
-                <p class="chat-intro">您好!如果有任何問題或要求，請隨時跟我們聯絡。</p>
-            </div>
-            <!-- 新增user按enter訊息就會送出功能 -->
-            <input type="text" name="" placeholder="請輸入關鍵字" v-model="chatMeg" required @keyup.enter="userMeg">
-            <button class="submit-btn" v-on:click.prevent="userMeg()"><i class="fa-solid fa-paper-plane"
-                    style="color: #144433;"></i></button>
-
-            <div class="chat-area" id="chat-area">
-                <p class="text" v-for="item in chatData" :key="item"
-                    :class="{ user: item.author === 'user', robot: item.author !== 'user' }">
-                    {{ item.message }}
-                </p>
-            </div>
-        </div>
+  <!-- chat robot -->
+  <div class="chat-robot">
+    <div class="chat-robot-btn" @click="chatToggle()">
+      <img class="chat-icon" src="../assets/image/news-img/chat-icon.svg" alt="對話圖示" />
     </div>
+    <!-- <div class="close-chat-btn"></div> -->
+    <!-- chat field -->
+    <div class="chat-field" v-show="isrobBtn === true">
+      <div class="chat-intro-field">
+        <h2 class="chat-title">客服小助手</h2>
+        <p class="chat-intro">您好!如果有任何問題或要求，請隨時跟我們聯絡。</p>
+      </div>
+      <!-- 新增user按enter訊息就會送出功能 -->
+      <input
+        type="text"
+        name=""
+        placeholder="請輸入關鍵字"
+        v-model="chatMeg"
+        required
+        @keyup.enter="userMeg"
+      />
+      <button class="submit-btn" v-on:click.prevent="userMeg()">
+        <i class="fa-solid fa-paper-plane" style="color: #144433"></i>
+      </button>
+      <div class="chat-area" id="chat-area">
+        <div
+          class="text"
+          v-for="item in chatData"
+          :key="item"
+          :class="{ user: item.author === 'user', robot: item.author !== 'user' }"
+        >
+          {{ item.message }}
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    data() {
-        return {
-            isrobBtn: false,
-            chatMeg: '',
-            chatData: [{
-                message: '您好!',
-                author: 'robot',
-            },
-            {
-                message: '您好!',
-                author: 'user',
-            },
-            {
-                message: '您好!',
-                author: 'robot',
-            }
-            ],
-        }
-    },
-    methods: {
-
-        userMeg() {
-            if (this.chatMeg === '') {
-                return
-            } else {
-                this.chatData.push({ message: this.chatMeg, author: 'user' });
-                this.chatMeg = '';
-                console.log(this.chatData)
-            };
-            let targetObject =  document.getElementById("chat-area");
-            targetObject.scrollTop += targetObject.scrollHeight;
-            console.log(targetObject.scrollTop,targetObject.scrollHeight,targetObject)
+  data() {
+    return {
+      isrobBtn: false,
+      chatMeg: '',
+      chatData: [
+        {
+          message: '您好!',
+          author: 'robot'
         },
-        chatToggle() {
-            this.isrobBtn = !this.isrobBtn;
+        {
+          message: '您好!',
+          author: 'user'
+        },
+        {
+          message: '您好!',
+          author: 'robot'
         }
+      ]
+    }
+  },
+  methods: {
+    userMeg() {
+      if (this.chatMeg === '') {
+        return
+      } else {
+        this.chatData.push({ message: this.chatMeg, author: 'user' })
+        this.chatMeg = ''
+        console.log(this.chatData)
+      }
     },
-    computed: {
+    chatToggle() {
+      this.isrobBtn = !this.isrobBtn
+    }
+  },
+  computed: {},
+  updated() {
+    let container = document.getElementById('chat-area')
+      container.scrollTop = container.scrollHeight // For instant scroll
+      container.scrollTop = container.scrollHeight // For smooth scroll
 
-    },
-
-
+      // Smooth scroll alternative
+      container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
+  },
 }
 </script>
 <style lang="scss" scoped>
 .chat-robot {
-    position: sticky;
-    left: 20px;
-    bottom: 20px;
-    width: 110px;
-    height: 110px;
-    z-index: 101;
+  position: fixed;
+  left: 20px;
+  bottom: 10px;
+  width: 110px;
+  height: 110px;
+  z-index: 101;
 
-    .chat-robot-btn {
-        position: relative;
-        width: 95px;
-        height: 95px;
-        border-radius: 100%;
-        border: 1px solid $darkGreen;
-        background-color: #fff;
-        background-image: url(../assets/image/news-img/chat-robot-img.png);
-        background-position: 9px 20px;
-        background-repeat: no-repeat;
-        position: relative;
-        cursor: pointer;
-
-        .chat-icon {
-            position: absolute;
-            right: 12px;
-            top: 15px;
-            cursor: pointer;
-        }
-
+  .chat-robot-btn {
+    position: relative;
+    width: 95px;
+    height: 95px;
+    border-radius: 100%;
+    border: 1px solid $darkGreen;
+    background-color: #fff;
+    background-image: url(../assets/image/news-img/chat-robot-img.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    .chat-icon {
+      position: absolute;
+      right: 12px;
+      top: 15px;
+      cursor: pointer;
     }
+  }
 }
 
-// chat field 
+// chat field
 .chat-field {
-    width: 450px;
-    bottom: 120px;
-    left: 55px;
+  width: 450px;
+  bottom: 120px;
+  left: 15px;
+  position: absolute;
+  border-radius: 20px;
+  @include sm () {
+    width: 370px;
+  }
+  @include bp (390px) {
+    width: 300px;
+  }
+  .chat-intro-field {
+    text-align: center;
+    background-color: $darkGreen;
+    color: #fff;
+    padding: 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 60px;
+    .chat-title {
+      margin-bottom: 15px;
+      font-size: $fontBase;
+      font-family: inherit;
+    }
+
+    .chat-intro {
+      font-size: 12px;
+    }
+  }
+
+  input[type='text'] {
     position: absolute;
-    border-radius: 20px;
+    top: 95px;
+    right: 50%;
+    transform: translateX(50%);
+    width: 80%;
+    padding: 10px 25px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+  }
+
+  .submit-btn {
+    position: absolute;
+    top: 105px;
+    right: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .chat-area {
+    width: 100%;
+    height: 280px;
+    overflow: auto;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
     border: 1px solid $darkGreen;
-    .chat-intro-field {
-        text-align: center;
-        background-color: $darkGreen;
-        color: #fff;
-        padding: 30px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        position: relative;
-        overflow:hidden ;
-        .chat-title {
-            margin-bottom: 35px;
-            font-size: $fontBase;
-            font-family: inherit;
-        }
-
-        .chat-intro {
-            font-size: 12px;
-        }
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .text {
+      background-color: $lightGreen;
+      color: #fff;
+      width: 100%;
+      height: auto;
+      padding: 15px 20px;
+      display: block;
+      word-wrap: break-word;
+      margin-bottom: 10px;
+      border-radius: 60px;
+      border-bottom-right-radius: 0px;
+      box-sizing: border-box;
+      font-size: $fontBase;
     }
 
-    input[type="text"] {
-        position: absolute;
-        top: 110px;
-        right: 50%;
-        transform: translateX(50%);
-        width: 80%;
-        padding: 10px 25px 10px 10px;
-        border-radius: 5px;
-        border: 1px solid #eee;
+    .robot {
+      border-bottom-right-radius: 60px;
+      border-bottom-left-radius: 0px;
+      background-color: #fff;
+      border: 1px solid $darkGreen;
+      color: black;
     }
-
-    .submit-btn {
-        position: absolute;
-        top: 120px;
-        right: 30px;
-        background-color: transparent;
-        border: none;
-        cursor: pointer
-    }
-
-    .chat-area {
-        width: 100%;
-        height: 230px;
-        overflow: scroll;
-        padding: 30px;
-        box-sizing: border-box;
-        background-color: #fff;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-        &::-webkit-scrollbar {
-            display: none;
-        }  
-        .text {
-            background-color: $lightGreen;
-            color: #fff;
-            width: 100%;
-            padding: 15px 20px;
-            display: block;
-            word-wrap: break-word;
-            margin-bottom: 10px;
-            border-radius: 60px;
-            border-bottom-right-radius: 0px;
-            box-sizing: border-box;
-            font-size: $fontBase;
-        }
-
-        .robot {
-            border-bottom-right-radius: 60px;
-            border-bottom-left-radius: 0px;
-            background-color: #fff;
-            border: 1px solid $darkGreen;
-            color: black;
-        }
-    }
+  }
 }
 </style>
