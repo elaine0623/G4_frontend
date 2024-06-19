@@ -2,7 +2,7 @@
 export default {
   data() {
     return {
-      userInfo: [],
+      responseData: [],
       count: 1,
       mainImage: '', // 主圖片
     };
@@ -12,7 +12,7 @@ export default {
       return this.$route.params.productId;
     },
     filteredImages() {
-      const product = this.userInfo[this.userId - 1];
+      const product = this.responseData[this.userId - 1];
       if (product && product.p_img) {
         // 确保只返回三张次要小圖
         return product.p_img.filter(img => this.parsePic(img) !== this.mainImage).slice(0, 3);
@@ -24,9 +24,9 @@ export default {
     userId: {
       immediate: true,
       handler: async function (val) {
-        this.userInfo = await this.fetchUserInfo();
-        if (this.userInfo.length > 0) {
-          this.mainImage = this.userInfo[val - 1].p_img[0];
+        this.responseData= await this.fetchData();
+        if (this.responseData.length > 0) {
+          this.mainImage = this.responseData[val - 1].p_img[0];
         }
       },
     },
@@ -36,38 +36,60 @@ export default {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     add() {
-      if (this.count >= 10) return
-      this.count += 1;
+      this.responseData[this.userId - 1].count ++;
+      localStorage.setItem(`user1`,JSON.stringify(this.responseData))
     },
     subtraction() {
-      if (this.count == 1) return
-      this.count -= 1;
+      if (this. responseData[this.userId - 1].count == 1) return
+      this.responseData[this.userId - 1].count --;
+      localStorage.setItem(`user1`,JSON.stringify(this.responseData))
 
     },
-    async fetchUserInfo() {
+    async fetchData() {
       //  fetch data from API
       return await fetch("/productList.json")
         .then((response) => response.json())
         .then((json) => json);
+    }, addCart (index) {
+        if (this.responseData[index].isaddCart === false) {
+          this.responseData[index].isaddCart = true;
+          // localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.responseData[index]));
+          localStorage.setItem(`user1`,JSON.stringify(this.responseData))
+        }else {
+          this.responseData[index].isaddCart = false;
+          localStorage.setItem(`user1`,JSON.stringify(this.responseData))
+        }
+        console.log(this.responseData)
     },
 
     changeMainImage(imgIndex) {
-      const product = this.userInfo[this.userId - 1];
+      const product = this.responseData[this.userId - 1];
       const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
       this.mainImage = this.parsePic(product.p_img[selectedIndex]);
       // this.parsePic(this.mainImage);
     }
   },
   async created() {
-    this.userInfo = await this.fetchUserInfo();
-    if (this.userInfo.length > 0) {
-      this.mainImage = this.parsePic(this.userInfo[this.userId - 1].p_img[0]);
+    this.responseData= await this.fetchData();
+    if (this.responseData.length > 0) {
+      this.mainImage = this.parsePic(this.responseData[this.userId - 1].p_img[0]);
       // console.log(this.mainImage);
-    }
+    };
+    if (localStorage.getItem('user1') != null) {
+    let responseDatas= localStorage.getItem('user1');
+    this.responseData = JSON.parse(responseDatas);
+    console.log(this.responseData );
+    // console.log(this.displayData );
+   }else {
+    this.fetchData();
+    console.log('fffff')
+  }
   },
+  mounted() {
+    
+  }, 
 
-
-};
+  };
 </script>
 <template>
   <section>
@@ -80,7 +102,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{ userInfo[userId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{ responseData[userId - 1]["pc_name"] }}</em></li>
         </ul>
       </div>
       <div class="row">
@@ -100,7 +122,7 @@ export default {
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>{{ userInfo[userId - 1].f_name }}-{{ userInfo[userId - 1].p_name
+                <h2>{{ responseData[userId - 1].f_name }}-{{ responseData[userId - 1].p_name
                   }}
                 </h2>
                 <div class="under-scord">
@@ -110,7 +132,7 @@ export default {
 
               </div>
               <div class="txt">
-                <p>{{ userInfo[userId - 1].introduce }}</p>
+                <p>{{ responseData[userId - 1].introduce }}</p>
 
                 <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
@@ -123,30 +145,30 @@ export default {
                 <img src="../assets/image/product-underScord2.svg" alt="">
               </div>
               <div class="unit">
-                <p>單位:</p><span>{{ userInfo[userId - 1].unit }}</span>
+                <p>單位:</p><span>{{ responseData[userId - 1].unit }}</span>
               </div>
               <div class="Charge">
-                <p>售價:</p><span>{{ userInfo[userId - 1].p_fee }}元</span>
+                <p>售價:</p><span>{{ responseData[userId - 1].p_fee }}元</span>
               </div>
               <div class="quantity">
                 <p>數量:</p>
                 <div class="card-num">
-                  <button @click="add">+</button>
-                  {{ count }}
                   <button @click="subtraction">-</button>
+                  {{  responseData[userId - 1].count }}
+                  <button @click="add">+</button>
                 </div>
               </div>
 
 
               <div class="member-card">
-                <button class="cart-shopping">
-                  <div class="icon-cart-shopping" id="app">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                  </div>
-                  <p>加入購物車</p>
+                <button class="cart-shopping"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === false">
+                    <i class="fa-solid fa-cart-shopping"></i>加入購物車
+                </button>
+                <button class="cart-cancel-btn"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === true">
+                    <i class="fa-solid fa-xmark"></i>取消
                 </button>
                 <button class="buy">
-                  <p>立即購買</p>
+                  <router-link to="/cart">立即購買</router-link>
                 </button>
 
               </div>
@@ -449,22 +471,32 @@ section {
               }
 
               .cart-shopping {
-                display: flex;
-                gap: 6px;
-                padding: 5px 15px;
+                padding: 10px 15px;
                 font-family: $pFont;
                 color: #fff;
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
-
-
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
                   cursor: pointer;
                 }
+                i {
+                  margin-right: 10px;
+                }
               }
+              .cart-cancel-btn {
+                padding: 10px 15px;
+                font-family: $pFont;
+                color: #fff;
+                background-color: #eb3445;
+                border-radius: 20px;
+                border: none;
+                i {
+                  margin-right: 10px;
+                }
+                }
 
               .buy {
                 padding: 5px 28px;
@@ -473,7 +505,11 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
-
+                a{
+                  text-decoration: none;
+                  color:#fff
+                }
+                
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
