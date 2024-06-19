@@ -4,10 +4,10 @@ export default {
     return {
       activityorders: [
         {
-          "ao_no": "061201", "a_date": "2024/06/12", "ao_status": '已報名', "ao_ordertime": "2024/06/15"
+          "ao_no": "48", "a_date": "2024/06/12", "ao_status": '已報名', "ao_ordertime": "2024/06/10"
         },
         {
-          "ao_no": "061201", "a_date": "2024/06/13", "ao_status": '取消', "ao_ordertime": "2024/06/20"
+          "ao_no": "19", "a_date": "2024/06/13", "ao_status": '取消', "ao_ordertime": "2024/06/11"
         }
       ],
     }
@@ -30,12 +30,12 @@ export default {
     <table>
       <thead>
         <tr>
-          <th scope="col">訂購日期</th>
-          <th scope="col">訂單編號</th>
+          <th scope="col">報名日期</th>
+          <th scope="col">報名編號</th>
           <th scope="col">活動日期</th>
-          <th scope="col">訂單狀態</th>
-          <th scope="col">取消訂單</th>
-          <th scope="col">訂單詳情</th>
+          <th scope="col">報名狀態</th>
+          <th scope="col">取消報名</th>
+          <th scope="col">報名詳情</th>
         </tr>
       </thead>
       <tbody>
