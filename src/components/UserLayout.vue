@@ -18,8 +18,7 @@ const hideChild = computed(() => {
 
 <script>
 import { useRouter } from 'vue-router'
-const router = useRouter()
-
+import { onMounted, onUnmounted } from 'vue';
 export default {
   data() {
     return {
@@ -43,34 +42,35 @@ export default {
         }
       }, 1000) // 每秒執行一次進入作用域
     }
-  },mounted () {
-    window.addEventListener('resize', ()=> {
-        if (window.innerWidth > 768) {
-        console.log('change')
-        router.push('/userlayout/userdata')
-      }
-    });
-    },unmount () {
-    window.addEventListener('resize', ()=> {
-        if (window.innerWidth > 768) {
-        console.log('change')
-        router.push('/userlayout/userdata')
-      }
-    });
-  },beforeUnmount() {
+  },
+  // mounted () {
+  //   window.addEventListener('resize',handleResize)
+  // },unmount () {
+  //   window.removeEventListener('resize',handleResize)
+  // }
+  beforeUnmount() {
     // vue實體銷毀前，關掉這一頁面
     if (this.timer) {
       clearInterval(this.timer) // 防止記憶體洩漏，清除定時器
     }
-  },
-  setup() {
-    const router = useRouter()
-    const handleResize = () => {
-      // 你可以在這裡設置具體的條件來決定何時跳轉
-      
-    }
+  },setup() {
+    const router = useRouter();
+    const handleResize = () =>{
+    if (window.innerWidth > 768) {
+        console.log('change');
+        router.push('/userlayout/userfavorite')
+      }
+  };
+  onMounted(() => {
+      window.addEventListener('resize',handleResize);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize',handleResize);
+    });
+
   }
-  }
+}
 </script>
 
 <template>
@@ -143,18 +143,19 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-    position: relative;
-    max-width: 768px;
-    min-width: 300px;
-    width: 100%;
-    height: 600px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
-        0 10px 10px rgba(0, 0, 0, .2);
-    background-color: #F5F4EA;
-    box-sizing: border-box;
-    margin: 0 auto;
+  position: relative;
+  max-width: 768px;
+  min-width: 300px;
+  width: 100%;
+  height: 600px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2);
+  background-color: #f5f4ea;
+  box-sizing: border-box;
+  margin: 0 auto;
 
   @include md() {
     display: none;
