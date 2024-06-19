@@ -31,42 +31,56 @@
 
         <div v-else class="game_start" key="start">
           <h1>食農小學堂</h1>
+          <!-- 遊戲項目區塊 -->
           <div class="game_item">
+            <!-- 如果回答結果不為空，顯示結果區塊 -->
             <div v-if="answeredCorrectly !== null" class="result-item">
+              <!-- 如果回答正確，顯示正確結果 -->
               <div v-if="answeredCorrectly" class="result">
                 <span>答對了！</span>
+                <!-- 顯示答案圖片 -->
                 <div class="answer-pic">
-                  <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image">
+                  <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image" />
                 </div>
+                <!-- 顯示答案解釋 -->
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
+              <!-- 如果回答錯誤，顯示錯誤結果 -->
               <div v-else class="result">
                 <span>答錯了！</span>
                 <span>正確答案是{{ currentQuestion.correctAnswer }}。</span>
+                <!-- 顯示答案圖片 -->
                 <div class="answer-pic">
-                <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image">
+                  <img :src="parsePic(currentQuestion.answer_image)" alt="Answer Image" />
                 </div>
+                <!-- 顯示答案解釋 -->
                 <span>{{ currentQuestion.explanation }}</span>
               </div>
+              <!-- 下一題按鈕 -->
               <button @click="showNextQuestion">下一題</button>
             </div>
 
+            <!-- 如果還沒有回答，顯示問題和選項 -->
             <div v-else>
               <div class="question-text">
                 <p>{{ currentQuestion.question }}</p>
               </div>
               <div class="answer">
+                <!-- 循環顯示每個選項 -->
                 <div
                   v-for="(option, index) in currentQuestion.options"
                   :key="index"
                   class="answer-item"
                 >
+                  <!-- 顯示選項圖片 -->
                   <div class="answer-pic">
-                    <img :src="parsePic(option.img)" alt="Option Image">
-                  </div> 
+                    <img :src="parsePic(option.img)" alt="Option Image" />
+                  </div>
+                  <!-- 顯示選項文字 -->
                   <div class="answer-txt">
                     <p>{{ option.text }}</p>
                   </div>
+                  <!-- 選擇答案按鈕 -->
                   <button @click="selectAnswer(option.key)">{{ option.key }}</button>
                 </div>
               </div>
@@ -93,42 +107,46 @@
 export default {
   data() {
     return {
-      gameStarted: false,
-      showProgressBar: false,
-      questions: [],
-      currentQuestionIndex: 0,
-      userScore: 0,
-      answeredCorrectly: null,
-      showScore: false
+      gameStarted: false, // 指示遊戲是否已經開始
+      showProgressBar: false, // 控制進度條的顯示
+      questions: [], // 存儲問答題目的數組
+      currentQuestionIndex: 0, // 當前問題的索引
+      userScore: 0, // 用戶的分數
+      answeredCorrectly: null, // 指示用戶是否回答正確
+      showScore: false // 控制最終得分的顯示
     }
   },
   computed: {
     currentQuestion() {
+      // 返回當前的問題，如果沒有問題則返回一個空對象
       return this.questions[this.currentQuestionIndex] || {}
     },
     progressWidth() {
+      // 計算進度條的寬度，根據當前問題的索引和總問題數量
       return ((this.currentQuestionIndex + 1) / this.questions.length) * 100
     }
   },
   methods: {
     async loadQuestions() {
+      // 異步加載問題數據
       const response = await fetch(`${import.meta.env.BASE_URL}questions.json`)
       const allQuestions = await response.json()
       this.questions = this.selectRandomQuestions(allQuestions, 10)
-
-      
     },
     selectRandomQuestions(allQuestions, count) {
+      // 隨機選擇指定數量的問題
       const shuffled = allQuestions.sort(() => 0.5 - Math.random())
       return shuffled.slice(0, count)
     },
     startGame() {
+      // 開始遊戲，並在4秒後顯示進度條
       this.gameStarted = true
       setTimeout(() => {
         this.showProgressBar = true
       }, 4000) // 延遲4秒後顯示進度條
     },
     selectAnswer(answer) {
+      // 處理用戶選擇答案的邏輯
       if (answer === this.currentQuestion.answer) {
         console.log('答對了！')
         this.userScore += 10
@@ -139,6 +157,7 @@ export default {
       }
     },
     showNextQuestion() {
+      // 顯示下一個問題或顯示最終得分
       this.answeredCorrectly = null
       if (this.currentQuestionIndex + 1 < this.questions.length) {
         this.currentQuestionIndex++
@@ -147,6 +166,7 @@ export default {
       }
     },
     resetGame() {
+      // 重置遊戲狀態並重新加載問題
       this.gameStarted = false
       this.currentQuestionIndex = 0
       this.userScore = 0
@@ -155,10 +175,12 @@ export default {
       this.loadQuestions() // 加載隨機問題
     },
     parsePic(file) {
+      // 解析圖片文件的URL
       return new URL(`../assets/image/game-img/${file}`, import.meta.url).href
     }
   },
   created() {
+    // 組件創建時加載問題
     this.loadQuestions()
   }
 }

@@ -21,37 +21,37 @@ export default {
     <h2>個人資料</h2>
     <form @submit.prevent="submitForm">
       <div class="name">
-        <label for="m_name">姓名</label>
-        <input type="text" id="m_name" name="m_name">
+        <label for="name">姓名</label>
+        <input type="text" id="name" name="m_name">
       </div>
       <div class="account">
-        <label for="m_account">帳號</label>
-        <input type="email" id="m_account" name="m_account">
+        <label for="account">帳號</label>
+        <input type="email" id="account" name="m_account">
       </div>
       <div>
-        <label for="m_phone">電話</label>
-        <input type="tel" id="m_phone" name="m_phone">
+        <label for="phone">電話</label>
+        <input type="tel" id="phone" name="m_phone">
       </div>
       <div class="birth">
-        <label for="m_birth">生日</label>
-        <input type="date" id="m_birth" name="m_birth" class="m_birth">
+        <label for="birth">生日</label>
+        <input type="date" id="birth" name="m_birth" class="m_birth">
       </div>
       <div class="address">
-        <label for="m_add">地址</label>
-        <input type="email" id="m_add" name="m_add">
+        <label for="add">地址</label>
+        <input type="email" id="add" name="m_add">
       </div>
       <hr style="color: #144433; width: 100%;">
       <div class="oldpsw">
-        <label for="m_old_psw">舊密碼</label>
-        <input type="password" id="m_old_psw" name="">
+        <label for="old_psw">舊密碼</label>
+        <input type="password" id="old_psw" name="">
       </div>
       <div class="newpsw">
-        <label for="m_new_psw">新密碼</label>
-        <input type="password" id="m_new_psw" name="" v-model="psw">
+        <label for="new_psw">新密碼</label>
+        <input type="password" id="new_psw" name="" v-model="psw">
       </div>
       <div class="dbpsw">
-        <label for="m_dbc_psw">確認新密碼</label>
-        <input type="password" id="m_dbc_psw" name="" v-model="dbpsw" @blur="dbcheckpsw()">
+        <label for="dbc_psw">確認新密碼</label>
+        <input type="password" id="dbc_psw" name="" v-model="dbpsw" @blur="dbcheckpsw()">
       </div>
     </form>
   </div>

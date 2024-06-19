@@ -75,34 +75,35 @@ export default {
     filterDataDisplay() {
       //初始狀態(沒有search跟篩選的狀況)
       if (!this.search && this.currentClass === "0") {
-      return this.responseData;
-      //有search但沒有篩選
-      }else if (this.search && this.currentClass === "0") {
-      return this.responseData.filter((item) => {
-        return (
-          item.p_name.includes(this.search) ||
-          item.pc_name.includes(this.search) ||
-          item.f_name.includes(this.search)
-        ) 
-      })
-      //沒有篩選但有search
-    }else if (!this.search && this.currentClass !== "0") {
-      return this.responseData.filter((item) => {
-        return item.pc_name === this.currentClass;
-      })
-    }else {//先做搜尋再篩選目前disable
-      this.responseData.filter((item) => {
-        return (
-          item.p_name.includes(this.search) ||
-          item.pc_name.includes(this.search) ||
-          item.f_name.includes(this.search)
-        ) 
-    })
-    return this.responseData.filter((item) => {
-      return item.pc_name === this.currentClass;
-    })
-  }}
-}
+        return this.responseData;
+        //有search但沒有篩選
+      } else if (this.search && this.currentClass === "0") {
+        return this.responseData.filter((item) => {
+          return (
+            item.p_name.includes(this.search) ||
+            item.pc_name.includes(this.search) ||
+            item.f_name.includes(this.search)
+          )
+        })
+        //沒有篩選但有search
+      } else if (!this.search && this.currentClass !== "0") {
+        return this.responseData.filter((item) => {
+          return item.pc_name === this.currentClass;
+        })
+      } else {//先做搜尋再篩選目前disable
+        this.responseData.filter((item) => {
+          return (
+            item.p_name.includes(this.search) ||
+            item.pc_name.includes(this.search) ||
+            item.f_name.includes(this.search)
+          )
+        })
+        return this.responseData.filter((item) => {
+          return item.pc_name === this.currentClass;
+        })
+      }
+    }
+  }
 }
 </script>
 
@@ -126,11 +127,7 @@ export default {
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <label for="">
-              <input
-                type="text"
-                placeholder="搜尋商品"
-                v-model.lazy="search"
-              />
+              <input type="text" placeholder="搜尋商品" v-model.lazy="search" />
               <button @click="clear">X</button>
             </label>
           </div>
@@ -151,15 +148,11 @@ export default {
 
       <div class="container">
         <div class="row list-product">
-          <div
-            class="col-12 col-md-6 col-lg-3"
-            v-for="(cardtItem, cardtIndex) in filterDataDisplay"
-            :key="cardtIndex"
-          >
+          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay" :key="cardtIndex">
             <div class="card-product">
-              <RouterLink :to="`/ProductPage/${cardtIndex + 1}`">
+              <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
                 <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
-              </RouterLink>
+              </router-link>
               <div class="into-card">
                 <div class="category-card">
                   <div class="name-card">
@@ -169,29 +162,17 @@ export default {
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
                   <div class="hart-pic-card" @click.prevent="toggleImage(cardtItem.id)">
-                    <img
-                      :src="
-                        cardtItem['isImage1']
-                          ? parsePic(cardtItem.hartImage)
-                          : parsePic(cardtItem.hartImage1)
-                      "
-                      alt=""
-                    />
+                    <img :src="cardtItem['isImage1']
+                      ? parsePic(cardtItem.hartImage)
+                      : parsePic(cardtItem.hartImage1)
+                      " alt="" />
                   </div>
                 </div>
                 <div class="member-card">
-                  <button
-                    class="cart-shopping"
-                    @click="addCart(cardtItem.id)"
-                    v-if="cardtItem.isaddCart === false"
-                  >
+                  <button class="cart-shopping" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === false">
                     <i class="fa-solid fa-cart-shopping"></i>加入購物車
                   </button>
-                  <button
-                    class="cart-cancel-btn"
-                    @click="addCart(cardtItem.id)"
-                    v-if="cardtItem.isaddCart === true"
-                  >
+                  <button class="cart-cancel-btn" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === true">
                     <i class="fa-solid fa-xmark"></i>取消
                   </button>
 
@@ -280,6 +261,7 @@ section {
           position: relative;
           align-items: center;
           right: 0;
+
           // width:50%;
           button {
             position: absolute;
@@ -368,10 +350,12 @@ section {
           margin: 10px;
           text-decoration: none;
           display: block;
+
           img {
             width: 100%;
             vertical-align: bottom;
           }
+
           .into-card {
             position: relative;
 
@@ -412,15 +396,18 @@ section {
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
                   cursor: pointer;
                 }
+
                 i {
                   margin-right: 10px;
                 }
               }
+
               .cart-cancel-btn {
                 padding: 10px 15px;
                 font-family: $pFont;
@@ -428,6 +415,7 @@ section {
                 background-color: #eb3445;
                 border-radius: 20px;
                 border: none;
+
                 i {
                   margin-right: 10px;
                 }
@@ -492,8 +480,7 @@ section {
           }
         }
 
-        .button-next {
-        }
+        // .button-next {}
       }
     }
   }

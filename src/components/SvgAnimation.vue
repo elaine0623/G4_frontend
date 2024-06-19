@@ -6,7 +6,7 @@
       <svg
         ref="svgElement"
         width="1265"
-        height="800"
+        height="1000"
         viewBox="0 0 1270 630"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
           </div>
         </foreignObject>
         <foreignObject x="260" y="626" width="100%" height="100%" style="opacity: 0" ref="div6">
-          <div class="custom-div-down"> 
+          <div class="custom-div-down">
             <ul>
               <li>2013年「大統黑心油事件」：食用油添加低成本葵花油混充並添加銅葉綠素調色</li>
               <li>2013年山水米以劣質米充優質米</li>
@@ -70,7 +70,9 @@
         <foreignObject x="865" y="626" width="100%" height="100%" style="opacity: 0" ref="div8">
           <div class="custom-div-down">
             <ul>
-              <li>食安問題層出不窮，架設果籽網站，期望能讓民眾重視食品安全，宣導購買原型食物及有機耕種的觀念，支持在地小農以友善土地的方式耕種，讓民眾吃得健康，土地也得以永續</li>
+              <li>
+                食安問題層出不窮，架設果籽網站，期望能讓民眾重視食品安全，宣導購買原型食物及有機耕種的觀念，支持在地小農以友善土地的方式耕種，讓民眾吃得健康，土地也得以永續
+              </li>
             </ul>
           </div>
         </foreignObject>
@@ -91,11 +93,17 @@
 }
 
 .spacer {
-  height: 50vh; /* 全屏高度 */
+  height: 10vh; /* 全屏高度 */
+  @include sm() {
+    height: 0vh;
+  }
 }
 
 .svg-container {
-  width: 70%; /* SVG 容器宽度 */
+  width: 90%; /* SVG 容器宽度 */
+  height: 100%;
+  max-width: 1200px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,10 +116,11 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-size: 20px; /* 文字大小 */
+  font-size: 1.25em; /* 文字大小 */
   width: 200px;
   height: 75px;
   border-radius: 10px 10px 0 0;
+  font-weight: 300;
 }
 .custom-div-down {
   background-color: #397d5a;
@@ -119,10 +128,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25em;
   width: 400px;
   height: 200px;
   border-radius: 0 0 10px 10px;
+  font-weight: 300;
   ul {
     width: 90%;
     li {
@@ -169,33 +179,33 @@ onMounted(async () => {
     scrollTrigger: {
       trigger: svgContainer.value, // 滾動觸發的容器
       start: '40% 75%', // 觸發動畫的開始位置
-      end: 'bottom 25%', // 觸發動畫的結束位置
+      end: '200% 25%', // 觸發動畫的結束位置
       scrub: true, // 平滑滾動效果
-      markers: true, // 調試時顯示標記
+      // markers: true, // 調試時顯示標記
       onEnter: () => {
         // 當動畫進入時執行的回調函數
         gsap.to(path, {
           strokeDashoffset: 0, // 路徑繪製完成時的偏移量
-          duration: 5, // 動畫持續時間
+          duration: 4, // 動畫持續時間
           ease: 'power2.inOut' // 緩動函數
         })
 
         // DIV1 出現動畫
-        gsap.to(div1.value, { opacity: 1, duration: 0.5, delay: 1.5 }) // 設置延遲時間
+        gsap.to(div1.value, { opacity: 1, duration: 0.5, delay: 1 }) // 設置延遲時間
         // DIV2 出現動畫
-        gsap.to(div2.value, { opacity: 1, duration: 1.5, delay: 2 }) // 設置延遲時間
+        gsap.to(div2.value, { opacity: 1, duration: 1.5, delay: 1.5 }) // 設置延遲時間
         // DIV3 出現動畫
-        gsap.to(div3.value, { opacity: 1, duration: 1.5, delay: 2.5 }) // 設置延遲時間
+        gsap.to(div3.value, { opacity: 1, duration: 1.5, delay: 2 }) // 設置延遲時間
         // DIV4 出現動畫
-        gsap.to(div4.value, { opacity: 1, duration: 1.5, delay: 3 }) // 設置延遲時間
+        gsap.to(div4.value, { opacity: 1, duration: 1.5, delay: 2.5 }) // 設置延遲時間
         // DIV5 出現動畫
-        gsap.to(div5.value, { opacity: 1, duration: 1.5, delay: 3.5 }) // 設置延遲時間
+        gsap.to(div5.value, { opacity: 1, duration: 1.5, delay: 3 }) // 設置延遲時間
         // DIV6 出現動畫
-        gsap.to(div6.value, { opacity: 1, duration: 1.5, delay: 4 }) // 設置延遲時間
+        gsap.to(div6.value, { opacity: 1, duration: 1.5, delay: 3.5 }) // 設置延遲時間
         // DIV7 出現動畫
-        gsap.to(div7.value, { opacity: 1, duration: 1.5, delay: 4.5 }) // 設置延遲時間
+        gsap.to(div7.value, { opacity: 1, duration: 1.5, delay: 4 }) // 設置延遲時間
         // DIV8 出現動畫
-        gsap.to(div8.value, { opacity: 1, duration: 1.5, delay: 5 }) // 設置延遲時間
+        gsap.to(div8.value, { opacity: 1, duration: 1.5, delay: 4.5 }) // 設置延遲時間
       }
     }
   })

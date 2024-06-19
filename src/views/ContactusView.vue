@@ -1,10 +1,31 @@
 <script>
-  export default {
+export default {
   data() {
     return {
-      currentIndex: 0, 
+      currentIndex: 0,
+      image: '',
+
     };
   },
+  methods: {
+    fileSelected(e) {
+      const file = e.target.files.item(0);
+      const reader = new FileReader();
+      reader.addEventListener('load', this.imageLoaded);
+      reader.readAsDataURL(file);
+    },
+    imageLoaded(e) {
+      this.image = e.target.result;
+    },
+    upload() {
+      // 用base64字串的方式上傳
+      axios.post('/upload', { image: this.image });
+      // 用FormData這種非字串的方式上傳
+      //const form = new formData();
+      //form.append(this.file, this.file.name)
+
+    }
+  }
 };
 </script>
 <template>
@@ -20,10 +41,8 @@
         </picture>
       </div>
       <div class="btn">
-        <button :class="{ 'btn-active': currentIndex === 0 }"
-        @click="currentIndex = 0">聯絡我們</button>
-        <button :class="{ 'btn-active': currentIndex === 1 }"
-        @click="currentIndex =1 ">我要加盟</button>
+        <button :class="{ 'btn-active': currentIndex === 0 }" @click="currentIndex = 0">聯絡我們</button>
+        <button :class="{ 'btn-active': currentIndex === 1 }" @click="currentIndex = 1">我要加盟</button>
       </div>
       <h3>感謝您撥冗填寫以下表單 ，我們將會在3~5個工作天內盡速與您聯繫!</h3>
       <div class="category" v-if="currentIndex === 0">
@@ -72,10 +91,10 @@
           </div>
           <div class="uploa">
             上傳圖片
-            <div class="uploa-pic">         
-                <button type="submit" >
-                  選擇檔案
-                </button>
+            <div class="uploa-pic">
+              <label type="button" for="upload" class="uploadStyle">選擇檔案</label>
+              <input type="file" @change="fileSelected"  id="upload">
+              <img v-if="image" :src="image" width="150" height="200" />
             </div>
           </div>
         </div>
@@ -100,9 +119,9 @@
             </div>
           </div>
           <div class="age-title">
-          <span>年齡</span>
-          <div class="age">
-            <label for="age">
+            <span>年齡</span>
+            <div class="age">
+              <label for="age">
                 <input type="radio" id="age" name="age" value="age" />
                 <span>18-25歲</span>
               </label>
@@ -118,8 +137,8 @@
                 <input type="radio" id="age3" name="age" value="age" />
                 <span>46-55歲</span>
               </label>
+            </div>
           </div>
-        </div>
           <div class="phone">
             <label for="">
               <span>連絡電話</span>
@@ -130,15 +149,14 @@
               <input type="text" />
             </label>
           </div>
-          
+
           <div class="opinion">
             <span>合作項目及方式</span>
             <textarea class="custom-textarea" rows="16" wrap="soft"></textarea>
-
           </div>
           <div class="bottom">
             <p>以上您填寫之資料，果籽會尊重個⼈隱私，善盡保密義務，絕不外流。
-            表單提交後，我們將會在3~6個工作天內聯繫您，感謝您的耐心等待。</p>
+              表單提交後，我們將會在3~6個工作天內聯繫您，感謝您的耐心等待。</p>
           </div>
         </div>
       </div>
@@ -193,7 +211,7 @@ section {
   display: flex;
   gap: 30px;
   justify-content: center;
-  padding-bottom:3%;
+  padding-bottom: 3%;
 
   button {
     color: $darkGreen;
@@ -203,11 +221,12 @@ section {
     background-color: transparent;
     border: 0;
   }
+
   .btn-active {
-      background-color: $darkGreen;
-      color: #fff;
-      border-radius: 20px;
-    }
+    background-color: $darkGreen;
+    color: #fff;
+    border-radius: 20px;
+  }
 }
 
 h3 {
@@ -220,9 +239,10 @@ h3 {
 .category {
   width: 65%;
   margin: auto;
-  @include sm(){
-          width: 100%;
-    }
+
+  @include sm() {
+    width: 100%;
+  }
 
   h4 {
     text-align: center;
@@ -249,9 +269,10 @@ h3 {
 
     label {
       width: 50%;
-      @include sm(){
-          width: 90%;
-    }
+
+      @include sm() {
+        width: 90%;
+      }
 
     }
 
@@ -267,6 +288,7 @@ h3 {
     input[type=radio] {
       display: none;
       position: relative;
+
       &+span::before {
         content: "";
         display: inline-block;
@@ -290,45 +312,55 @@ h3 {
       }
     }
 
-    
+
     .name {
       display: flex;
-      align-items:end;
-      @include sm(){
+      align-items: end;
+
+      @include sm() {
         flex-direction: column;
         align-items: start;
-    }
+      }
+
       .gender {
         display: flex;
         width: 50%;
+
         // margin: 5px 0;
-        @include sm(){
+        @include sm() {
           width: 100%;
-    }
+        }
+
         span {
-          display: inline-block;      
+          display: inline-block;
         }
       }
     }
-    .age{
+
+    .age {
       display: flex;
-      @include sm(){
+
+      @include sm() {
         flex-wrap: wrap;
       }
-      label{
-        @include sm(){
+
+      label {
+        @include sm() {
           width: 50%;
-          
-    }
+
+        }
       }
-      span{
+
+      span {
         display: block;
       }
     }
+
     .phone,
-    .order{
+    .order {
       display: flex;
     }
+
     .custom-textarea {
       width: 100%;
       box-sizing: border-box;
@@ -337,56 +369,87 @@ h3 {
       resize: none;
       background-color: transparent;
     }
-    .uploa{
+
+    .uploa {
       margin: 3% 0;
       color: $darkGreen ;
-      .uploa-pic{
+
+      .uploa-pic {
         margin: 2% 0;
         padding: 32px;
         border: 1.5px solid $darkGreen;
-        button{
+        position: relative;
+        
+
+        input[type=file] {
           padding: 10px 15px;
           background-color: transparent;
           border: 1.2px solid $darkGreen;
           cursor: pointer;
           color: $darkGreen ;
+      
+         
+          // opacity:0;
+          display: none;
         }
+        label{
+          z-index: 20;
+          // width: 12%;
+          width: 60px;
+          // position: absolute;
+          padding: 10px;
+          background-color:$darkGreen;
+          border: 1.2px solid $darkGreen;
+          cursor: pointer;
+          font-size: 12px;
+          color: #fff ;
+          top: 38px;
+          text-align: center;
+         left: 36px;
+        //  right: 20px;
+        }
+      
+        
       }
     }
-    .bottom{
+
+    .bottom {
       padding: 30px 0;
       width: 80%;
       margin: auto;
-      p{ 
-    color: $darkGreen;
-    font-family: $pFont;
-    font-size: 16px;
 
+      p {
+        color: $darkGreen;
+        font-family: $pFont;
+        font-size: 16px;
+
+      }
     }
-    }
-    
+
 
   }
 
 }
-.sendout{
-  width: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
 
- button{
-  padding: 5px 53px;
-  border-radius:20px;
-  background-color: transparent;
-  border: 1.5px solid $darkGreen ;
-  color: $darkGreen;
-  transition: 0.5s;
-  &:hover{
+.sendout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    padding: 5px 53px;
+    border-radius: 20px;
     background-color: transparent;
-    color: #fff;
-    background-color: $darkGreen;
+    border: 1.5px solid $darkGreen ;
+    color: $darkGreen;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: transparent;
+      color: #fff;
+      background-color: $darkGreen;
+    }
   }
- }
 }
 </style>
