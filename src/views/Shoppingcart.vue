@@ -14,27 +14,27 @@
                             <li>數量</li>
                         </ul>
                     </div>
-                    <div class="card">
+                    <div class="card" v-for="(item,index) in cartItem" :key="item.id">
                         <div class="product-into">
-                            <span>{{ userInfo[1].f_name }} -{{ userInfo[1].p_name }}</span>
+                            <span>{{ cartItem[index].f_name }} -{{ cartItem[index].p_name }}</span>
                             <div class="unit">
-                                <span>單位:{{ userInfo[1].unit }}</span>
+                                <span>單位:{{ cartItem[index].unit }}</span>
                             </div>
                         </div>
                         <div class="price-num">
                             <div class="price">
-                                <span>NT.{{ userInfo[1].p_fee }}</span>
+                                <span>NT.{{ cartItem[index].p_fee }}</span>
                             </div>
                         </div>
                         <div class="num">
-                                <span>2</span>
+                                <span>{{ cartItem[index].count }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="total">
                     <div class="Product-name">
                         <span>商品:</span>
-                        <span>NT.140</span>
+                        <span>NT.{{ totalprice}}</span>
                     </div>
                     <div class="freight">
                         <span>運費:</span>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="alltotal">
                         <span>總計:</span>
-                        <span>NT.200</span>
+                        <span>NT.{{ totalprice + 60}}</span>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@ import Swal from 'sweetalert2'//引用sweetalert2
 export default {
     data() {
         return {
-            userInfo: [],
+            responseData:[],
             ao_count: 1,
             fee: 500,
             name: '',
@@ -158,9 +158,26 @@ export default {
         userId() {
             return this.$route.params.signupId;
         },
+        totalprice() {
+        let total = 0;//加總總和 
+        for(let i = 0;i < this.cartItem .length;i++) {  
+          this.cartItem[i].total = this.cartItem[i].p_fee * this.cartItem[i].count;
+          total += this.cartItem[i].total
+        }
+        return total;
+      },
         // totalFees(){
         //     return this.userInfo[this.$route.params.signupId -1].a_fee * this.ao_count;
         // }
+     cartItem () {
+      let  cart = [];
+      for(let i = 0;i< this.responseData.length;i++) {
+        if(this.responseData[i].isaddCart) {
+          cart.push(this.responseData[i]);
+        }
+      }
+      return cart;
+    }
     },
     watch: {
         userId: async function (val) {
@@ -262,8 +279,16 @@ export default {
         },
  
     async created() {
-        this.userInfo = await this.fetchUserInfo(this.userId);
-    }
+        if (localStorage.getItem('user1') != null) {
+    let userInfo = localStorage.getItem('user1');
+    this.responseData = JSON.parse(userInfo);
+    console.log(this.responseData );
+    // console.log(this.displayData );
+   }else {
+    this.fetchData();
+    console.log("執行");
+  }
+}
 }
 
 </script>

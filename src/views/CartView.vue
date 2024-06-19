@@ -2,54 +2,66 @@
 export default {
   data() {
     return {
-      
-      total:0,
-      cartList:[],
+      responseData:[],
     }
   },
   computed:{
     totalprice() {
       let total = 0;//加總總和 
-        for(let i = 0;i < this.cartList.length;i++) {  
-          this.cartList[i].total = this.cartList[i].p_fee * this.cartList[i].count;
-          total += this.cartList[i].total
+        for(let i = 0;i < this.cartItem .length;i++) {  
+          this.cartItem[i].total = this.cartItem[i].p_fee * this.cartItem[i].count;
+          total += this.cartItem[i].total
         }
-        return this.total = total;
+        return total;
+      },
+    cartItem () {
+      let  cart = [];
+      for(let i = 0;i< this.responseData.length;i++) {
+        if(this.responseData[i].isaddCart) {
+          cart.push(this.responseData[i]);
+        }
       }
+      return cart;
+    }
    },
   methods: {
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     add(index) {
-      this.cartList[index].count  ++;
+      this.cartItem[index].count  += 1;
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
     },
     subtraction(index) {
-      if (this.cartList[index].count === 1) {
-        this.cartList[index].count= 0;
+      if (this.cartItem[index].count === 1) {
+        this.cartItem[index].count= 0;
         this.deleteItem(index);
     }else {
-      this.cartList[index].count --; 
+      this.cartItem[index].count -= 1; 
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
     }
   },
   deleteItem(index) {
     if (confirm("確定刪除？")) {
-        this.cartList.splice(index, 1); //  cartList 中移除指定索引的商品
-        localStorage.removeItem(`shoppingItem${index}`);
+        this.cartItem[index].isaddCart = false;
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      }else {
+        return this.cartItem[index].count= 1;
       }
     }, 
 },
 created() {
-      for(let i = 0 ;i <20;i++){
-        if(localStorage.getItem(`shoppingItem${i}`) != null) {
-       let shoppingItem = localStorage.getItem(`shoppingItem${i}`);
-       this.cartList.push(JSON.parse(shoppingItem));
-      }};
-      console.log(this.cartList)
-      console.log(localStorage.getItem(`shoppingItem${0}`))
-      // console.log('mounted')
-    },
-}
+      
+  if (localStorage.getItem('user1') != null) {
+    let userInfo = localStorage.getItem('user1');
+    this.responseData = JSON.parse(userInfo);
+    console.log(this.responseData );
+    // console.log(this.displayData );
+   }else {
+    this.fetchData();
+    console.log("執行");
+  }
+}}
 
 </script>
 
@@ -76,29 +88,29 @@ created() {
 
         </nav>
         <div class="card-list">
-          <div class="card"  v-for="(cardtItem ,index) in cartList" :key="cardtItem.id">
+          <div class="card"  v-for="(Item ,index) in cartItem" :key="Item.id">
             <picture>
-              <img :src="parsePic(cardtItem.p_img[0])"  alt="">
+              <img :src="parsePic(Item.p_img[0])"  alt="">
             </picture>
             <div class="product">
               <div class="product-into">
                 <div class="name">
-                  <span>{{ cardtItem.f_name}}</span>-
-                  <p>{{ cardtItem.p_name }}</p>
+                  <span>{{ Item.f_name}}</span>-
+                  <p>{{ Item.p_name }}</p>
                 </div>
                 <div class="unit">
                   <span>單位:</span>
-                  <p>{{ cardtItem.unit}}</p>
+                  <p>{{ Item.unit}}</p>
                 </div>
               </div>
               <div class="price">
-                <span>NT.{{ cardtItem.p_fee }}</span>
+                <span>NT.{{ Item.p_fee }}</span>
               </div>
             </div>
             <div class="quantity">
-              <button @click="add(index)">+</button>
-              {{  cardtItem.count }}
               <button @click="subtraction(index)">-</button>
+              {{  Item.count }}
+              <button @click="add(index)">+</button>
             </div>
           </div>
         </div>
@@ -170,7 +182,7 @@ created() {
           </div>
           <div class="alltotal">
             <span>總計:</span>
-            <span>NT.{{total + 60}}</span>
+            <span>NT.{{ totalprice + 60}}</span>
           </div>
           <div class="Checkout">
             <button class="shopping"><RouterLink to="/product">繼續購物</RouterLink></button>

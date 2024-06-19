@@ -5,103 +5,106 @@ export default {
       responseData: [],
       displayData: [],
       currentPage: 1,
-      isSearchMode: false,
-      keyworlds: "",
+      keyworlds: '',
       search: '',
-      currentClass: '0',
-
+      currentClass: '0'
     }
   },
   methods: {
+    // 確保json檔回傳圖片路徑正確
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
-    addCart (index) {
-        if (this.displayData[index].isaddCart === false) {
-          this.displayData[index].isaddCart = true;
-          localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.activedProduct[index]))
-        }else {
-          this.displayData[index].isaddCart = false;
-          localStorage.removeItem(`shoppingItem${index}`,JSON.stringify(this.activedProduct[index]));
-        }
+    // 判斷商品是否加入購物車(boolean)並更新狀態(存到localStorage)
+    addCart(id) {
+      const targetItem = this.responseData.find(v => v.id === id)
+      if (targetItem.isaddCart === false) {
+        targetItem.isaddCart = true;
+        targetItem.count = 1;
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      } else {
+        targetItem.isaddCart = false
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      }
+      console.log(this.responseData)
     },
-    toggleImage(index) {
-      this.displayData[index]['isImage1'] = !this.displayData[index]['isImage1'];//hart2加入收藏
-      if (!this.displayData[index]['isImage1']) {
-          localStorage.setItem(`favorite${index}`,JSON.stringify(this.activedProduct[index]));
-          // console.log(this.activedProduct[index])
-      }else {
-        localStorage.removeItem(`favorite${index}`,JSON.stringify(this.activedProduct[index]));
+    //愛心收藏功能
+    toggleImage(id) {
+      let targetItem = this.responseData.find(v => v.id === id);
+      targetItem.isImage1 = !targetItem.isImage1 //hart2加入收藏
+      if (!targetItem.isImage1) {
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      } else {
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }
     },
-    SearchMode() {//判斷是否搜尋
-      if (this.search !== "") {
-        this.isSearchMode = true;
-      }
-    },
+    //fetch json檔商品資料
     fetchData() {
-      fetch("/productList.json")
-        .then(res => res.json())
-        .then(json => {
-          // 確認有沒有response
-          // console.log(json);
-          // 備份還原用
+      fetch(`${import.meta.env.BASE_URL}productList.json`)
+        .then((res) => res.json())
+        .then((json) => {
           this.responseData = json
-          // 顯示用
-          this.displayData = json
+          localStorage.setItem(`user1`, JSON.stringify(json))
         })
-
     },
-    filterData() {//搜尋
-      console.log(this.search)
-      console.log(this.isSearchMode)
-      this.displayData = this.responseData.filter((item) => {
-        return item.p_name.includes(this.search) || item.pc_name.includes(this.search) || item.f_name.includes(this.search)//類別
-      }
-      )
-    },
-    clear() {//清空搜尋資料
-      this.search = '';
-      this.isSearchMode = false;
-      this.displayData = this.responseData;
+    clear() {
+      //清空搜尋資料
+      this.search = ''
+      this.isSearchMode = false
+      this.displayData = this.responseData
     },
     activedClass() {
-      let activeClass = document.querySelector('#filter')// //偵測目前類別為何
-      this.currentClass = activeClass.value
-      console.log(this.activedProduct)
-      console.log(this.currentClass)
-      console.log(this.isSearchMode)
-    },
+      let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
+      this.currentClass = activeClass.value;
+    }
   },
-  mounted () {
+  created() {
     //若有登入情況下
-  //   console.log(localStorage.getItem('user1') )
-  //  if (localStorage.getItem('user1') != []) {
-  //   let userInfo = localStorage.getItem('user1');
-  //   this.activedProduct = JSON.parse(userInfo);
-  //   console.log(this.displayData);
-  //  }else {
-    this.fetchData();
-  // }
+    console.log(localStorage.getItem('user1'))
+    if (localStorage.getItem('user1') != null) {
+      let userInfo = localStorage.getItem('user1')
+      this.responseData = JSON.parse(userInfo)
+      console.log(this.responseData)
+      // console.log(this.displayData );
+    } else {
+      this.fetchData()
+    }
   },
   computed: {
-    activedProduct() {
-      let filter = [];
-      if (this.isSearchMode == false && this.currentClass == '0') {
-        filter = this.responseData
-      } else if (this.currentClass !== '0' && this.isSearchMode == false) {
-        filter = this.responseData.filter(
-          product => product.pc_name == this.currentClass)
-      } else if (this.isSearchMode == true) {
-        filter = this.displayData
-      }
-      return filter
-    },
-  }
-
+    //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
+    filterDataDisplay() {
+      //初始狀態(沒有search跟篩選的狀況)
+      if (!this.search && this.currentClass === "0") {
+      return this.responseData;
+      //有search但沒有篩選
+      }else if (this.search && this.currentClass === "0") {
+      return this.responseData.filter((item) => {
+        return (
+          item.p_name.includes(this.search) ||
+          item.pc_name.includes(this.search) ||
+          item.f_name.includes(this.search)
+        ) 
+      })
+      //沒有篩選但有search
+    }else if (!this.search && this.currentClass !== "0") {
+      return this.responseData.filter((item) => {
+        return item.pc_name === this.currentClass;
+      })
+    }else {//先做搜尋再篩選目前disable
+      this.responseData.filter((item) => {
+        return (
+          item.p_name.includes(this.search) ||
+          item.pc_name.includes(this.search) ||
+          item.f_name.includes(this.search)
+        ) 
+    })
+    return this.responseData.filter((item) => {
+      return item.pc_name === this.currentClass;
+    })
+  }}
+}
 }
 </script>
-
 
 <template>
   <section productView>
@@ -123,7 +126,11 @@ export default {
               <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <label for="">
-              <input type="text" placeholder="搜尋商品" v-model="search" @keyup.enter="filterData()" @change="SearchMode()">
+              <input
+                type="text"
+                placeholder="搜尋商品"
+                v-model.lazy="search"
+              />
               <button @click="clear">X</button>
             </label>
           </div>
@@ -137,19 +144,22 @@ export default {
             <option value="其他">其他</option>
           </select>
           <div class="icon-filter-product">
-            <img src="../assets/image/filter.svg" alt="">
+            <img src="../assets/image/filter.svg" alt="" />
           </div>
         </div>
       </div>
 
       <div class="container">
-
-        <div class="row list-product ">
-          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in activedProduct" :key="cardtIndex">
+        <div class="row list-product">
+          <div
+            class="col-12 col-md-6 col-lg-3"
+            v-for="(cardtItem, cardtIndex) in filterDataDisplay"
+            :key="cardtIndex"
+          >
             <div class="card-product">
-            <RouterLink :to="`/ProductPage/${cardtIndex + 1}`">
-                <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片">
-            </RouterLink>
+              <RouterLink :to="`/ProductPage/${cardtIndex + 1}`">
+                <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
+              </RouterLink>
               <div class="into-card">
                 <div class="category-card">
                   <div class="name-card">
@@ -158,25 +168,40 @@ export default {
                     </div>
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
-                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
-                    <img :src="cardtItem['isImage1'] ? parsePic(cardtItem.hartImage) : parsePic(cardtItem.hartImage1)"
-                      alt="">
-
+                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtItem.id)">
+                    <img
+                      :src="
+                        cardtItem['isImage1']
+                          ? parsePic(cardtItem.hartImage)
+                          : parsePic(cardtItem.hartImage1)
+                      "
+                      alt=""
+                    />
                   </div>
                 </div>
                 <div class="member-card">
-                  <button class="cart-shopping"  @click="addCart(cardtIndex)" >
-                      <i class="fa-solid fa-cart-shopping"></i>
-                    <p>加入購物車</p>
+                  <button
+                    class="cart-shopping"
+                    @click="addCart(cardtItem.id)"
+                    v-if="cardtItem.isaddCart === false"
+                  >
+                    <i class="fa-solid fa-cart-shopping"></i>加入購物車
                   </button>
-                 
+                  <button
+                    class="cart-cancel-btn"
+                    @click="addCart(cardtItem.id)"
+                    v-if="cardtItem.isaddCart === true"
+                  >
+                    <i class="fa-solid fa-xmark"></i>取消
+                  </button>
+
                   <div class="money-card">
                     <span>NT${{ cardtItem['p_fee'] }}</span>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
         </div>
         <div class="carousel">
           <div class="button prev">
@@ -216,7 +241,6 @@ section {
         justify-content: center;
         align-items: center;
         margin-bottom: $mbbtwElement;
-
       }
 
       .category-product {
@@ -233,7 +257,7 @@ section {
         .crumbs-product {
           font-family: $pFont;
           $line-height: $fontBase;
-          font-size: $fontBase ;
+          font-size: $fontBase;
           color: $darkGreen;
 
           ul {
@@ -244,32 +268,27 @@ section {
                 text-decoration: none;
                 font-family: $pFont;
                 $line-height: $fontBase;
-                font-size: $fontBase ;
+                font-size: $fontBase;
                 color: $darkGreen;
-
               }
-
             }
           }
-
         }
 
         .search-product {
-
           display: flex;
           position: relative;
           align-items: center;
           right: 0;
           // width:50%;
-          button{
+          button {
             position: absolute;
-            right:5px;
+            right: 5px;
             top: 9px;
             background-color: transparent;
             color: #fff;
             border: 0;
           }
-
 
           .icon-search-product {
             position: absolute;
@@ -280,14 +299,12 @@ section {
             .fa-magnifying-glass {
               font-size: 12px;
             }
-
           }
 
           label {
             margin: 0;
 
-
-            input[type="text"] {
+            input[type='text'] {
               padding: 0 25px;
               flex: 1;
               box-sizing: border-box;
@@ -302,13 +319,9 @@ section {
                 color: #fff; // 將 placeholder 的文字顏色改為 #999
                 text-align: center;
               }
-
-
             }
           }
-
         }
-
       }
 
       .filter-product {
@@ -322,22 +335,19 @@ section {
           border: 0px;
           font-family: $pFont;
           $line-height: $fontBase;
-          font-size: $fontBase ;
+          font-size: $fontBase;
           color: $darkGreen;
 
           option {
-            background-color: #F3EEEA;
-            border: 0px solid #F3EEEA;
-
+            background-color: #f3eeea;
+            border: 0px solid #f3eeea;
           }
-
         }
 
         .icon-filter-product {
           margin-left: 5px;
         }
       }
-
     }
 
     //---------------商品卡片
@@ -352,20 +362,18 @@ section {
         width: 100%;
         margin: auto;
 
-
         // flex-wrap: nowrap;
         .card-product {
           border: 1px solid $darkGreen;
           margin: 10px;
           text-decoration: none;
           display: block;
-           img {
-              width: 100%;
-              vertical-align: bottom;
-            }
+          img {
+            width: 100%;
+            vertical-align: bottom;
+          }
           .into-card {
             position: relative;
-
 
             .category-card {
               display: flex;
@@ -375,11 +383,9 @@ section {
               color: $darkGreen;
               margin: 14px 10px;
 
-
               .name-card {
                 .title-category-card {
                   margin: 14px 0;
-
                 }
               }
 
@@ -390,9 +396,7 @@ section {
                 width: 38px;
                 height: 38px;
                 z-index: 10;
-
               }
-
             }
 
             .member-card {
@@ -402,20 +406,30 @@ section {
               margin: 14px 10px;
 
               .cart-shopping {
-                display: flex;
-                gap: 6px;
-                padding: 7px;
+                padding: 10px 15px;
                 font-family: $pFont;
                 color: #fff;
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
-                cursor: pointer;
-
-
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
+                  cursor: pointer;
+                }
+                i {
+                  margin-right: 10px;
+                }
+              }
+              .cart-cancel-btn {
+                padding: 10px 15px;
+                font-family: $pFont;
+                color: #fff;
+                background-color: #eb3445;
+                border-radius: 20px;
+                border: none;
+                i {
+                  margin-right: 10px;
                 }
               }
 
@@ -424,13 +438,9 @@ section {
                 font-family: $pFont;
                 color: $darkGreen;
               }
-
             }
-
           }
-
         }
-
       }
 
       .carousel {
@@ -447,7 +457,6 @@ section {
           &:hover {
             transform: scale(1.1);
           }
-
         }
 
         .pagination {
@@ -470,7 +479,7 @@ section {
 
             @include s2bmd() {
               &:not(:last-child):after {
-                content: "";
+                content: '';
                 width: 50%;
                 height: 1.5px;
                 position: absolute;
@@ -479,16 +488,12 @@ section {
                 top: 50%;
                 background-color: $darkGreen;
               }
-
             }
-
-
-
           }
         }
 
-        .button-next {}
-
+        .button-next {
+        }
       }
     }
   }

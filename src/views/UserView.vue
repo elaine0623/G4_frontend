@@ -10,7 +10,8 @@ export default {
         email: '',
         psw: '',
         dbpsw: ''
-      }
+      },
+      mbSignup: false
     }
   },
   components: {
@@ -151,10 +152,26 @@ onMounted(() => {
         <input type="password" placeholder="密碼">
       </div>
       <div class="link">
-        <a href="#">忘記密碼?</a><a href="#">立即註冊!</a>
+        <a href="#">忘記密碼?</a><a @click="mbSignup = !mbSignup">立即註冊!</a>
       </div>
       <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
     </form>
+    <div class="mb_signup" v-show="mbSignup">
+      <h2>建立帳號</h2>
+      <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
+      <span v-text="errorMsg.name" class="wrong-msg"></span>
+      <input type="email" placeholder="電子信箱" @blur="checkemail()" v-model="email" />
+      <span v-text="errorMsg.email" class="wrong-msg"></span>
+      <input type="password" placeholder="密碼(長度6-12位/至少一大寫英文字母)" @blur="checkpsw()" v-model="psw" />
+      <span v-text="errorMsg.psw" class="wrong-msg"></span>
+      <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
+      <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
+      <div class="btnlayout">
+        <button type="button" @click="mbSignup = !mbSignup">註冊</button>
+        <button type="button" @click="mbSignup = !mbSignup">返回</button>
+      </div>
+      <!-- button預設是submit  button要記得加type="button"-->
+    </div>
   </section>
 </template>
 
@@ -279,36 +296,25 @@ button.invert {
   box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
     0 10px 10px rgba(0, 0, 0, .2);
   border-radius: 10px;
-}
+  position: relative;
 
-.mb-form {
-  width: calc(90% - 30px);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    display: block;
-    margin: 20px auto 0;
-    width: 60%;
-    height: 80px;
-    padding: 20px 0;
-  }
-
-  .account,
-  .mb-psw {
+  .mb_signup {
+    position: absolute;
+    top: 145px;
+    background-color: #144433;
+    width: 100%;
+    height: 70%;
     margin: 0 auto;
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    label {
+    h2 {
       color: #fff;
-      line-height: 3;
     }
 
     input {
-      width: 100%;
+      width: calc(100% - 168px);
       line-height: 1.5;
       background-color: #eee;
       border: 1px solid #144433;
@@ -316,28 +322,104 @@ button.invert {
       padding: 8px 15px;
       overflow: hidden;
     }
-  }
 
-  .link {
-    width: 60%;
-    margin: 10px auto 15px;
+    span {
+      width: calc(100% - 168px);
+      color: #fff;
+      margin: 3px 2px;
+    }
 
-    a {
-      display: inline-block;
-      width: 50%;
-      text-decoration: none;
+    .btnlayout {
+      margin-top: 8px;
+
+      button {
+        padding: 6px 20px;
+        margin: 0 15px;
+      }
+
+    }
+
+    .link {
+      width: 60%;
+      margin: 10px auto 15px;
+
+      a {
+        display: inline-block;
+        width: 50%;
+        text-decoration: none;
+        text-align: center;
+        margin: 20px auto;
+        color: #eee;
+        font-size: 14px;
+      }
+    }
+
+    button {
       text-align: center;
-      margin: 20px auto;
-      color: #eee;
-      font-size: 14px;
+      margin-bottom: 40px;
     }
   }
 
-  button {
-    text-align: center;
-    margin-bottom: 40px;
+  .mb-form {
+    width: calc(90% - 30px);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      display: block;
+      margin: 20px auto 0;
+      width: 60%;
+      height: 80px;
+      padding: 20px 0;
+    }
+
+    .account,
+    .mb-psw {
+      margin: 0 auto;
+      width: 60%;
+
+      label {
+        color: #fff;
+        line-height: 3;
+      }
+
+      input {
+        width: 100%;
+        line-height: 1.5;
+        background-color: #eee;
+        border: 1px solid #144433;
+        outline: none;
+        padding: 8px 15px;
+        overflow: hidden;
+      }
+    }
+
+    .link {
+      width: 60%;
+      margin: 10px auto 15px;
+
+      a {
+        display: inline-block;
+        width: 50%;
+        text-decoration: none;
+        text-align: center;
+        margin: 20px auto;
+        color: #eee;
+        font-size: 14px;
+      }
+    }
+
+    button {
+      text-align: center;
+      margin-bottom: 40px;
+    }
   }
+
 }
+
 
 .pc-form {
   position: absolute;

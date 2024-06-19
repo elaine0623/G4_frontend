@@ -35,9 +35,10 @@ export default {
 <style lang="scss" scoped>
 .go-up-btn {
   text-align: end;
-  position: sticky;
+  position: fixed;
   height: 60px;
   bottom: 10px;
+  right: 20px;
   z-index: 2;
 
   a {
