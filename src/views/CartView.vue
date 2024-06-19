@@ -29,19 +29,22 @@ export default {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     add(index) {
-      this.cartItem[index].count  ++;
+      this.cartItem[index].count  += 1;
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
     },
     subtraction(index) {
       if (this.cartItem[index].count === 1) {
         this.cartItem[index].count= 0;
         this.deleteItem(index);
     }else {
-      this.cartItem[index].count --; 
+      this.cartItem[index].count -= 1; 
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
     }
   },
   deleteItem(index) {
     if (confirm("確定刪除？")) {
         this.cartItem[index].isaddCart = false;
+        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }else {
         return this.cartItem[index].count= 1;
       }

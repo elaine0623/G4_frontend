@@ -11,14 +11,16 @@ export default {
     }
   },
   methods: {
+    // 確保json檔回傳圖片路徑正確
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
+    // 判斷商品是否加入購物車(boolean)並更新狀態(存到localStorage)
     addCart(id) {
       const targetItem = this.responseData.find(v => v.id === id)
       if (targetItem.isaddCart === false) {
-        targetItem.isaddCart = true
-        // localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.activedProduct[index]));
+        targetItem.isaddCart = true;
+        targetItem.count = 1;
         localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       } else {
         targetItem.isaddCart = false
@@ -26,15 +28,17 @@ export default {
       }
       console.log(this.responseData)
     },
-    toggleImage(index) {
-      this.responseData[index]['isImage1'] = !this.responseData[index]['isImage1'] //hart2加入收藏
-      if (!this.responseData[index]['isImage1']) {
+    //愛心收藏功能
+    toggleImage(id) {
+      let targetItem = this.responseData.find(v => v.id === id);
+      targetItem.isImage1 = !targetItem.isImage1 //hart2加入收藏
+      if (!targetItem.isImage1) {
         localStorage.setItem(`user1`, JSON.stringify(this.responseData))
-        // console.log(this.responseData[index])
       } else {
         localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }
     },
+    //fetch json檔商品資料
     fetchData() {
       fetch(`${import.meta.env.BASE_URL}productList.json`)
         .then((res) => res.json())
@@ -50,7 +54,7 @@ export default {
       this.displayData = this.responseData
     },
     activedClass() {
-      let activeClass = document.querySelector('#filter') // //偵測目前類別為何
+      let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
       this.currentClass = activeClass.value;
     }
   },
@@ -67,9 +71,12 @@ export default {
     }
   },
   computed: {
+    //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
     filterDataDisplay() {
+      //初始狀態(沒有search跟篩選的狀況)
       if (!this.search && this.currentClass === "0") {
       return this.responseData;
+      //有search但沒有篩選
       }else if (this.search && this.currentClass === "0") {
       return this.responseData.filter((item) => {
         return (
@@ -78,11 +85,12 @@ export default {
           item.f_name.includes(this.search)
         ) 
       })
+      //沒有篩選但有search
     }else if (!this.search && this.currentClass !== "0") {
       return this.responseData.filter((item) => {
         return item.pc_name === this.currentClass;
       })
-    }else {
+    }else {//先做搜尋再篩選目前disable
       this.responseData.filter((item) => {
         return (
           item.p_name.includes(this.search) ||
@@ -160,7 +168,7 @@ export default {
                     </div>
                     <span>{{ cardtItem['p_name'] }}</span>
                   </div>
-                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtIndex)">
+                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtItem.id)">
                     <img
                       :src="
                         cardtItem['isImage1']
