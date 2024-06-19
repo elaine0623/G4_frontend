@@ -247,7 +247,6 @@ export default {
             }
         },
         submit () {
-           
                 Swal.fire({
                     title: "<strong>訂購成功</strong>",
                     icon: "success",
@@ -256,28 +255,36 @@ export default {
                     showCloseButton: false,
                     showCancelButton: true,
                     focusConfirm: false,
-                    confirmButtonText: `
-                        <a href="/product"
-                            style="
-                                text-decoration: none;
-                                color:#fff;                          
-                            ">返回商品</a>
-                    `,
+                    confirmButtonText: `返回商品`,
                     confirmButtonColor:'#144433',
-                    cancelButtonText: `
-                        <a href="/userlayout/userOrder" 
-                            style="
-                                text-decoration: none;
-                                color: #fff;
-                                
-                            ">商品紀錄</a>
-                    `,
+                    cancelButtonText:`商品紀錄`,
                     cancelButtonColor: '#144433',
                     background:'#eeeeee'
-                });
+                }).then(async (result) => {
+            if (result.isConfirmed) {
+                this.$router.push('/product')
+                await this.$nextTick()
+                setTimeout(() => {
+                window.scrollTo({
+                    left: 0,
+                    top: 0,
+                    behavior: 'smooth'
+                })
+                }, 280)
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                this.$router.push('/userlayout/userorder')
+                await this.$nextTick()
+                setTimeout(() => {
+                window.scrollTo({
+                    left: 0,
+                    top: 0,
+                    behavior: 'smooth'
+                })
+                }, 280)
             }
+            })
+        }
         },
- 
     async created() {
         if (localStorage.getItem('user1') != null) {
     let userInfo = localStorage.getItem('user1');

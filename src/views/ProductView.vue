@@ -157,9 +157,9 @@ export default {
             :key="cardtIndex"
           >
             <div class="card-product">
-              <RouterLink :to="`/ProductPage/${cardtIndex + 1}`">
+              <router-link :to="`/ProductPage/${cardtIndex + 1}`">
                 <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
-              </RouterLink>
+              </router-link>
               <div class="into-card">
                 <div class="category-card">
                   <div class="name-card">
