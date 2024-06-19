@@ -150,7 +150,7 @@ section {
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
       line-height: 1.5rem;
       gap: 90px;
       .card-txt {

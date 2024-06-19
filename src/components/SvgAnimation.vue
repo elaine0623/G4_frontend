@@ -6,7 +6,7 @@
       <svg
         ref="svgElement"
         width="1265"
-        height="800"
+        height="1000"
         viewBox="0 0 1270 630"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
           </div>
         </foreignObject>
         <foreignObject x="260" y="626" width="100%" height="100%" style="opacity: 0" ref="div6">
-          <div class="custom-div-down"> 
+          <div class="custom-div-down">
             <ul>
               <li>2013年「大統黑心油事件」：食用油添加低成本葵花油混充並添加銅葉綠素調色</li>
               <li>2013年山水米以劣質米充優質米</li>
@@ -70,7 +70,9 @@
         <foreignObject x="865" y="626" width="100%" height="100%" style="opacity: 0" ref="div8">
           <div class="custom-div-down">
             <ul>
-              <li>食安問題層出不窮，架設果籽網站，期望能讓民眾重視食品安全，宣導購買原型食物及有機耕種的觀念，支持在地小農以友善土地的方式耕種，讓民眾吃得健康，土地也得以永續</li>
+              <li>
+                食安問題層出不窮，架設果籽網站，期望能讓民眾重視食品安全，宣導購買原型食物及有機耕種的觀念，支持在地小農以友善土地的方式耕種，讓民眾吃得健康，土地也得以永續
+              </li>
             </ul>
           </div>
         </foreignObject>
@@ -92,11 +94,16 @@
 
 .spacer {
   height: 10vh; /* 全屏高度 */
+  @include sm() {
+    height: 0vh;
+  }
 }
 
 .svg-container {
   width: 90%; /* SVG 容器宽度 */
+  height: 100%;
   max-width: 1200px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,7 +128,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.25em;;
+  font-size: 1.25em;
   width: 400px;
   height: 200px;
   border-radius: 0 0 10px 10px;
