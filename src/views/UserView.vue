@@ -314,7 +314,7 @@ button.invert {
     }
 
     input {
-      width: calc(100% - 90px);
+      width: calc(100% - 168px);
       line-height: 1.5;
       background-color: #eee;
       border: 1px solid #144433;
@@ -324,7 +324,7 @@ button.invert {
     }
 
     span {
-      width: calc(100% - 90px);
+      width: calc(100% - 168px);
       color: #fff;
       margin: 3px 2px;
     }
