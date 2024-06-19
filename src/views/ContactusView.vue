@@ -153,7 +153,6 @@ export default {
           <div class="opinion">
             <span>合作項目及方式</span>
             <textarea class="custom-textarea" rows="16" wrap="soft"></textarea>
-
           </div>
           <div class="bottom">
             <p>以上您填寫之資料，果籽會尊重個⼈隱私，善盡保密義務，絕不外流。

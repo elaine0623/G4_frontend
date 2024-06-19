@@ -41,7 +41,7 @@ export default {
             {
               f_name: "黃嘉銘有機農場",
               f_intro: "你在吃水果？還是吃糖果？ 傳承40年「阿公ㄟ柑仔味」 堅持保留橘子酸甜～",
-              f_img: "../src/assets/image/farm1.png",
+              f_img: "farm1.png",
               f_link: "https://google.com"
             }
           ],
@@ -53,13 +53,13 @@ export default {
             {
               f_name: "詠心有機農場",
               f_intro: "無畏無懼的態度，秉持「用心」的信念對待這片養育我 們的土地、 作物和消費者，堅持以「無毒、健康」的原 則來種植。                                      【詠心農埸】便是農民黃充甫在這樣的心念下而生。",
-              f_img: "../src/assets/image/tainan1.png",
+              f_img: "tainan1.png",
               f_link: "https://nourii.co/zh-TW/brand/yong-xin-organic"
             },
             {
               f_name: "幸福酪梨園",
               f_intro: "踩著青翠草地踏進果園中，每棵酪梨樹都生長得健康壯碩，枝頭結實累累。再加上茂哥不使用除草劑和農藥，園區環境自然、生態豐富，穿梭其中感到神清氣爽。",
-              f_img: "../src/assets/image/tainan2.png",
+              f_img: "tainan2.png",
               f_link: "https://www.avocadolucky.com/"
             },
           ],
@@ -71,7 +71,7 @@ export default {
             {
               f_name: "松輝有機",
               f_intro: "不靠化學肥料，讓葉子長得漂亮。謝朝陽的茶樹一開始就用剪枝的方式讓一支根只長一支嫩芽，茶樹自然長得很粗壯。正因為能夠用來製作的茶葉只有嫩芽，相對產量就少很多，順應生態平衡，採用長多少收多少的種茶哲學。",
-              f_img: "../src/assets/image/yilan1.png",
+              f_img: "yilan1.png",
               f_link: "https://google.com"
             }
           ],
