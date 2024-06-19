@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="num">
-                                <span>2</span>
+                                <span>{{ cartItem[index].count }}</span>
                         </div>
                     </div>
                 </div>
