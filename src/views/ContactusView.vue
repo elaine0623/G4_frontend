@@ -422,6 +422,7 @@ h3 {
         color: $darkGreen;
         font-family: $pFont;
         font-size: 16px;
+        line-height: 23px;
 
       }
     }
