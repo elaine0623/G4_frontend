@@ -83,13 +83,13 @@
         v-else
         ref="mobileSvgElement"
         width="380"
-        height="1800"
-        viewBox="0 0 100 1800"
+        height="1600"
+        viewBox="0 0 100 1600"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <!-- Mobile SVG Path and Foreign Objects -->
-        <path id="mobilePath" fill="none" stroke="#144433" stroke-width="2" d="M50 0 L50 1800" />
+        <path id="mobilePath" fill="none" stroke="#144433" stroke-width="2" d="M50 0 L50 1600" />
         <foreignObject x="-50" y="100" width="380" height="400" style="opacity: 0" ref="mobileDiv1">
           <div class="custom-div">
             <p>2013年至今</p>
@@ -133,7 +133,7 @@
         </foreignObject>
         <foreignObject
           x="-50"
-          y="1000"
+          y="900"
           width="380"
           height="400"
           style="opacity: 0"
@@ -145,7 +145,7 @@
         </foreignObject>
         <foreignObject
           x="-150"
-          y="1075"
+          y="975"
           width="380"
           height="400"
           style="opacity: 0"
@@ -161,7 +161,7 @@
         </foreignObject>
         <foreignObject
           x="-50"
-          y="1500"
+          y="1300"
           width="400"
           height="400"
           style="opacity: 0"
@@ -173,7 +173,7 @@
         </foreignObject>
         <foreignObject
           x="-150"
-          y="1575"
+          y="1375"
           width="400"
           height="400"
           style="opacity: 0"
