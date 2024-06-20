@@ -2,11 +2,12 @@
   <div class="container">
     <div class="svg-container" ref="svgContainer">
       <!-- Desktop SVG -->
+       <h1>食安事件年表</h1>
       <svg
         v-if="isDesktop"
         ref="svgElement"
-        width="1265"
-        height="1000"
+        width="1100"
+        height="900"
         viewBox="0 0 1270 630"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -56,9 +57,8 @@
         <foreignObject x="260" y="626" width="100%" height="100%" style="opacity: 0" ref="div6">
           <div class="custom-div-down">
             <ul>
-              <li>2013年「大統黑心油事件」：食用油添加低成本葵花油混充並添加銅葉綠素調色</li>
-              <li>2013年山水米以劣質米充優質米</li>
-              <li>2016年「調和酒冒充釀製酒事件」</li>
+              <li>2024年2月「蘇丹紅事件」：辣椒粉含致癌物蘇丹紅，製成各式產品流竄全台。</li>
+              <li>2024年3月「寶林茶室食物中毒事件」：造成重大集體中毒事件，多人受害死亡，迄今還有人急救中。</li>
             </ul>
           </div>
         </foreignObject>
@@ -318,6 +318,7 @@ const loadScript = (src) => {
     height: 100%;
     max-width: 1200px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 80px;
@@ -338,7 +339,15 @@ const loadScript = (src) => {
         display: block;
       }
     }
-
+    h1{
+      font-size:2.5em;
+      text-align: center;
+      color: #144433;
+      @include md(){
+        font-size: 1.75em;
+        padding: 2em;
+      }
+    }
     .custom-div {
       background-color: #397d5a;
       color: white;
