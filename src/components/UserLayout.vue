@@ -1,24 +1,17 @@
 <!-- router每次到userlayout頁面時，會透過classname改變z-index -->
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-const route = useRoute()
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const hideChild = computed(() => {
-  return route.name === 'UserLayout'
+  return router.name === 'UserLayout'
 })
-// const handleResize = () => {
-//       // 你可以在這裡設置具體的條件來決定何時跳轉
-//         if (window.innerWidth > 768) {
-//         route.push('/userlayout/userdata');
-//         console.log('change')
-//         }
-//     };
 </script>
 
 <script>
 import { useRouter } from 'vue-router'
-import { onMounted, onUnmounted } from 'vue';
+const router = useRouter()
 export default {
   data() {
     return {
@@ -43,34 +36,27 @@ export default {
       }, 1000) // 每秒執行一次進入作用域
     }
   },
-  // mounted () {
-  //   window.addEventListener('resize',handleResize)
-  // },unmount () {
-  //   window.removeEventListener('resize',handleResize)
-  // }
   beforeUnmount() {
     // vue實體銷毀前，關掉這一頁面
     if (this.timer) {
       clearInterval(this.timer) // 防止記憶體洩漏，清除定時器
     }
-  },setup() {
-    const router = useRouter();
-    const handleResize = () =>{
-    if (window.innerWidth > 768) {
-        console.log('change');
-        router.push('/userlayout/userfavorite')
+  },mounted() {
+      window.addEventListener('resize', ()=> {
+        if (window.innerWidth > 768) {
+        console.log('hi')
+        router.push('/userdata');
       }
-  };
-  onMounted(() => {
-      window.addEventListener('resize',handleResize);
+    })
+    },unounted() {
+      window.removeEventListener('resize',()=> {
+        if (window.innerWidth > 768) {
+        console.log('hi')
+        router.push('/userdata');
+      }
     });
-
-    onUnmounted(() => {
-      window.removeEventListener('resize',handleResize);
-    });
-
+    }
   }
-}
 </script>
 
 <template>
