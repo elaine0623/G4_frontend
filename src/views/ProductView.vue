@@ -19,13 +19,11 @@ export default {
     addCart(id) {
       const targetItem = this.responseData.find(v => v.id === id)
       if (targetItem.isaddCart === false) {
-        targetItem.isaddCart = true;
         targetItem.count = 1;
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
-      } else {
-        targetItem.isaddCart = false
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }
+
+      targetItem.isaddCart = !targetItem.isaddCart;
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       console.log(this.responseData)
     },
     //愛心收藏功能
