@@ -136,6 +136,7 @@ section {
   margin: auto;
   max-width: 1200px;
   text-align: center;
+  overflow: hidden;
   h1 {
     padding: 20px;
     font-size: 2.5em;
@@ -536,13 +537,13 @@ section {
         color: #144433;
         text-align: left;
         @include lg() {
-          font-size: 1.3em;
+          font-size: 1em;
         }
         @include md() {
-          font-size: 1.1em;
+          font-size: 0.9em;
         }
         @include sm() {
-          font-size: 1em;
+          font-size: 0.8em;
         }
       }
     }
