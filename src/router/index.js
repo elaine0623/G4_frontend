@@ -146,8 +146,8 @@ const router = createRouter({
       component: () => import('../components/SvgAnimation.vue')
     },
     {
-      path: '/fruitNinja',
-      name: 'fruitNinja',
+      path: '/FruitNinja',
+      name: 'FruitNinja',
       component: () => import('../components/fruitNinja.vue')
     },
   ],

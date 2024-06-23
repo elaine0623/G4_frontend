@@ -15,7 +15,7 @@
           <!-- 顯示剩餘生命值的心形圖示 -->
         </div>
         <div v-if="!playing" class="front">
-        <p>  開啟農場奇遇的冒險之旅 !</p>
+          <p>開啟農場奇遇的冒險之旅 !</p>
           <!-- 遊戲未開始時顯示的歡迎訊息 -->
           <img :src="farmerIcon" alt="農夫" />
           <!-- 顯示農夫的圖片 -->
@@ -50,8 +50,8 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 // 匯入圖片資源
-import heartIcon from '@/assets/image/hart2.svg' // 心形圖示
-import farmerIcon from '@/assets/image/game-img/farmer.png' // 農夫的圖片
+import heartIcon from '@/assets/image/hart2.svg' // 生命圖示
+import farmerIcon from '@/assets/image/game-img/farmer.png' // 開始 農夫背景圖
 import cornIcon from '@/assets/image/game-img/corn.png' // 玉米的圖片
 import strawberryIcon from '@/assets/image/game-img/strawberry.png' // 草莓的圖片
 import orangeIcon from '@/assets/image/game-img/orange.png' // 橙子的圖片
@@ -185,6 +185,7 @@ export default {
   font-family: cursive, sans-serif;
   text-align: center;
   color: #2c3e50;
+  margin: 80px;
 }
 
 .container {
@@ -225,7 +226,7 @@ export default {
   position: absolute;
   transition:
     top 0.1s linear,
-    opacity 1s ease; 
+    opacity 1s ease;
 }
 
 .start-reset {
@@ -238,12 +239,19 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: transform 0.1s ease-in;
+  margin: 6px 0;
+
+  &:active {
+    transform: scale(0.9) !important;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
-.start-reset:active {
-  background-color: #519a58;
-  transform: translateY(4px);
-}
+
 
 .score {
   position: absolute;

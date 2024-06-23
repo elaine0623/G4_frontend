@@ -82,16 +82,19 @@
   </div> 
 </div>
 </div>
+<FruitNinja />
 </main>
 </template>
 
 <script >
+import FruitNinja from '@/components/fruitNinja.vue';
 import { DatePicker  } from 'v-calendar';
 import 'v-calendar/style.css';
 const perPage = 6;
 export default {
   components: {
     DatePicker,
+    FruitNinja
   },
   data() {
     return {
