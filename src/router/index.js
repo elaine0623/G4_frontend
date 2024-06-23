@@ -144,7 +144,12 @@ const router = createRouter({
       path: '/SvgAnimation',
       name: 'SvgAnimation',
       component: () => import('../components/SvgAnimation.vue')
-    }
+    },
+    {
+      path: '/fruitNinja',
+      name: 'fruitNinja',
+      component: () => import('../components/fruitNinja.vue')
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
