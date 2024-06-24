@@ -38,11 +38,18 @@ export default {
     },
     //fetch json檔商品資料
     fetchData() {
-      fetch(`${import.meta.env.BASE_URL}productList.json`)
+      let body = {
+        "page": 1,
+      }
+      fetch(`http://localhost/php_G4/product.php`, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
         .then((res) => res.json())
         .then((json) => {
           this.responseData = json
-          localStorage.setItem(`user1`, JSON.stringify(json))
+          // localStorage.setItem(`user1`, JSON.stringify(json))
+
         })
     },
     clear() {
@@ -57,16 +64,17 @@ export default {
     }
   },
   created() {
+    this.fetchData()
     //若有登入情況下
-    console.log(localStorage.getItem('user1'))
-    if (localStorage.getItem('user1') != null) {
-      let userInfo = localStorage.getItem('user1')
-      this.responseData = JSON.parse(userInfo)
-      console.log(this.responseData)
-      // console.log(this.displayData );
-    } else {
-      this.fetchData()
-    }
+    // console.log(localStorage.getItem('user1'))
+    // if (localStorage.getItem('user1') != null) {
+    //   let userInfo = localStorage.getItem('user1')
+    //   this.responseData = JSON.parse(userInfo)
+    //   console.log(this.responseData)
+    //   // console.log(this.displayData );
+    // } else {
+    //   this.fetchData()
+    // }
   },
   computed: {
     //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
