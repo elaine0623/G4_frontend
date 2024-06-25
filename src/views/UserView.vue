@@ -65,6 +65,7 @@ export default {
         return true;
       }
     },
+    //註冊:會員資料回傳後端資料庫
     register() {
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;

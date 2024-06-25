@@ -39,7 +39,7 @@ export default {
     //fetch json檔商品資料
     fetchData() {
       let body = {
-        "page": 1,
+        "page": 2,
       }
       fetch(`http://localhost/php_G4/product.php`, {
         method: "POST",
@@ -157,7 +157,7 @@ export default {
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay" :key="cardtIndex">
             <div class="card-product">
               <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
-                <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
+                <!-- <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" /> -->
               </router-link>
               <div class="into-card">
                 <div class="category-card">
