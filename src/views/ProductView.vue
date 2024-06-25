@@ -19,13 +19,11 @@ export default {
     addCart(id) {
       const targetItem = this.responseData.find(v => v.id === id)
       if (targetItem.isaddCart === false) {
-        targetItem.isaddCart = true;
         targetItem.count = 1;
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
-      } else {
-        targetItem.isaddCart = false
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }
+
+      targetItem.isaddCart = !targetItem.isaddCart;
+      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       console.log(this.responseData)
     },
     //愛心收藏功能
@@ -40,11 +38,18 @@ export default {
     },
     //fetch json檔商品資料
     fetchData() {
-      fetch(`${import.meta.env.BASE_URL}productList.json`)
+      let body = {
+        "page": 2,
+      }
+      fetch(`http://localhost/php_G4/product.php`, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
         .then((res) => res.json())
         .then((json) => {
           this.responseData = json
-          localStorage.setItem(`user1`, JSON.stringify(json))
+          // localStorage.setItem(`user1`, JSON.stringify(json))
+
         })
     },
     clear() {
@@ -59,16 +64,17 @@ export default {
     }
   },
   created() {
+    this.fetchData()
     //若有登入情況下
-    console.log(localStorage.getItem('user1'))
-    if (localStorage.getItem('user1') != null) {
-      let userInfo = localStorage.getItem('user1')
-      this.responseData = JSON.parse(userInfo)
-      console.log(this.responseData)
-      // console.log(this.displayData );
-    } else {
-      this.fetchData()
-    }
+    // console.log(localStorage.getItem('user1'))
+    // if (localStorage.getItem('user1') != null) {
+    //   let userInfo = localStorage.getItem('user1')
+    //   this.responseData = JSON.parse(userInfo)
+    //   console.log(this.responseData)
+    //   // console.log(this.displayData );
+    // } else {
+    //   this.fetchData()
+    // }
   },
   computed: {
     //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
@@ -151,7 +157,7 @@ export default {
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay" :key="cardtIndex">
             <div class="card-product">
               <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
-                <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
+                <!-- <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" /> -->
               </router-link>
               <div class="into-card">
                 <div class="category-card">
