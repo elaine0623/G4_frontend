@@ -65,12 +65,27 @@ export default {
         return true;
       }
     },
+    //註冊:會員資料回傳後端資料庫
     register() {
-
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;
       }
-      document.myform.submit();
+      const url = `http://localhost/php_G4/register.php`
+      let body = {
+        "name": this.name,
+        "email": this.email,
+        "psw": this.psw,
+        "dbpsw": this.dbpsw,
+      }
+
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
+        .then(response => response.json())
+        .then(
+          json => alert(json['data']['m_name'])
+        );
     }
   }
 }
@@ -116,7 +131,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <form name="myform" class="sign-up pc-form" action="#" @submit.prevent="register()">
+      <div name="myform" class="sign-up pc-form">
         <h2>建立帳號</h2>
         <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
         <span v-text="errorMsg.name" class="wrong-msg"></span>
@@ -126,9 +141,9 @@ onMounted(() => {
         <span v-text="errorMsg.psw" class="wrong-msg"></span>
         <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
         <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
-        <button>註冊</button>
+        <button @click="register()">註冊</button>
         <!-- button預設是submit  button要記得加type="button"-->
-      </form>
+      </div>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>
         <input type="email" placeholder="電子信箱" />
@@ -167,7 +182,7 @@ onMounted(() => {
       <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
       <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
       <div class="btnlayout">
-        <button type="button" @click="mbSignup = !mbSignup">註冊</button>
+        <button type="button" @click=register()>註冊</button>
         <button type="button" @click="mbSignup = !mbSignup">返回</button>
       </div>
       <!-- button預設是submit  button要記得加type="button"-->
