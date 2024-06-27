@@ -1,8 +1,15 @@
 <script>
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 export default {
   data() {
     return {
       isMenuVisible: false
+    }
+  },
+  setup() {
+    const store = useAdminStore()
+    return {
+      store
     }
   },
   methods: {
@@ -22,7 +29,7 @@ export default {
           <RouterLink to="/contactus">聯絡我們</RouterLink>
           <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
           <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping icon"></i></RouterLink>
-          <RouterLink to="/user"><i class="fa-regular fa-user icon"></i></RouterLink>
+          <RouterLink to="/user"><i class="fa-regular fa-user icon"></i>{{ store.$state.currentAccount }}</RouterLink>
           <!-- <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink> -->
         </div>
         <div id="moblie_menu" class="hb" @click="isMenuVisible = !isMenuVisible">
