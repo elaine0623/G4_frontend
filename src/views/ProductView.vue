@@ -49,6 +49,8 @@ export default {
         .then((json) => {
           this.responseData = json
           // localStorage.setItem(`user1`, JSON.stringify(json))
+          console.log(this.responseData);
+
         })
     },
     clear() {
