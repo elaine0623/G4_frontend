@@ -1,7 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAdminStore } from '@/stores/userLogin';
 import HomeView from '@/views/HomeView.vue';
 
-
+// 路由守衛函數
+const requireAuth = (to, from, next) => {
+  const adminStore = useAdminStore();
+  adminStore.loadCurrentUser(); // 確保在檢查時用戶狀態
+  if (!adminStore.isLoggedIn()) {
+    alert('尚未登入')
+    next('/user');
+  } else {
+    next();
+  }
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -128,7 +139,8 @@ const router = createRouter({
       component: () => import('@/views/SignupPage.vue'),
       meta: {
         title: '活動報名',
-      }
+      },
+      beforeEnter: requireAuth, // 在這裡添加 requireAuth
     },
     {
       path: '/shoppingcart',
