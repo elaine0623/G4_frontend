@@ -1,377 +1,489 @@
 <template>
   <main class="activity-section">
-  <div class="activity-container">
-  <h1 class="activity-title">活動</h1>
-  <div class="search-field">
-    <select id="event-class" name="event-class"  v-on:change="eventClass()">
-      <option value="0" selected disabled hidden >類別</option>
-      <option value="0">全部</option>
-      <option value="市集">市集</option>
-      <option value="講座">講座</option>
-    </select>
-    <div class="search-area">
-    <input type="search" v-model.lazy.trim="keyworlds" placeholder="搜尋" @change="SearchMode">
-    <button class="search-btn"><i class="fa-solid fa-magnifying-glass" style="color: #144433;"></i></button>
-    </div>
-  </div>
-  <div class="main-content">
-  <!-- <Calendar /> -->
-  <div class="myvc-container">
-    <DatePicker :color="selectedColor"
-                :attributes="attrs"
-                v-model="date"
-                mode="date" 
-                :rules="rules"/>
-    <div class="current-event" >
-      <div class="curr-header">{{ formattedDate }}</div>
-      <div class="curr-content" v-for="(item,index) in currentEvent" :key="item.id" >
-        <router-link :to='`/activity/${index + 1}`' > {{item.a_name}}</router-link>
+    <div class="activity-container">
+      <h1 class="activity-title">活動</h1>
+      <div class="search-field">
+        <select id="event-class" name="event-class" v-on:change="eventClass()">
+          <option value="0" selected disabled hidden>類別</option>
+          <option value="0">全部</option>
+          <option value="市集">市集</option>
+          <option value="講座">講座</option>
+        </select>
+        <div class="search-area">
+          <input
+            type="search"
+            v-model.lazy.trim="keyworlds"
+            placeholder="搜尋"
+            @change="SearchMode"
+          />
+          <button class="search-btn">
+            <i class="fa-solid fa-magnifying-glass" style="color: #144433"></i>
+          </button>
+        </div>
+      </div>
+      <div class="main-content">
+        <!-- <Calendar /> -->
+        <div class="myvc-container">
+          <DatePicker
+            :color="selectedColor"
+            :attributes="attrs"
+            v-model="date"
+            mode="date"
+            :rules="rules"
+          />
+          <div class="current-event">
+            <div class="curr-header">{{ formattedDate }}</div>
+            <div class="curr-content" v-for="(item, index) in currentEvent" :key="item.id">
+              <router-link :to="`/activity/${index + 1}`"> {{ item.a_name }}</router-link>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div
+              class="event-card"
+              v-show="isSearchMode === true"
+              v-for="item in searchModePage"
+              :key="item.id"
+            >
+              <router-link :to="`/activity/${item.id}`">
+                <img :src="parsePic(item.a_img)" alt="活動圖片" class="event-img" />
+                <div class="event-content">
+                  <h3 class="event-title">{{ item.a_name }}</h3>
+                  <span class="event-date">{{ item.time }}</span>
+                  <div class="event-class-tag market" v-if="item.c_no === '市集'">
+                    {{ item.c_no }}
+                  </div>
+                  <div class="event-class-tag" v-else>{{ item.c_no }}</div>
+                  <div class="card-footer">
+                    <div class="event-location">
+                      <i class="fa-solid fa-location-dot" style="color: #0fa958"></i
+                      >{{ item.a_loc }}
+                    </div>
+                    <div v-show="item.c_no === '講座'" class="parti-curr">
+                      目前報名人數:{{ item.a_curr }}人/{{ item.a_max }}
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+            <div
+              class="event-card col-12 col-md-6 col-lg-3"
+              v-show="isSearchMode === false && item.isVisable == 'true'"
+              v-for="item in pagenateData"
+              :key="item.id"
+            >
+              <router-link :to="`/activity/${item.id}`">
+                <img :src="parsePic(item.a_img)" alt="活動圖片" class="event-img" />
+                <div class="event-content">
+                  <h3 class="event-title">{{ item.a_name }}</h3>
+                  <span class="event-date">{{ item.time }}</span>
+                  <div class="event-class-tag market" v-if="item.c_no === '市集'">
+                    {{ item.c_no }}
+                  </div>
+                  <div class="event-class-tag" v-else>{{ item.c_no }}</div>
+                  <div class="card-footer">
+                    <div class="event-location">
+                      <i class="fa-solid fa-location-dot" style="color: #0fa958"></i
+                      >{{ item.a_loc }}
+                    </div>
+                    <div
+                      v-show="item.c_no === '講座' && item.isAvailable === false"
+                      class="parti-curr"
+                    >
+                      報名人數:{{ item.a_curr }}/{{ item.a_max }}人
+                    </div>
+                    <div
+                      v-show="item.c_no === '講座' && item.isAvailable === true"
+                      class="fully-booked"
+                    >
+                      已額滿
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+
+            <div class="btn-field" v-if="isVisable.length >= 6 && isSearchMode === false">
+              <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn">
+                <img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭" />
+              </button>
+              <button
+                v-for="item in Math.ceil(isVisable.length / perPage)"
+                :key="item"
+                @click="() => goToPage(item)"
+                class="pageNum"
+              >
+                {{ item }}
+              </button>
+              <button @click="nextPage()" class="next-btn">
+                <img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭" />
+              </button>
+            </div>
+            <div class="btn-field" v-if="filterEvents.length >= 6 && isSearchMode === true">
+              <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn">
+                <img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭" />
+              </button>
+              <button
+                v-for="item in Math.ceil(filterEvents.length / perPage)"
+                :key="item"
+                @click="() => goToPage(item)"
+                class="pageNum"
+              >
+                {{ item }}
+              </button>
+              <button
+                @click="nextPage()"
+                class="next-btn"
+                :disabled="currentPage == Math.ceil(filterEvents.length / perPage)"
+              >
+                <img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭" />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="container"> 
-    <div class="row" >
-      <div class="event-card "   v-show=" isSearchMode === true "  v-for="item in searchModePage" :key="item.id" >
-        <router-link :to='`/activity/${item.id}`' > 
-        <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
-        <div class="event-content">
-        <h3 class="event-title">{{item.a_name}}</h3>
-        <span class="event-date">{{ item.time }}</span>
-       <div class="event-class-tag market" v-if="item.c_no === '市集'">{{item.c_no}}</div>
-       <div class="event-class-tag " v-else>{{item.c_no}}</div>
-        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
-      </div>
-      </router-link>
-      
-      </div>
-      <div class="event-card  col-12 col-md-6 col-lg-3"   v-show=" isSearchMode === false &&  item.isVisable == 'true' "  v-for="item in  pagenateData" :key="item.id" >
-        <router-link :to='`/activity/${item.id}`' > 
-        <img :src=parsePic(item.a_img) alt="活動圖片" class="event-img">
-        <div class="event-content">
-        <h3 class="event-title">{{item.a_name}}</h3>
-        <span class="event-date">{{ item.time }}</span>
-        <div class="event-class-tag market" v-if="item.c_no === '市集'">{{item.c_no}}</div>
-       <div class="event-class-tag " v-else>{{item.c_no}}</div>
-        <div class="event-location"><i class="fa-solid fa-location-dot" style="color: #0FA958;"></i>{{item.a_loc}}</div>
-      </div>
-      </router-link>
-      
-      </div>
-     
-    <div class="btn-field" v-if="isVisable.length >= 6 && isSearchMode === false">
-    <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn"><img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭"></button>
-    <button
-      v-for="item in Math.ceil(isVisable.length / perPage)"
-      :key="item"
-      @click="() => goToPage(item)"  class="pageNum">
-     {{ item }}
-     </button>
-     <button @click="nextPage()" class="next-btn"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
-  </div>
-  <div class="btn-field" v-if="filterEvents.length >= 6 && isSearchMode === true">
-    <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn"><img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭"></button>
-    <button
-      v-for="item in Math.ceil(filterEvents.length / perPage)"
-      :key="item"
-      @click="() => goToPage(item)"  class="pageNum">
-     {{ item }}
-     </button>
-     <button @click="nextPage()" class="next-btn" :disabled="currentPage == Math.ceil(filterEvents.length / perPage)"><img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭"></button>
-  </div>
-    </div> 
-  </div> 
-</div>
-</div>
-</main>
+  </main>
 </template>
 
-<script >
-import { DatePicker  } from 'v-calendar';
-import 'v-calendar/style.css';
-const perPage = 6;
+<script>
+import { DatePicker } from 'v-calendar'
+import 'v-calendar/style.css'
+const perPage = 6
 export default {
   components: {
-    DatePicker,
+    DatePicker
   },
   data() {
     return {
-      currentPage:1,
-      isSearchMode:false,
-      keyworlds:"",
-      date:new Date(),
-      currentClass:0,
-      activeEvents:[]
-    };
-  },methods: {
+      currentPage: 1,
+      isSearchMode: false,
+      keyworlds: '',
+      date: new Date(),
+      currentClass: 0,
+      activeEvents: []
+    }
+  },
+  methods: {
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
-    eventClass () {
-      let currentClassValue = document.querySelector('#event-class');
-      this.currentClass = currentClassValue.value;
+    eventClass() {
+      let currentClassValue = document.querySelector('#event-class')
+      this.currentClass = currentClassValue.value
     },
-    formatDate (date) {
-      const localDate = new Date(date);
-      localDate.setHours(0,0,0,0);
+    formatDate(date) {
+      const localDate = new Date(date)
+      localDate.setHours(0, 0, 0, 0)
       // Extract the date part in 'YYYY-MM-DD' format
-      const year = localDate.getFullYear();
-      const month = String(localDate.getMonth() + 1).padStart(2, '0');
-      const day = String(localDate.getDate()).padStart(2, '0');
-      
-      return `${year}-${month}-${day}`;
+      const year = localDate.getFullYear()
+      const month = String(localDate.getMonth() + 1).padStart(2, '0')
+      const day = String(localDate.getDate()).padStart(2, '0')
+
+      return `${year}-${month}-${day}`
     },
     nextPage() {
-      if (this.currentPage  !== Math.ceil(this.isVisable.length / perPage)) {
-        this.currentPage += 1;
-    }
+      if (this.currentPage !== Math.ceil(this.isVisable.length / perPage)) {
+        this.currentPage += 1
+      }
     },
-    goToPage (numPage) {
-    this.currentPage = numPage;
-  },
+    goToPage(numPage) {
+      this.currentPage = numPage
+    },
     backPage() {
-    if (this.currentPagepage !== 1) {
-      this.currentPage -= 1;
-    }
-  },SearchMode() {
-      if(this.keyworlds != "") {
-        this.isSearchMode = true;
-      }else if  (this.keyworlds == "") {
-        this.isSearchMode = false;
+      if (this.currentPagepage !== 1) {
+        this.currentPage -= 1
       }
-  }
-    },computed: {
-    formattedDate() {
-      return this.formatDate(this.date);
     },
-    isVisable () {
-      for (let i = 0 ;i < this.activeEvents.length;i++) {
-        if( this.currentClass == 0){
-        if(this.activeEvents[i].date == this.date) {
-        this.activeEvents[i].isVisble = true;
-        this.currentPage = 1;
-      }else {
-        this.activeEvents[i].isVisble = false;
-      }}else if(this.currentClass != 0) {
-        if(this.activeEvents[i].date == this.date && this.activeEvents[i].c_no == this.currentClass){
-          this.activeEvents[i].isVisble = true;
-          this.currentPage = 1;
-        }else {
-          this.activeEvents[i].isVisble = false;
+    SearchMode() {
+      if (this.keyworlds != '') {
+        this.isSearchMode = true
+      } else if (this.keyworlds == '') {
+        this.isSearchMode = false
       }
     }
-  }
-  return this.activeEvents.filter(event => event.isVisble === true);
-},pagenateData () {
-  return this.isVisable.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
-},filterEvents () {
-      const strArr = this.keyworlds.split(" ");
-      const arr = [];
+  },
+  computed: {
+    formattedDate() {
+      return this.formatDate(this.date)
+    },
+    isVisable() {
+      for (let i = 0; i < this.activeEvents.length; i++) {
+        if (this.currentClass == 0) {
+          if (this.activeEvents[i].date == this.date) {
+            this.activeEvents[i].isVisble = true
+            this.currentPage = 1
+          } else {
+            this.activeEvents[i].isVisble = false
+          }
+        } else if (this.currentClass != 0) {
+          if (
+            this.activeEvents[i].date == this.date &&
+            this.activeEvents[i].c_no == this.currentClass
+          ) {
+            this.activeEvents[i].isVisble = true
+            this.currentPage = 1
+          } else {
+            this.activeEvents[i].isVisble = false
+          }
+        }
+      }
+      return this.activeEvents.filter((event) => event.isVisble === true)
+    },
+    pagenateData() {
+      return this.isVisable.slice((this.currentPage - 1) * perPage, this.currentPage * perPage)
+    },
+    filterEvents() {
+      const strArr = this.keyworlds.split(' ')
+      const arr = []
       strArr.forEach((str) => {
         this.activeEvents.forEach((item) => {
-          if (item.a_name.includes(str) || item.c_no.includes(str)){
-            arr.push(item);
-          }})
+          if (item.a_name.includes(str) || item.c_no.includes(str)) {
+            arr.push(item)
+          }
         })
+      })
       console.log(arr)
       return arr
-    
-},currentEvent () {
-  if(this.isSearchMode === true) {
-  return this.filterEvents.slice(0,4);
-  }else {
-    return this.pagenateData.slice(0,4);
+    },
+    currentEvent() {
+      if (this.isSearchMode === true) {
+        return this.filterEvents.slice(0, 4)
+      } else {
+        return this.pagenateData.slice(0, 4)
+      }
+    },
+    searchModePage() {
+      return this.filterEvents.slice((this.currentPage - 1) * perPage, this.currentPage * perPage)
+    }
+  },
+  mounted() {
+    fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json)
+        this.activeEvents = json
+        console.log(this.activeEvents)
+      })
   }
-},
-searchModePage () {
-  return this.filterEvents.slice((this.currentPage - 1) * perPage, this.currentPage * perPage);
-}
-},mounted() {
-  fetch(`${import.meta.env.BASE_URL}activityPage.json`)
-  .then(res=>res.json())
-  .then(json=> {
-    console.log(json);
-    this.activeEvents = json;
-    console.log(this.activeEvents);
-  })
-},
 }
 </script>
 <script setup>
-import { ref,} from 'vue';
-const selectedColor = ref('green');
+import { ref, onMounted} from 'vue'
+//fetch data
+let data = ref(null)
+let isAvailableEvents
+let eventsData = ref([]);
+let activedEvents = ref([]);
+const fetchData = async () => {
+  const response = await fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+  const result = await response.json()
+  data.value = result;
+  let uniqueDate = function () {
+    eventsData.value.push(data.value[0].a_date);
+    for (let i = 1;i < Object.values(data.value).length;i++) {
+      if(data.value[i].a_date != data.value[i-1].a_date){
+        eventsData.value.push(Object.values(data.value)[i].a_date);
+      } ;
+    };
+  }
+  isAvailableEvents = () => {
+    uniqueDate();
+    for (let i = 0; i < Object.values(eventsData.value).length; i++) {
+      let dateNum = Object.values(eventsData.value)[i]
+      let parts = dateNum.toString().split(',')
+      let formattedArray = parts.map((part) => Number(part))
+      let year = formattedArray[0]
+      let month = formattedArray[1]
+      let day = formattedArray[2]
+      let date = new Date(year, month, day);
+      activedEvents.value.push(date);
+      console.log(Object.values(activedEvents.value))
+    }
+  }
+  isAvailableEvents()
+}
+onMounted(() => {
+  fetchData()
+})
+const selectedColor = ref('green')
 const attrs = ref([
   {
     key: 'today',
     highlight: true,
     dates:new Date(),
+  },
+  {
+    key: 'custom-dates',
+    dot: 'green',
+    dates:activedEvents.value,
   }
-]);
-const rules = ref({ 
+])
+const rules = ref({
   hours: 0,
   minutes: 0,
   seconds: 0,
-  milliseconds: 0,
+  milliseconds: 0
 })
 </script>
 <style lang="scss" scoped>
 .myvc-container:deep(.vc-arrow) {
   border-radius: 20px;
-  margin:0 10px;
+  margin: 0 10px;
   color: $darkGreen;
-
-} 
+}
 .myvc-container :deep(.vc-header) {
   background-color: #144333;
   padding: 0;
-  margin:auto ;
+  margin: auto;
   color: #fff;
-  width:100%;
+  width: 100%;
   height: 50px;
-  border-top-left-radius:5px ;
+  border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   span {
-            z-index: 2;
-          }
+    z-index: 2;
+  }
 }
 .myvc-container :deep(.vc-title) {
-    color: #fff;
-    background-color: transparent
-  }
-  .myvc-container :deep(.vc-weeks)  {
-    background-color: #F8F3D8;
-  }
-  .myvc-container :deep(.vc-weekday)  {
-    border-bottom: 1px solid #144333;
-    color: #000;
-  }
-  .myvc-container :deep(.vc-light) {
-    --vc-header-title-color:#fff;
-    --vc-nav-title-color:#fff;
-  } 
-  //title active nav 
-  .myvc-container :deep(.vc-nav-title) {
-    color: #000;
-  }
-  //main area 
-  .activity-section {
-    width: 100vw;
-    max-width: 1200px;
+  color: #fff;
+  background-color: transparent;
+}
+.myvc-container :deep(.vc-weeks) {
+  background-color: #f8f3d8;
+}
+.myvc-container :deep(.vc-weekday) {
+  border-bottom: 1px solid #144333;
+  color: #000;
+}
+.myvc-container :deep(.vc-light) {
+  --vc-header-title-color: #fff;
+  --vc-nav-title-color: #fff;
+}
+//title active nav
+.myvc-container :deep(.vc-nav-title) {
+  color: #000;
+}
+//main area
+.activity-section {
+  width: 100vw;
+  max-width: 1200px;
+  margin: auto;
+  .activity-container {
+    width: 80%;
     margin: auto;
-    .activity-container {
-      width: 80%;
-      margin: auto;
-      .activity-title {
-        color:$darkGreen;
-        font-size:map-get($title ,h2);
-        font-family: $titleFont;
-        position: relative;
-        @include sm ()  {
-          text-align: center;
-        }
-         &::before {
-          content:'';
-          width: 5px;
-          height: 60px;
-          background-color: $darkGreen;
-          display: inline-block;
-          position: absolute;
-          top:-10px;
-          left: -15px;
-          @include sm ()  {
+    .activity-title {
+      color: $darkGreen;
+      font-size: map-get($title, h2);
+      font-family: $titleFont;
+      position: relative;
+      @include sm() {
+        text-align: center;
+      }
+      &::before {
+        content: '';
+        width: 5px;
+        height: 60px;
+        background-color: $darkGreen;
+        display: inline-block;
+        position: absolute;
+        top: -10px;
+        left: -15px;
+        @include sm() {
           left: 35%;
         }
-        }
       }
-      .search-field{
+    }
+    .search-field {
+      width: 100%;
+      margin: 40px 0 50px 0;
+      display: flex;
+      justify-content: flex-end;
+      @include lg() {
+        justify-content: space-between;
+        gap: 20px;
+      }
+      @include sm() {
+        flex-direction: column;
+      }
+    }
+    select {
+      width: 180px;
+      border: none;
+      margin-right: 20px;
+      color: $darkGreen;
+      border-bottom: 1px solid #979797;
+      padding-bottom: 5px;
+      cursor: pointer;
+      outline: none;
+      background-color: transparent;
+      @include lg() {
+        width: 45%;
+      }
+      @include sm() {
         width: 100%;
-        margin: 40px 0 50px 0;
-        display: flex;
-        justify-content: flex-end;
-        @include lg ()  {
-          justify-content: space-between;
-          gap: 20px;
-        };
-        @include sm () {
-          flex-direction: column;
-        }
       }
-      select {
-        width: 180px;
+    }
+    .search-area {
+      position: relative;
+      @include lg() {
+        width: 45%;
+      }
+      @include sm() {
+        width: 100%;
+      }
+      input[type='search'] {
         border: none;
-        margin-right: 20px;;
-        color:$darkGreen;
-        border-bottom:1px solid #979797;
-        padding-bottom:5px ;
-        cursor: pointer;
-        outline: none;
-        background-color: transparent;
-        @include lg ()  {
-          width: 45%;
-        };
-        @include sm ()  {
-          width: 100%;
-        }
-      }
-      .search-area {
-        position: relative;
-        @include lg ()  {
-          width: 45%;
-        };
-        @include sm () {
-          width: 100%;
-        }
-      input[type="search"] {
-        border:none;
         width: 100%;
-        border-bottom:1px solid  #979797;
+        border-bottom: 1px solid #979797;
         padding: 5px 10px 5px 30px;
-        color:$darkGreen;
+        color: $darkGreen;
         background-color: transparent;
       }
       .search-btn {
         background-color: transparent;
-        border:none;
-        position:absolute;
-        left:0px;
-        top:5px;
+        border: none;
+        position: absolute;
+        left: 0px;
+        top: 5px;
         cursor: pointer;
       }
-      }
     }
-    .main-content {
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      @include lg () {
-      flex-direction:column;
-   
+  }
+  .main-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    @include lg() {
+      flex-direction: column;
+    }
+    .myvc-container {
+      @include lg() {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
       }
-      .myvc-container {
-        @include lg () {
-          display: flex;
-         justify-content: space-between;
-         margin-bottom: 30px;
-        }
-        @include sm ()  {
-          justify-content: center;
-        }
+      @include sm() {
+        justify-content: center;
+      }
       .current-event {
         width: 250px;
         margin-top: 40px;
-        @include lg ()  {
+        @include lg() {
           width: 300px;
           margin-left: 15px;
         }
-        @include sm ()  {
+        @include sm() {
           display: none;
         }
         .curr-header {
           font-family: inherit;
           width: 100%;
           font-size: $fontBase;
-          color:#fff;
+          color: #fff;
           background-color: $darkGreen;
           border-top-left-radius: 20px;
           border-top-right-radius: 20px;
@@ -380,104 +492,125 @@ const rules = ref({
           text-align: center;
         }
         .curr-content {
-            color:$darkGreen;
-            font-size: 14px;
-            padding: 15px 10px ;
-            border: none;
-            border-bottom: 0.5px solid $darkGreen;
-            border-left: 0.5px solid $darkGreen;
-            cursor: pointer;
-            > a {
-              text-decoration: none;
-              color:$darkGreen;
-            }
+          color: $darkGreen;
+          font-size: 14px;
+          padding: 15px 10px;
+          border: none;
+          border-bottom: 0.5px solid $darkGreen;
+          border-left: 0.5px solid $darkGreen;
+          cursor: pointer;
+          > a {
+            text-decoration: none;
+            color: $darkGreen;
           }
+        }
       }
     }
-      .container {
-        width: 65%;
-        height: 930px;
-        margin:0 0 0 40px ;
-        position: relative;
-        @include lg() {
-          width: 100%;
-          margin: 0;
-          height:auto;
-        }
-        @include sm() {
-          width: 80%;
-          max-width: 300px;
-          margin: auto;
-        }
-        .row {
-          justify-content: space-between;
+    .container {
+      width: 65%;
+      height: 930px;
+      margin: 0 0 0 40px;
+      position: relative;
+      @include lg() {
+        width: 100%;
+        margin: 0;
+        height: auto;
+      }
+      @include sm() {
+        width: 80%;
+        max-width: 300px;
+        margin: auto;
+      }
+      .row {
+        justify-content: space-between;
         .event-card {
           width: 45%;
           padding: 0;
           position: relative;
-          margin:0 0% 20px 0;
-          @include sm ()  {
-          width: 100%;
-        }
-          a{
-            text-decoration: none;
-            color:$darkGreen;
-          .event-img{
+          margin: 0 0% 20px 0;
+          @include sm() {
             width: 100%;
-            height: 60%;
-            object-fit: cover;
-            vertical-align: bottom;
-            cursor: pointer;
           }
-          .event-content {
-            border:1px solid $darkGreen;
-            padding: 5px 10px;
-            box-sizing: border-box;
-            border-top: none;
-            height: 100px;
-            .event-title {
-              font-size: $fontBase;
-              color:$darkGreen;
-              margin-bottom: 1px;
+          a {
+            text-decoration: none;
+            color: $darkGreen;
+            .event-img {
+              width: 100%;
+              height: 60%;
+              object-fit: cover;
+              vertical-align: bottom;
+              cursor: pointer;
             }
-            .event-date {
-              font-size: 10px;
-              color: $darkGreen;
-            }
-            .event-class-tag {
-              position: absolute;
-              right: 2px;
-              top: -10px;
-              width: 35px;
-              background-color: #144333;
-              padding: 5px;
-              color: #fff;
-              font-size: 14px;
-              text-align: center;
-              &::before {
-                content: "";
+            .event-content {
+              border: 1px solid $darkGreen;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              border-top: none;
+              height: 100px;
+              .event-title {
+                font-size: clamp(12px, $fontBase, 15px);
+                color: $darkGreen;
+                margin-bottom: 1px;
+              }
+              .event-date {
+                font-size: 10px;
+                color: $darkGreen;
+              }
+              .event-class-tag {
                 position: absolute;
-                top:0;
-                left: -10px;
-                width: 0;
-                height: 0;
-                border-bottom: 10px solid #6B8A7A;
-                border-left: 10px solid transparent;
+                right: 2px;
+                top: -10px;
+                width: 35px;
+                background-color: #144333;
+                padding: 5px;
+                color: #fff;
+                font-size: 14px;
+                text-align: center;
+                &::before {
+                  content: '';
+                  position: absolute;
+                  top: 0;
+                  left: -10px;
+                  width: 0;
+                  height: 0;
+                  border-bottom: 10px solid #6b8a7a;
+                  border-left: 10px solid transparent;
+                }
+              }
+              .market {
+                background-color: $lightGreen;
+              }
+              .card-footer {
+                position: relative;
+                .event-location {
+                  margin-top: 10px;
+                  margin-bottom: 6px;
+                  font-size: 14px;
+                  color: $darkGreen;
+                  i {
+                    margin-right: 5px;
+                  }
+                }
+                .parti-curr {
+                  font-size: 11px;
+                  margin-right: 5px;
+                  text-align: end;
+                  color: #144333;
+                }
+                .fully-booked {
+                  font-size: 11px;
+                  text-align: center;
+                  color: #fff;
+                  width: 50px;
+                  padding: 5px 2px;
+                  background-color: #e40e1a;
+                  position: absolute;
+                  border-radius: 50px;
+                  right: 10px;
+                  bottom: -11px;
+                }
               }
             }
-            .market {
-              background-color: $lightGreen;
-            }
-            .event-location {
-              margin-top: 10px;
-              margin-bottom: 10px;
-              font-size: 14px;
-              color: $darkGreen;
-              i {
-                margin-right:5px ;
-              }
-            }
-          }
           }
         }
         .btn-field {
@@ -493,50 +626,47 @@ const rules = ref({
               width: 0;
             }
           }
-          .pre-btn,.next-btn {
+          .pre-btn,
+          .next-btn {
             width: 50px;
             height: 50px;
             border: 1.5px solid $darkGreen;
             background-color: transparent;
-            margin:0 20px 0 20px;
+            margin: 0 20px 0 20px;
             position: relative;
-            >img {
+            > img {
               width: 100%;
             }
-            @include bp (470px) {
+            @include bp(470px) {
               width: 45px;
               height: 45px;
             }
           }
           .pageNum {
             background-color: transparent;
-            border:none;
+            border: none;
             font-size: $fontBase;
-            color:$darkGreen;
+            color: $darkGreen;
             position: relative;
-            margin:0 20px 0 30px;
-            @include bp (470px) 
-            {
-              margin:auto;
+            margin: 0 20px 0 30px;
+            @include bp(470px) {
+              margin: auto;
             }
             &::before {
               content: '';
               position: absolute;
               width: 30px;
               border: 1px solid $darkGreen;
-              top:9px;
+              top: 9px;
               right: 30px;
               @include sm {
                 display: none;
               }
-
-
             }
           }
         }
-        }
       }
     }
-
   }
+}
 </style>
