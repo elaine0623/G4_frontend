@@ -27,7 +27,7 @@ export default {
         this.responseData = await this.fetchData();
         if (this.responseData.length > 0) {
           this.mainImage = this.responseData[val - 1].p_img[0];
-        }
+        } 
       },
     },
   },

@@ -364,18 +364,18 @@ section {
           text-decoration: none;
           display: block;
 
-         
 
-          .img-product { 
-            // width: 100%;
-            // height: 60px;
-            // background-size: cover;
+
+          .img-product {
+            width: 100%;
+            aspect-ratio: 1/0.7;
+
 
             img {
               width: 100%;
-            
-
-              vertical-align: bottom;
+              max-height: 100%;
+              object-fit: cover; // 改為 contain
+              vertical-align: middle; // 改為 middle 以居中對齊
             }
 
           }
