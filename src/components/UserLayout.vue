@@ -17,8 +17,9 @@ const hideChild = computed(() => {
 </script>
 
 <script>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import { onMounted, onUnmounted } from 'vue';
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 export default {
   data() {
     return {
@@ -41,6 +42,18 @@ export default {
           this.timer = null
         }
       }, 1000) // 每秒執行一次進入作用域
+    },
+    async memsignout() {
+      try {
+        const store = useAdminStore() // 獲取 Pinia store
+
+        store.clearCurrentUser() // 設置當前用戶到 Pinia
+        alert('已登出')
+        this.$router.push('/')
+      } catch (error) {
+        console.error('發生錯誤:', error)
+        alert('發生錯誤')
+      }
     }
   },
   // mounted () {
@@ -53,20 +66,20 @@ export default {
     if (this.timer) {
       clearInterval(this.timer) // 防止記憶體洩漏，清除定時器
     }
-  },setup() {
+  }, setup() {
     const router = useRouter();
-    const handleResize = () =>{
-    if (window.innerWidth > 768) {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
         console.log('change');
         router.push('/userlayout/userfavorite')
       }
-  };
-  onMounted(() => {
-      window.addEventListener('resize',handleResize);
+    };
+    onMounted(() => {
+      window.addEventListener('resize', handleResize);
     });
 
     onUnmounted(() => {
-      window.removeEventListener('resize',handleResize);
+      window.removeEventListener('resize', handleResize);
     });
 
   }
@@ -86,21 +99,13 @@ export default {
         </div>
         <span class="member-name">方老伯</span>
         <div class="btn-selection">
-          <router-link to="/userlayout/userdata"
-            ><button class="btn-info">個人資料</button></router-link
-          >
-          <router-link to="/userlayout/userfavorite"
-            ><button class="btn-like">收藏項目</button></router-link
-          >
-          <router-link to="/userlayout/userorder"
-            ><button class="btn-order">訂單紀錄</button></router-link
-          >
-          <router-link to="/userlayout/useractivity"
-            ><button class="btn-activity">活動紀錄</button></router-link
-          >
+          <router-link to="/userlayout/userdata"><button class="btn-info">個人資料</button></router-link>
+          <router-link to="/userlayout/userfavorite"><button class="btn-like">收藏項目</button></router-link>
+          <router-link to="/userlayout/userorder"><button class="btn-order">訂單紀錄</button></router-link>
+          <router-link to="/userlayout/useractivity"><button class="btn-activity">活動紀錄</button></router-link>
         </div>
         <div class="logout">
-          <button class="btn-logout">
+          <button class="btn-logout" @click="memsignout">
             登出<i class="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
         </div>
@@ -118,18 +123,10 @@ export default {
       </div>
       <span class="member-name">方老伯</span>
       <div class="btn-selection">
-        <router-link to="/userlayout/userdata"
-          ><button class="btn-info">個人資料</button></router-link
-        >
-        <router-link to="/userlayout/userfavorite"
-          ><button class="btn-like">收藏項目</button></router-link
-        >
-        <router-link to="/userlayout/userorder"
-          ><button class="btn-order">訂單紀錄</button></router-link
-        >
-        <router-link to="/userlayout/useractivity"
-          ><button class="btn-activity">活動紀錄</button></router-link
-        >
+        <router-link to="/userlayout/userdata"><button class="btn-info">個人資料</button></router-link>
+        <router-link to="/userlayout/userfavorite"><button class="btn-like">收藏項目</button></router-link>
+        <router-link to="/userlayout/userorder"><button class="btn-order">訂單紀錄</button></router-link>
+        <router-link to="/userlayout/useractivity"><button class="btn-activity">活動紀錄</button></router-link>
       </div>
       <div class="logout">
         <button class="btn-logout">登出<i class="fa-solid fa-arrow-right-from-bracket"></i></button>

@@ -117,12 +117,15 @@ export default {
           })
         const users = await response.json();
         console.log(users["data"]);
+        console.log(store.currentUser);
         if (users.code != 200) {
           alert(users.msg);
           this.acc = ''
           this.lpsw = ''
         } else {
           store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
+          console.log(store.currentUser);
+          console.log(store.currentAccount);
           alert('登入成功!')
           this.$router.push('/userlayout/userdata')
         }
