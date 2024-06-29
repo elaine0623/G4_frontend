@@ -79,7 +79,7 @@ export default {
       left: `${fruitPosition.value.left}px`,
       top: `${fruitPosition.value.top}px`,
       opacity: isNewFruit.value ? 0 : 1, // 控制新水果透明度
-      transition: 'opacity 1s ease' // 過渡效果
+      transition: 'opacity 10s ease' // 過渡效果
     }))
 
     // 隨機選擇水果
