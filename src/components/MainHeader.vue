@@ -19,7 +19,6 @@ export default {
   },
   created() {
     this.loadCurrentUser();
-    console.log(this.loadCurrentUser);
   },
 }
 </script>

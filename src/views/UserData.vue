@@ -1,9 +1,10 @@
 <script>
 import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
-
+import md5 from 'js-md5';
 export default {
   data() {
     return {
+      userData: {},
       name: '',
       account: '',
       password: '',
@@ -20,14 +21,54 @@ export default {
 
   },
   methods: {
-    dbcheckpsw() {
-      if (this.psw !== this.dbpsw) {
-        this.errorMsg.dbpsw = "兩者密碼不相同，請重新輸入";
-      } else {
-        this.errorMsg.dbpsw = "";
+    checkname() {
+      if (this.name == "") {
+        alert("姓名不得為空值");
       }
     },
+    checkphone() {
+      const phonerule = /09\d{8}/;
+      if (!phonerule.test(this.phone)) {
+        alert("電話號碼格式錯誤");
+      }
+    },
+    checkoldpsw() {
+      if (md5(this.old_psw) !== this.userData["m_password"]) {
+        alert("舊密碼錯誤");
+      }
+    },
+    dbcheckpsw() {
+      if (this.psw !== this.dbpsw) {
+        alert("兩者密碼不相同，請重新輸入");
+      }
+    },
+    submit() {
+      alert("hihi");
+      // if (!this.checkname() || !this.checkphone() || !this.checkoldpsw() || !this.dbcheckpsw()) {
+      //   return false;
+      // }
+      const url = `http://localhost/php_G4/revise_member.php`
+      let body = {
+        "m_id": this.userData.m_id,
+        "name": this.name,
+        "phone": this.phone,
+        "psw": this.psw,
+        "dbpsw": this.dbpsw,
+      }
+
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
+        .then(response => response.json())
+        .then(
+          json => {
+            this.data = json
+          }
+        );
+    }
   },
+  //存取是否登入
   mounted() {
     const store = useAdminStore();
     const isLogin = store.isLoggedIn();
@@ -36,7 +77,10 @@ export default {
     }
     const user = localStorage.getItem('currentUser');
     console.log(user);
-    this.userData = JSON.parse(user);
+    if (user) {
+      this.userData = JSON.parse(user);
+      this.name = this.userData.m_name;
+    }
   },
 }
 </script>
@@ -48,7 +92,7 @@ export default {
     <form @submit.prevent="submitForm">
       <div class="name">
         <label for="name">姓名</label>
-        <input type="text" :value="this.userData.m_name">
+        <input type="text" v-model="name" @change="checkname()">
       </div>
       <div class="account">
         <label for="account">帳號</label>
@@ -56,7 +100,7 @@ export default {
       </div>
       <div>
         <label for="phone">電話</label>
-        <input type="tel" v-model="phone" name="m_phone">
+        <input type="tel" v-model="phone" name="m_phone" @change="checkphone()">
       </div>
       <div class="birth">
         <label for="birth">生日</label>
@@ -69,7 +113,7 @@ export default {
       <hr style="color: #144433; width: 100%;">
       <div class="oldpsw">
         <label for="old_psw">舊密碼</label>
-        <input type="password" v-model="old_psw" name="">
+        <input type="password" v-model="old_psw" @change="checkoldpsw()">
       </div>
       <div class="newpsw">
         <label for="new_psw">新密碼</label>
@@ -81,7 +125,7 @@ export default {
       </div>
     </form>
   </div>
-  <button>儲存</button>
+  <button @click="submit()">儲存</button>
 </template>
 
 <style lang="scss" scoped>
