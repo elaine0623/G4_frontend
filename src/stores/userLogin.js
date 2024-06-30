@@ -25,7 +25,7 @@ export const useAdminStore = defineStore('admin', {
             if (user) {
                 const parsedUser = JSON.parse(user)
                 this.currentUser = parsedUser
-                this.currentAccount = parsedUser.account
+                this.currentAccount = parsedUser.m_name
             }
         }
     }

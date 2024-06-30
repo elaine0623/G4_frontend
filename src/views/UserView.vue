@@ -6,6 +6,9 @@ export default {
     return {
       signUp: false,
       name: '',
+      email: '',
+      psw: '',
+      dbpsw: '',
       errorMsg: {
         name: '',
         email: '',
@@ -13,19 +16,12 @@ export default {
         dbpsw: ''
       },
       mbSignup: false,
-      // login: {
-      //   acc: '',
-      //   psw: '',
-      // },
+      // login
+      acc: '',
+      lpsw: '',
       returnData: []
     }
   },
-  // setup() {
-  //   const store = useAdminStore()
-  //   return {
-  //     store
-  //   }
-  // },
   components: {
     UserLayout
   },
@@ -133,7 +129,7 @@ export default {
         console.error('登入失敗:', error)
         alert('登入失敗')
       }
-    }
+    },
   }
 }
 </script>
