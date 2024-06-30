@@ -28,7 +28,7 @@
         <p>採收結束!</p>
         <p>總共採集了 {{ score }} 個</p>
         <p v-if="score >= 10">恭喜獲得折價券</p>
-        <p v-if="score >= 10">#123456</p>
+        <p v-if="score >= 10">CCC8888</p>
       </div>
     </div>
   </div>
@@ -108,7 +108,7 @@ export default {
 
       fruitPosition.value = {
         left: Math.round(minWidth + Math.random() * (maxWidth - minWidth)),
-        top: -100
+        top: -50
       }
 
       step.value = 1 + Math.round(5 * Math.random())
