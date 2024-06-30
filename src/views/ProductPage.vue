@@ -10,9 +10,10 @@ export default {
   computed: {
     userId() {
       return this.$route.params.productId;
+      // return item.$route.params. pi_id;
     },
     filteredImages() {
-      const product = this.responseData[this.userId - 1];
+      const product = this.responseData[this.userId-1];
       if (product && product.p_img) {
         // 确保只返回三张次要小圖
         return product.p_img.filter(img => this.parsePic(img) !== this.mainImage).slice(0, 3);
@@ -24,11 +25,16 @@ export default {
     userId: {
       immediate: true,
       handler: async function (val) {
+        console.log(typeof(val));
         this.responseData = await this.fetchData();
-        if (this.responseData.length > 0) {
-          this.mainImage = this.responseData[val - 1].p_img[0];
-        } 
+        console.log(parseInt(val)-1);
+        console.log(typeof(parseInt(val)-1));
+        this.mainImage = this.responseData[1].p_img[0];
+        // if (this.responseData.length > 0) {
+          // this.mainImage = this.responseData[parseInt(val)-1].p_img[0];
+        // } 
       },
+
     },
   },
   methods: {
@@ -46,11 +52,35 @@ export default {
 
     },
     async fetchData() {
-      //  fetch data from API
-      return await fetch(`${import.meta.env.BASE_URL}productList.json`)
-        .then((response) => response.json())
-        .then((json) => json);
-    }, addCart(index) {
+     
+     let body = {
+       "page": 2,
+     }
+     fetch(`http://localhost/php_g4/product.php`, {
+       method: "POST",
+       body: JSON.stringify(body)
+     })
+       .then((res) => res.json())
+       .then((json) => {
+         this.responseData = json["data"]["list"]
+         // localStorage.setItem(`user1`, JSON.stringify(json))
+         console.log(json);
+         console.log(this.responseData);
+       })
+     // //  fetch data from API
+     // return await fetch(`${import.meta.env.BASE_URL}productList.json`)
+     //   .then((response) => response.json())
+     //   .then((json) => {
+     //     console.log(json)
+     //   this.responseData = json
+     //   console.log(this.responseData)
+     //   }
+     
+     // );
+      
+      
+   }
+    , addCart(index) {
       if (this.responseData[index].isaddCart === false) {
         this.responseData[index].isaddCart = true;
         // localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.responseData[index]));
@@ -73,7 +103,7 @@ export default {
     this.responseData = await this.fetchData();
     if (this.responseData.length > 0) {
       this.mainImage = this.parsePic(this.responseData[this.userId - 1].p_img[0]);
-      // console.log(this.mainImage);
+      console.log(this.mainImage);
     };
     if (localStorage.getItem('user1') != null) {
       let responseDatas = localStorage.getItem('user1');

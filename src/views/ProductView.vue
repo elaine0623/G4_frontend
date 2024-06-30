@@ -7,7 +7,9 @@ export default {
       currentPage: 1,
       keyworlds: '',
       search: '',
-      currentClass: '0'
+      currentClass: '0',
+      totalPages: 1,
+      itemsPerPage: 12,
     }
   },
   methods: {
@@ -37,9 +39,10 @@ export default {
       }
     },
     //fetch json檔商品資料
-    fetchData() {
+    fetchData(page) {
       let body = {
-        "page": 2,
+        "page": page,
+        "limit": this.itemsPerPage
       }
       fetch(`http://localhost/php_g4/product.php`, {
         method: "POST",
@@ -53,6 +56,10 @@ export default {
             isaddCart: false,
             isImage1: false
           }));
+          this.totalPages = json["data"]["totalPages"] // 假設後端返回總頁數
+          this.currentPage = page
+          console.log(this.totalPages);
+        
           // .then((json) => {
           //   this.responseData = json["data"]["list"]
           //   // localStorage.setItem(`user1`, JSON.stringify(json))
@@ -61,6 +68,11 @@ export default {
           //   console.log(this.responseData);
         })
     },
+    changePage(page) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.fetchData(page)
+    }
+  },
     clear() {
       //清空搜尋資料
       this.search = ''
@@ -206,15 +218,17 @@ export default {
           </div>
         </div>
         <div class="carousel">
-          <div class="button prev">
+          <div class="button prev"  @click="changePage(currentPage - 1)" :class="{ disabled: currentPage === 1}">
             <img src="../assets/image/leftbutton.svg" alt="" />
           </div>
           <ul class="pagination">
-            <li>01</li>
-            <li>02</li>
-            <li>03</li>
+            <li v-for="page in totalPages" :key="page" @click="changePage(page)" :class="{ active: page === currentPage }">
+      {{ page.toString().padStart(2, '0') }}
+    </li>
+            <!-- <li>02</li>
+            <li>03</li> -->
           </ul>
-          <div class="button next">
+          <div class="button next" @click="changePage(currentPage + 1)" :class="{ disabled: currentPage === totalPages }">
             <img src="../assets/image/rightbutton.svg" alt="" />
           </div>
         </div>
