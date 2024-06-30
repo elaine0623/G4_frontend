@@ -8,8 +8,9 @@ export default {
       keyworlds: '',
       search: '',
       currentClass: '0',
-      totalPages: 1,
       itemsPerPage: 12,
+      totalPages: 1,
+      loading: false,
     }
   },
   methods: {
@@ -39,10 +40,11 @@ export default {
       }
     },
     //fetch json檔商品資料
-    fetchData(page) {
+    fetchData() {
+      this.loading = true;
+
       let body = {
-        "page": page,
-        "limit": this.itemsPerPage
+        "page": this.currentPage,
       }
       fetch(`http://localhost/php_g4/product.php`, {
         method: "POST",
@@ -56,10 +58,17 @@ export default {
             isaddCart: false,
             isImage1: false
           }));
-          this.totalPages = json["data"]["totalPages"] // 假設後端返回總頁數
-          this.currentPage = page
-          console.log(this.totalPages);
-        
+          this.totalPages = json["data"]["total_pages"] || 1;
+          console.log("Current page:", this.currentPage);
+          console.log("Total pages:", this.totalPages);
+          console.log("Items loaded:", this.responseData.length);
+          this.loading = false;
+        })
+        .catch(error => {
+          console.error("Error fetching data:", error);
+          this.loading = false;
+
+
           // .then((json) => {
           //   this.responseData = json["data"]["list"]
           //   // localStorage.setItem(`user1`, JSON.stringify(json))
@@ -69,71 +78,86 @@ export default {
         })
     },
     changePage(page) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.fetchData(page)
-    }
-  },
-    clear() {
-      //清空搜尋資料
-      this.search = ''
-      this.isSearchMode = false
-      this.displayData = this.responseData
-    },
-    activedClass() {
-      let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
-      this.currentClass = activeClass.value;
-    }
-  },
-  created() {
-    this.fetchData()
-    //若有登入情況下
-    // console.log(localStorage.getItem('user1'))
-    // if (localStorage.getItem('user1') != null) {
-    //   let userInfo = localStorage.getItem('user1')
-    //   this.responseData = JSON.parse(userInfo)
-    //   console.log(this.responseData)
-    //   // console.log(this.displayData );
-    // } else {
-    //   this.fetchData()
-    // }
-  },
-  computed: {
-    //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
-    filterDataDisplay() {
-      // console.log(this. filterDataDisplay());
-      //初始狀態(沒有search跟篩選的狀況)
-      if (!this.search && this.currentClass === "0") {
-        console.log(this.responseData);
-        return this.responseData;
-
-        //有search但沒有篩選
-      } else if (this.search && this.currentClass === "0") {
-        return this.responseData.filter((item) => {
-          return (
-            item.p_name.includes(this.search) ||
-            item.pc_name.includes(this.search) ||
-            item.f_name.includes(this.search)
-          )
-        })
-        //沒有篩選但有search
-      } else if (!this.search && this.currentClass !== "0") {
-        return this.responseData.filter((item) => {
-          return item.pc_name === this.currentClass;
-        })
-      } else {//先做搜尋再篩選目前disable
-        this.responseData.filter((item) => {
-          return (
-            item.p_name.includes(this.search) ||
-            item.pc_name.includes(this.search) ||
-            item.f_name.includes(this.search)
-          )
-        })
-        return this.responseData.filter((item) => {
-          return item.pc_name === this.currentClass;
-        })
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.fetchData();
       }
-    }
+    },
+
+    nextPage() {
+      console.log("點擊下一頁");
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.fetchData();
+      }
+    },
+    prevPage() {
+  
+        console.log("點擊上一頁");
+        if (this.currentPage > 1) {
+          this.currentPage--;
+          this.fetchData();
+        }
+      
+    
+  },
+  clear() {
+    //清空搜尋資料
+    this.search = ''
+    this.isSearchMode = false
+    this.displayData = this.responseData
+  },
+  activedClass() {
+    let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
+    this.currentClass = activeClass.value;
   }
+},
+created() {
+
+  this.fetchData(this.currentPage);
+
+  // this.fetchData()
+  //若有登入情況下
+  // console.log(localStorage.getItem('user1'))
+  // if (localStorage.getItem('user1') != null) {
+  //   let userInfo = localStorage.getItem('user1')
+  //   this.responseData = JSON.parse(userInfo)
+  //   console.log(this.responseData)
+  //   // console.log(this.displayData );
+  // } else {
+  //   this.fetchData()
+  // }
+},
+computed: {
+  filterDataDisplay() {
+    if (this.loading) {
+      return [];
+    }
+
+    let filteredData = this.responseData;
+
+    // 应用搜索过滤
+    if (this.search) {
+      filteredData = filteredData.filter((item) => {
+        return (
+          item.p_name.includes(this.search) ||
+          item.pc_name.includes(this.search) ||
+          item.f_name.includes(this.search)
+        );
+      });
+    }
+
+    // 应用分类过滤
+    if (this.currentClass !== "0") {
+      filteredData = filteredData.filter((item) => {
+        return item.pc_name === this.currentClass;
+      });
+    }
+
+    console.log("Filtered items:", filteredData.length);
+    return filteredData;
+  }
+}
 }
 </script>
 
@@ -177,60 +201,67 @@ export default {
       </div>
 
       <div class="container">
-        <div class="row list-product">
-          <!-- <img :src="parsePic(responseData[2].p_img[0])" alt="商品圖片" /> -->
-          <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay" :key="cardtIndex">
-            <div class="card-product">
-              <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
-                <div class="img-product">
-                  <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
-                </div>
-              </router-link>
-              <div class="into-card">
-                <div class="category-card">
-                  <div class="name-card">
-                    <div class="title-category-card">
-                      <p>{{ cardtItem['f_name'] }}</p>
-                    </div>
-                    <span>{{ cardtItem['p_name'] }}</span>
-                  </div>
-                  <div class="hart-pic-card" @click.prevent="toggleImage(cardtItem.id)">
-                    <img :src="cardtItem['isImage1']
-                      ? parsePic(cardtItem.hartImage)
-                      : parsePic(cardtItem.hartImage1)
-                      " alt="" />
-                  </div>
-                </div>
-                <div class="member-card">
-                  <button class="cart-shopping" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === false">
-                    <i class="fa-solid fa-cart-shopping"></i>加入購物車
-                  </button>
-                  <button class="cart-cancel-btn" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === true">
-                    <i class="fa-solid fa-xmark"></i>取消
-                  </button>
+        <div v-if="!loading">
+          <div class="row list-product">
+            <!-- <img :src="parsePic(responseData[2].p_img[0])" alt="商品圖片" /> -->
+            <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay"
+              :key="cardtIndex">
+              <div class="card-product">
 
-                  <div class="money-card">
-                    <span>NT${{ cardtItem['p_fee'] }}</span>
+                <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
+                  <div class="img-product">
+                    <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
+                  </div>
+                </router-link>
+                <div class="into-card">
+                  <div class="category-card">
+                    <div class="name-card">
+                      <div class="title-category-card">
+                        <p>{{ cardtItem['f_name'] }}</p>
+                      </div>
+                      <span>{{ cardtItem['p_name'] }}</span>
+                    </div>
+                    <div class="hart-pic-card" @click.prevent="toggleImage(cardtItem.id)">
+                      <img :src="cardtItem['isImage1']
+                        ? parsePic(cardtItem.hartImage)
+                        : parsePic(cardtItem.hartImage1)
+                        " alt="" />
+                    </div>
+                  </div>
+                  <div class="member-card">
+                    <button class="cart-shopping" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === false">
+                      <i class="fa-solid fa-cart-shopping"></i>加入購物車
+                    </button>
+                    <button class="cart-cancel-btn" @click="addCart(cardtItem.id)" v-if="cardtItem.isaddCart === true">
+                      <i class="fa-solid fa-xmark"></i>取消
+                    </button>
+
+                    <div class="money-card">
+                      <span>NT${{ cardtItem['p_fee'] }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="carousel">
+            <div class="button prev" @click="prevPage" :class="{ disabled: currentPage === 1 }">
+              <img src="../assets/image/leftbutton.svg" alt="" />
+            </div>
+            <ul class="pagination">
+              <li v-for="page in totalPages" :key="page" @click="changePage(page)"
+                :class="{ active: currentPage === page }">
+                {{ page.toString().padStart(2, '0') }}
+              </li>
+            </ul>
+            <div class="button next" @click="nextPage" :class="{ disabled: currentPage === totalPages }">
+              <img src="../assets/image/rightbutton.svg" alt="" />
+            </div>
+          </div>
+
         </div>
-        <div class="carousel">
-          <div class="button prev"  @click="changePage(currentPage - 1)" :class="{ disabled: currentPage === 1}">
-            <img src="../assets/image/leftbutton.svg" alt="" />
-          </div>
-          <ul class="pagination">
-            <li v-for="page in totalPages" :key="page" @click="changePage(page)" :class="{ active: page === currentPage }">
-      {{ page.toString().padStart(2, '0') }}
-    </li>
-            <!-- <li>02</li>
-            <li>03</li> -->
-          </ul>
-          <div class="button next" @click="changePage(currentPage + 1)" :class="{ disabled: currentPage === totalPages }">
-            <img src="../assets/image/rightbutton.svg" alt="" />
-          </div>
+        <div v-else>
+          加载中...
         </div>
       </div>
     </div>
@@ -512,18 +543,18 @@ section {
               transform: scale(1.3);
             }
 
-            @include s2bmd() {
-              &:not(:last-child):after {
-                content: '';
-                width: 50%;
-                height: 1.5px;
-                position: absolute;
-                transform: translateX(25%);
+            // @include s2bmd() {
+            //   &:not(:last-child):after {
+            //     content: '';
+            //     width: 50%;
+            //     height: 1.5px;
+            //     position: absolute;
+            //     transform: translateX(25%);
 
-                top: 50%;
-                background-color: $darkGreen;
-              }
-            }
+            //     top: 50%;
+            //     background-color: $darkGreen;
+            //   }
+            // }
           }
         }
 
