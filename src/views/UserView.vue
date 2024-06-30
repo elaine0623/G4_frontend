@@ -6,6 +6,9 @@ export default {
     return {
       signUp: false,
       name: '',
+      email: '',
+      psw: '',
+      dbpsw: '',
       errorMsg: {
         name: '',
         email: '',
@@ -13,19 +16,12 @@ export default {
         dbpsw: ''
       },
       mbSignup: false,
-      // login: {
-      //   acc: '',
-      //   psw: '',
-      // },
+      // login
+      acc: '',
+      lpsw: '',
       returnData: []
     }
   },
-  // setup() {
-  //   const store = useAdminStore()
-  //   return {
-  //     store
-  //   }
-  // },
   components: {
     UserLayout
   },
@@ -117,12 +113,15 @@ export default {
           })
         const users = await response.json();
         console.log(users["data"]);
+        console.log(store.currentUser);
         if (users.code != 200) {
           alert(users.msg);
           this.acc = ''
           this.lpsw = ''
         } else {
           store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
+          console.log(store.currentUser);
+          console.log(store.currentAccount);
           alert('登入成功!')
           this.$router.push('/userlayout/userdata')
         }
@@ -130,7 +129,7 @@ export default {
         console.error('登入失敗:', error)
         alert('登入失敗')
       }
-    }
+    },
   }
 }
 </script>
