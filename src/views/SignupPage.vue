@@ -161,6 +161,8 @@
 
 <script>
 import Swal from 'sweetalert2' //引用sweetalert2
+import { useAdminStore } from '@/stores/userLogin';
+import { mapActions, mapState } from 'pinia';
 export default {
     data() {
         return {
@@ -185,7 +187,8 @@ export default {
         },
         totalFees() {
         return this.activityInfo.a_fee * this.ao_count
-        }
+        },
+        ...mapState(useAdminStore, ['currentUser'])
     },
     watch: {
         activityId: function () {
@@ -193,6 +196,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(useAdminStore, ['loadCurrentUser']),
         async fetchActivityInfo() {
         fetch(`${import.meta.env.BASE_URL}activityPage.json`)
             .then((response) => response.json())
@@ -299,10 +303,18 @@ export default {
             }
             })
         }
+        },
+            checkLogin() {
+            this.loadCurrentUser();
+            if (!this.currentUser) {
+                alert('尚未登入');
+                this.$router.push('/login');
+            }
         }
     },
     mounted() {
-        this.fetchActivityInfo()
+        this.fetchActivityInfo();
+        this.checkLogin();
     }
 }
 </script>

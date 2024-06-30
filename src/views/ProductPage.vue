@@ -27,7 +27,7 @@ export default {
         this.responseData = await this.fetchData();
         if (this.responseData.length > 0) {
           this.mainImage = this.responseData[val - 1].p_img[0];
-        }
+        } 
       },
     },
   },
@@ -261,6 +261,8 @@ section {
             margin: auto;
             width: 100%;
             padding: 10px 0;
+            aspect-ratio:1/0.7;
+            object-fit: cover;
 
             @include s2bmd() {
               order: 2;

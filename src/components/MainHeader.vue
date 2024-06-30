@@ -1,12 +1,26 @@
 <script>
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
+import { mapState, mapActions } from 'pinia'
+
 export default {
   data() {
     return {
-      isMenuVisible: false
+      isMenuVisible: false,
+    }
+  },
+  computed: {
+    ...mapState(useAdminStore, ['currentAccount']),
+    userIconRoute() {
+      return this.currentAccount ? '/userlayout/userdata' : '/user';
     }
   },
   methods: {
-  }
+    ...mapActions(useAdminStore, ['loadCurrentUser'])
+  },
+  created() {
+    this.loadCurrentUser();
+    console.log(this.loadCurrentUser);
+  },
 }
 </script>
 
@@ -22,7 +36,9 @@ export default {
           <RouterLink to="/contactus">聯絡我們</RouterLink>
           <RouterLink to="/aboutus" class="about">關於我們</RouterLink>
           <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping icon"></i></RouterLink>
-          <RouterLink to="/user"><i class="fa-regular fa-user icon"></i></RouterLink>
+          <RouterLink :to="userIconRoute"><i class="fa-regular fa-user icon"></i>{{
+            currentAccount
+          }}</RouterLink>
           <!-- <RouterLink to="/heart"><i class="fa-regular fa-heart icon"></i></RouterLink> -->
         </div>
         <div id="moblie_menu" class="hb" @click="isMenuVisible = !isMenuVisible">
@@ -37,7 +53,7 @@ export default {
               </RouterLink>
               <div class="icons">
                 <RouterLink to="/cart"><i class="fa-solid fa-cart-shopping mbicon"></i></RouterLink>
-                <RouterLink to="/user"><i class="fa-regular fa-user mbicon"></i></RouterLink>
+                <RouterLink :to="userIconRoute"><i class="fa-regular fa-user mbicon"></i></RouterLink>
                 <!-- <RouterLink to="/heart"><i class="fa-regular fa-heart mbicon"></i></RouterLink> -->
               </div>
             </div>

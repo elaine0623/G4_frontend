@@ -1,17 +1,25 @@
 <script>
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
     return {
       signUp: false,
       name: '',
+      email: '',
+      psw: '',
+      dbpsw: '',
       errorMsg: {
         name: '',
         email: '',
         psw: '',
         dbpsw: ''
       },
-      mbSignup: false
+      mbSignup: false,
+      // login
+      acc: '',
+      lpsw: '',
+      returnData: []
     }
   },
   components: {
@@ -84,9 +92,44 @@ export default {
       })
         .then(response => response.json())
         .then(
-          json => alert(json['data']['m_name'])
+          json => {
+            this.data = json
+          }
         );
-    }
+    },
+    async memLogin() {
+      try {
+        const store = useAdminStore() // 獲取 Pinia store 的實例
+
+        const url = `http://localhost/php_G4/login.php`
+        let body = {
+          "acc": this.acc,
+          "lpsw": this.lpsw,
+        }
+        const response =
+          await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body)
+          })
+        const users = await response.json();
+        console.log(users["data"]);
+        console.log(store.currentUser);
+        if (users.code != 200) {
+          alert(users.msg);
+          this.acc = ''
+          this.lpsw = ''
+        } else {
+          store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
+          // console.log(store.currentUser);
+          // console.log(store.currentAccount);
+          alert('登入成功!')
+          this.$router.push('/userlayout/userdata')
+        }
+      } catch (error) {
+        console.error('登入失敗:', error)
+        alert('登入失敗')
+      }
+    },
   }
 }
 </script>
@@ -146,10 +189,11 @@ onMounted(() => {
       </div>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>
-        <input type="email" placeholder="電子信箱" />
-        <input type="password" placeholder="密碼" />
+        <input type="email" placeholder="電子信箱" v-model="acc" />
+        <input type="password" placeholder="密碼" v-model="lpsw" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
+        <!-- <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink> -->
+        <button @click="memLogin" type="button">登入</button>
 
       </form>
     </div>
