@@ -1,17 +1,24 @@
 <!-- router每次到userlayout頁面時，會透過classname改變z-index -->
 <script setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
 const hideChild = computed(() => {
-  return router.name === 'UserLayout'
+  return route.name === 'UserLayout'
 })
+// const handleResize = () => {
+//       // 你可以在這裡設置具體的條件來決定何時跳轉
+//         if (window.innerWidth > 768) {
+//         route.push('/userlayout/userdata');
+//         console.log('change')
+//         }
+//     };
 </script>
 
 <script>
 import { useRouter } from 'vue-router';
-const router = useRouter()
+import { onMounted, onUnmounted } from 'vue';
 import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 export default {
   data() {
@@ -74,6 +81,7 @@ export default {
     onUnmounted(() => {
       window.removeEventListener('resize', handleResize);
     });
+
   }
 }
 </script>

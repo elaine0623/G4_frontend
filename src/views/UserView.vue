@@ -120,8 +120,8 @@ export default {
           this.lpsw = ''
         } else {
           store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
-          console.log(store.currentUser);
-          console.log(store.currentAccount);
+          // console.log(store.currentUser);
+          // console.log(store.currentAccount);
           alert('登入成功!')
           this.$router.push('/userlayout/userdata')
         }
