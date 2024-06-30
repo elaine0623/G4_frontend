@@ -41,16 +41,24 @@ export default {
       let body = {
         "page": 2,
       }
-      fetch(`http://localhost/php_G4/product.php`, {
+      fetch(`http://localhost/php_g4/product.php`, {
         method: "POST",
         body: JSON.stringify(body)
       })
         .then((res) => res.json())
         .then((json) => {
-          this.responseData = json
-          // localStorage.setItem(`user1`, JSON.stringify(json))
-          console.log(this.responseData);
+          this.responseData = json["data"]["list"].map((item, index) => ({
+            ...item,
+            id: item.id || index + 1,
+            isaddCart: false,
+            isImage1: false
+          }));
+          // .then((json) => {
+          //   this.responseData = json["data"]["list"]
+          //   // localStorage.setItem(`user1`, JSON.stringify(json))
 
+          //   console.log(json);
+          //   console.log(this.responseData);
         })
     },
     clear() {
@@ -80,9 +88,12 @@ export default {
   computed: {
     //搜尋跟篩選功能並filter後台資料(responseData)顯示data在頁面
     filterDataDisplay() {
+      // console.log(this. filterDataDisplay());
       //初始狀態(沒有search跟篩選的狀況)
       if (!this.search && this.currentClass === "0") {
+        console.log(this.responseData);
         return this.responseData;
+
         //有search但沒有篩選
       } else if (this.search && this.currentClass === "0") {
         return this.responseData.filter((item) => {
@@ -155,10 +166,13 @@ export default {
 
       <div class="container">
         <div class="row list-product">
+          <!-- <img :src="parsePic(responseData[2].p_img[0])" alt="商品圖片" /> -->
           <div class="col-12 col-md-6 col-lg-3" v-for="(cardtItem, cardtIndex) in filterDataDisplay" :key="cardtIndex">
             <div class="card-product">
               <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
-                <!-- <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" /> -->
+                <div class="img-product">
+                  <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
+                </div>
               </router-link>
               <div class="into-card">
                 <div class="category-card">
@@ -358,10 +372,22 @@ section {
           text-decoration: none;
           display: block;
 
-          img {
+
+
+          .img-product {
             width: 100%;
-            vertical-align: bottom;
+            aspect-ratio: 1/0.7;
+
+
+            img {
+              width: 100%;
+              max-height: 100%;
+              object-fit: cover; // 改為 contain
+              vertical-align: middle; // 改為 middle 以居中對齊
+            }
+
           }
+
 
           .into-card {
             position: relative;

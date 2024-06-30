@@ -31,7 +31,7 @@ export default {
       scrollTrigger: {
         trigger: ".pinned-section",
         start: "-10% 10%",
-        end: "+=500",
+        end: "+=3000",
         scrub: true,
         pin: true, // 固定整個 section
         // markers: true, 校正線npm 
@@ -45,12 +45,12 @@ export default {
         tl.set(image, {
           opacity: 1,
           scale: 1,
-          duration: 1,
+          duration: 5,
           ease: "power2.inOut"
         }).to(image, {
           opacity: 0,
           scale: 2,
-          duration: 1,
+          duration: 5,
           ease: "power2.inOut"
         }, "+=0.5");
       } else if (i === images.length - 1) {
@@ -58,7 +58,7 @@ export default {
         tl.to(image, {
           opacity: 1,
           scale: 1,
-          duration: 1,
+          duration: 5,
           ease: "power2.inOut"
         }, "+=0.5");
       } else {
@@ -66,12 +66,12 @@ export default {
         tl.to(image, {
           opacity: 1,
           scale: 1,
-          duration: 1,
+          duration: 5,
           ease: "power2.inOut"
         }, "+=0.5").to(image, {
           opacity: 0,
           scale: 2,
-          duration: 1,
+          duration: 5,
           ease: "power2.inOut"
         }, "+=0.5");
       }

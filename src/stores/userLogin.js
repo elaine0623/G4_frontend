@@ -27,6 +27,9 @@ export const useAdminStore = defineStore('admin', {
                 this.currentUser = parsedUser
                 this.currentAccount = parsedUser.m_name
             }
-        }
+        },
+        isLoggedIn() {
+            return !!this.currentUser;
+        },
     }
 })

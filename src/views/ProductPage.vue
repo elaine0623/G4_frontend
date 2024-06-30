@@ -27,7 +27,7 @@ export default {
         this.responseData = await this.fetchData();
         if (this.responseData.length > 0) {
           this.mainImage = this.responseData[val - 1].p_img[0];
-        }
+        } 
       },
     },
   },
@@ -161,13 +161,11 @@ export default {
 
 
               <div class="member-card">
-                <button class="cart-shopping" @click="addCart(userId - 1)"
-                  v-if="responseData[userId - 1].isaddCart === false">
-                  <i class="fa-solid fa-cart-shopping"></i>加入購物車
+                <button class="cart-shopping"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === false">
+                    <i class="fa-solid fa-cart-shopping fa-xs"></i>加入購物車
                 </button>
-                <button class="cart-cancel-btn" @click="addCart(userId - 1)"
-                  v-if="responseData[userId - 1].isaddCart === true">
-                  <i class="fa-solid fa-xmark"></i>取消
+                <button class="cart-cancel-btn cart-shopping"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === true">
+                    <i class="fa-solid fa-xmark"></i>取消
                 </button>
                 <button class="buy">
                   <router-link to="/cart">立即購買</router-link>
@@ -263,6 +261,8 @@ section {
             margin: auto;
             width: 100%;
             padding: 10px 0;
+            aspect-ratio:1/0.7;
+            object-fit: cover;
 
             @include s2bmd() {
               order: 2;
@@ -460,26 +460,26 @@ section {
 
             .member-card {
               display: flex;
-              justify-content: space-between;
+              gap:30px;
+              justify-content: center;
               align-items: end;
-              margin: 14px 10px;
+              margin:auto;
 
               @include s2bmd() {
                 // justify-content: start;
                 padding: 24px 10px;
-                width: 60%;
                 align-items: center;
                 margin: auto;
               }
 
               .cart-shopping {
-                padding: 10px 15px;
+                padding: 1% 2%;
                 font-family: $pFont;
+                font-size:0.9rem;
                 color: #fff;
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
-
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
@@ -492,20 +492,16 @@ section {
               }
 
               .cart-cancel-btn {
-                padding: 10px 15px;
-                font-family: $pFont;
-                color: #fff;
                 background-color: #eb3445;
                 border-radius: 20px;
                 border: none;
-
                 i {
                   margin-right: 10px;
                 }
-              }
+                }
 
               .buy {
-                padding: 5px 28px;
+                padding: 1% 2%;
                 font-family: $pFont;
                 color: #fff;
                 background-color: $darkGreen;
