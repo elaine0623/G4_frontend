@@ -47,10 +47,18 @@ export default {
       })
         .then((res) => res.json())
         .then((json) => {
-          this.responseData = json["data"]["list"]
-          // localStorage.setItem(`user1`, JSON.stringify(json))
-          console.log(json);
-          console.log(this.responseData);
+          this.responseData = json["data"]["list"].map((item, index) => ({
+            ...item,
+            id: item.id || index + 1,
+            isaddCart: false,
+            isImage1: false
+          }));
+          // .then((json) => {
+          //   this.responseData = json["data"]["list"]
+          //   // localStorage.setItem(`user1`, JSON.stringify(json))
+
+          //   console.log(json);
+          //   console.log(this.responseData);
         })
     },
     clear() {
