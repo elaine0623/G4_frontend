@@ -1,6 +1,22 @@
 <script>
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
+
 export default {
   data() {
+    return {
+      name: '',
+      account: '',
+      password: '',
+      phone: '',
+      birth: '',
+      add: '',
+      old_psw: '',
+      psw: '',
+      dbpsw: '',
+      userData: '',
+
+    }
+
 
   },
   methods: {
@@ -11,7 +27,17 @@ export default {
         this.errorMsg.dbpsw = "";
       }
     },
-  }
+  },
+  mounted() {
+    const store = useAdminStore();
+    const isLogin = store.isLoggedIn();
+    if (!isLogin) {
+      this.$router.push('/user');
+    }
+    const user = localStorage.getItem('currentUser');
+    console.log(user);
+    this.userData = JSON.parse(user);
+  },
 }
 </script>
 
@@ -22,36 +48,36 @@ export default {
     <form @submit.prevent="submitForm">
       <div class="name">
         <label for="name">姓名</label>
-        <input type="text" id="name" name="m_name">
+        <input type="text" :value="this.userData.m_name">
       </div>
       <div class="account">
         <label for="account">帳號</label>
-        <input type="email" id="account" name="m_account">
+        <input type="email" name="m_account" :value="this.userData.m_account" disabled>
       </div>
       <div>
         <label for="phone">電話</label>
-        <input type="tel" id="phone" name="m_phone">
+        <input type="tel" v-model="phone" name="m_phone">
       </div>
       <div class="birth">
         <label for="birth">生日</label>
-        <input type="date" id="birth" name="m_birth" class="m_birth">
+        <input type="date" v-model="birth" name="m_birth" class="m_birth">
       </div>
       <div class="address">
         <label for="add">地址</label>
-        <input type="email" id="add" name="m_add">
+        <input type="email" v-model="add" name="m_add">
       </div>
       <hr style="color: #144433; width: 100%;">
       <div class="oldpsw">
         <label for="old_psw">舊密碼</label>
-        <input type="password" id="old_psw" name="">
+        <input type="password" v-model="old_psw" name="">
       </div>
       <div class="newpsw">
         <label for="new_psw">新密碼</label>
-        <input type="password" id="new_psw" name="" v-model="psw">
+        <input type="password" name="" v-model="psw">
       </div>
       <div class="dbpsw">
         <label for="dbc_psw">確認新密碼</label>
-        <input type="password" id="dbc_psw" name="" v-model="dbpsw" @blur="dbcheckpsw()">
+        <input type="password" name="" v-model="dbpsw" @blur="dbcheckpsw()">
       </div>
     </form>
   </div>
