@@ -1,14 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAdminStore } from '@/stores/userLogin';
 import HomeView from '@/views/HomeView.vue';
+import Swal from 'sweetalert2'; //引用sweetalert2;
+
 
 // 路由守衛函數
 const requireAuth = (to, from, next) => {
+  console.log(from);
   const adminStore = useAdminStore();
   adminStore.loadCurrentUser(); // 確保在檢查時用戶狀態
   if (!adminStore.isLoggedIn()) {
-    alert('尚未登入')
-    next('/user');
+    Swal.fire({
+      icon: "warning",
+      title: "尚未登入",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    next('/user?page=' + from.fullPath); // 導向登入頁
+
+
   } else {
     next();
   }
@@ -89,7 +99,7 @@ const router = createRouter({
       component: () => import('@/views/CartView.vue'),
       meta: {
         title: '購物車',
-      }
+      },
     },
     {
       path: '/ProductPage/:productId',
@@ -145,7 +155,8 @@ const router = createRouter({
     {
       path: '/shoppingcart',
       name: 'shoppingcart',
-      component: () => import('@/views/Shoppingcart.vue')
+      component: () => import('@/views/Shoppingcart.vue'),
+      beforeEnter: requireAuth, // 在這裡添加 requireAuth
     },
     {
       path: '/:pathMatch(.*)*',
@@ -176,10 +187,10 @@ const router = createRouter({
   },
 })
 
-router.beforeEach(async (to, from) => {
-  if (to.meta && to.meta.title) {
-    document.title = to.meta.title
-  }
-})
+// router.beforeEach(async (to, from) => {
+//   if (to.meta && to.meta.title) {
+//     document.title = to.meta.title
+//   }
+// })
 
 export default router
