@@ -1,5 +1,4 @@
 <script>
-import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
@@ -12,20 +11,9 @@ export default {
         psw: '',
         dbpsw: ''
       },
-      mbSignup: false,
-      // login: {
-      //   acc: '',
-      //   psw: '',
-      // },
-      returnData: []
+      mbSignup: false
     }
   },
-  // setup() {
-  //   const store = useAdminStore()
-  //   return {
-  //     store
-  //   }
-  // },
   components: {
     UserLayout
   },
@@ -77,59 +65,12 @@ export default {
         return true;
       }
     },
-    //註冊:會員資料回傳後端資料庫
     register() {
+
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;
       }
-      const url = `http://localhost/php_G4/register.php`
-      let body = {
-        "name": this.name,
-        "email": this.email,
-        "psw": this.psw,
-        "dbpsw": this.dbpsw,
-      }
-
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(body)
-      })
-        .then(response => response.json())
-        .then(
-          json => {
-            this.data = json
-          }
-        );
-    },
-    async memLogin() {
-      try {
-        const store = useAdminStore() // 獲取 Pinia store 的實例
-
-        const url = `http://localhost/php_G4/login.php`
-        let body = {
-          "acc": this.acc,
-          "lpsw": this.lpsw,
-        }
-        const response =
-          await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(body)
-          })
-        const users = await response.json();
-        console.log(users["data"]);
-        if (users.code != 200) {
-          alert(users.msg);
-          this.acc = ''
-          this.lpsw = ''
-        } else {
-          store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
-          alert('登入成功!')
-          this.$router.push('/userlayout/userdata')
-        }
-      } catch (error) {
-        console.error('登入失敗:', error)
-        alert('登入失敗')
-      }
+      document.myform.submit();
     }
   }
 }
@@ -175,7 +116,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div name="myform" class="sign-up pc-form">
+      <form name="myform" class="sign-up pc-form" action="#" @submit.prevent="register()">
         <h2>建立帳號</h2>
         <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
         <span v-text="errorMsg.name" class="wrong-msg"></span>
@@ -185,16 +126,15 @@ onMounted(() => {
         <span v-text="errorMsg.psw" class="wrong-msg"></span>
         <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
         <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
-        <button @click="register()">註冊</button>
+        <button>註冊</button>
         <!-- button預設是submit  button要記得加type="button"-->
-      </div>
+      </form>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>
-        <input type="email" placeholder="電子信箱" v-model="acc" />
-        <input type="password" placeholder="密碼" v-model="lpsw" />
+        <input type="email" placeholder="電子信箱" />
+        <input type="password" placeholder="密碼" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <!-- <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink> -->
-        <button @click="memLogin" type="button">登入</button>
+        <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
 
       </form>
     </div>
@@ -227,7 +167,7 @@ onMounted(() => {
       <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
       <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
       <div class="btnlayout">
-        <button type="button" @click=register()>註冊</button>
+        <button type="button" @click="mbSignup = !mbSignup">註冊</button>
         <button type="button" @click="mbSignup = !mbSignup">返回</button>
       </div>
       <!-- button預設是submit  button要記得加type="button"-->
