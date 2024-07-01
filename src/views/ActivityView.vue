@@ -78,7 +78,8 @@
                 <img :src="parsePic(item.a_img)" alt="活動圖片" class="event-img" />
                 <div class="event-content">
                   <h3 class="event-title">{{ item.a_name }}</h3>
-                  <span class="event-date">{{ item.a_time }}</span>
+                  <span class="event-date" v-if="item.c_no ==='講座'">{{ item.a_time }}</span>
+                  <span class="event-date" v-else>{{ item.a_start_date }}~{{ item.a_end_date }}</span>
                   <div class="event-class-tag market" v-if="item.c_no === '市集'">
                     {{ item.c_no }}
                   </div>
@@ -304,9 +305,11 @@ let data = ref(null)
 let eventsData = ref([])
 let activedEvents = ref([])
 const fetchData = async () => {
-  const response = await fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+  const response = await fetch(`http://localhost/php_G4/activitiesList.php` ,{method:'POST'})
   const result = await response.json()
-  data.value = result //json檔
+  console.log(result)
+  data.value = result['data']['list'] //json檔
+  console.log(data.value);
   //取得活動開始天與結束天
   for (let i = 0; i < Object.values(data.value).length; i++) {
     const startDate = new Date(data.value[i].a_start_date)

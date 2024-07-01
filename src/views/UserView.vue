@@ -1,4 +1,6 @@
 <script>
+import Swal from 'sweetalert2' //引用sweetalert2;
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
@@ -72,8 +74,8 @@ export default {
         return true;
       }
     },
+    //註冊:會員資料回傳後端資料庫
     register() {
-
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;
       }
@@ -121,7 +123,13 @@ export default {
           store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
           // console.log(store.currentUser);
           // console.log(store.currentAccount);
-          alert('登入成功!')
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "登入成功",
+            showConfirmButton: false,
+            timer: 1500
+          });
           this.$router.push('/userlayout/userdata')
         }
       } catch (error) {
@@ -129,7 +137,15 @@ export default {
         alert('登入失敗')
       }
     },
-  }
+
+  },
+  mounted() {
+    const store = useAdminStore();
+    const isLogin = store.isLoggedIn();
+    if (isLogin) {
+      this.$router.push('/userlayout/userdata');
+    }
+  },
 }
 </script>
 <script setup>
@@ -173,7 +189,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <form name="myform" class="sign-up pc-form" action="#" @submit.prevent="register()">
+      <div name="myform" class="sign-up pc-form">
         <h2>建立帳號</h2>
         <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
         <span v-text="errorMsg.name" class="wrong-msg"></span>
@@ -183,15 +199,16 @@ onMounted(() => {
         <span v-text="errorMsg.psw" class="wrong-msg"></span>
         <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
         <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
-        <button>註冊</button>
+        <button @click="register()">註冊</button>
         <!-- button預設是submit  button要記得加type="button"-->
-      </form>
+      </div>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>
-        <input type="email" placeholder="電子信箱" />
-        <input type="password" placeholder="密碼" />
+        <input type="email" placeholder="電子信箱" v-model="acc" />
+        <input type="password" placeholder="密碼" v-model="lpsw" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
+        <!-- <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink> -->
+        <button @click="memLogin" type="button">登入</button>
 
       </form>
     </div>
@@ -202,16 +219,16 @@ onMounted(() => {
       <img src="@/assets/image/logo_F.svg" alt="logo">
       <div class="account">
         <label for="accout">帳號</label>
-        <input type="text" placeholder="電子信箱">
+        <input type="text" placeholder="電子信箱" v-model="acc">
       </div>
       <div class="mb-psw">
         <label for="psw">密碼</label>
-        <input type="password" placeholder="密碼">
+        <input type="password" placeholder="密碼" v-model="lpsw">
       </div>
       <div class="link">
         <a href="#">忘記密碼?</a><a @click="mbSignup = !mbSignup">立即註冊!</a>
       </div>
-      <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
+      <button @click="memLogin" type="button">登入</button>
     </form>
     <div class="mb_signup" v-show="mbSignup">
       <h2>建立帳號</h2>
@@ -224,7 +241,7 @@ onMounted(() => {
       <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
       <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
       <div class="btnlayout">
-        <button type="button" @click="mbSignup = !mbSignup">註冊</button>
+        <button type="button" @click=register()>註冊</button>
         <button type="button" @click="mbSignup = !mbSignup">返回</button>
       </div>
       <!-- button預設是submit  button要記得加type="button"-->
