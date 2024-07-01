@@ -5,13 +5,20 @@ export default {
     return {
       signUp: false,
       name: '',
+      email: '',
+      psw: '',
+      dbpsw: '',
       errorMsg: {
         name: '',
         email: '',
         psw: '',
         dbpsw: ''
       },
-      mbSignup: false
+      mbSignup: false,
+      // login
+      acc: '',
+      lpsw: '',
+      returnData: []
     }
   },
   components: {
@@ -70,8 +77,58 @@ export default {
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;
       }
-      document.myform.submit();
-    }
+      const url = `http://localhost/php_G4/register.php`
+      let body = {
+        "name": this.name,
+        "email": this.email,
+        "psw": this.psw,
+        "dbpsw": this.dbpsw,
+      }
+
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
+        .then(response => response.json())
+        .then(
+          json => {
+            this.data = json
+          }
+        );
+    },
+    async memLogin() {
+      try {
+        const store = useAdminStore() // 獲取 Pinia store 的實例
+
+        const url = `http://localhost/php_G4/login.php`
+        let body = {
+          "acc": this.acc,
+          "lpsw": this.lpsw,
+        }
+        const response =
+          await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body)
+          })
+        const users = await response.json();
+        console.log(users["data"]);
+        console.log(store.currentUser);
+        if (users.code != 200) {
+          alert(users.msg);
+          this.acc = ''
+          this.lpsw = ''
+        } else {
+          store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
+          // console.log(store.currentUser);
+          // console.log(store.currentAccount);
+          alert('登入成功!')
+          this.$router.push('/userlayout/userdata')
+        }
+      } catch (error) {
+        console.error('登入失敗:', error)
+        alert('登入失敗')
+      }
+    },
   }
 }
 </script>

@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-regular-svg-icons": "^6.5.2",
@@ -20,6 +21,7 @@
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^10.10.0",
     "axios": "^1.7.2",
+    "emailjs-com": "^3.2.0",
     "mitt": "^3.0.1",
     "pinia": "^2.1.7",
     "sweetalert2": "^11.11.1",

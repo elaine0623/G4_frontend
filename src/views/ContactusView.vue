@@ -1,11 +1,23 @@
 <script>
+import emailjs from '@emailjs/browser';
 export default {
   data() {
     return {
       currentIndex: 0,
       image: '',
+      formData: {
+        name: '',
+        gender: '',
+        phone: '',
+        email: '',
+        order: '',
+        purchaseTime: '',
+        opinion: '',
+        age: '',
+        cooperation: ''
+      },
 
-    };
+    }
   },
   methods: {
     fileSelected(e) {
@@ -24,8 +36,31 @@ export default {
       //const form = new formData();
       //form.append(this.file, this.file.name)
 
-    }
-  }
+    },
+    sendEmail() {
+  const templateParams = {
+    ...this.formData,
+    image: this.image
+  };
+  
+  emailjs
+    .send('service_r4x88gc', 'template_81m7vda', templateParams, {
+      publicKey: 'NGQSgNlFa5ZotRrJh',
+    })
+    .then(
+      (response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        alert('表單已成功提交！');
+      },
+      (error) => {
+        console.log('FAILED...', error);
+        alert('照片檔案太大，請重新提交。');
+      },
+    );
+},
+  },
+
+
 };
 </script>
 <template>
@@ -51,15 +86,15 @@ export default {
           <div class="name">
             <label for="text">
               <span>姓名</span>
-              <input type="text">
+              <input type="text" v-model="formData.name">
             </label>
             <div class="gender">
               <label for="gender_mr">
-                <input type="radio" id="gender_mr" name="gender" value="mr" />
+                <input type="radio" id="gender_mr" name="gender" value="mr" v-model="formData.gender" />
                 <span>先生</span>
               </label>
               <label for="gender_ms">
-                <input type="radio" id="gender_ms" name="gender" value="ms" />
+                <input type="radio" id="gender_ms" name="gender" value="ms" v-model="formData.gender" />
                 <span>小姐</span>
               </label>
             </div>
@@ -67,33 +102,33 @@ export default {
           <div class="phone">
             <label for="">
               <span>連絡電話</span>
-              <input type="text" />
+              <input type="text" v-model="formData.phone" />
             </label>
             <label for="">
               <span>電子信箱</span>
-              <input type="text" />
+              <input type="text" v-model="formData.email" />
             </label>
           </div>
           <div class="order">
             <label for="">
               <span>訂單編號</span>
-              <input type="text" />
+              <input type="text" v-model="formData.order" />
             </label>
             <label for="">
               <span>購買時間</span>
-              <input type="text" />
+              <input type="text" v-model="formData.purchaseTime" />
             </label>
           </div>
           <div class="opinion">
             <span>意見內容</span>
-            <textarea class="custom-textarea" rows="16" wrap="soft"></textarea>
+            <textarea class="custom-textarea" rows="16" wrap="soft" v-model="formData.opinion"></textarea>
 
           </div>
           <div class="uploa">
             上傳圖片
             <div class="uploa-pic">
               <label type="button" for="upload" class="uploadStyle">選擇檔案</label>
-              <input type="file" @change="fileSelected"  id="upload">
+              <input type="file" @change="fileSelected" id="upload">
               <img v-if="image" :src="image" width="150" height="200" />
             </div>
           </div>
@@ -109,11 +144,11 @@ export default {
             </label>
             <div class="gender">
               <label for="gender_mr">
-                <input type="radio" id="gender_mr" name="gender" value="mr" />
+                <input type="radio" id="gender_mr" name="gender" value="mr" v-model="formData.gender"/>
                 <span>先生</span>
               </label>
               <label for="gender_ms">
-                <input type="radio" id="gender_ms" name="gender" value="ms" />
+                <input type="radio" id="gender_ms" name="gender" value="ms" v-model="formData.gender"/>
                 <span>小姐</span>
               </label>
             </div>
@@ -122,19 +157,19 @@ export default {
             <span>年齡</span>
             <div class="age">
               <label for="age">
-                <input type="radio" id="age" name="age" value="age" />
+                <input type="radio" id="age" name="36-45" value="18-25" v-model="formData.age"/>
                 <span>18-25歲</span>
               </label>
               <label for="age1">
-                <input type="radio" id="age1" name="age" value="age" />
+                <input type="radio" id="age1" name="36-45" value="26-35" v-model="formData.age" />
                 <span>26-35歲</span>
               </label>
               <label for="age2">
-                <input type="radio" id="age2" name="age" value="age" />
+                <input type="radio" id="age2" name="36-45" value="36-45" v-model="formData.age"/>
                 <span>36-45歲</span>
               </label>
               <label for="age3">
-                <input type="radio" id="age3" name="age" value="age" />
+                <input type="radio" id="age3" name="36-45" value="46-55" v-model="formData.age" />
                 <span>46-55歲</span>
               </label>
             </div>
@@ -142,18 +177,17 @@ export default {
           <div class="phone">
             <label for="">
               <span>連絡電話</span>
-              <input type="text" />
+              <input type="text" v-model="formData.phone"/>
             </label>
             <label for="">
               <span>電子信箱</span>
-              <input type="text" />
+              <input type="text" v-model="formData.email"/>
             </label>
           </div>
 
           <div class="opinion">
             <span>合作項目及方式</span>
-            <textarea class="custom-textarea" rows="16" wrap="soft"></textarea>
-
+            <textarea class="custom-textarea" rows="16" wrap="soft" v-model="formData.opinion"></textarea>
           </div>
           <div class="bottom">
             <p>以上您填寫之資料，果籽會尊重個⼈隱私，善盡保密義務，絕不外流。
@@ -161,7 +195,7 @@ export default {
           </div>
         </div>
       </div>
-      <div class="sendout">
+      <div class="sendout" @click="sendEmail">
         <button>提交</button>
       </div>
     </div>
@@ -380,7 +414,7 @@ h3 {
         padding: 32px;
         border: 1.5px solid $darkGreen;
         position: relative;
-        
+
 
         input[type=file] {
           padding: 10px 15px;
@@ -388,29 +422,30 @@ h3 {
           border: 1.2px solid $darkGreen;
           cursor: pointer;
           color: $darkGreen ;
-      
-         
+
+
           // opacity:0;
           display: none;
         }
-        label{
+
+        label {
           z-index: 20;
           // width: 12%;
           width: 60px;
           // position: absolute;
           padding: 10px;
-          background-color:$darkGreen;
+          background-color: $darkGreen;
           border: 1.2px solid $darkGreen;
           cursor: pointer;
           font-size: 12px;
-          color: #fff ;
+          color: #fff;
           top: 38px;
           text-align: center;
-         left: 36px;
-        //  right: 20px;
+          left: 36px;
+          //  right: 20px;
         }
-      
-        
+
+
       }
     }
 
@@ -423,6 +458,7 @@ h3 {
         color: $darkGreen;
         font-family: $pFont;
         font-size: 16px;
+        line-height: 23px;
 
       }
     }
