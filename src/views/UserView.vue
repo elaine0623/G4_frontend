@@ -1,4 +1,5 @@
 <script>
+import Swal from 'sweetalert2' //引用sweetalert2;
 import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
@@ -121,7 +122,13 @@ export default {
           store.setCurrentUser(users["data"]) // 設置當前用戶到 Pinia
           // console.log(store.currentUser);
           // console.log(store.currentAccount);
-          alert('登入成功!')
+          Swal.fire({
+            // position: "top-end",
+            icon: "success",
+            title: "登入成功",
+            showConfirmButton: false,
+            timer: 1500
+          });
           this.$router.push('/userlayout/userdata')
         }
       } catch (error) {
@@ -129,7 +136,15 @@ export default {
         alert('登入失敗')
       }
     },
-  }
+
+  },
+  mounted() {
+    const store = useAdminStore();
+    const isLogin = store.isLoggedIn();
+    if (isLogin) {
+      this.$router.push('/userlayout/userdata');
+    }
+  },
 }
 </script>
 <script setup>
@@ -202,16 +217,16 @@ onMounted(() => {
       <img src="@/assets/image/logo_F.svg" alt="logo">
       <div class="account">
         <label for="accout">帳號</label>
-        <input type="text" placeholder="電子信箱">
+        <input type="text" placeholder="電子信箱" v-model="acc">
       </div>
       <div class="mb-psw">
         <label for="psw">密碼</label>
-        <input type="password" placeholder="密碼">
+        <input type="password" placeholder="密碼" v-model="lpsw">
       </div>
       <div class="link">
         <a href="#">忘記密碼?</a><a @click="mbSignup = !mbSignup">立即註冊!</a>
       </div>
-      <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
+      <button @click="memLogin" type="button">登入</button>
     </form>
     <div class="mb_signup" v-show="mbSignup">
       <h2>建立帳號</h2>
