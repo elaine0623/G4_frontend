@@ -24,7 +24,8 @@ export default {
   data() {
     return {
       countDown: 10, // 倒數的秒數
-      timer: null // 定時器的引用
+      timer: null, // 定時器的引用
+      m_name: '',
     }
   },
   created() {
@@ -46,7 +47,6 @@ export default {
     async memsignout() {
       try {
         const store = useAdminStore() // 獲取 Pinia store
-
         store.clearCurrentUser() // 設置當前用戶到 Pinia
         alert('已登出')
         this.$router.push('/')
@@ -55,6 +55,10 @@ export default {
         alert('發生錯誤')
       }
     }
+  },
+  mounted() {
+    const store = useAdminStore() // 獲取 Pinia store
+    this.m_name = store.currentAccount;
   },
   // mounted () {
   //   window.addEventListener('resize',handleResize)
@@ -97,7 +101,7 @@ export default {
           <!-- <img :src="member.image" /> -->
           <img src="/src/assets/image/memberPic.png" />
         </div>
-        <span class="member-name">方老伯</span>
+        <span class="member-name">{{ m_name }}</span>
         <div class="btn-selection">
           <router-link to="/userlayout/userdata"><button class="btn-info">個人資料</button></router-link>
           <router-link to="/userlayout/userfavorite"><button class="btn-like">收藏項目</button></router-link>
@@ -121,7 +125,7 @@ export default {
       <div class="member-pic">
         <img src="/src/assets/image/memberPic.png" />
       </div>
-      <span class="member-name">方老伯</span>
+      <span class="member-name">{{ m_name }}</span>
       <div class="btn-selection">
         <router-link to="/userlayout/userdata"><button class="btn-info">個人資料</button></router-link>
         <router-link to="/userlayout/userfavorite"><button class="btn-like">收藏項目</button></router-link>

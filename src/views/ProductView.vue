@@ -1,4 +1,7 @@
 <script>
+import Swal from 'sweetalert2'; //引用sweetalert2;
+import { useAdminStore } from '@/stores/userLogin';
+import { mapActions, mapState } from 'pinia';
 export default {
   data() {
     return {
@@ -11,9 +14,23 @@ export default {
       itemsPerPage: 12,
       totalPages: 1,
       loading: false,
+      status: false,
     }
   },
   methods: {
+    //確認會員狀態
+    ...mapActions(useAdminStore, ['loadCurrentUser']),
+    checkLogin() {
+      if (!this.currentUser) {
+        Swal.fire({
+          icon: "warning",
+          title: "尚未登入",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.$router.push('/user');
+      }
+    },
     // 確保json檔回傳圖片路徑正確
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
@@ -92,72 +109,79 @@ export default {
       }
     },
     prevPage() {
-  
-        console.log("點擊上一頁");
-        if (this.currentPage > 1) {
-          this.currentPage--;
-          this.fetchData();
-        }
-      
-    
+
+      console.log("點擊上一頁");
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.fetchData();
+      }
+
+
+    },
+    clear() {
+      //清空搜尋資料
+      this.search = ''
+      this.isSearchMode = false
+      this.displayData = this.responseData
+    },
+    activedClass() {
+      let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
+      this.currentClass = activeClass.value;
+    }
   },
-  clear() {
-    //清空搜尋資料
-    this.search = ''
-    this.isSearchMode = false
-    this.displayData = this.responseData
+  created() {
+
+    this.fetchData(this.currentPage);
+
+    // this.fetchData()
+    //若有登入情況下
+    // console.log(localStorage.getItem('user1'))
+    // if (localStorage.getItem('user1') != null) {
+    //   let userInfo = localStorage.getItem('user1')
+    //   this.responseData = JSON.parse(userInfo)
+    //   console.log(this.responseData)
+    //   // console.log(this.displayData );
+    // } else {
+    //   this.fetchData()
+    // }
   },
-  activedClass() {
-    let activeClass = document.querySelector('#filter') // //偵測目前商品類別為何
-    this.currentClass = activeClass.value;
-  }
-},
-created() {
+  computed: {
+    filterDataDisplay() {
+      if (this.loading) {
+        return [];
+      }
 
-  this.fetchData(this.currentPage);
+      let filteredData = this.responseData;
 
-  // this.fetchData()
-  //若有登入情況下
-  // console.log(localStorage.getItem('user1'))
-  // if (localStorage.getItem('user1') != null) {
-  //   let userInfo = localStorage.getItem('user1')
-  //   this.responseData = JSON.parse(userInfo)
-  //   console.log(this.responseData)
-  //   // console.log(this.displayData );
-  // } else {
-  //   this.fetchData()
-  // }
-},
-computed: {
-  filterDataDisplay() {
-    if (this.loading) {
-      return [];
-    }
+      // 应用搜索过滤
+      if (this.search) {
+        filteredData = filteredData.filter((item) => {
+          return (
+            item.p_name.includes(this.search) ||
+            item.pc_name.includes(this.search) ||
+            item.f_name.includes(this.search)
+          );
+        });
+      }
 
-    let filteredData = this.responseData;
+      // 应用分类过滤
+      if (this.currentClass !== "0") {
+        filteredData = filteredData.filter((item) => {
+          return item.pc_name === this.currentClass;
+        });
+      }
 
-    // 应用搜索过滤
-    if (this.search) {
-      filteredData = filteredData.filter((item) => {
-        return (
-          item.p_name.includes(this.search) ||
-          item.pc_name.includes(this.search) ||
-          item.f_name.includes(this.search)
-        );
-      });
-    }
+      console.log("Filtered items:", filteredData.length);
+      return filteredData;
+    },
+    ...mapState(useAdminStore, ['currentUser']),
 
-    // 应用分类过滤
-    if (this.currentClass !== "0") {
-      filteredData = filteredData.filter((item) => {
-        return item.pc_name === this.currentClass;
-      });
-    }
-
-    console.log("Filtered items:", filteredData.length);
-    return filteredData;
-  }
-}
+  },
+  mounted() {
+    const store = useAdminStore();
+    const isLogin = store.isLoggedIn();
+    this.status = isLogin;
+  },
 }
 </script>
 

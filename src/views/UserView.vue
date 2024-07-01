@@ -130,7 +130,15 @@ export default {
             showConfirmButton: false,
             timer: 1500
           });
-          this.$router.push('/userlayout/userdata')
+          //判斷從哪個頁面登入
+          let history = this.$route.query;
+          console.log(history);
+          // this.$router.push({ path: history.from.path, query: history.from.query })
+          if (history == '') {
+            this.$router.push('/userlayout/userdata')
+          } else {
+            this.$router.push(history.page);
+          };
         }
       } catch (error) {
         console.error('登入失敗:', error)
