@@ -53,7 +53,7 @@
       </div>
       <div class="wrap">
         <div class="card" v-for="item in list" :key="item" :data-aos="getAosEffect(item.aos)" data-aos-duration="1000"
-          data-aos-once="true" data-aos-delay="800">
+          data-aos-once="true" data-aos-delay="3000">
           <div class="content-card">
             <h3>{{ item.title }}</h3>
             <p>{{ item.content }}</p>
