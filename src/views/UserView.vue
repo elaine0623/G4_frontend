@@ -1,5 +1,4 @@
 <script>
-import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
 import UserLayout from '@/components/UserLayout.vue';
 export default {
   data() {
@@ -73,8 +72,8 @@ export default {
         return true;
       }
     },
-    //註冊:會員資料回傳後端資料庫
     register() {
+
       if (!this.checkname() || !this.checkemail() || !this.checkpsw() || !this.dbcheckpsw()) {
         return false;
       }
@@ -174,7 +173,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div name="myform" class="sign-up pc-form">
+      <form name="myform" class="sign-up pc-form" action="#" @submit.prevent="register()">
         <h2>建立帳號</h2>
         <input type="text" placeholder="姓名" @blur="checkname()" v-model="name" />
         <span v-text="errorMsg.name" class="wrong-msg"></span>
@@ -184,16 +183,15 @@ onMounted(() => {
         <span v-text="errorMsg.psw" class="wrong-msg"></span>
         <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
         <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
-        <button @click="register()">註冊</button>
+        <button>註冊</button>
         <!-- button預設是submit  button要記得加type="button"-->
-      </div>
+      </form>
       <form class="sign-in pc-form" action="#">
         <h2>登入</h2>
-        <input type="email" placeholder="電子信箱" v-model="acc" />
-        <input type="password" placeholder="密碼" v-model="lpsw" />
+        <input type="email" placeholder="電子信箱" />
+        <input type="password" placeholder="密碼" />
         <a href="#" class="forget-psw">忘記密碼?</a>
-        <!-- <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink> -->
-        <button @click="memLogin" type="button">登入</button>
+        <RouterLink to="/userlayout/userdata"><button>登入</button></RouterLink>
 
       </form>
     </div>
@@ -226,7 +224,7 @@ onMounted(() => {
       <input type="password" placeholder="再次確認密碼" @blur="dbcheckpsw()" v-model="dbpsw" />
       <span v-text="errorMsg.dbpsw" class="wrong-msg"></span>
       <div class="btnlayout">
-        <button type="button" @click=register()>註冊</button>
+        <button type="button" @click="mbSignup = !mbSignup">註冊</button>
         <button type="button" @click="mbSignup = !mbSignup">返回</button>
       </div>
       <!-- button預設是submit  button要記得加type="button"-->
