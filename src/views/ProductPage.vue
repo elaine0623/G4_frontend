@@ -3,6 +3,7 @@ export default {
   data() {
     return {
       responseData: [],
+      displayData:[],
       count: 1,
       mainImage: '', // 主圖片
     };
@@ -13,110 +14,116 @@ export default {
       // return item.$route.params. pi_id;
     },
     filteredImages() {
-      const product = this.responseData[this.userId-1];
-      if (product && product.p_img) {
+      const product = this.displayData;
+      // if (this.displayData != null) {
+        console.log(this.displayData)
+      // return this.mainImage = this.parsePic(this.displayData.p_img[0]);
+  // }else 
+  if (product && product.p_img) {
         // 确保只返回三张次要小圖
         return product.p_img.filter(img => this.parsePic(img) !== this.mainImage).slice(0, 3);
       }
+  
       return [];
     }
-  },
-  watch: {
-    userId: {
-      immediate: true,
-      handler: async function (val) {
-        console.log(typeof(val));
-        this.responseData = await this.fetchData();
-        console.log(parseInt(val)-1);
-        console.log(typeof(parseInt(val)-1));
-        this.mainImage = this.responseData[1].p_img[0];
-        // if (this.responseData.length > 0) {
-          // this.mainImage = this.responseData[parseInt(val)-1].p_img[0];
-        // } 
-      },
 
-    },
   },
+  // watch: {
+  //   userId: {
+  //     immediate: true,
+  //     handler: async function () {
+  //       this.responseData = await this.fetchData();
+  //       if (this.responseData && this.responseData.length > 0) {
+  //         this.mainImage = this.parsePic(this.responseData[0].p_img[0]);
+  //         // if (this.responseData.length > 0) {
+  //         // this.mainImage = this.responseData[parseInt(val)-1].p_img[0];
+  //         // } 
+  //       }
+  //     },
+
+  //   },
+  // },
   methods: {
     parsePic(file) {//修改照片路徑
       return new URL(`../assets/image/${file}`, import.meta.url).href
     },
     add() {
-      this.responseData[this.userId - 1].count += 1;
-      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      this.count += 1;
+      // localStorage.setItem(`user1`, JSON.stringify(this.responseData))
     },
     subtraction() {
-      if (this.responseData[this.userId - 1].count == 1) return
-      this.responseData[this.userId - 1].count -= 1;
-      localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+      if (this.count == 1) return
+      this.count -= 1;
+      // localStorage.setItem(`user1`, JSON.stringify(this.responseData))
 
     },
     async fetchData() {
-     
-     let body = {
-       "page": 2,
-     }
-     fetch(`http://localhost/php_g4/product.php`, {
-       method: "POST",
-       body: JSON.stringify(body)
-     })
-       .then((res) => res.json())
-       .then((json) => {
-         this.responseData = json["data"]["list"]
-         // localStorage.setItem(`user1`, JSON.stringify(json))
-         console.log(json);
-         console.log(this.responseData);
-       })
-     // //  fetch data from API
-     // return await fetch(`${import.meta.env.BASE_URL}productList.json`)
-     //   .then((response) => response.json())
-     //   .then((json) => {
-     //     console.log(json)
-     //   this.responseData = json
-     //   console.log(this.responseData)
-     //   }
-     
-     // );
+      let body = {
+        "p_no": this.$route.params.productId,
+      }
+      try {
+        const response = await fetch(`http://localhost/php_g4/product_detail.php`, {
+          method: "POST",
+          body: JSON.stringify(body)
+        });
+        const json = await response.json();
+        this.responseData = await json["data"]["list"];
+        // this.displayData = this.responseData.filter((item) => item.p_no == this.userId);
+        this.displayData = this.responseData.find((item) => item.p_no == this.userId);
+        console.log(this.displayData);
+        this.mainImage = this.parsePic(this.displayData.p_img[0])
       
-      
-   }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        return [];
+      }
+      // //  fetch data from API
+      // return await fetch(`${import.meta.env.BASE_URL}productList.json`)
+      //   .then((response) => response.json())
+      //   .then((json) => {
+      //     console.log(json)
+      //   this.responseData = json
+      //   console.log(this.responseData)
+      //   }
+
+      // );
+
+
+    }
     , addCart(index) {
       if (this.responseData[index].isaddCart === false) {
         this.responseData[index].isaddCart = true;
         // localStorage.setItem(`shoppingItem${index}`,JSON.stringify(this.responseData[index]));
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+        // localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       } else {
         this.responseData[index].isaddCart = false;
-        localStorage.setItem(`user1`, JSON.stringify(this.responseData))
+        // localStorage.setItem(`user1`, JSON.stringify(this.responseData))
       }
       console.log(this.responseData)
     },
 
     changeMainImage(imgIndex) {
-      const product = this.responseData[this.userId - 1];
+      const product = this.displayData;
+      console.log(product);
       const selectedIndex = product.p_img.findIndex(img => img === this.filteredImages[imgIndex]);
       this.mainImage = this.parsePic(product.p_img[selectedIndex]);
       // this.parsePic(this.mainImage);
     }
   },
-  async created() {
-    this.responseData = await this.fetchData();
-    if (this.responseData.length > 0) {
-      this.mainImage = this.parsePic(this.responseData[this.userId - 1].p_img[0]);
-      console.log(this.mainImage);
-    };
-    if (localStorage.getItem('user1') != null) {
-      let responseDatas = localStorage.getItem('user1');
-      this.responseData = JSON.parse(responseDatas);
-      console.log(this.responseData);
-      // console.log(this.displayData );
-    } else {
-      this.fetchData();
-      console.log('fffff')
-    }
-  },
+created() {
+ 
+ 
+  // if (localStorage.getItem('user1') != null) {
+  //   let responseDatas = localStorage.getItem('user1');
+  //   this.responseData = JSON.parse(responseDatas);
+  
+  
+  // }
+  
+},
   mounted() {
-
+    this.fetchData();
+    // console.log('1')
   },
 
 };
@@ -132,7 +139,7 @@ export default {
           <li>
             <RouterLink to="/product">/ 商品 /</RouterLink>
           </li>
-          <li class="current"><em aria-current="page">{{ responseData[userId - 1]["pc_name"] }}</em></li>
+          <li class="current"><em aria-current="page">{{ displayData.p_name }}</em></li>
         </ul>
       </div>
       <div class="row">
@@ -152,7 +159,7 @@ export default {
           <div class="into">
             <div class="category">
               <div class="title">
-                <h2>{{ responseData[userId - 1].f_name }}-{{ responseData[userId - 1].p_name
+                <h2>{{ displayData.f_name }}-{{ displayData.p_name
                   }}
                 </h2>
                 <div class="under-scord">
@@ -162,7 +169,7 @@ export default {
 
               </div>
               <div class="txt">
-                <p>{{ responseData[userId - 1].introduce }}</p>
+                <p>{{ displayData.p_info }}</p>
 
                 <!-- <li>堅持選用無帶病的組培苗再移植培養雖然成本高時效短，且需不斷放入新的草鈴幼蟲</li>
 
@@ -175,27 +182,29 @@ export default {
                 <img src="../assets/image/product-underScord2.svg" alt="">
               </div>
               <div class="unit">
-                <p>單位:</p><span>{{ responseData[userId - 1].unit }}</span>
+                <p>單位:</p><span>{{ displayData.p_unit }}</span>
               </div>
               <div class="Charge">
-                <p>售價:</p><span>{{ responseData[userId - 1].p_fee }}元</span>
+                <p>售價:</p><span>{{ displayData.p_fee }}元</span>
               </div>
               <div class="quantity">
                 <p>數量:</p>
                 <div class="card-num">
                   <button @click="subtraction">-</button>
-                  {{ responseData[userId - 1].count }}
+                  {{ count }}
                   <button @click="add">+</button>
                 </div>
               </div>
 
 
               <div class="member-card">
-                <button class="cart-shopping"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === false">
-                    <i class="fa-solid fa-cart-shopping fa-xs"></i>加入購物車
+                <button class="cart-shopping" @click="addCart(userId - 1)"
+                  v-if="displayData.isaddCart === false">
+                  <i class="fa-solid fa-cart-shopping fa-xs"></i>加入購物車
                 </button>
-                <button class="cart-cancel-btn cart-shopping"  @click="addCart(userId - 1)" v-if=" responseData[userId - 1].isaddCart === true">
-                    <i class="fa-solid fa-xmark"></i>取消
+                <button class="cart-cancel-btn cart-shopping" @click="addCart(userId - 1)"
+                  v-if="displayData.isaddCart === true">
+                  <i class="fa-solid fa-xmark"></i>取消
                 </button>
                 <button class="buy">
                   <router-link to="/cart">立即購買</router-link>
@@ -291,7 +300,7 @@ section {
             margin: auto;
             width: 100%;
             padding: 10px 0;
-            aspect-ratio:1/0.7;
+            aspect-ratio: 1/0.7;
             object-fit: cover;
 
             @include s2bmd() {
@@ -306,6 +315,8 @@ section {
 
             img {
               width: 100%;
+              aspect-ratio: 1/0.7;
+              object-fit: cover;
 
               @include s2bmd() {
                 height: 100%;
@@ -323,6 +334,7 @@ section {
             box-sizing: border-box;
             width: 100%;
             margin: auto;
+           
 
 
             @include s2bmd() {
@@ -340,6 +352,8 @@ section {
             img {
               width: 33%;
               padding: 0 0.3%;
+              aspect-ratio: 1/0.7;
+              object-fit: cover;
 
               @include s2bmd() {
                 // max-width: 100%;
@@ -490,10 +504,10 @@ section {
 
             .member-card {
               display: flex;
-              gap:30px;
+              gap: 30px;
               justify-content: center;
               align-items: end;
-              margin:auto;
+              margin: auto;
 
               @include s2bmd() {
                 // justify-content: start;
@@ -505,11 +519,12 @@ section {
               .cart-shopping {
                 padding: 1% 2%;
                 font-family: $pFont;
-                font-size:0.9rem;
+                font-size: 0.9rem;
                 color: #fff;
                 background-color: $darkGreen;
                 border-radius: 20px;
                 border: 1px solid #000;
+
                 &:hover {
                   background-color: $lightGreen;
                   border: 1px solid $darkGreen;
@@ -525,10 +540,11 @@ section {
                 background-color: #eb3445;
                 border-radius: 20px;
                 border: none;
+
                 i {
                   margin-right: 10px;
                 }
-                }
+              }
 
               .buy {
                 padding: 1% 2%;
