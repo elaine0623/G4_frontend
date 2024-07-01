@@ -128,16 +128,26 @@ export default {
   },
   methods: {
     async loadQuestions() {
-      // 異步加載問題數據
-      const response = await fetch(`${import.meta.env.BASE_URL}questions.json`)
-      const allQuestions = await response.json()
-      this.questions = this.selectRandomQuestions(allQuestions, 10)
-    },
-    selectRandomQuestions(allQuestions, count) {
-      // 隨機選擇指定數量的問題
-      const shuffled = allQuestions.sort(() => 0.5 - Math.random())
-      return shuffled.slice(0, count)
-    },
+    try {
+        // 异步加载问题数据
+        const url = "http://localhost/php_g4/questions.php";
+        const response = await fetch(url, {
+            method: "POST",
+            // body: JSON.stringify(body) // 如果需要请求体，请取消注释并提供适当的body
+        });
+
+        const allQuestions = await response.json();
+        this.questions = this.selectRandomQuestions(allQuestions, 10);
+    } catch (error) {
+        console.error("Error loading questions:", error);
+    }
+},
+
+selectRandomQuestions(allQuestions, count) {
+    // 随机选择指定数量的问题
+    const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+},
     startGame() {
       // 開始遊戲，並在4秒後顯示進度條
       this.gameStarted = true
