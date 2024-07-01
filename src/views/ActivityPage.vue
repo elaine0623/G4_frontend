@@ -1,17 +1,14 @@
 <template>
     <div>
-        <section v-if="loading" class="loading">
-            Loading...
-        </section>
         <section v-if="activityInfo" class="section">
             <div class="container">
                 <div class="container-title">
                     <div class="wrap-title">
                         <div class="class">
-                            <h1>{{ activityInfo.c_no }}</h1>
+                            <h1>{{ displayData.c_no }}</h1>
                         </div>
                         <div class="main-title">
-                            <h2>{{ activityInfo.a_name }}</h2>
+                            <h2>{{  displayData.a_name }}</h2>
                         </div>
                     </div>
                     <div class="wrap-info">
@@ -23,7 +20,7 @@
                                 <li>
                                     <RouterLink to="/activity">活動</RouterLink>
                                 </li>
-                                <li class="current"><em aria-current="page">{{ activityInfo.c_no }}</em></li>
+                                <li class="current"><em aria-current="page">{{  displayData.c_no }}</em></li>
                             </ul>
                         </nav>
                         <hr>
@@ -32,28 +29,33 @@
                 <div class="content">
                     <div class="pic-content">
                         <!-- <img :src="activityInfo.a_img" alt="act1"> -->
-                        <img :src="parsePic(activityInfo.a_img)" alt="act1">
+                        <img :src="parsePic( displayData.a_img)" alt="act1">
                     </div>
                     <div class="info-content">
                         <div class="loc">
                             <span><i class="fa-solid fa-location-dot"></i></span>
-                            <span>{{ activityInfo.a_loc }}</span>
+                            <span>{{  displayData.a_loc }}</span>
                         </div>
                         <hr>
                         <div class="date">
-                            <span>日 期 : </span>
-                            <span>{{ activityInfo.a_date }}</span>
-                        </div>
-                        <div class="time" v-if="activityInfo.a_time">
-                            <span>時 間 : </span>
-                            <span>
-                                {{ activityInfo.a_time }}
+                            <span :class="dateClass">日 期 : </span>
+                            <span class="oneday" v-if="displayData.a_start_date === displayData.a_end_date">
+                                {{  displayData.a_start_date }}
+                            </span>
+                            <span class="multiday" v-if="displayData.a_start_date !== displayData.a_end_date">
+                                {{  displayData.a_start_date }}~{{  displayData.a_end_date }}
                             </span>
                         </div>
-                        <div class="teacher" v-if="activityInfo.a_teacher">
+                        <div class="time" v-if=" displayData.a_time">
+                            <span>時 間 : </span>
+                            <span>
+                                {{ formatTime(displayData.a_time) }}
+                            </span>
+                        </div>
+                        <div class="teacher" v-if=" displayData.a_teacher !== '無'">
                             <span>講 師 : </span>
                             <span>
-                                {{ activityInfo.a_teacher }}
+                                {{  displayData.a_teacher }}
                             </span>
                         </div>
                         <hr>
@@ -63,16 +65,16 @@
                             <h3>活動介紹</h3>
                         </div>
                         <div>
-                            <p>{{ activityInfo.a_info }}</p>
+                            <p>{{  displayData.a_info }}</p>
                             <ul>
-                                <li v-if="activityInfo.a_info1">
-                                    {{ activityInfo.a_info1 }}
+                                <li v-if=" displayData.a_info1">
+                                    {{  displayData.a_info1 }}
                                 </li>
-                                <li v-if="activityInfo.a_info2">
-                                    {{ activityInfo.a_info2 }}
+                                <li v-if=" displayData.a_info2">
+                                    {{  displayData.a_info2 }}
                                 </li>
-                                <li v-if="activityInfo.a_info3">
-                                    {{ activityInfo.a_info3 }}
+                                <li v-if=" displayData.a_info3">
+                                    {{  displayData.a_info3 }}
                                 </li>
 
                             </ul>
@@ -82,40 +84,46 @@
                         <div class="title-rules">
                             <h3>活動須知</h3>
                         </div>
-                        <div class="item-rules" v-if="activityInfo.a_signupe">
+                        <div class="item-rules" v-if=" displayData.a_signupe !== '0000-00-00'">
                             <p>報名截止日期</p>
                             <ul>
-                                <li>{{ activityInfo.a_signupe }}</li>
+                                <li>{{  displayData.a_signupe }}</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>報名費用</p>
                             <ul>
-                                <li v-if="activityInfo.a_fee">
-                                    NT$ {{ activityInfo.a_fee }}
+                                <li v-if=" displayData.a_fee != 0">
+                                    NT$ {{  displayData.a_fee }}
                                 </li>
                                 <li v-else>
                                     免費
                                 </li>
                             </ul>
                         </div>
-                        <div class="item-rules" v-if="activityInfo.a_max != 999">
+                        <div class="item-rules" v-if=" displayData.a_max != 999">
                             <p>報名人數上限</p>
                             <ul>
-                                <li>{{ activityInfo.a_max }}人</li>
+                                <li>{{  displayData.a_max }}人</li>
+                            </ul>
+                        </div>
+                        <div class="item-rules" v-if=" displayData.a_max != 999">
+                            <p>已報名人數</p>
+                            <ul>
+                                <li>{{  displayData.a_attendee }}人</li>
                             </ul>
                         </div>
                         <div class="item-rules">
                             <p>當日注意事項</p>
                             <ul>
-                                <li v-if="activityInfo.a_rules1">
-                                    {{ activityInfo.a_rules1 }}
+                                <li v-if=" displayData.a_rules1">
+                                    {{  displayData.a_rules1 }}
                                 </li>
-                                <li v-if="activityInfo.a_rules2">
-                                    {{ activityInfo.a_rules2 }}
+                                <li v-if=" displayData.a_rules2">
+                                    {{  displayData.a_rules2 }}
                                 </li>
-                                <li v-if="activityInfo.a_rules3">
-                                    {{ activityInfo.a_rules3 }}
+                                <li v-if=" displayData.a_rules3">
+                                    {{  displayData.a_rules3 }}
                                 </li>
                             </ul>
                         </div>
@@ -144,14 +152,20 @@
 export default {
     data() {
         return {
-            activityInfo: {},
-            loading: true // 控制数据加载状态
+            activityInfo: [],
+            displayData:[],
         }
     },
     computed: {
         activityId() {
             return this.$route.params.activityId;
         },
+        dateClass() {
+            return {
+                'onedate': this.displayData.a_start_date === this.displayData.a_end_date,
+                'multidate': this.displayData.a_start_date !== this.displayData.a_end_date
+            }
+        }
     },
     watch: {
         activityId: function () {
@@ -160,40 +174,29 @@ export default {
     },
     methods: {
         fetchActivityInfo() {
-            this.loading = true;
-            fetch(`${import.meta.env.BASE_URL}activityPage.json`)
-            .then((response) => response.json())
-            .then((json) => {
-                const target = json.find(item=>item.id == this.activityId)
-                console.log(target);
-                this.activityInfo = target
-                this.loading = false; // 数据加载完成后，将加载状态设置为 false
+            fetch(`http://localhost/php_G4/activitiesList.php`, {
+                method: 'post'
             })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                this.loading = false; // 如果发生错误，也将加载状态设置为 false
-            });
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json)
+                this.activityInfo = json['data']['list']
+                console.log(this.activityInfo);
+                console.log(this.activityId)
+                this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId )
+                console.log( this.displayData);
+            })
         },
         parsePic(file) {
             return new URL(`../assets/image/${file}`, import.meta.url).href
         },
+        formatTime(dateTime) {
+            return dateTime.split(' ')[1]; // 提取時間部分
+        }
     },
     mounted() {
-        this.fetchActivityInfo();
-    },
-    // mounted() {
-    //     fetch("/public/activityPage.json")
-    //     .then(res => res.json())
-    //     .then(json => {
-    //         console.log(json);
-    //         this.activityList = json;
-    //         this.loading = false; // 数据加载完成后，将加载状态设置为 false
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching data:', error);
-    //         this.loading = false; // 如果发生错误，也将加载状态设置为 false
-    //     });
-    // },
+        this.fetchActivityInfo()
+    }
 }
 </script>
 
@@ -364,7 +367,7 @@ section {
             .info-content {
                 margin: 60px 50px;
                 width: 60%;
-                max-width: 350px;
+                max-width: 400px;
                 color: $darkGreen;
 
                 @include md() {
@@ -393,9 +396,35 @@ section {
                     @include sm() {
                         margin: 10px 15px;
                     }
-
-                    span {
-                        margin: 0 10px;
+                    .onedate{
+                        margin: 0 15px 0 10px;
+                        display: inline-block;
+                        line-height: 1.5;
+                        @include sm(){
+                            // display: block;
+                        }
+                    }
+                    .multidate{
+                        margin: 0 15px 0 10px;
+                        display: inline-block;
+                        line-height: 1.5;
+                        @include sm(){
+                            // display: block;
+                        }
+                    }
+                    .oneday{
+                        margin-left: 5px;
+                    }
+                    .multiday{
+                        margin-left: 7px;
+                        @include sm() {
+                            margin-left: 5px;
+                        }
+                        @include bp(435px) {
+                            margin-left: 10px;
+                        }
+                    }
+                    span{
                         display: inline-block;
                         line-height: 1.5;
                     }
