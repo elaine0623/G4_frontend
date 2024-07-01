@@ -1,17 +1,87 @@
 <script>
+import { useAdminStore } from '@/stores/userLogin.js'; // 引入 Pinia store
+import md5 from 'js-md5';
 export default {
   data() {
+    return {
+      userData: {},
+      name: '',
+      account: '',
+      password: '',
+      phone: '',
+      birth: '',
+      add: '',
+      old_psw: '',
+      psw: '',
+      dbpsw: '',
+      userData: '',
+
+    }
+
 
   },
   methods: {
-    dbcheckpsw() {
-      if (this.psw !== this.dbpsw) {
-        this.errorMsg.dbpsw = "兩者密碼不相同，請重新輸入";
-      } else {
-        this.errorMsg.dbpsw = "";
+    checkname() {
+      if (this.name == "") {
+        alert("姓名不得為空值");
       }
     },
-  }
+    checkphone() {
+      const phonerule = /09\d{8}/;
+      if (!phonerule.test(this.phone)) {
+        alert("電話號碼格式錯誤");
+      }
+    },
+    checkoldpsw() {
+      if (md5(this.old_psw) !== this.userData["m_password"]) {
+        alert("舊密碼錯誤");
+      }
+    },
+    dbcheckpsw() {
+      if (this.psw !== this.dbpsw) {
+        alert("兩者密碼不相同，請重新輸入");
+      }
+    },
+    submit() {
+      alert("hihi");
+      // if (!this.checkname() || !this.checkphone() || !this.checkoldpsw() || !this.dbcheckpsw()) {
+      //   return false;
+      // }
+      const url = `http://localhost/php_G4/revise_member.php`
+      let body = {
+        "m_id": this.userData.m_id,
+        "name": this.name,
+        "phone": this.phone,
+        "psw": this.psw,
+        "dbpsw": this.dbpsw,
+      }
+
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body)
+      })
+        .then(response => response.json())
+        .then(
+          json => {
+            this.data = json
+          }
+        );
+    }
+  },
+  //存取是否登入
+  mounted() {
+    const store = useAdminStore();
+    const isLogin = store.isLoggedIn();
+    if (!isLogin) {
+      this.$router.push('/user');
+    }
+    const user = localStorage.getItem('currentUser');
+    console.log(user);
+    if (user) {
+      this.userData = JSON.parse(user);
+      this.name = this.userData.m_name;
+    }
+  },
 }
 </script>
 
@@ -22,40 +92,40 @@ export default {
     <form @submit.prevent="submitForm">
       <div class="name">
         <label for="name">姓名</label>
-        <input type="text" id="name" name="m_name">
+        <input type="text" v-model="name" @change="checkname()">
       </div>
       <div class="account">
         <label for="account">帳號</label>
-        <input type="email" id="account" name="m_account">
+        <input type="email" name="m_account" :value="this.userData.m_account" disabled>
       </div>
       <div>
         <label for="phone">電話</label>
-        <input type="tel" id="phone" name="m_phone">
+        <input type="tel" v-model="phone" name="m_phone" @change="checkphone()">
       </div>
       <div class="birth">
         <label for="birth">生日</label>
-        <input type="date" id="birth" name="m_birth" class="m_birth">
+        <input type="date" v-model="birth" name="m_birth" class="m_birth">
       </div>
       <div class="address">
         <label for="add">地址</label>
-        <input type="email" id="add" name="m_add">
+        <input type="email" v-model="add" name="m_add">
       </div>
       <hr style="color: #144433; width: 100%;">
       <div class="oldpsw">
         <label for="old_psw">舊密碼</label>
-        <input type="password" id="old_psw" name="">
+        <input type="password" v-model="old_psw" @change="checkoldpsw()">
       </div>
       <div class="newpsw">
         <label for="new_psw">新密碼</label>
-        <input type="password" id="new_psw" name="" v-model="psw">
+        <input type="password" name="" v-model="psw">
       </div>
       <div class="dbpsw">
         <label for="dbc_psw">確認新密碼</label>
-        <input type="password" id="dbc_psw" name="" v-model="dbpsw" @blur="dbcheckpsw()">
+        <input type="password" name="" v-model="dbpsw" @blur="dbcheckpsw()">
       </div>
     </form>
   </div>
-  <button>儲存</button>
+  <button @click="submit()">儲存</button>
 </template>
 
 <style lang="scss" scoped>

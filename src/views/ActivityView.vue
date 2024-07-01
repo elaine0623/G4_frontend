@@ -25,6 +25,7 @@
         <!-- <Calendar /> -->
         <div class="myvc-container">
           <DatePicker
+            :key="JSON.stringify(isActivedEvent.value)"
             :color="selectedColor"
             :attributes="attrs"
             v-model="date"
@@ -33,7 +34,7 @@
           />
           <div class="current-event">
             <div class="curr-header">{{ formattedDate }}</div>
-            <div class="curr-content" v-for="(item, index) in currentEvent" :key="item.id">
+            <div class="curr-content" v-for="(item, index) in currentEvent" :key="item.a_no">
               <router-link :to="`/activity/${index + 1}`"> {{ item.a_name }}</router-link>
             </div>
           </div>
@@ -44,9 +45,9 @@
               class="event-card"
               v-show="isSearchMode === true"
               v-for="item in searchModePage"
-              :key="item.id"
+              :key="item.a_no"
             >
-              <router-link :to="`/activity/${item.id}`">
+              <router-link :to="`/activity/${item.a_no}`">
                 <img :src="parsePic(item.a_img)" alt="活動圖片" class="event-img" />
                 <div class="event-content">
                   <h3 class="event-title">{{ item.a_name }}</h3>
@@ -69,15 +70,16 @@
             </div>
             <div
               class="event-card col-12 col-md-6 col-lg-3"
-              v-show="isSearchMode === false && item.isVisable == 'true'"
+              v-show="isSearchMode === false && item.isvisable === true"
               v-for="item in pagenateData"
-              :key="item.id"
+              :key="item.a_no"
             >
-              <router-link :to="`/activity/${item.id}`">
+              <router-link :to="`/activity/${item.a_no}`">
                 <img :src="parsePic(item.a_img)" alt="活動圖片" class="event-img" />
                 <div class="event-content">
                   <h3 class="event-title">{{ item.a_name }}</h3>
-                  <span class="event-date">{{ item.time }}</span>
+                  <span class="event-date" v-if="item.c_no ==='講座'">{{ item.a_time }}</span>
+                  <span class="event-date" v-else>{{ item.a_start_date }}~{{ item.a_end_date }}</span>
                   <div class="event-class-tag market" v-if="item.c_no === '市集'">
                     {{ item.c_no }}
                   </div>
@@ -88,13 +90,13 @@
                       >{{ item.a_loc }}
                     </div>
                     <div
-                      v-show="item.c_no === '講座' && item.isAvailable === false"
+                      v-show="item.c_no === '講座' && item.a_status === 1"
                       class="parti-curr"
                     >
-                      報名人數:{{ item.a_curr }}/{{ item.a_max }}人
+                      報名人數:{{ item.a_attendee }}/{{ item.a_max }}人
                     </div>
                     <div
-                      v-show="item.c_no === '講座' && item.isAvailable === true"
+                      v-show="item.c_no === '講座' && item.a_attendee === a_max"
                       class="fully-booked"
                     >
                       已額滿
@@ -119,7 +121,7 @@
               <button @click="nextPage()" class="next-btn">
                 <img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭" />
               </button>
-            </div>
+            </div> 
             <div class="btn-field" v-if="filterEvents.length >= 6 && isSearchMode === true">
               <button @click="backPage()" :disabled="currentPage === 1" class="pre-btn">
                 <img src="/src/assets/image/event-images/pre-btn.svg" alt="上一頁箭頭" />
@@ -139,7 +141,7 @@
               >
                 <img src="/src/assets/image/event-images/next-btn.svg" alt="下一頁箭頭" />
               </button>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -205,6 +207,33 @@ export default {
       } else if (this.keyworlds == '') {
         this.isSearchMode = false
       }
+    },
+    //fetch json檔活動資料
+    fetchData() {
+      fetch(`http://localhost/php_G4/activitiesList.php`, {
+        method: 'post'
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json)
+          this.activeEvents = json['data']['list']
+          this.getDates()
+        })
+    },
+    getDates() {
+      for (let i = 0; i < this.activeEvents.length; i++) {
+        let dates = []
+        const startDate = new Date(this.activeEvents[i].a_start_date)
+        const endDate = new Date(this.activeEvents[i].a_end_date)
+        const days = (endDate.getTime() - startDate.getTime()) / 86400000
+        Array.from({ length: days + 1 }, (_, i) => {
+          const start = new Date(startDate)
+          dates.push(start.setDate(startDate.getDate() + i))
+          
+        })
+        this.activeEvents[i].a_date = dates;
+        console.log(this.activeEvents)
+      }
     }
   },
   computed: {
@@ -213,26 +242,30 @@ export default {
     },
     isVisable() {
       for (let i = 0; i < this.activeEvents.length; i++) {
+        for(let j = 0;j < this.activeEvents[i].a_date.length;j++){
         if (this.currentClass == 0) {
-          if (this.activeEvents[i].date == this.date) {
-            this.activeEvents[i].isVisble = true
-            this.currentPage = 1
+          if (!this.activeEvents[i].a_date.includes(this.date.getTime())) {
+            this.activeEvents[i].isvisable = false;
           } else {
-            this.activeEvents[i].isVisble = false
+            this.activeEvents[i].isvisable = true;
+            this.currentPage = 1;
           }
         } else if (this.currentClass != 0) {
           if (
-            this.activeEvents[i].date == this.date &&
+            this.activeEvents[i].a_date.includes(this.date.getTime()) &&
             this.activeEvents[i].c_no == this.currentClass
           ) {
-            this.activeEvents[i].isVisble = true
+            this.activeEvents[i].isvisable = true
             this.currentPage = 1
           } else {
-            this.activeEvents[i].isVisble = false
+            this.activeEvents[i].isvisable = false
           }
         }
+        
+        }
       }
-      return this.activeEvents.filter((event) => event.isVisble === true)
+      return this.activeEvents.filter((event) => event.isvisable === true)
+      
     },
     pagenateData() {
       return this.isVisable.slice((this.currentPage - 1) * perPage, this.currentPage * perPage)
@@ -247,7 +280,6 @@ export default {
           }
         })
       })
-      console.log(arr)
       return arr
     },
     currentEvent() {
@@ -262,73 +294,76 @@ export default {
     }
   },
   mounted() {
-    fetch(`${import.meta.env.BASE_URL}activityPage.json`)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json)
-        this.activeEvents = json
-        console.log(this.activeEvents)
-      })
+    this.fetchData()
   }
 }
 </script>
 <script setup>
-import { ref, onMounted} from 'vue'
+import { ref, onBeforeMount, computed } from 'vue'
 //fetch data
 let data = ref(null)
-let isAvailableEvents
-let eventsData = ref([]);
-let activedEvents = ref([]);
+let eventsData = ref([])
+let activedEvents = ref([])
 const fetchData = async () => {
-  const response = await fetch(`${import.meta.env.BASE_URL}activityPage.json`)
+  const response = await fetch(`http://localhost/php_G4/activitiesList.php` ,{method:'POST'})
   const result = await response.json()
-  data.value = result;
-  let uniqueDate = function () {
-    eventsData.value.push(data.value[0].a_date);
-    for (let i = 1;i < Object.values(data.value).length;i++) {
-      if(data.value[i].a_date != data.value[i-1].a_date){
-        eventsData.value.push(Object.values(data.value)[i].a_date);
-      } ;
-    };
+  console.log(result)
+  data.value = result['data']['list'] //json檔
+  console.log(data.value);
+  //取得活動開始天與結束天
+  for (let i = 0; i < Object.values(data.value).length; i++) {
+    const startDate = new Date(data.value[i].a_start_date)
+    const endDate = new Date(data.value[i].a_end_date)
+    const days = (endDate.getTime() - startDate.getTime()) / 86400000 //總共幾天
+    Array.from({ length: days + 1 }, (_, i) => {
+      const start = new Date(startDate)
+      eventsData.value.push(start.setDate(startDate.getDate() + i))
+    })
   }
-  isAvailableEvents = () => {
-    uniqueDate();
+  //陣列
+  let uniqueDate = function () {
     for (let i = 0; i < Object.values(eventsData.value).length; i++) {
-      let dateNum = Object.values(eventsData.value)[i]
-      let parts = dateNum.toString().split(',')
-      let formattedArray = parts.map((part) => Number(part))
-      let year = formattedArray[0]
-      let month = formattedArray[1]
-      let day = formattedArray[2]
-      let date = new Date(year, month, day);
-      activedEvents.value.push(date);
-      console.log(Object.values(activedEvents.value))
+      if (
+        Object.values(activedEvents.value).includes(Object.values(eventsData.value)[i]) === false
+      ) {
+        activedEvents.value.push(Object.values(eventsData.value)[i])
+      }
     }
   }
-  isAvailableEvents()
+  uniqueDate()
 }
-onMounted(() => {
+const isActivedEvent = computed(() => {
+  let formatDate = []
+  for (let i = 0; i < Object.values(activedEvents.value).length; i++) {
+    formatDate.push(new Date(Object.values(activedEvents.value)[i]))
+  }
+  return formatDate
+})
+onBeforeMount(() => {
   fetchData()
 })
 const selectedColor = ref('green')
-const attrs = ref([
-  {
-    key: 'today',
-    highlight: true,
-    dates:new Date(),
-  },
-  {
-    key: 'custom-dates',
-    dot: 'green',
-    dates:activedEvents.value,
-  }
-])
-const rules = ref({
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0
+const attrs = computed(() => {
+  return [
+    {
+      key: 'today',
+      highlight: true,
+      dates: new Date()
+    },
+    {
+      key: 'custom-dates',
+      dot: 'green',
+      dates: Object.values(isActivedEvent.value)
+    }
+  ]
 })
+const rules = ref(
+{
+    hours: 8,
+    minutes: 0,
+    seconds: 0,
+    milliseconds: 0,
+  })
 </script>
 <style lang="scss" scoped>
 .myvc-container:deep(.vc-arrow) {

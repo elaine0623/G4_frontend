@@ -208,7 +208,7 @@ computed: {
               :key="cardtIndex">
               <div class="card-product">
 
-                <router-link :to='`/ProductPage/${cardtIndex + 1}`'>
+                <router-link :to='`/ProductPage/${cardtItem.p_no}`'>
                   <div class="img-product">
                     <img :src="parsePic(cardtItem.p_img[0])" alt="商品圖片" />
                   </div>
