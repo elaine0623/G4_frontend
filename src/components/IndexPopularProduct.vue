@@ -16,18 +16,18 @@
             el: '.pagination',
           }" :space-between="10" @slideChange="onSlideChange" class="mySwiper" slides-per-view="auto"
             :centeredSlides="true">
-            <swiper-slide v-for="(cartItem, cartIndex) in cartList" :key="cartIndex">
+            <swiper-slide v-for="(cartItem, cartIndex) in responseData" :key="cartIndex">
               <!-- :autoplay="{ delay: 2500, disableOnInteraction: false }" -->
-              <RouterLink to="#" class="card-product-list">
+              <RouterLink :to='`/ProductPage/${cartItem.p_no}`' class="card-product-list">
                 <div class="img-product-list">
-                  <img :src="parsePic(cartItem['img'])" alt="" />
+                  <img :src="parsePic( cartItem.p_img[0])" alt="" />
                 </div>
                 <div class="into-product-list">
                   <div class="title-product-list">
-                    <p>{{ cartItem['title'] }}-{{ cartItem['subTitle'] }}</p>
+                    <p>{{ cartItem['f_name'] }}-{{ cartItem['p_name'] }}</p>
                   </div>
                   <div class="member-product-list">
-                    <span>NT.{{ cartItem['price'] }}</span>
+                    <span>NT.{{ cartItem['p_fee'] }}</span>
                     <div class="car-member-product-list">
                       <button class="cart-shopping">
                         <div class="icon-cart-shopping" id="app">
@@ -90,62 +90,25 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 export default {
   data() {
     return {
-      // swiperOption:{
-      //   breakpoints:{
-      //     391:{
-      //       slidesPerView:3,
-      //       centeredSlides:true,
-      //     }
-
-      //   }
-
-      // },
-
-
-      cartList: [
-        {
-          id: 1,
-          title: '福星',
-          subTitle: '葡萄',
-          price: 180,
-          img: 'grape.png'
-        },
-        {
-          id: 2,
-          title: '高原',
-          subTitle: '柿子',
-          price: 100,
-          img: 'persimmon.png'
-        },
-        {
-          id: 3,
-          title: '美濃',
-          subTitle: '棗子',
-          price: 280,
-          img: 'dates.png'
-        },
-        {
-          id: 4,
-          title: '美濃',
-          subTitle: '棗子',
-          price: 280,
-          img: 'grape.png'
-        },
-        {
-          id: 5,
-          title: '美濃',
-          subTitle: '棗子',
-          price: 280,
-          img: 'dates.png'
-        }
-      ],
-
-
+      responseData: [],
+      displayData:[],
+    
     };
   },
   methods: {
     parsePic(file) {
       return new URL(`../assets/image/${file}`, import.meta.url).href
+    },
+    fetchData() {
+      fetch(`http://localhost/php_g4/product_popular.php`, {
+        method: 'post'
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json)
+          this.responseData = json['data']['list']
+          console.log(this.responseData)
+        })
     },
   },
 
@@ -165,6 +128,10 @@ export default {
       onSlideChange,
       modules: [Autoplay, Navigation, Pagination],
     }
+  },
+  mounted() {
+    this.fetchData();
+
   },
 
 }
@@ -283,12 +250,17 @@ section {
         }
 
         .img-product-list {
-          //   width: 380px;
-          // height: 250px;
-
-
-          img {
             width: 100%;
+            aspect-ratio: 30/1;
+              object-fit: cover;
+            
+            
+            img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+          
+            // width: 100%;
             //   @include bp(390px) {
             //   width: 380px;
             // }
