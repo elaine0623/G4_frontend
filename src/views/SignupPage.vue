@@ -7,11 +7,11 @@
         <div class="info-activity">
             <div>
             <span>活動類別 : </span>
-            <span>{{ activityInfo.c_no }}</span>
+            <span>{{ displayData.c_no }}</span>
             </div>
             <div>
             <span>活動名稱 : </span>
-            <span>{{ activityInfo.a_name }}</span>
+            <span>{{ displayData.a_name }}</span>
             </div>
         </div>
         <div class="title">
@@ -60,7 +60,7 @@
             <input type="text" id="m_add" name="m_add" />
             </div>
         </form>
-        <form class="info-pay" v-if="activityInfo.a_fee > 0">
+        <form class="info-pay" v-if="displayData.a_fee > 0">
             <div class="title">
             <h2>付款資訊</h2>
             </div>
@@ -85,6 +85,7 @@
                 pattern="\d{4}"
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
+                v-model="card1"
                 />
                 <span>-</span>
                 <input
@@ -95,6 +96,7 @@
                 pattern="\d{4}"
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
+                v-model="card2"
                 />
                 <span>-</span>
                 <input
@@ -105,6 +107,7 @@
                 pattern="\d{4}"
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
+                v-model="card3"
                 />
                 <span>-</span>
                 <input
@@ -115,6 +118,7 @@
                 pattern="\d{4}"
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
+                v-model="card4"
                 />
             </div>
             </div>
@@ -131,6 +135,7 @@
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
                 placeholder="MM"
+                v-model="mm"
                 />
                 <span>-</span>
                 <input
@@ -142,13 +147,21 @@
                 @keydown="handleKeyDown($event)"
                 @keyup="handleKeyUp($event)"
                 placeholder="YY"
+                v-model="yy"
                 />
             </div>
             </div>
             <div class="code">
             <span>*</span>
             <label>CVC : </label>
-            <input type="text" placeholder="末3碼" required maxlength="3" pattern="\d{3}" />
+            <input 
+            type="text" 
+            placeholder="末3碼" 
+            required maxlength="3" 
+            pattern="\d{3}"
+            v-model="cvc"
+            @blur="checkCard"
+            />
             </div>
         </form>
         <hr />
@@ -166,10 +179,14 @@ import { mapActions, mapState } from 'pinia';
 export default {
     data() {
         return {
-        activityInfo: {},
-        ao_count: 1,
-        fee: 500,
+        userData:'',
+        activityInfo: [],
+        displayData:[],
         name: '',
+        ao_count: 1,
+        ao_status:1,
+        email:'',
+        phone:'',
         errorMsg: {
             name: '',
             email: '',
@@ -178,64 +195,100 @@ export default {
         card1: '',
         card2: '',
         card3: '',
-        card4: ''
+        card4: '',
+        mm: '',
+        yy: '',
+        cvc: ''
         }
     },
     computed: {
         activityId() {
-        return this.$route.params.signupId
+        return this.$route.params.signupId;
         },
         totalFees() {
-        return this.activityInfo.a_fee * this.ao_count
+        return this.displayData.a_fee * this.ao_count
         },
         ...mapState(useAdminStore, ['currentUser'])
     },
     watch: {
         activityId: function () {
-        this.fetchActivityInfo()
+        this.fetchActivityInfo();
         }
     },
     methods: {
         ...mapActions(useAdminStore, ['loadCurrentUser']),
-        async fetchActivityInfo() {
-        fetch(`${import.meta.env.BASE_URL}activityPage.json`)
-            .then((response) => response.json())
-            .then((json) => {
-            const target = json.find((item) => item.id == this.activityId)
-            this.activityInfo = target
+        fetchActivityInfo() {
+            fetch(`http://localhost/php_G4/activitiesList.php`, {
+                method: 'post'
             })
-            .catch((error) => {
-            console.error('Error fetching data:', error)
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json)
+                this.activityInfo = json['data']['list']
+                console.log(this.activityInfo);
+                console.log(this.activityId)
+                this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId )
+                console.log( this.displayData);
             })
         },
+        // 前端驗證：使用者註冊時姓名不得為空
         checkname() {
         const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g //正規表達式：不可輸入數字、空白及特殊符號 最多15字
         if (this.name === '') {
-            this.errorMsg.name = '*請輸入姓名'
+            this.errorMsg.name = '*請輸入姓名';
+            return false;
         } else if (namelimit.test(this.name)) {
-            this.errorMsg.name = ''
+            this.errorMsg.name = '';
+            return true;
         } else {
-            this.errorMsg.name = '*姓名不得輸入數字、空白及特殊符號'
+            this.errorMsg.name = '*姓名不得輸入數字、空白及特殊符號';
+            return false;
         }
         },
+        // 前端驗證：使用者email有效
         checkemail() {
-        // eslint-disable-next-line no-useless-escape
         const emaillimit =
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //正規表達式：email格式
         if (emaillimit.test(this.email)) {
-            this.errorMsg.email = ''
+            this.errorMsg.email = '';
+            return true;
         } else {
-            this.errorMsg.email = '*請輸入正確的email'
+            this.errorMsg.email = '*請輸入正確的email';
+            return false;
         }
         },
+        // 前端驗證：手機
         checkphone() {
         const phonelimit = /^[0-9]{8,10}$/ //正規表達式:手機
         if (phonelimit.test(this.phone)) {
             this.errorMsg.phone = ''
+            return true;
         } else {
             this.errorMsg.phone = '*請輸入正確的電話號碼'
+            return false;
         }
         },
+        checkCard(){
+            if(this.displayData.a_fee > 0){
+                if (
+                this.card1 && 
+                this.card2 && 
+                this.card3 && 
+                this.card4 && 
+                this.mm && 
+                this.yy && 
+                this.cvc
+                ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }else{
+                return true;
+            }
+            
+        },
+        //信用卡自動換格
         handleKeyDown(event) {
         const target = event.target
         const value = target.value
@@ -251,6 +304,7 @@ export default {
             event.preventDefault()
         }
         },
+        //信用卡自動換格
         handleKeyUp(event) {
         const target = event.target
         let value = target.value.replace(/\D/g, '')
@@ -265,46 +319,72 @@ export default {
         }
         },
         submit() {
-        if (this.ao_count != null && this.ao_count !== '') {
-            Swal.fire({
-            title: '<strong>報名成功</strong>',
-            icon: 'success',
-            iconColor: '#144433',
-            html: ``,
-            showCloseButton: false,
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText: '返回活動',
-            confirmButtonColor: '#144433',
-            cancelButtonText: '活動紀錄',
-            cancelButtonColor: '#144433',
-            background: '#eeeeee'
-            }).then(async (result) => {
-            if (result.isConfirmed) {
-                this.$router.push('/activity')
-                await this.$nextTick()
-                setTimeout(() => {
-                window.scrollTo({
-                    left: 0,
-                    top: 0,
-                    behavior: 'smooth'
-                })
-                }, 280)
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                this.$router.push('/userlayout/useractivity')
-                await this.$nextTick()
-                setTimeout(() => {
-                window.scrollTo({
-                    left: 0,
-                    top: 0,
-                    behavior: 'smooth'
-                })
-                }, 280)
+            if (!this.checkname() || !this.checkemail() || !this.checkphone() || !this.checkCard()) {
+                Swal.fire({
+                    title: "資料未填寫完全",
+                    icon: "error"
+                });
+                return false;
             }
+            const url = `http://localhost/php_G4/signupPage.php`
+            let body = {
+                "a_no": this.displayData.a_no,
+                "m_no": this.userData.m_no,
+                "ao_count": this.ao_count,
+                "ao_status": this.ao_status,
+                "a_date": this.displayData.a_time,
+                "ao_totalfee": this.totalFees,
+            }
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(body)
             })
-        }
+                .then(response => response.json())
+                .then(
+                    json => {
+                        this.data = json
+                        Swal.fire({
+                            title: '<strong>報名成功</strong>',
+                            icon: 'success',
+                            iconColor: '#144433',
+                            html: ``,
+                            showCloseButton: false,
+                            showCancelButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: '返回活動',
+                            confirmButtonColor: '#144433',
+                            cancelButtonText: '活動紀錄',
+                            cancelButtonColor: '#144433',
+                            background: '#eeeeee'
+                            }).then(async (result) => {
+                            if (result.isConfirmed) {
+                                this.$router.push('/activity')
+                                await this.$nextTick()
+                                setTimeout(() => {
+                                window.scrollTo({
+                                    left: 0,
+                                    top: 0,
+                                    behavior: 'smooth'
+                                })
+                                }, 280)
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                this.$router.push('/userlayout/useractivity')
+                                await this.$nextTick()
+                                setTimeout(() => {
+                                window.scrollTo({
+                                    left: 0,
+                                    top: 0,
+                                    behavior: 'smooth'
+                                })
+                                }, 280)
+                            }
+                            })
+                    }
+                );
+            
         },
-            checkLogin() {
+        checkLogin() {
             this.loadCurrentUser();
             if (!this.currentUser) {
                 alert('尚未登入');
@@ -315,6 +395,17 @@ export default {
     mounted() {
         this.fetchActivityInfo();
         this.checkLogin();
+        const store = useAdminStore();
+        const isLogin = store.isLoggedIn();
+        if (!isLogin) {
+        this.$router.push('/user');
+        }
+        const user = localStorage.getItem('currentUser');
+        console.log(user);
+        if (user) {
+        this.userData = JSON.parse(user);
+        this.m_no = this.userData.m_no;
+        }
     }
 }
 </script>
