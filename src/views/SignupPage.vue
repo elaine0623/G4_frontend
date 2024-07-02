@@ -1,104 +1,173 @@
 <template>
     <section class="section">
         <div class="container">
+        <div class="title">
+            <h1>活動資料</h1>
+        </div>
+        <div class="info-activity">
+            <div>
+            <span>活動類別 : </span>
+            <span>{{ displayData.c_no }}</span>
+            </div>
+            <div>
+            <span>活動名稱 : </span>
+            <span>{{ displayData.a_name }}</span>
+            </div>
+        </div>
+        <div class="title">
+            <h2>基本資料</h2>
+        </div>
+        <form class="info-basic">
+            <div>
+            <span>*</span>
+            <label for="m_name">姓名 : </label>
+            <input type="text" id="m_name" name="m_name" @blur="checkname()" v-model="name" />
+            <span v-text="errorMsg.name" class="wrong-msg"></span>
+            </div>
+            <div>
+            <span>*</span>
+            <label for="ao_count">報名人數 : </label>
+            <input
+                v-model.number="ao_count"
+                type="number"
+                id="ao_count"
+                name="ao_count"
+                min="1"
+                v-on:change="totalFee()"
+            />
+            </div>
+            <div>
+            <span>*</span>
+            <label for="m_account">電子信箱 : </label>
+            <input
+                type="email"
+                id="m_account"
+                name="m_account"
+                @blur="checkemail()"
+                v-model="email"
+            />
+            <span v-text="errorMsg.email" class="wrong-msg"></span>
+            </div>
+            <div>
+            <span>*</span>
+            <label for="m_phone">連絡電話 : </label>
+            <input type="tel" id="m_phone" name="m_phone" @blur="checkphone()" v-model="phone" />
+            <span v-text="errorMsg.phone" class="wrong-msg"></span>
+            </div>
+            <div>
+            <span>*</span>
+            <label for="m_add">通訊地址 : </label>
+            <input type="text" id="m_add" name="m_add" />
+            </div>
+        </form>
+        <form class="info-pay" v-if="displayData.a_fee > 0">
             <div class="title">
-                <h1>活動資料</h1>
+            <h2>付款資訊</h2>
             </div>
-            <div class="info-activity">
-                <div>
-                    <span>活動類別 : </span>
-                    <span>{{ activityInfo.c_no }}</span>
-                </div>
-                <div>
-                    <span>活動名稱 : </span>
-                    <span>{{ activityInfo.a_name }}</span>
-                </div>
+            <div class="money">
+            <label>應付金額 : </label>
+            <span>NT$</span>
+            <span>{{ totalFees }} </span>
             </div>
-            <div class="title">
-                <h2>基本資料</h2>
+            <div class="pay">
+            <label>付款方式 : </label>
+            <button>信用卡付款</button>
             </div>
-            <form class="info-basic">
-                <div>
-                    <span>*</span>
-                    <label for="m_name">姓名 : </label>
-                    <input type="text" id="m_name" name="m_name" @blur="checkname()" v-model="name" />
-                    <span v-text="errorMsg.name" class="wrong-msg"></span>
-                </div>
-                <div>
-                    <span>*</span>
-                    <label for="ao_count">報名人數 : </label>
-                    <input v-model.number="ao_count" type="number" id="ao_count" name="ao_count" min="1"
-                        v-on:change="totalFee()" />
-                </div>
-                <div>
-                    <span>*</span>
-                    <label for="m_account">電子信箱 : </label>
-                    <input type="email" id="m_account" name="m_account" @blur="checkemail()" v-model="email" />
-                    <span v-text="errorMsg.email" class="wrong-msg"></span>
-                </div>
-                <div>
-                    <span>*</span>
-                    <label for="m_phone">連絡電話 : </label>
-                    <input type="tel" id="m_phone" name="m_phone" @blur="checkphone()" v-model="phone" />
-                    <span v-text="errorMsg.phone" class="wrong-msg"></span>
-                </div>
-                <div>
-                    <span>*</span>
-                    <label for="m_add">通訊地址 : </label>
-                    <input type="text" id="m_add" name="m_add" />
-                </div>
-            </form>
-            <form class="info-pay" v-if="activityInfo.a_fee > 0">
-                <div class="title">
-                    <h2>付款資訊</h2>
-                </div>
-                <div class="money">
-                    <label>應付金額 : </label>
-                    <span>NT$</span>
-                    <span>{{ totalFees }} </span>
-                </div>
-                <div class="pay">
-                    <label>付款方式 : </label>
-                    <button>信用卡付款</button>
-                </div>
-                <div class="card">
-                    <span>*</span>
-                    <label>信用卡號 : </label>
-                    <div>
-                        <input class="card1" type="text" required maxlength="4" pattern="\d{4}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" />
-                        <span>-</span>
-                        <input class="card2" type="text" required maxlength="4" pattern="\d{4}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" />
-                        <span>-</span>
-                        <input class="card3" type="text" required maxlength="4" pattern="\d{4}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" />
-                        <span>-</span>
-                        <input class="card3" type="text" required maxlength="4" pattern="\d{4}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" />
-                    </div>
-                </div>
-                <div class="deadline">
-                    <span>*</span>
-                    <label>有效期限 : </label>
-                    <div>
-                        <input type="text" inputmode="numeric" required maxlength="2" pattern="\d{2}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" placeholder="MM" />
-                        <span>-</span>
-                        <input type="text" inputmode="numeric" required maxlength="2" pattern="\d{2}"
-                            @keydown="handleKeyDown($event)" @keyup="handleKeyUp($event)" placeholder="YY" />
-                    </div>
-                </div>
-                <div class="code">
-                    <span>*</span>
-                    <label>CVC : </label>
-                    <input type="text" placeholder="末3碼" required maxlength="3" pattern="\d{3}" />
-                </div>
-            </form>
-            <hr />
-            <div class="submit">
-                <button @click="submit" type="submit">確認送出</button>
+            <div class="card">
+            <span>*</span>
+            <label>信用卡號 : </label>
+            <div>
+                <input
+                class="card1"
+                type="text"
+                required
+                maxlength="4"
+                pattern="\d{4}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                v-model="card1"
+                />
+                <span>-</span>
+                <input
+                class="card2"
+                type="text"
+                required
+                maxlength="4"
+                pattern="\d{4}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                v-model="card2"
+                />
+                <span>-</span>
+                <input
+                class="card3"
+                type="text"
+                required
+                maxlength="4"
+                pattern="\d{4}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                v-model="card3"
+                />
+                <span>-</span>
+                <input
+                class="card3"
+                type="text"
+                required
+                maxlength="4"
+                pattern="\d{4}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                v-model="card4"
+                />
             </div>
+            </div>
+            <div class="deadline">
+            <span>*</span>
+            <label>有效期限 : </label>
+            <div>
+                <input
+                type="text"
+                inputmode="numeric"
+                required
+                maxlength="2"
+                pattern="\d{2}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                placeholder="MM"
+                v-model="mm"
+                />
+                <span>-</span>
+                <input
+                type="text"
+                inputmode="numeric"
+                required
+                maxlength="2"
+                pattern="\d{2}"
+                @keydown="handleKeyDown($event)"
+                @keyup="handleKeyUp($event)"
+                placeholder="YY"
+                v-model="yy"
+                />
+            </div>
+            </div>
+            <div class="code">
+            <span>*</span>
+            <label>CVC : </label>
+            <input 
+            type="text" 
+            placeholder="末3碼" 
+            required maxlength="3" 
+            pattern="\d{3}"
+            v-model="cvc"
+            @blur="checkCard"
+            />
+            </div>
+        </form>
+        <hr />
+        <div class="submit">
+            <button @click="submit" type="submit">確認送出</button>
+        </div>
         </div>
     </section>
 </template>
@@ -110,76 +179,116 @@ import { mapActions, mapState } from 'pinia';
 export default {
     data() {
         return {
-            activityInfo: {},
-            ao_count: 1,
-            fee: 500,
+        userData:'',
+        activityInfo: [],
+        displayData:[],
+        name: '',
+        ao_count: 1,
+        ao_status:1,
+        email:'',
+        phone:'',
+        errorMsg: {
             name: '',
-            errorMsg: {
-                name: '',
-                email: '',
-                phone: ''
-            },
-            card1: '',
-            card2: '',
-            card3: '',
-            card4: ''
+            email: '',
+            phone: ''
+        },
+        card1: '',
+        card2: '',
+        card3: '',
+        card4: '',
+        mm: '',
+        yy: '',
+        cvc: ''
         }
     },
     computed: {
         activityId() {
-            return this.$route.params.signupId
+        return this.$route.params.signupId;
         },
         totalFees() {
-            return this.activityInfo.a_fee * this.ao_count
+        return this.displayData.a_fee * this.ao_count
         },
         ...mapState(useAdminStore, ['currentUser'])
     },
     watch: {
         activityId: function () {
-            this.fetchActivityInfo()
+        this.fetchActivityInfo();
         }
     },
     methods: {
         ...mapActions(useAdminStore, ['loadCurrentUser']),
-        async fetchActivityInfo() {
-            fetch(`${import.meta.env.BASE_URL}activityPage.json`)
-                .then((response) => response.json())
-                .then((json) => {
-                    const target = json.find((item) => item.id == this.activityId)
-                    this.activityInfo = target
-                })
-                .catch((error) => {
-                    console.error('Error fetching data:', error)
-                })
+        fetchActivityInfo() {
+            fetch(`http://localhost/php_G4/activitiesList.php`, {
+                method: 'post'
+            })
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json)
+                this.activityInfo = json['data']['list']
+                console.log(this.activityInfo);
+                console.log(this.activityId)
+                this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId )
+                console.log( this.displayData);
+            })
         },
+        // 前端驗證：使用者註冊時姓名不得為空
         checkname() {
-            const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g //正規表達式：不可輸入數字、空白及特殊符號 最多15字
-            if (this.name === '') {
-                this.errorMsg.name = '*請輸入姓名'
-            } else if (namelimit.test(this.name)) {
-                this.errorMsg.name = ''
-            } else {
-                this.errorMsg.name = '*姓名不得輸入數字、空白及特殊符號'
-            }
+        const namelimit = /^[a-zA-Z\u4e00-\u9fa5]{1,15}$/g //正規表達式：不可輸入數字、空白及特殊符號 最多15字
+        if (this.name === '') {
+            this.errorMsg.name = '*請輸入姓名';
+            return false;
+        } else if (namelimit.test(this.name)) {
+            this.errorMsg.name = '';
+            return true;
+        } else {
+            this.errorMsg.name = '*姓名不得輸入數字、空白及特殊符號';
+            return false;
+        }
         },
+        // 前端驗證：使用者email有效
         checkemail() {
-            // eslint-disable-next-line no-useless-escape
-            const emaillimit =
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //正規表達式：email格式
-            if (emaillimit.test(this.email)) {
-                this.errorMsg.email = ''
-            } else {
-                this.errorMsg.email = '*請輸入正確的email'
-            }
+        const emaillimit =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //正規表達式：email格式
+        if (emaillimit.test(this.email)) {
+            this.errorMsg.email = '';
+            return true;
+        } else {
+            this.errorMsg.email = '*請輸入正確的email';
+            return false;
+        }
         },
+        // 前端驗證：手機
         checkphone() {
-            const phonelimit = /^[0-9]{8,10}$/ //正規表達式:手機
-            if (phonelimit.test(this.phone)) {
-                this.errorMsg.phone = ''
-            } else {
-                this.errorMsg.phone = '*請輸入正確的電話號碼'
-            }
+        const phonelimit = /^[0-9]{8,10}$/ //正規表達式:手機
+        if (phonelimit.test(this.phone)) {
+            this.errorMsg.phone = ''
+            return true;
+        } else {
+            this.errorMsg.phone = '*請輸入正確的電話號碼'
+            return false;
+        }
         },
+        checkCard(){
+            if(this.displayData.a_fee > 0){
+                if (
+                this.card1 && 
+                this.card2 && 
+                this.card3 && 
+                this.card4 && 
+                this.mm && 
+                this.yy && 
+                this.cvc
+                ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }else{
+                return true;
+            }
+            
+        },
+        //信用卡自動換格
         handleKeyDown(event) {
             const target = event.target
             const value = target.value
@@ -195,6 +304,7 @@ export default {
                 event.preventDefault()
             }
         },
+        //信用卡自動換格
         handleKeyUp(event) {
             const target = event.target
             let value = target.value.replace(/\D/g, '')
@@ -209,44 +319,70 @@ export default {
             }
         },
         submit() {
-            if (this.ao_count != null && this.ao_count !== '') {
+            if (!this.checkname() || !this.checkemail() || !this.checkphone() || !this.checkCard()) {
                 Swal.fire({
-                    title: '<strong>報名成功</strong>',
-                    icon: 'success',
-                    iconColor: '#144433',
-                    html: ``,
-                    showCloseButton: false,
-                    showCancelButton: true,
-                    focusConfirm: false,
-                    confirmButtonText: '返回活動',
-                    confirmButtonColor: '#144433',
-                    cancelButtonText: '活動紀錄',
-                    cancelButtonColor: '#144433',
-                    background: '#eeeeee'
-                }).then(async (result) => {
-                    if (result.isConfirmed) {
-                        this.$router.push('/activity')
-                        await this.$nextTick()
-                        setTimeout(() => {
-                            window.scrollTo({
-                                left: 0,
-                                top: 0,
-                                behavior: 'smooth'
-                            })
-                        }, 280)
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        this.$router.push('/userlayout/useractivity')
-                        await this.$nextTick()
-                        setTimeout(() => {
-                            window.scrollTo({
-                                left: 0,
-                                top: 0,
-                                behavior: 'smooth'
-                            })
-                        }, 280)
-                    }
-                })
+                    title: "資料未填寫完全",
+                    icon: "error"
+                });
+                return false;
             }
+            const url = `http://localhost/php_G4/signupPage.php`
+            let body = {
+                "a_no": this.displayData.a_no,
+                "m_no": this.userData.m_no,
+                "ao_count": this.ao_count,
+                "ao_status": this.ao_status,
+                "a_date": this.displayData.a_time,
+                "ao_totalfee": this.totalFees,
+            }
+
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(body)
+            })
+                .then(response => response.json())
+                .then(
+                    json => {
+                        this.data = json
+                        Swal.fire({
+                            title: '<strong>報名成功</strong>',
+                            icon: 'success',
+                            iconColor: '#144433',
+                            html: ``,
+                            showCloseButton: false,
+                            showCancelButton: true,
+                            focusConfirm: false,
+                            confirmButtonText: '返回活動',
+                            confirmButtonColor: '#144433',
+                            cancelButtonText: '活動紀錄',
+                            cancelButtonColor: '#144433',
+                            background: '#eeeeee'
+                            }).then(async (result) => {
+                            if (result.isConfirmed) {
+                                this.$router.push('/activity')
+                                await this.$nextTick()
+                                setTimeout(() => {
+                                window.scrollTo({
+                                    left: 0,
+                                    top: 0,
+                                    behavior: 'smooth'
+                                })
+                                }, 280)
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                this.$router.push('/userlayout/useractivity')
+                                await this.$nextTick()
+                                setTimeout(() => {
+                                window.scrollTo({
+                                    left: 0,
+                                    top: 0,
+                                    behavior: 'smooth'
+                                })
+                                }, 280)
+                            }
+                            })
+                    }
+                );
+            
         },
         checkLogin() {
             this.loadCurrentUser();
@@ -259,6 +395,17 @@ export default {
     mounted() {
         this.fetchActivityInfo();
         this.checkLogin();
+        const store = useAdminStore();
+        const isLogin = store.isLoggedIn();
+        if (!isLogin) {
+        this.$router.push('/user');
+        }
+        const user = localStorage.getItem('currentUser');
+        console.log(user);
+        if (user) {
+        this.userData = JSON.parse(user);
+        this.m_no = this.userData.m_no;
+        }
     }
 }
 </script>
