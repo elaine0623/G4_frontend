@@ -115,10 +115,10 @@ export default {
                 showConfirmButton: false,
                 timer: 1500
               });
-              // this.name = '',
-              //   this.email = '',
-              //   this.psw = '',
-              //   this.dbpsw = ''
+              this.name = '',
+                this.email = '',
+                this.psw = '',
+                this.dbpsw = ''
             }
           }
         );
