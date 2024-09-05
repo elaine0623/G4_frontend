@@ -4,12 +4,12 @@ import Swal from 'sweetalert2' //引用sweetalert2
 export default {
   data() {
     return {
-      activityorders: [],
-      userData: '',
-      m_no: '',
-      ao_status: '',
-      ao_no: '',
-      ao_noList: [],
+      activityorders: [], // 儲存活動訂單列表
+      userData: '', // 儲存當前會員的資訊
+      m_no: '', // 會員號碼
+      ao_status: '', // 活動訂單狀態
+      ao_no: '', // 活動訂單編號
+      ao_noList: [], // 活動訂單編號的列表
     }
   },
   methods: {
@@ -26,16 +26,16 @@ export default {
       })
         .then((res) => res.json())
         .then((json) => {
-          this.activityorders = json['data']['list'];
+          this.activityorders = json['data']['list']; // 將獲取到的活動訂單列表存到 activityorders
           console.log(json);
           console.log(this.activityorders);
         })
     },
     formatTime(dateTime) {
-      return dateTime.split(' ')[0]; // 提取時間部分
+      return dateTime.split(' ')[0]; // 提取日期部分
     },
     toggleStatus(order) {
-      const newStatus = order.ao_status == 1 ? 0 : 1;
+      const newStatus = order.ao_status == 1 ? 0 : 1; // 切換 ao_status 的值
 
       // const url = `http://localhost/php_g4/updateUserActivity.php`;
       const url = `${import.meta.env.VITE_API_URL}/updateUserActivity.php`;
@@ -55,7 +55,7 @@ export default {
               title: "更新成功",
               icon: "success",
             });
-            order.ao_status = newStatus; // 只更新本地狀態
+            order.ao_status = newStatus; // 更新本地狀態
             this.fetchData() // 新增成功後重新獲取資料
           } else {
             alert(json.msg);
@@ -78,7 +78,7 @@ export default {
     console.log(user);
     if (user) {
       this.userData = JSON.parse(user);
-      this.m_no = this.userData.m_no;
+      this.m_no = this.userData.m_no; // 提取 m_no
       this.fetchData(); // 確保 m_no 被設置後再調用 fetchData
     }
   },

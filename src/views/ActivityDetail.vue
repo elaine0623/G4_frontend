@@ -61,25 +61,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="contact-person">
-                    <h4>收件人基本資料</h4>
-                    <div class="name">
-                        <span>姓名:</span>
-                        <span>方老伯</span>
-                    </div>
-                    <div class="email">
-                        <span>電子信箱:</span>
-                        <span>oldbobo@gmail.com</span>
-                    </div>
-                    <div class="phone">
-                        <span>聯絡電話:</span>
-                        <span>0987654321</span>
-                    </div>
-                    <div class="address">
-                        <span>收件地址:</span>
-                        <span>台北市中正區中山北路123號</span>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="btn">
@@ -104,14 +85,14 @@ import Swal from 'sweetalert2' //引用sweetalert2
 export default {
     data() {
         return {
-            orders: [],
-            displayData:[],
-            userData:'',
-            m_no:'',
-            ao_no:'',
-            ao_status:'',
-            a_no:'',
-            ao_count:''
+            orders: [], // 儲存所有活動訂單的列表
+            displayData:[], // 儲存當前活動的詳細資料
+            userData:'', // 儲存當前會員的資訊
+            m_no:'', // 會員號碼
+            ao_no:'', //活動訂單編號
+            ao_status:'', //活動狀態
+            a_no:'', //活動編號
+            ao_count:'' //活動報名人數
             
             
         }
@@ -123,16 +104,16 @@ export default {
             fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({ 
-                    m_no: this.m_no,
-                    ao_no: this.ao_no
+                    m_no: this.m_no, //會員號碼
+                    ao_no: this.ao_no //活動訂單編號
                 })
             })
             .then((res) => res.json())
             .then((json) => {
-                this.orders = json['data']['list'];
-                console.log(json);
+                this.orders = json['data']['list']; // 將獲取到的活動訂單列表存到orders
+                console.log(json); 
                 console.log(this.orders);
-                this.displayData = this.orders.find((item) => item.ao_no == this.ao_no )
+                this.displayData = this.orders.find((item) => item.ao_no == this.ao_no ) // 根據活動訂單編號在order中查找對應的活動訂單資訊
                 console.log( this.displayData);
             })
         },
@@ -140,13 +121,13 @@ export default {
             if (!dateTime) {
                 return ''; 
             }
-        return dateTime.split(' ')[0]; 
+        return dateTime.split(' ')[0]; // 從日期時間字串中提取日期部分
         },
         formatTime(dateTime) {
             if (!dateTime) {
                 return ''; 
             }
-        return dateTime.split(' ')[1]; 
+        return dateTime.split(' ')[1]; // 從日期時間字串中提取時間部分
         },
         // parsePic(file) {
         //     return new URL(`../assets/image/${file}`, import.meta.url).href
@@ -155,7 +136,7 @@ export default {
             return `${import.meta.env.VITE_FILE_URL}event-images/${file}`;
         }, //部屬圖片
         toggleStatus() {
-            const newStatus = this.ao_status === 0;
+            const newStatus = this.ao_status === 0; //取消報名，0代表取消
             
             // const url = `http://localhost/php_g4/updateUserActivity.php`;//本地
             const url = `${import.meta.env.VITE_API_URL}/updateUserActivity.php`//部屬
@@ -216,10 +197,10 @@ export default {
         console.log(ao_no);
         if (user) {
             this.userData = JSON.parse(user);
-            this.m_no = this.userData.m_no;
+            this.m_no = this.userData.m_no; //會員編號
         }
         if (ao_no) {
-            this.ao_no = ao_no;
+            this.ao_no = ao_no; // 活動訂單編號
         }
         if (this.m_no && this.ao_no) {
             this.fetchData(); // 確保 m_no 和 ao_no 被設置後再調用 fetchData

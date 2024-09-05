@@ -6,13 +6,16 @@
                     <div class="wrap-title">
                         <div class="class">
                             <h1>{{ displayData.c_no }}</h1>
+                            <!-- 活動類別 -->
                         </div>
                         <div class="main-title">
                             <h2>{{ displayData.a_name }}</h2>
+                            <!-- 活動名稱 -->
                         </div>
                     </div>
                     <div class="wrap-info">
                         <nav aria-label="Breadcrumb">
+                            <!-- 麵包屑 -->
                             <ul>
                                 <li>
                                     <RouterLink to="/">首頁</RouterLink>
@@ -21,6 +24,7 @@
                                     <RouterLink to="/activity">活動</RouterLink>
                                 </li>
                                 <li class="current"><em aria-current="page">{{ displayData.c_no }}</em></li>
+                                <!-- 活動類別 -->
                             </ul>
                         </nav>
                         <hr>
@@ -28,13 +32,14 @@
                 </div>
                 <div class="content">
                     <div class="pic-content">
-                        <!-- <img :src="activityInfo.a_img" alt="act1"> -->
                         <img :src="parsePic(displayData.a_img)" alt="act1">
+                        <!-- 活動圖片 -->
                     </div>
                     <div class="info-content">
                         <div class="loc">
                             <span><i class="fa-solid fa-location-dot"></i></span>
                             <span>{{ displayData.a_loc }}</span>
+                            <!-- 活動地點 -->
                         </div>
                         <hr>
                         <div class="date">
@@ -42,20 +47,24 @@
                             <span class="oneday" v-if="displayData.a_start_date === displayData.a_end_date">
                                 {{ displayData.a_start_date }}
                             </span>
+                            <!-- 活動日期(一天的) -->
                             <span class="multiday" v-if="displayData.a_start_date !== displayData.a_end_date">
                                 {{ displayData.a_start_date }}~{{ displayData.a_end_date }}
                             </span>
+                            <!-- 活動日期(期間的) -->
                         </div>
                         <div class="time" v-if="displayData.a_time">
                             <span>時 間 : </span>
                             <span>
                                 {{ formatTime(displayData.a_time) }}
+                                <!-- 活動時間 -->
                             </span>
                         </div>
                         <div class="teacher" v-if="displayData.a_teacher !== '無'">
                             <span>講 師 : </span>
                             <span>
                                 {{ displayData.a_teacher }}
+                                <!-- 活動講師 -->
                             </span>
                         </div>
                         <hr>
@@ -85,6 +94,7 @@
                             <h3>活動須知</h3>
                         </div>
                         <div class="item-rules" v-if="displayData.a_signupe !== '0000-00-00'">
+                            <!-- 如果沒有截止日期就不顯示 -->
                             <p>報名截止日期</p>
                             <ul>
                                 <li>{{ displayData.a_signupe }}</li>
@@ -108,6 +118,7 @@
                             </ul>
                         </div>
                         <div class="item-rules" v-if="displayData.a_max != 999">
+                            <!-- 最高999人代表無上限 -->
                             <p>已報名人數</p>
                             <ul>
                                 <li>{{ displayData.a_attendee }}人</li>
@@ -139,14 +150,12 @@
                             <p>我們期待您的參與，共同探討有機農業的未來發展與挑戰。如果您有任何疑問或需要更多資訊，請隨時與我們聯繫。</p>
                         </div>
                     </div>
-                    <!-- <div class="signup" v-show="displayData.a_attendee < displayData.a_max && displayData.a_signupe">
-                        <router-link :to="`/signuppage/${activityId}`">立即報名</router-link>
-                    </div> -->
                     <div class="signup" v-show="shouldShowSignup">
                         <router-link :to="`/signuppage/${activityId}`">立即報名</router-link>
                     </div>
                     <div class="signup" v-show="displayData.a_attendee == displayData.a_max">
                         <router-link class="full">已額滿</router-link>
+                        <!-- 已報名人數等於報名上限顯示 -->
                     </div>
                 </div>
             </div>
@@ -158,17 +167,20 @@
 export default {
     data() {
         return {
-            activityInfo: [],
-            displayData: [],
+            activityInfo: [],//所有活動資料
+            displayData: [],//單筆活動資料
         }
     },
     computed: {
+        // 從當前路由的參數中返回 activityId
         activityId() {
             return this.$route.params.activityId;
         },
         dateClass() {
             return {
+                //單日活動
                 'onedate': this.displayData.a_start_date === this.displayData.a_end_date,
+                //期間活動
                 'multidate': this.displayData.a_start_date !== this.displayData.a_end_date
             }
         },
@@ -176,26 +188,32 @@ export default {
             const currentDate = new Date();
             const signupEndDate = new Date(this.displayData.a_signupe);
             return this.displayData.a_attendee < this.displayData.a_max && currentDate <= signupEndDate;
+            // 以報名人數<報名上限&&今天日期<=報名截止日期
         }
     },
     watch: {
+        //監聽活動編號
         activityId: function () {
             this.fetchActivityInfo();
         },
     },
     methods: {
+        // 定義 URL，根據環境切換為本地或部署的 API 地址
         fetchActivityInfo() {
             // const url = 'http://localhost/php_G4/activitiesList.php'//本地
             const url = `${import.meta.env.VITE_API_URL}/activitiesList.php`//部屬
+            // 發送 POST 請求到指定的 URL
             fetch(url, {
                 method: 'post'
             })
-                .then((res) => res.json())
+                .then((res) => res.json())// 請求成功後轉換為 JSON 格式
                 .then((json) => {
                     console.log(json)
+                    // 將獲取的活動數據賦值給 this.activityInfo
                     this.activityInfo = json['data']['list']
                     console.log(this.activityInfo);
                     console.log(this.activityId)
+                    // 根據活動 ID 在活動中查找對應的活動資訊
                     this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId)
                     console.log(this.displayData);
                     console.log(this.displayData.a_attendee);

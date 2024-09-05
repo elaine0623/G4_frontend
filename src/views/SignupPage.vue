@@ -179,27 +179,28 @@
 
 <script>
 import Swal from 'sweetalert2' //引用sweetalert2
-import { useAdminStore } from '@/stores/userLogin';
-import { mapActions, mapState } from 'pinia';
+// import { useAdminStore } from '@/stores/userLogin';
+// import { mapActions, mapState } from 'pinia';
 export default {
     data() {
         return {
-        userData:'',
-        activityInfo: [],
-        displayData:[],
-        name: '',
-        a_max:'',
-        a_attendee:'',
-        numMax:'',
-        ao_count: 1,
-        ao_status:1,
-        email:'',
-        phone:'',
-        errorMsg: {
+        userData:'',// 用戶資訊
+        activityInfo: [],//所有活動資料
+        displayData:[],//單筆活動資料
+        name: '',//用戶姓名
+        a_max:'',//報名人數上限
+        a_attendee:'',//已報名人數
+        numMax:'',//剩餘可報名人數
+        ao_count: 1,//報名人數
+        ao_status:1,//報名狀態
+        email:'',//用戶信箱
+        phone:'',//用戶電話
+        errorMsg: { //錯誤提示
             name: '',
             email: '',
             phone: ''
         },
+        //信用卡
         card1: '',
         card2: '',
         card3: '',
@@ -210,40 +211,46 @@ export default {
         }
     },
     computed: {
+        // 獲取路由參數中的活動ID
         activityId() {
         return this.$route.params.signupId;
         },
+        // 計算總費用
         totalFees() {
         return this.displayData.a_fee * this.ao_count
         },
+        // 獲取當前年份後兩位
         currentYear() {
             return new Date().getFullYear() % 100; // 獲取今年後兩位
         },
-        ...mapState(useAdminStore, ['currentUser'])
+        // 從 Pinia store 中映射 currentUser 狀態
+        // ...mapState(useAdminStore, ['currentUser'])
         
     },
     watch: {
+        // 監聽 activityId 的變化，變化時重新獲取活動信息
         activityId: function () {
         this.fetchActivityInfo();
         }
     },
     methods: {
-        ...mapActions(useAdminStore, ['loadCurrentUser']),
+        // ...mapActions(useAdminStore, ['loadCurrentUser']),
+        // 從 API 獲取活動資訊
         fetchActivityInfo() {
             // const url = 'http://localhost/php_G4/activitiesList.php'//本地
             const url = `${import.meta.env.VITE_API_URL}/activitiesList.php`//部屬
             fetch(url, {
-                method: 'post'
+                method: 'post' // 以 POST 方法請求活動列表
             })
-            .then((res) => res.json())
+            .then((res) => res.json()) // 將響應轉換為 JSON
             .then((json) => {
                 console.log(json)
-                this.activityInfo = json['data']['list']
+                this.activityInfo = json['data']['list'] // 取得活動列表並儲存
                 console.log(this.activityInfo);
                 console.log(this.activityId)
-                this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId )
+                this.displayData = this.activityInfo.find((item) => item.a_no == this.activityId ) // 根據 activityId 查找對應的活動
                 console.log( this.displayData);
-                this.numberLimit();
+                this.numberLimit(); // 計算剩餘可報名人數
             })
         },
         // 前端驗證：使用者註冊時姓名不得為空
@@ -260,15 +267,17 @@ export default {
             return false;
         }
         },
+        // 計算活動剩餘可報名人數
         numberLimit(){
             this.a_max = this.displayData.a_max
             this.a_attendee = this.displayData.a_attendee
-            this.numMax = this.a_max - this.a_attendee
+            this.numMax = this.a_max - this.a_attendee // 計算最大可報名人數
             return this.numMax
         },
         // 前端驗證：使用者email有效
         checkemail() {
         const emaillimit =
+            // eslint-disable-next-line no-useless-escape
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //正規表達式：email格式
         if (emaillimit.test(this.email)) {
             this.errorMsg.email = '';
@@ -289,9 +298,10 @@ export default {
             return false;
         }
         },
+        // 檢查信用卡資訊是否完整（如果活動收費）
         checkCard(){
-            if(this.displayData.a_fee > 0){
-                if (
+            if(this.displayData.a_fee > 0){ // 如果活動有費用，則檢查信用卡資訊
+                if ( //信用卡資訊不為空
                 this.card1 && 
                 this.card2 && 
                 this.card3 && 
@@ -305,41 +315,43 @@ export default {
                     return false;
                 }
             }else{
-                return true;
+                return true; // 如果活動免費，不檢查信用卡
             }
             
         },
+        // 處理信用卡輸入時的鍵盤按下事件（例如backspace）
         handleKeyDown(event) {
             const target = event.target;
             const value = target.value;
 
-            if ((event.which >= 48 && event.which <= 57) || event.which === 8) {
+            if ((event.which >= 48 && event.which <= 57) || event.which === 8) { // 只允許數字鍵或backspace
                 if (value.length === 0 && event.which === 8) {
                     const previous = target.previousElementSibling?.previousElementSibling;
                 if (previous && previous.tagName === 'INPUT') {
-                    previous.focus();
+                    previous.focus(); // 如果是backspace且當前輸入為空，移至前一個欄位
                 }
                 }
             } else {
-                event.preventDefault();
+                event.preventDefault();// 阻止非數字鍵輸入
             }
         },
         handleKeyUp(event, field) {
             const target = event.target;
-            let value = target.value.replace(/\D/g, '');
-            const maxLength = target.getAttribute('maxlength');
+            let value = target.value.replace(/\D/g, '');// 移除所有非數字字符
+            const maxLength = target.getAttribute('maxlength');// 獲取輸入框的最大長度屬性
 
             if (field === 'month') {
                 if (parseInt(value) > 12) {
                 this.mm = "12";
-                // value = '12';
+                // 如果輸入的月份大於 12，則自動設置為 12
                 }
             } else if (field === 'year') {
-                // 年份小於今年才調整
+                // 如果年份小於當前年份且輸入的位數為 2，則自動設置為當前年份
                 if (parseInt(value) < this.currentYear && value.length === 2) {
-                value = this.currentYear.toString().padStart(2, '0');
+                value = this.currentYear.toString().padStart(2, '0'); // 將當前年份轉為兩位數格式
                 }
             } else {
+                // 如果輸入的長度超過了最大長度，則截取最多允許的位數
                 if (value.length > maxLength) {
                 value = value.slice(0, maxLength);
                 }
@@ -347,7 +359,7 @@ export default {
 
             target.value = value;
             this[field] = value;
-
+            // 自動跳轉到下一個輸入框
             if (value.length >= maxLength) {
                 const next = target.nextElementSibling?.nextElementSibling;
                 if (next && next.tagName === 'INPUT') {
@@ -355,7 +367,7 @@ export default {
                 }
             }
         },
-
+        // 提交報名資訊
         submit() {
             if (!this.checkname() || !this.checkemail() || !this.checkphone() || !this.checkCard()) {
                 Swal.fire({
@@ -406,7 +418,7 @@ export default {
                                     top: 0,
                                     behavior: 'smooth'
                                 })
-                                }, 280)
+                                }, 280) //解決sweetalert硬控的問題
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 this.$router.push('/userlayout/useractivity')
                                 await this.$nextTick()
@@ -416,7 +428,7 @@ export default {
                                     top: 0,
                                     behavior: 'smooth'
                                 })
-                                }, 280)
+                                }, 280) //解決sweetalert硬控的問題
                             }
                             })
                     }
@@ -425,8 +437,8 @@ export default {
         },
     },
     mounted() {
-        this.fetchActivityInfo();
-        const user = localStorage.getItem('currentUser');
+        this.fetchActivityInfo(); // 初次載入時取得活動資料
+        const user = localStorage.getItem('currentUser'); // 從 localStorage 取得使用者資訊
         console.log(user);
         if (user) {
             this.userData = JSON.parse(user);

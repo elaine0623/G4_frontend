@@ -91,13 +91,13 @@ import Swal from 'sweetalert2' //引用sweetalert2
 export default {
     data() {
         return {
-            orders: [],
-            displayData:[],
-            userData:'',
-            m_no:'',
-            po_no:'',
-            po_status:'',
-            p_no:'',
+            orders: [], //商品訂單
+            displayData:[], //單筆商品訂單
+            userData:'', //會員資訊
+            m_no:'', //會員編號
+            po_no:'', //商品訂單編號
+            po_status:'', //商品訂單狀態
+            p_no:'', //商品編號
         }
     },
     methods: {
@@ -113,10 +113,10 @@ export default {
             })
             .then((res) => res.json())
             .then((json) => {
-                this.orders = json['data']['list'];
+                this.orders = json['data']['list']; // 將獲取到的商品訂單列表存到orders
                 console.log(json);
                 console.log(this.orders);
-                this.displayData = this.orders.find((item) => item.po_no == this.po_no )
+                this.displayData = this.orders.find((item) => item.po_no == this.po_no ) // 根據商品訂單編號在order中查找對應的商品訂單資訊資訊
                 console.log( this.displayData);
             })
         },
@@ -130,13 +130,13 @@ export default {
             if (!dateTime) {
                 return ''; 
             }
-        return dateTime.split(' ')[0]; 
+        return dateTime.split(' ')[0]; // 從日期時間字串中提取日期部分
         },
         formatTime(dateTime) {
             if (!dateTime) {
                 return ''; 
             }
-        return dateTime.split(' ')[1]; 
+        return dateTime.split(' ')[1]; // 從日期時間字串中提取時間部分
         },
         addSevenDays(dateTime) {
             // 將日期字串轉換為 Date 物件
@@ -151,10 +151,10 @@ export default {
         toggleStatus() {
             
             let newStatus;
-            if (this.displayData.po_status == 1) {
-                newStatus = 2;
+            if (this.displayData.po_status == 1) { //如果在配送中
+                newStatus = 2; //配送完成
             } else {
-                newStatus = 3;
+                newStatus = 3; //待審核
             }
 
             
@@ -235,13 +235,13 @@ export default {
         console.log(po_no);
         if (user) {
             this.userData = JSON.parse(user);
-            this.m_no = this.userData.m_no;
+            this.m_no = this.userData.m_no; //會員編號
         }
         if (po_no) {
-            this.po_no = po_no;
+            this.po_no = po_no; // 商品訂單編號
         }
         if (this.m_no && this.po_no) {
-            this.fetchData(); // 確保 m_no 和 ao_no 被設置後再調用 fetchData
+            this.fetchData(); // 確保 m_no 和 po_no 被設置後再調用 fetchData
         }
 
     },

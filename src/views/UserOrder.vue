@@ -2,10 +2,10 @@
 export default {
   data() {
     return {
-      orders: [],
-      userData: '',
-      m_no: '',
-      po_no: ''
+      orders: [], // 商品訂單資訊
+      userData: '', // 儲存當前會員的資訊
+      m_no: '', // 會員編號
+      po_no: '' //商品訂單編號
     }
   },
   methods: {
@@ -22,8 +22,7 @@ export default {
       })
         .then((res) => res.json())
         .then((json) => {
-          this.orders = json['data']['list'];
-          // console.log(json);
+          this.orders = json['data']['list']; // 將獲取到的商品訂單列表存到orders
           console.log(this.orders);
         })
     },
@@ -31,7 +30,7 @@ export default {
       return dateTime.split(' ')[0]; // 提取時間部分
     },
     setAoNo(po_no) {
-      // 將 ao_no 存到 localStorage
+      // 將 po_no 存到 localStorage
       localStorage.setItem('po_no', po_no);
       console.log(po_no);
     },
